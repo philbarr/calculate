@@ -10,7 +10,6 @@ public class Generator
 	
 	public Operator generateOperator()
 	{
-		Random random = new Random();
-		return OPERATORS[random.nextInt(OPERATORS.length)];
+		return OPERATORS[new Random().nextInt(OPERATORS.length)];
 	}
 }

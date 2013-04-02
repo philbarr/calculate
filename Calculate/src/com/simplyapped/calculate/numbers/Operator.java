@@ -49,10 +49,20 @@ public enum Operator implements EquationElement
 		case MINUS:
 			return "-";
 		case DIVIDE:
-			return "%";
+			return "/";
 		case MULTIPLY:
 			return "*";
 		}
 		return "";
+	}
+
+	public int apply(int operand1, Equation operand2)
+	{
+		return apply(operand1, operand2.getTotal());
+	}
+
+	public int apply(Equation operand1, Equation operand2)
+	{
+		return apply(operand1.getTotal(), operand2.getTotal());
 	}
 }
