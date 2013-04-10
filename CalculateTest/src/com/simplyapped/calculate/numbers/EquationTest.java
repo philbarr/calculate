@@ -1,7 +1,6 @@
 package com.simplyapped.calculate.numbers;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class EquationTest
@@ -46,7 +45,7 @@ public class EquationTest
 			Equation e = new Equation(100, 75, 25, 4, 6, 8);
 			while (e.getTotal() < 100 || e.getTotal() > 999)
 			{
-				e = new Equation(100, 75, 25, 4, 6, 8,2,5,4,3,2);
+				e = new Equation(100, 75, 25, 4, 6, 8);
 			}
 			System.out.println(e);
 			System.out.println(e.getTotal());
