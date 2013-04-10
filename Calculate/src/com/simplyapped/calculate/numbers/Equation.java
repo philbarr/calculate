@@ -8,11 +8,23 @@ import java.util.Stack;
 public class Equation implements EquationElement
 {
 	private List<EquationElement> elements = new ArrayList<EquationElement>();
-	private Generator generator = new Generator();
+	private Generator generator = new GeneratorImpl();
 	private Stack<Integer> numbers = new Stack<Integer>();
 	private int total;
+	
+	public Equation(){}
 
 	public Equation(int... nums)
+	{
+		construct(nums);
+	}
+	
+	public Equation(List<EquationElement> elements)
+	{
+		setElements(elements);
+	}
+	
+	public void construct(int... nums)
 	{
 		if (nums.length == 0)
 		{
@@ -27,20 +39,11 @@ public class Equation implements EquationElement
 		{
 			numbers.push(x);
 		}
-		construct();
-	}
-	
-	public Equation(List<EquationElement> elements)
-	{
-		setElements(elements);
-	}
-	
-	private void construct()
-	{
+		
 		Stack<Integer> tempNumbers = new Stack<Integer>();
 		tempNumbers.addAll(numbers);
 		getElements().clear();
-		Collections.shuffle(tempNumbers);
+		generator.shuffle(tempNumbers);
 		
 		total = tempNumbers.pop();
 		Equation operand1 = new Equation(getTotal());
@@ -50,34 +53,72 @@ public class Equation implements EquationElement
 		while(tempNumbers.size() > 0)
 		{
 			int nextNumber = tempNumbers.pop();
-			Operator newOperator = generator.generateOperator();
-			// get a new operator if it's a DIVIDE that would result in a non-integer
-			while (newOperator == Operator.DIVIDE && getTotal() % nextNumber != 0)
-			{
-				newOperator = generator.generateOperator();
-			}
+			
+			Operator newOperator = getGenerator().generateOperator();
 			
 			if (oldOperator != null && !oldOperator.isEquivalent(newOperator))
 			{
 				operand1 = new Equation(getElements());
+				Equation operand2 = new Equation(nextNumber);
+				while ((newOperator == Operator.DIVIDE && operand1.getTotal() % nextNumber != 0) ||
+						newOperator.apply(operand1.getTotal(), operand2) == 0)
+				{
+					newOperator = getGenerator().generateOperator();
+				}
+				total = newOperator.apply(operand1, operand2);
+				
 				getElements().clear();
 				getElements().add(operand1);
 				getElements().add(newOperator);
-				Equation operand2 = new Equation(nextNumber);
 				getElements().add(operand2);
-				total = newOperator.apply(operand1, operand2);
 			}
 			else
 			{
-				getElements().add(newOperator);
 				Equation operand2 = new Equation(nextNumber);
-				getElements().add(operand2);
+				while ((newOperator == Operator.DIVIDE && getTotal() % nextNumber != 0) ||
+						newOperator.apply(getTotal(), operand2) == 0)
+				{
+					newOperator = getGenerator().generateOperator();
+				}
 				total = newOperator.apply(getTotal(), operand2);
+				
+				getElements().add(newOperator);
+				getElements().add(operand2);
 			}
 			oldOperator = newOperator;
 		}
 	}
 	
+	/**
+	 * Constructs the equation from the simplest elements of the equation and returns 
+	 * @return
+	 */
+	public List<Equation> getEquationConstruction()
+	{
+		List<Equation> list = createConstruction(new ArrayList<Equation>(), this);;
+		Collections.reverse(list);
+		return list;
+	}
+	
+	private List<Equation> createConstruction(List<Equation> list, Equation equation)
+	{
+		list.add(equation);
+		// for each Equation in equation
+		for (EquationElement element : equation.elements)
+		{
+			if (element instanceof Equation)
+			{
+				Equation e = (Equation)element;
+				
+				if (e.getOperandCount() > 1)
+				{
+					createConstruction(list, e);
+				}
+			}
+		}
+		return list;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -106,7 +147,7 @@ public class Equation implements EquationElement
 		int operandCount = 0;
 		for(EquationElement element : getElements())
 		{
-			if (element instanceof Operator)
+			if (element instanceof Equation)
 			{
 				operandCount++;
 			}
@@ -143,5 +184,15 @@ public class Equation implements EquationElement
 				total = operator.apply(getTotal(), (Equation)elements.get(i));
 			}
 		}
+	}
+
+	public Generator getGenerator()
+	{
+		return generator;
+	}
+
+	public void setGenerator(Generator generator)
+	{
+		this.generator = generator;
 	}
 }

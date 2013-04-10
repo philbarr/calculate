@@ -1,6 +1,7 @@
 package com.simplyapped.calculate.numbers;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class EquationTest
@@ -16,10 +17,25 @@ public class EquationTest
 	}
 
 	@Test
-	public void EquationSingle()
+	public void NewOperatorDivideToNonInteger()
 	{
-		Equation e = new Equation(new int[] { 5 });
-		System.out.println(e);
+		// expect Equation to skip DIVIDE and go straight to PLUS
+		GeneratorStub stub = new GeneratorStub(new Operator[]{Operator.DIVIDE, Operator.PLUS});
+		Equation e = new Equation();
+		e.setGenerator(stub);
+		e.construct(new int[] { 6, 5 });
+		Assert.assertEquals(11, e.getTotal());
+	}
+	
+	@Test
+	public void NewOperatorOnZeroResult()
+	{
+		// expect Equation to skip MINUS and go straight to PLUS
+		GeneratorStub stub = new GeneratorStub(new Operator[]{Operator.MINUS, Operator.PLUS});
+		Equation e = new Equation();
+		e.setGenerator(stub);
+		e.construct(new int[] { 6, 6 });
+		Assert.assertEquals(12, e.getTotal());
 	}
 
 	@Test
@@ -30,10 +46,41 @@ public class EquationTest
 			Equation e = new Equation(100, 75, 25, 4, 6, 8);
 			while (e.getTotal() < 100 || e.getTotal() > 999)
 			{
-				e = new Equation(100, 75, 25, 4, 6, 8);
+				e = new Equation(100, 75, 25, 4, 6, 8,2,5,4,3,2);
 			}
 			System.out.println(e);
 			System.out.println(e.getTotal());
+			System.out.println();
+			
+			for(Equation ee : e.getEquationConstruction())
+			{
+				print(ee);
+				System.out.println(" = " + ee.getTotal());
+			}
+		}
+	}
+
+	private void print(Equation equation)
+	{
+		for (EquationElement e : equation.getElements())
+		{
+			if (e instanceof Operator)
+			{
+				System.out.print(e);
+			}
+			else
+			{
+				Equation eq = (Equation)e;
+				if (eq.getOperandCount() > 1)
+				{
+					System.out.print("|" + eq.getTotal()+"|");
+				}
+				else
+				{
+					System.out.print(eq.getTotal());
+				}
+			}
+			System.out.print(" ");
 		}
 	}
 

@@ -32,7 +32,7 @@ public enum Operator implements EquationElement
 			{
 				return operand1 / operand2;				
 			}
-			throw new NumberFormatException("attempting to divide gives a non-integer result");
+			throw new NumberFormatException("attempting to divide gives a non-integer result: " + operand1 + " / " + operand2);
 		case MULTIPLY:
 			return operand1 * operand2;
 		}
