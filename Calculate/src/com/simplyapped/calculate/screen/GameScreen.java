@@ -1,5 +1,10 @@
 package com.simplyapped.calculate.screen;
 
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenAccessor;
+import aurelienribon.tweenengine.TweenEquations;
+import aurelienribon.tweenengine.TweenManager;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -11,7 +16,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.simplyapped.calculate.CalculateGame;
+import com.simplyapped.calculate.screen.tween.Vector2TweenAccessor;
 
 public class GameScreen implements Screen
 {
@@ -22,6 +29,10 @@ public class GameScreen implements Screen
 	private Texture texture;
 	private Sprite sprite;
 	private BitmapFont font;
+	private TweenManager tweenManager;
+	private Vector2 vector;
+
+	private Tween tween;
 
 	public GameScreen(CalculateGame game)
 	{
@@ -31,6 +42,8 @@ public class GameScreen implements Screen
 	@Override
 	public void render(float delta)
 	{
+		tween.update(delta);
+		
 		Gdx.gl.glClearColor(1,0,0,1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
@@ -39,7 +52,8 @@ public class GameScreen implements Screen
 		
 		sprite.draw(batch);
 		font.setColor(Color.BLACK);
-		font.draw(batch, "hello", -250,1);
+		font.setScale(1);
+		font.draw(batch, "hello", vector.x, vector.y);
 		batch.end();
 	}
 
@@ -69,6 +83,11 @@ public class GameScreen implements Screen
 		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
 		
 		font = new BitmapFont();
+		
+		tweenManager = new TweenManager();
+		vector = new Vector2(-100,-100);
+		Tween.registerAccessor(Vector2.class, new Vector2TweenAccessor());
+		tween = Tween.to(vector, 0 , 2).target(100).ease(TweenEquations.easeInBounce).repeatYoyo(Tween.INFINITY, 0).start();
 	}
 
 	@Override
