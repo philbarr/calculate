@@ -31,7 +31,7 @@ public class GameScreen implements Screen
 	@Override
 	public void render(float delta)
 	{
-		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClearColor(1,0,0,1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		batch.setProjectionMatrix(camera.combined);
@@ -39,7 +39,7 @@ public class GameScreen implements Screen
 		
 		sprite.draw(batch);
 		font.setColor(Color.BLACK);
-		font.draw(batch, "sdfasdf", 0, 0);
+		font.draw(batch, "hello", -250,1);
 		batch.end();
 	}
 
@@ -55,7 +55,7 @@ public class GameScreen implements Screen
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		
-		camera = new OrthographicCamera(1, h/w);
+		camera = new OrthographicCamera(w, h);
 		batch = new SpriteBatch();
 		
 		texture = new Texture(Gdx.files.internal("data/libgdx.png"));
@@ -64,7 +64,7 @@ public class GameScreen implements Screen
 		TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275);
 		
 		sprite = new Sprite(region);
-		sprite.setSize(0.9f, 0.9f * sprite.getHeight() / sprite.getWidth());
+		sprite.setSize(w,h);
 		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
 		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
 		
