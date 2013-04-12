@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 import com.simplyapped.calculate.screen.GameScreen;
 
 public class CalculateGame extends Game {
-	GameScreen gameScreen;
+	public GameScreen gameScreen;
 	
 	@Override
 	public void create() {

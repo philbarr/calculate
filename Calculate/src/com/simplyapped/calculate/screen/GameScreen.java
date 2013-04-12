@@ -52,7 +52,7 @@ public class GameScreen implements Screen
 		
 		sprite.draw(batch);
 		font.setColor(Color.BLACK);
-		font.setScale(1);
+		font.setScale(0.5f);
 		font.draw(batch, "hello", vector.x, vector.y);
 		batch.end();
 	}
@@ -82,7 +82,7 @@ public class GameScreen implements Screen
 		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
 		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
 		
-		font = new BitmapFont();
+		font = new BitmapFont(Gdx.files.internal("data/bauhaus93.fnt"),false);
 		
 		tweenManager = new TweenManager();
 		vector = new Vector2(-100,-100);

@@ -19,7 +19,6 @@ public class Vector2TweenAccessor implements TweenAccessor<Vector2>
 	{
 		target.x = newValues[0];
 		target.y = newValues[1];
-		System.out.println(target.x + ", " + target.y);
 	}
 
 }
