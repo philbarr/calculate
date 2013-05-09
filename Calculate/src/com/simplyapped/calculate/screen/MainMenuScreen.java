@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.simplyapped.calculate.CalculateGame;
@@ -21,10 +22,9 @@ import com.simplyapped.calculate.CalculateGame;
 public class MainMenuScreen implements Screen{
 	private Stage ui;
 	private Table window;
+	private Skin uiSkin = new Skin(Gdx.files.internal("data/uiskin.json"));
 	
 	public MainMenuScreen(final CalculateGame game) {
-	    TextureRegion image = new TextureRegion(new Texture(Gdx.files.internal(Art.badlogicSmall)));
-	    Label fps = new Label("fps: ", Art.sSkin.getStyle(LabelStyle.class),"fps");
 	    ui = new Stage(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(), true);
 	    Gdx.input.setInputProcessor(ui);
 	    window = new Table();
@@ -33,19 +33,18 @@ public class MainMenuScreen implements Screen{
 	    window.setX(0);
 	    window.setY(0);
 	    window.debug();
-	    Label title = new Label("Title",Art.sSkin.getStyle(LabelStyle.class),"title");
-	    Button newGame = new Button("New Game",Art.sSkin.getStyle(ButtonStyle.class),"new");
+	    Label title = new Label("Title", uiSkin);
+	    Button newGame = new Button(uiSkin, "default");
 	    newGame.addListener(new ClickListener() {
 	        public void click(Actor actor) {
 	            game.setScreen(game.gameScreen);               
 	        }
 	    });
-	    Button optionMenu = new Button("Option",Art.sSkin.getStyle(ButtonStyle.class),"Options");
-	    Button helpMenu = new Button("Help",Art.sSkin.getStyle(ButtonStyle.class),"Help");
-	    Image libgdx = new Image("libgdx", image);
+	    Button optionMenu = new Button(uiSkin, "default");
+	    Button helpMenu = new Button(uiSkin, "default");
 	    window.row().fill(false,false).expand(true,false).padTop(50).padBottom(50);
 	    window.add(title);
-	    Table container = new Table("menu");
+	    Table container = new Table(uiSkin);
 	    container.row().fill(true, true).expand(true, true).pad(10, 0, 10, 0);
 	    container.add(newGame);
 	    container.row().fill(true, true).expand(true, true).pad(10, 0, 10, 0);
@@ -54,20 +53,18 @@ public class MainMenuScreen implements Screen{
 	    container.add(helpMenu);
 	    window.row().fill(0.5f,1f).expand(true,false);
 	    window.add(container);
-	    Table extras = new Table("extras");
+	    Table extras = new Table(uiSkin);
 	    extras.row().fill(false,false).expand(true,true);
-	    extras.add(fps).left().center().pad(0,25,25,0); 
-	    extras.add(libgdx).right().center().pad(0,0,25,25);
 	    window.row().fill(true,false).expand(true,true);
 	    window.add(extras).bottom();
 	    ui.addActor(window);
+	    Gdx.input.setInputProcessor(ui);
 	}
 
 	@Override
 	public void render(float arg0) {
 	    Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
 	    Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-	    ((Label)ui.findActor("fps")).setText("fps: " + Gdx.graphics.getFramesPerSecond());  
 	    ui.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 	    ui.draw();
 	    Table.drawDebug(ui);
@@ -75,7 +72,6 @@ public class MainMenuScreen implements Screen{
 	@Override
 	public void resize(int width, int height) {
 	    ui.setViewport(width, height, true);
-	    Log.d("Resize: "+width+", "+height);
 	}
 
 	@Override
@@ -112,3 +108,4 @@ public class MainMenuScreen implements Screen{
 		// TODO Auto-generated method stub
 		
 	}
+}
