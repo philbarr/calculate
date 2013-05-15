@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
@@ -36,8 +37,10 @@ public class MainMenuScreen implements Screen{
 	    Label title = new Label("Title", uiSkin);
 	    Button newGame = new Button(uiSkin, "default");
 	    newGame.addListener(new ClickListener() {
-	        public void click(Actor actor) {
-	            game.setScreen(game.gameScreen);               
+	        @Override
+	        public void clicked(InputEvent event, float x, float y)
+	        {
+	        	game.setScreen(game.gameScreen);
 	        }
 	    });
 	    Button optionMenu = new Button(uiSkin, "default");
