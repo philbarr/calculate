@@ -3,59 +3,52 @@ calculate.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+mainmenubackground
+  rotate: false
+  xy: 1, 332
+  size: 360, 640
+  orig: 360, 640
+  offset: 0, 0
+  index: -1
 optionsbuttonup
   rotate: false
-  xy: 1, 661
+  xy: 363, 777
   size: 511, 195
   orig: 511, 195
   offset: 0, 0
   index: -1
 tutorialbuttonup
   rotate: false
-  xy: 1, 464
+  xy: 363, 580
   size: 511, 195
   orig: 511, 195
   offset: 0, 0
   index: -1
 optionsbuttondown
   rotate: false
-  xy: 514, 665
+  xy: 363, 387
   size: 506, 191
   orig: 506, 191
   offset: 0, 0
   index: -1
 playbuttondown
   rotate: false
-  xy: 1, 271
+  xy: 363, 194
   size: 506, 191
   orig: 506, 191
   offset: 0, 0
   index: -1
 playbuttonup
   rotate: false
-  xy: 514, 472
+  xy: 1, 1
   size: 506, 191
   orig: 506, 191
   offset: 0, 0
   index: -1
 tutorialbuttondown
   rotate: false
-  xy: 1, 78
+  xy: 509, 1
   size: 506, 191
   orig: 506, 191
-  offset: 0, 0
-  index: -1
-calculatelogo
-  rotate: false
-  xy: 1, 1
-  size: 280, 75
-  orig: 280, 75
-  offset: 0, 0
-  index: -1
-graphytile
-  rotate: false
-  xy: 509, 142
-  size: 160, 320
-  orig: 160, 320
   offset: 0, 0
   index: -1

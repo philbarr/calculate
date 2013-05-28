@@ -35,7 +35,7 @@ public class MainMenuScreen implements Screen{
 	    float buttonWidth = Gdx.graphics.getWidth() / 1.25f;
 	    
 	    // title label
-	    Image logo = new Image(uiSkin, "calculatelogo");
+//	    Image logo = new Image(uiSkin, "calculatelogo");
 	    
 	    // buttons
 	    Button playMenu = new Button(uiSkin, "play");
@@ -49,16 +49,13 @@ public class MainMenuScreen implements Screen{
 	    Button optionMenu = new Button(uiSkin, "options");
 	    Button tutorialMenu = new Button(uiSkin, "tutorial");
 
-//	    window.row().padTop(emptyRowHeight);
-	    window.add(logo).width(logoWidth).height(logoHeight);
-	    window.row().expandY();
 	    window.add(playMenu).width(buttonWidth).height(buttonHeight);
 	    window.row().expandY();
 	    window.add(optionMenu).width(buttonWidth).height(buttonHeight);
 	    window.row().expandY();
 	    window.add(tutorialMenu).width(buttonWidth).height(buttonHeight);
 	    window.row().padTop(emptyRowHeight);
-	    window.setBackground(uiSkin.getTiledDrawable("graphytile"));
+	    window.setBackground(uiSkin.getDrawable("mainmenubackground"));
 	    
 	    ui.addActor(window);
 	    Gdx.input.setInputProcessor(ui);
@@ -70,7 +67,7 @@ public class MainMenuScreen implements Screen{
 	    Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 	    ui.act();
 	    ui.draw();
-//	    Table.drawDebug(ui);
+	    Table.drawDebug(ui);
 	}
 	@Override
 	public void resize(int width, int height) {
