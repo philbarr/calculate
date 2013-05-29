@@ -2,8 +2,10 @@ package com.simplyapped.calculate.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.simplyapped.calculate.CalculateGame;
@@ -26,7 +28,7 @@ public class GameScreen implements Screen
 	    Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 	    stage.act();
 	    stage.draw();
-//	    Table.drawDebug(ui);
+	    Table.drawDebug(stage);
 	}
 	@Override
 	public void resize(int width, int height) {
@@ -44,8 +46,20 @@ public class GameScreen implements Screen
 	    window.setY(0);
 	    window.debug();
 	    
-	    window.setBackground(uiSkin.getDrawable("gamescreenbackground"));
+	    Table table = new Table();
+	    table.setColor(Color.WHITE);
+	    table.row();
+	    Skin skin = new Skin(Gdx.files.internal("data/uiSkin.json"));
+	    Label label = new Label("asfd", skin);
+	    label.setFillParent(true);
+		table.add(label);
+	    table.size(400);
+	    table.debug();
 	    
+	    window.row();
+	    window.add(table);
+	    
+	    window.setBackground(uiSkin.getDrawable("gamescreenbackground"));
 	    stage.addActor(window);
 	    Gdx.input.setInputProcessor(stage);
 	}

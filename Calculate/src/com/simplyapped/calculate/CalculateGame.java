@@ -13,6 +13,6 @@ public class CalculateGame extends Game {
 	public void create() {
 		gameScreen = new GameScreen(this);
 		mainMenuScreen = new MainMenuScreen(this);
-		setScreen(mainMenuScreen);
+		setScreen(gameScreen);
 	}
 }
