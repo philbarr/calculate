@@ -1,51 +1,51 @@
 
-calculate.png
+mainmenuscreen.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 mainmenubackground
   rotate: false
-  xy: 1, 332
+  xy: 1, 324
   size: 360, 640
   orig: 360, 640
   offset: 0, 0
   index: -1
-optionsbuttonup
-  rotate: false
-  xy: 363, 777
-  size: 511, 195
-  orig: 511, 195
-  offset: 0, 0
-  index: -1
-tutorialbuttonup
-  rotate: false
-  xy: 363, 580
-  size: 511, 195
-  orig: 511, 195
-  offset: 0, 0
-  index: -1
 optionsbuttondown
   rotate: false
-  xy: 363, 387
+  xy: 363, 773
+  size: 506, 191
+  orig: 506, 191
+  offset: 0, 0
+  index: -1
+optionsbuttonup
+  rotate: false
+  xy: 363, 580
   size: 506, 191
   orig: 506, 191
   offset: 0, 0
   index: -1
 playbuttondown
   rotate: false
-  xy: 363, 194
+  xy: 363, 387
   size: 506, 191
   orig: 506, 191
   offset: 0, 0
   index: -1
 playbuttonup
   rotate: false
-  xy: 1, 1
+  xy: 363, 194
   size: 506, 191
   orig: 506, 191
   offset: 0, 0
   index: -1
 tutorialbuttondown
+  rotate: false
+  xy: 1, 1
+  size: 506, 191
+  orig: 506, 191
+  offset: 0, 0
+  index: -1
+tutorialbuttonup
   rotate: false
   xy: 509, 1
   size: 506, 191

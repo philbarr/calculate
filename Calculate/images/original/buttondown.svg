@@ -14,8 +14,8 @@
    id="svg3044"
    version="1.1"
    inkscape:version="0.48.2 r9819"
-   sodipodi:docname="buttonup.svg"
-   inkscape:export-filename="C:\Users\pbarr\git\Repository\Calculate\originals\buttonup.png"
+   sodipodi:docname="buttondown.svg"
+   inkscape:export-filename="C:\Users\pbarr\git\Repository\Calculate\images\atlas_src\playbuttondown.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -62,6 +62,14 @@
          stdDeviation="4.9244936"
          id="feGaussianBlur3867" />
     </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3793">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="6.0735422"
+         id="feGaussianBlur3795" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -71,8 +79,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="235.20365"
-     inkscape:cy="129.75194"
+     inkscape:cx="253.9244"
+     inkscape:cy="113.41098"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -106,43 +114,27 @@
      id="layer1"
      transform="translate(4.6257333e-6,0.27155772)">
     <rect
-       rx="50"
-       y="13.334014"
+       rx="13.634509"
+       y="0"
        x="9.7675123"
        height="169.70563"
        width="486.89352"
-       id="rect3855"
-       style="opacity:0.5;fill:#3372b5;fill-opacity:1;stroke:none;display:inline;filter:url(#filter3865)"
-       transform="matrix(0.94163039,0,0,0.87272711,14.780019,11.163136)" />
+       id="rect3767"
+       style="fill:#000000;fill-opacity:1;stroke:none;display:inline;filter:url(#filter3793)"
+       transform="matrix(0.95106291,0,0,0.92844714,12.39157,9.6105824)" />
     <rect
-       style="fill:#3372b5;fill-opacity:1;stroke:none;display:inline"
+       style="fill:#00353f;fill-opacity:1;stroke:none;display:inline"
        id="rect2987"
-       width="458.47375"
-       height="153.86995"
-       x="23.977406"
-       y="11.111677"
-       rx="47.08152" />
-    <path
-       style="fill:#04050b;fill-opacity:1;stroke:none;display:inline"
-       d="M 426.97689,16.49159 C 307.57238,17.264813 188.1215,15.573705 68.745369,17.426612 43.587999,21.505073 26.077442,47.733699 30.87164,71.65748 c 0.641212,20.995517 -4.304965,44.01617 6.476241,63.29849 10.751102,16.85535 32.574441,24.72131 52.437042,21.75805 116.372107,-0.54647 232.808737,1.2404 349.138897,-0.96091 24.90061,-4.88336 41.50624,-31.34777 36.54918,-55.02421 -0.63075,-20.876743 4.36254,-43.718384 -6.77012,-62.731818 C 459.95777,24.818263 443.59305,15.767618 426.97689,16.49159 z"
-       id="rect3761"
-       inkscape:connector-curvature="0" />
-    <rect
-       rx="45.323288"
-       y="18.438807"
-       x="32.538116"
-       height="136.468"
-       width="441.35233"
-       id="rect2989"
-       style="fill:#95a9e9;fill-opacity:1;stroke:none;display:inline" />
-    <path
-       style="opacity:0.55;fill:#ffffff;fill-opacity:1;stroke:none;display:inline"
-       d="m 79.616756,18.446635 c -25.001059,0 -45.65108,19.457004 -46.322245,43.634331 l -0.761779,26.888948 c 146.486898,-55.262551 294.876188,-52.184012 441.363068,0 L 472.7259,62.080966 C 473.39707,37.903639 453.83656,18.446635 428.8355,18.446635 z"
-       id="rect3777"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="sccccss" />
+       width="470.90152"
+       height="163.87764"
+       x="17.763515"
+       y="-0.13472015"
+       rx="13.186684"
+       inkscape:export-filename="C:\Users\pbarr\git\Repository\Calculate\images\atlas_src\tutorialbuttondown.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
-       transform="matrix(1.023073,0,0,0.83450974,-95.627249,-87.150234)"
+       transform="matrix(1.0508053,0,0,0.88878618,-105.08323,-108.65021)"
        sodipodi:linespacing="125%"
        id="text3837"
        y="247.80438"
@@ -155,25 +147,16 @@
          sodipodi:role="line">PLAY</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:98.24116516px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#853232;fill-opacity:1;stroke:none;display:inline;font-family:Pump Demi Bold LET;-inkscape-font-specification:Pump Demi Bold LET"
-       x="123.44711"
-       y="125.88275"
+       style="font-size:102.7505722px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#014a58;fill-opacity:1;stroke:none;display:inline;font-family:Pump Demi Bold LET;-inkscape-font-specification:Pump Demi Bold LET"
+       x="122.80095"
+       y="118.64655"
        id="text3833"
        sodipodi:linespacing="125%"
-       transform="scale(1.1072294,0.9031552)"><tspan
+       transform="scale(1.0873328,0.91968163)"><tspan
          sodipodi:role="line"
          id="tspan3835"
-         x="123.44711"
-         y="125.88275">PLAY</tspan></text>
-    <rect
-       transform="matrix(0.94163039,0,0,0.87272711,14.780019,11.163136)"
-       style="opacity:0.50000000000000000;fill:#000000;fill-opacity:1;stroke:none;display:inline;filter:url(#filter3865)"
-       id="rect2999"
-       width="486.89352"
-       height="169.70563"
-       x="9.7675123"
-       y="13.334014"
-       rx="50" />
+         x="122.80095"
+         y="118.64655">PLAY</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
