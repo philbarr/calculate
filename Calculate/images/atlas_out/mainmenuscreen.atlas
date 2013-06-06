@@ -10,34 +10,53 @@ mainmenubackground
   orig: 360, 640
   offset: 0, 0
   index: -1
-optionsbuttondown
+buttondown
   rotate: false
   xy: 363, 773
   size: 506, 191
   orig: 506, 191
   offset: 0, 0
   index: -1
-optionsbuttonup
+buttonup
   rotate: false
   xy: 363, 580
   size: 506, 191
   orig: 506, 191
   offset: 0, 0
   index: -1
-playbuttondown
+optionsbuttondown
   rotate: false
   xy: 363, 387
   size: 506, 191
   orig: 506, 191
   offset: 0, 0
   index: -1
-playbuttonup
+optionsbuttonup
   rotate: false
   xy: 363, 194
   size: 506, 191
   orig: 506, 191
   offset: 0, 0
   index: -1
+playbuttondown
+  rotate: false
+  xy: 1, 1
+  size: 506, 191
+  orig: 506, 191
+  offset: 0, 0
+  index: -1
+playbuttonup
+  rotate: false
+  xy: 509, 1
+  size: 506, 191
+  orig: 506, 191
+  offset: 0, 0
+  index: -1
+
+mainmenuscreen2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
 tutorialbuttondown
   rotate: false
   xy: 1, 1

@@ -1,38 +1,21 @@
 package com.simplyapped.calculate.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.simplyapped.calculate.CalculateGame;
 
-public class GameScreen implements Screen
+public class GameScreen extends DefaultScreen
 {
-	private Stage stage;
 	private Table window;
 	private Skin uiSkin = new Skin(Gdx.files.internal("data/gamescreen.json"));
-	private CalculateGame game;
 
-	public GameScreen(CalculateGame game)
+	public GameScreen(DefaultGame game)
 	{
-		this.game = game;
-	}
-
-	@Override
-	public void render(float delta) {
-	    Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
-	    Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-	    stage.act();
-	    stage.draw();
-	    Table.drawDebug(stage);
-	}
-	@Override
-	public void resize(int width, int height) {
-	   // stage.setViewport(width, height, true);
+		super(game);
 	}
 
 	@Override
@@ -63,35 +46,4 @@ public class GameScreen implements Screen
 	    stage.addActor(window);
 	    Gdx.input.setInputProcessor(stage);
 	}
-
-	@Override
-	public void hide()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void pause()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void resume()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void dispose()
-	{
-		if (stage != null)
-		{
-			stage.dispose();
-		}
-	}
-
 }

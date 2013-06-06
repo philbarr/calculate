@@ -1,46 +1,39 @@
 package com.simplyapped.calculate.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.actions.AlphaAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.simplyapped.calculate.CalculateGame;
 
-public class MainMenuScreen implements Screen{
-	private Stage stage;
+public class MainMenuScreen extends DefaultScreen{
+	
 	private Table window;
 	private Skin uiSkin = new Skin(Gdx.files.internal("data/mainmenuscreen.json"));
 	private CalculateGame game;
+	private DefaultGame game2;
 	
-	public MainMenuScreen(final CalculateGame game) {
-		this.game = game;
-		
-
+	public MainMenuScreen(DefaultGame game) {
+		super(game);
+		game2 = game;
 	}
-
-	@Override
-	public void render(float delta) {
-	    Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
-	    Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-	    stage.act();
-	    stage.draw();
-//	    Table.drawDebug(ui);
-	}
-	@Override
-	public void resize(int width, int height) {
-	//    stage.setViewport(width, height, true);
+	
+	public void fade(){
+		AlphaAction action = new AlphaAction();
+		action.setDuration(3);
+		if (stage !=null)
+		stage.addAction(action);
 	}
 
 	@Override
 	public void show()
 	{
 		stage = new Stage(600, 800, false);
-
+		
 	    window = new Table();	    
 	    window.setFillParent(true);
 	    window.setX(0);
@@ -53,7 +46,7 @@ public class MainMenuScreen implements Screen{
 	    float buttonWidth = Gdx.graphics.getWidth() / 1.25f;
 	    
 	    // buttons
-	    Button playMenu = new Button(uiSkin, "play");
+	    TextButton playMenu = new TextButton("PLAY", uiSkin);
 	    playMenu.addListener(new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y)
@@ -61,9 +54,12 @@ public class MainMenuScreen implements Screen{
 	        	game.setScreen(game.gameScreen);
 	        }
 	    });
-	    Button optionMenu = new Button(uiSkin, "options");
-	    Button tutorialMenu = new Button(uiSkin, "tutorial");
-
+	    playMenu.padBottom(20);
+	    TextButton optionMenu = new TextButton("Options", uiSkin);
+	    optionMenu.padBottom(20);
+	    TextButton tutorialMenu = new TextButton("Tutorial", uiSkin);
+	    tutorialMenu.padBottom(20);
+	    
 	    window.row().padTop(emptyRowHeight * 3);
 	    window.add(playMenu).width(buttonWidth).height(buttonHeight);
 	    window.row().padTop(emptyRowHeight);
@@ -75,33 +71,5 @@ public class MainMenuScreen implements Screen{
 	    
 	    stage.addActor(window);
 	    Gdx.input.setInputProcessor(stage);
-	}
-
-	@Override
-	public void hide()
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void pause()
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void resume()
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void dispose()
-	{
-		// TODO Auto-generated method stub
-		
 	}
 }
