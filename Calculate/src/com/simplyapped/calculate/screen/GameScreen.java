@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.simplyapped.calculate.CalculateGame;
 
 public class GameScreen extends DefaultScreen
 {
@@ -20,7 +21,7 @@ public class GameScreen extends DefaultScreen
 	@Override
 	public void show()
 	{
-	    stage = new Stage(600, 800, false);
+	    stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, false);
 
 	    window = new Table();	    
 	    window.setFillParent(true);
@@ -31,11 +32,11 @@ public class GameScreen extends DefaultScreen
 	    Table table = new Table();
 	    table.setColor(Color.WHITE);
 	    table.row();
-	    Skin skin = new Skin(Gdx.files.internal("data/uiSkin.json"));
+	    Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 	    Label label = new Label("asfd", skin);
 	    label.setFillParent(true);
 		table.add(label);
-	    table.size(400);
+	    table.size(CalculateGame.SCREEN_HEIGHT/2);
 	    table.debug();
 	    
 	    window.row();

@@ -1,6 +1,7 @@
 package com.simplyapped.calculate.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -21,7 +22,19 @@ public class MainMenuScreen extends DefaultScreen{
 	@Override
 	public void show()
 	{
-		stage = new Stage(600, 800, false);
+		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, false);
+		stage.addListener(new ClickListener()
+		{
+			@Override
+			public boolean keyDown(InputEvent event, int keycode)
+			{
+				if (keycode == Keys.BACK)
+				{
+					Gdx.app.exit();
+				}
+				return false;
+			}
+		});
 		
 	    window = new Table();	    
 	    window.setFillParent(true);
@@ -30,9 +43,9 @@ public class MainMenuScreen extends DefaultScreen{
 	    window.debug();
 	    
 	    // calculate width and heights for the table
-	    float emptyRowHeight = Gdx.graphics.getHeight() / 30;
-	    float buttonHeight = Gdx.graphics.getHeight() / 6;
-	    float buttonWidth = Gdx.graphics.getWidth() / 1.25f;
+	    float emptyRowHeight = CalculateGame.SCREEN_HEIGHT / 30;
+	    float buttonHeight = CalculateGame.SCREEN_HEIGHT / 6;
+	    float buttonWidth = CalculateGame.SCREEN_WIDTH / 1.25f;
 	    
 	    // buttons
 	    TextButton playMenu = new TextButton("PLAY", uiSkin);
@@ -40,14 +53,14 @@ public class MainMenuScreen extends DefaultScreen{
 	        @Override
 	        public void clicked(InputEvent event, float x, float y)
 	        {
-	        	game.transitionTo(CalculateGame.GAME_SCREEN);
+	        	game.transitionTo(CalculateGame.STAGE_SELECT_SCREEN);
 	        }
 	    });
-	    playMenu.padBottom(20);
+	    playMenu.padBottom(CalculateGame.SCREEN_HEIGHT/40);
 	    TextButton optionMenu = new TextButton("Options", uiSkin);
-	    optionMenu.padBottom(20);
+	    optionMenu.padBottom(CalculateGame.SCREEN_HEIGHT/40);
 	    TextButton tutorialMenu = new TextButton("Tutorial", uiSkin);
-	    tutorialMenu.padBottom(20);
+	    tutorialMenu.padBottom(CalculateGame.SCREEN_HEIGHT/40);
 	    
 	    window.row().padTop(emptyRowHeight * 3);
 	    window.add(playMenu).width(buttonWidth).height(buttonHeight);
@@ -60,5 +73,6 @@ public class MainMenuScreen extends DefaultScreen{
 	    
 	    stage.addActor(window);
 	    Gdx.input.setInputProcessor(stage);
+	    Gdx.input.setCatchBackKey(true);
 	}
 }

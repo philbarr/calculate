@@ -15,6 +15,7 @@ public abstract class DefaultGame implements ApplicationListener
 	protected Map<String, DefaultScreen> screens = new HashMap<String, DefaultScreen>();
 	private DefaultScreen currentScreen;
 	private DefaultScreen nextScreen;
+	private boolean isTransitioning;
 
 	@Override
 	public void render()
@@ -22,98 +23,136 @@ public abstract class DefaultGame implements ApplicationListener
 		// if transitioning then do the render
 		if (nextScreen != null)
 		{
-			if (nextScreen.getStage().getRoot().getActions().size > 0)
+			isTransitioning = nextScreen.getStage().getRoot().getActions().size > 0;
+			if (isTransitioning)
 			{
-			    Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
-			    Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-			    currentScreen.getStage().getRoot().act(Gdx.graphics.getDeltaTime());
-			    currentScreen.getStage().draw();
-			    nextScreen.getStage().act(Gdx.graphics.getDeltaTime());
-			    nextScreen.getStage().draw();
-			}
-			else
+				Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
+				Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+				currentScreen.getStage().getRoot().act(Gdx.graphics.getDeltaTime());
+				currentScreen.getStage().draw();
+				nextScreen.getStage().act(Gdx.graphics.getDeltaTime());
+				nextScreen.getStage().draw();
+			} else
 			{
-				setScreen(nextScreen, false);
+				setScreen(nextScreen);
 				nextScreen = null;
+				isTransitioning = false;
 			}
-		}
-		else if (currentScreen != null) // else just render the current screen as normal
+		} else if (currentScreen != null) // else just render the current screen
+											// as normal
 		{
 			currentScreen.render(Gdx.graphics.getDeltaTime());
 		}
-		
+
 	}
-	
+
 	public void setScreen(DefaultScreen screen)
 	{
 		setScreen(screen, true);
 	}
-	
+
 	public void setScreen(DefaultScreen screen, boolean show)
 	{
-		this.currentScreen = screen;
-		if (this.currentScreen != null) this.currentScreen.hide();
-		this.currentScreen = screen;
-		if (this.currentScreen != null) {
-			if (show){
-				this.currentScreen.show();
-				this.currentScreen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		if (!isTransitioning)
+		{
+			this.currentScreen = screen;
+			if (this.currentScreen != null)
+				this.currentScreen.hide();
+			this.currentScreen = screen;
+			if (this.currentScreen != null)
+			{
+				if (show)
+				{
+					this.currentScreen.show();
+					this.currentScreen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+				}
 			}
 		}
 	}
-	
+
 	public Screen getScreen()
 	{
 		return currentScreen;
 	}
-	
+
 	public void transitionTo(String screenTag)
 	{
-		nextScreen = screens.get(screenTag);
+		transitionTo(screenTag, true);
+	}
 
-		if (currentScreen != null && nextScreen != null)
+	public void transitionTo(String screenTag, boolean forward)
+	{
+		if (!isTransitioning)
 		{
-			nextScreen.show();
-		
-			float duration = 20f;
-			MoveByAction actionOut = new MoveByAction();
-			actionOut.setDuration(duration);
-			actionOut.setAmountX(currentScreen.getStage().getWidth());
-			actionOut.setInterpolation(Interpolation.pow5);
-			MoveByAction actionIn = new MoveByAction();
-			actionIn.setDuration(duration);
-			actionIn.setAmountX(nextScreen.getStage().getWidth());
-			actionIn.setInterpolation(Interpolation.pow5);
-			
-			currentScreen.getStage().addAction(actionOut);
-			
-			nextScreen.getStage().getRoot().setPosition(-nextScreen.getStage().getWidth(), 0);
-			nextScreen.getStage().addAction(actionIn);
+			nextScreen = screens.get(screenTag);
+
+			if (currentScreen != null && nextScreen != null)
+			{
+				nextScreen.show();
+
+				float duration = 1f;
+				MoveByAction actionOut = new MoveByAction();
+				actionOut.setDuration(duration);
+				actionOut.setAmountX(currentScreen.getStage().getWidth());
+				actionOut.setInterpolation(Interpolation.pow5);
+				actionOut.setReverse(forward);
+
+				MoveByAction actionIn = new MoveByAction();
+				actionIn.setDuration(duration);
+				actionIn.setAmountX(nextScreen.getStage().getWidth());
+				actionIn.setInterpolation(Interpolation.pow5);
+				actionIn.setReverse(forward);
+
+				if (forward)
+				{
+					currentScreen.getStage().getRoot().setPosition(-currentScreen.getStage().getWidth(), 0);
+				} 
+				else
+				{
+					nextScreen.getStage().getRoot().setPosition(-nextScreen.getStage().getWidth(), 0);
+				}
+				currentScreen.getStage().addAction(actionOut);
+				nextScreen.getStage().addAction(actionIn);
+			}
 		}
 	}
-	
+
 	@Override
-	public void dispose () {
-		if (currentScreen != null) currentScreen.hide();
+	public void dispose()
+	{
+		if (currentScreen != null)
+			currentScreen.hide();
 	}
 
 	@Override
-	public void pause () {
-		if (currentScreen != null) currentScreen.pause();
+	public void pause()
+	{
+		if (currentScreen != null)
+			currentScreen.pause();
 	}
 
 	@Override
-	public void resume () {
-		if (currentScreen != null) currentScreen.resume();
+	public void resume()
+	{
+		if (currentScreen != null)
+			currentScreen.resume();
 	}
 
 	@Override
-	public void resize (int width, int height) {
-		if (currentScreen != null) currentScreen.resize(width, height);
+	public void resize(int width, int height)
+	{
+		if (currentScreen != null)
+			currentScreen.resize(width, height);
 	}
 
 	public void addScreen(String tag, DefaultScreen screen)
 	{
 		screens.put(tag, screen);
 	}
+
+	protected void setScreen(String screen)
+	{
+		setScreen(screens.get(screen));
+	}
+
 }
