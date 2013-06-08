@@ -48,11 +48,6 @@ public abstract class DefaultGame implements ApplicationListener
 
 	public void setScreen(DefaultScreen screen)
 	{
-		setScreen(screen, true);
-	}
-
-	public void setScreen(DefaultScreen screen, boolean show)
-	{
 		if (!isTransitioning)
 		{
 			this.currentScreen = screen;
@@ -61,11 +56,8 @@ public abstract class DefaultGame implements ApplicationListener
 			this.currentScreen = screen;
 			if (this.currentScreen != null)
 			{
-				if (show)
-				{
-					this.currentScreen.show();
-					this.currentScreen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-				}
+				this.currentScreen.show();
+				this.currentScreen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			}
 		}
 	}
