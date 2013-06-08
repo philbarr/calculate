@@ -1,4 +1,4 @@
-package com.simplyapped.calculate.screen;
+package com.simplyapped.libgdx.ext;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;

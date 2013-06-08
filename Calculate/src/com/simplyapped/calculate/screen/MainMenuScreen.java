@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.simplyapped.calculate.CalculateGame;
+import com.simplyapped.libgdx.ext.DefaultGame;
+import com.simplyapped.libgdx.ext.DefaultScreen;
 
 public class MainMenuScreen extends DefaultScreen{
 	

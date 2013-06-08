@@ -1,9 +1,9 @@
 package com.simplyapped.calculate;
 
-import com.simplyapped.calculate.screen.DefaultGame;
 import com.simplyapped.calculate.screen.GameScreen;
 import com.simplyapped.calculate.screen.MainMenuScreen;
 import com.simplyapped.calculate.screen.StageSelectScreen;
+import com.simplyapped.libgdx.ext.DefaultGame;
 
 public class CalculateGame extends DefaultGame {
 
