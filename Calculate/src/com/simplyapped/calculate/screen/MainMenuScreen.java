@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.DefaultScreen;
+import com.simplyapped.libgdx.ext.action.TransitionFixtures;
 
 public class MainMenuScreen extends DefaultScreen{
 	
@@ -55,7 +56,7 @@ public class MainMenuScreen extends DefaultScreen{
 	        @Override
 	        public void clicked(InputEvent event, float x, float y)
 	        {
-	        	game.transitionTo(CalculateGame.STAGE_SELECT_SCREEN);
+	        	game.transitionTo(CalculateGame.STAGE_SELECT_SCREEN, TransitionFixtures.OverlapLeft());
 	        }
 	    });
 	    playMenu.padBottom(CalculateGame.SCREEN_HEIGHT/40);

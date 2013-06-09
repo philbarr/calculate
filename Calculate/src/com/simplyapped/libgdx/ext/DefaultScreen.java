@@ -24,8 +24,15 @@ public abstract class DefaultScreen implements Screen
 	public void render(float delta) {
 	    Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
 	    Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-	    stage.act();
-	    stage.draw();
+	    if (stage == null)
+	    {
+	    	Gdx.app.log(DefaultScreen.class.toString(), "WARNING: No Stage set on DefaultScreen. Nothing will be drawn.");
+	    }
+	    else
+	    {
+		    stage.act();
+		    stage.draw();
+	    }
 //	    Table.drawDebug(stage);
 	}
 

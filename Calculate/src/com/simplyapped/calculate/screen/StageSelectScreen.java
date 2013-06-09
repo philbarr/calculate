@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.DefaultScreen;
+import com.simplyapped.libgdx.ext.action.TransitionFixtures;
 
 public class StageSelectScreen extends DefaultScreen
 {
@@ -32,7 +33,7 @@ public class StageSelectScreen extends DefaultScreen
 			{
 				if (keycode == Keys.BACK)
 				{
-					game.transitionTo(CalculateGame.MAIN_MENU_SCREEN, false);
+					game.transitionTo(CalculateGame.MAIN_MENU_SCREEN, TransitionFixtures.SlideUp());
 					return true;
 				}
 				return false;

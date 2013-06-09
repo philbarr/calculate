@@ -7,8 +7,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
+import com.simplyapped.libgdx.ext.action.Transition;
 
 public abstract class DefaultGame implements ApplicationListener
 {
@@ -32,14 +31,15 @@ public abstract class DefaultGame implements ApplicationListener
 				currentScreen.getStage().draw();
 				nextScreen.getStage().act(Gdx.graphics.getDeltaTime());
 				nextScreen.getStage().draw();
-			} else
+			} 
+			else
 			{
 				setScreen(nextScreen);
 				nextScreen = null;
 				isTransitioning = false;
 			}
-		} else if (currentScreen != null) // else just render the current screen
-											// as normal
+		} 
+		else if (currentScreen != null) // else just render the current screen as normal
 		{
 			currentScreen.render(Gdx.graphics.getDeltaTime());
 		}
@@ -67,45 +67,13 @@ public abstract class DefaultGame implements ApplicationListener
 		return currentScreen;
 	}
 
-	public void transitionTo(String screenTag)
-	{
-		transitionTo(screenTag, true);
-	}
-
-	public void transitionTo(String screenTag, boolean forward)
+	public void transitionTo(String screenTag, Transition transition)
 	{
 		if (!isTransitioning)
 		{
 			nextScreen = screens.get(screenTag);
 
-			if (currentScreen != null && nextScreen != null)
-			{
-				nextScreen.show();
-
-				float duration = 1f;
-				MoveByAction actionOut = new MoveByAction();
-				actionOut.setDuration(duration);
-				actionOut.setAmountX(currentScreen.getStage().getWidth());
-				actionOut.setInterpolation(Interpolation.pow5);
-				actionOut.setReverse(forward);
-
-				MoveByAction actionIn = new MoveByAction();
-				actionIn.setDuration(duration);
-				actionIn.setAmountX(nextScreen.getStage().getWidth());
-				actionIn.setInterpolation(Interpolation.pow5);
-				actionIn.setReverse(forward);
-
-				if (forward)
-				{
-					currentScreen.getStage().getRoot().setPosition(-currentScreen.getStage().getWidth(), 0);
-				} 
-				else
-				{
-					nextScreen.getStage().getRoot().setPosition(-nextScreen.getStage().getWidth(), 0);
-				}
-				currentScreen.getStage().addAction(actionOut);
-				nextScreen.getStage().addAction(actionIn);
-			}
+			transition.apply(currentScreen, nextScreen);
 		}
 	}
 
