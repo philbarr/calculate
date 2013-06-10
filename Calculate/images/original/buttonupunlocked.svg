@@ -21,19 +21,6 @@
   <defs
      id="defs3046">
     <filter
-       color-interpolation-filters="sRGB"
-       inkscape:collect="always"
-       id="filter3873"
-       x="-0.032465518"
-       width="1.064931"
-       y="-0.11223412"
-       height="1.2244682">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="3.5591162"
-         id="feGaussianBlur3875" />
-    </filter>
-    <filter
        id="filter3079"
        inkscape:label="Fancy blur"
        inkscape:menu="Blurs"
@@ -69,7 +56,7 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.9899495"
+     inkscape:zoom="3.959798"
      inkscape:cx="466.28228"
      inkscape:cy="169.82371"
      inkscape:document-units="px"
@@ -98,7 +85,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -129,13 +116,13 @@
        id="rect3006"
        width="34.598999"
        height="23.341377"
-       x="444.0177"
-       y="32.291885"
+       x="444"
+       y="33.144695"
        rx="6.1559682"
        ry="5.6723604" />
     <g
        id="g3782"
-       transform="matrix(0.58053586,0,0,0.52917831,229.14015,3.583167)"
+       transform="matrix(0.58053586,0,0,0.52917831,229.12245,4.435976)"
        style="fill:#2c2c2c;fill-opacity:1">
       <path
          transform="translate(-6.8185425,13.365502)"
@@ -156,11 +143,11 @@
     <path
        inkscape:connector-curvature="0"
        id="path3795"
-       d="m 487.79561,21.98726 c 0,4.291042 -3.55729,7.769618 -7.94543,7.769618 -4.38814,0 -7.94544,-3.478576 -7.94544,-7.769618 0,-4.291041 3.5573,-7.769617 7.94544,-7.769617 4.38814,0 7.94543,3.478576 7.94543,7.769617 z"
+       d="m 487.77791,22.840069 c 0,4.291042 -3.55729,7.769618 -7.94543,7.769618 -4.38814,0 -7.94544,-3.478576 -7.94544,-7.769618 0,-4.291041 3.5573,-7.769617 7.94544,-7.769617 4.38814,0 7.94543,3.478576 7.94543,7.769617 z"
        style="fill:#398b9b;fill-opacity:1;stroke:none" />
     <path
        style="fill:#398b9b;fill-opacity:1;stroke:none"
-       d="m 471.90679,21.286724 0,11.142562 c 0.19932,-0.03183 0.39202,-0.07554 0.59739,-0.07554 l 15.29556,0 0,-11.067019 -15.89295,0 z"
+       d="m 471.88909,22.139533 0,11.142562 c 0.19932,-0.03183 0.39202,-0.07554 0.59739,-0.07554 l 15.29556,0 0,-11.067019 -15.89295,0 z"
        id="path3797"
        inkscape:connector-curvature="0" />
     <rect
@@ -168,8 +155,8 @@
        id="rect3800"
        width="34.598995"
        height="4.0711708"
-       x="444.0177"
-       y="45.455338" />
+       x="444"
+       y="46.308147" />
     <rect
        style="fill:#398b9b;fill-opacity:1;stroke:none"
        id="rect3822"
