@@ -16,7 +16,7 @@ import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 public class MainMenuScreen extends DefaultScreen{
 	
 	private Table window;
-	private Skin uiSkin = new Skin(Gdx.files.internal("data/mainmenuscreen.json"));
+	private Skin skin = new Skin(Gdx.files.internal("data/mainmenuscreen.json"));
 	
 	public MainMenuScreen(DefaultGame game) {
 		super(game);
@@ -51,7 +51,7 @@ public class MainMenuScreen extends DefaultScreen{
 	    float buttonWidth = CalculateGame.SCREEN_WIDTH / 1.25f;
 	    
 	    // buttons
-	    TextButton playMenu = new TextButton("PLAY", uiSkin);
+	    TextButton playMenu = new TextButton("PLAY", skin);
 	    playMenu.addListener(new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y)
@@ -60,9 +60,9 @@ public class MainMenuScreen extends DefaultScreen{
 	        }
 	    });
 	    playMenu.padBottom(CalculateGame.SCREEN_HEIGHT/40);
-	    TextButton optionMenu = new TextButton("Options", uiSkin);
+	    TextButton optionMenu = new TextButton("Options", skin);
 	    optionMenu.padBottom(CalculateGame.SCREEN_HEIGHT/40);
-	    TextButton tutorialMenu = new TextButton("Tutorial", uiSkin);
+	    TextButton tutorialMenu = new TextButton("Tutorial", skin);
 	    tutorialMenu.padBottom(CalculateGame.SCREEN_HEIGHT/40);
 	    
 	    window.row().padTop(emptyRowHeight * 3);
@@ -72,7 +72,7 @@ public class MainMenuScreen extends DefaultScreen{
 	    window.row().padTop(emptyRowHeight);
 	    window.add(tutorialMenu).width(buttonWidth).height(buttonHeight);
 	    window.row().padTop(emptyRowHeight);
-	    window.setBackground(uiSkin.getDrawable("mainmenubackground"));
+	    window.setBackground(skin.getDrawable("mainmenubackground"));
 	    
 	    stage.addActor(window);
 	    Gdx.input.setInputProcessor(stage);

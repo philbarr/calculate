@@ -61,6 +61,7 @@ public class SlideTransition implements Transition
 		}
 		action.setInterpolation(interpolation);
 		action.setReverse(leftOrDown);
+		
 		return action;
 	}
 

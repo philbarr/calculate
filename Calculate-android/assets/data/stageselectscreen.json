@@ -1,1 +1,27 @@
-{}
+{
+
+    com.badlogic.gdx.graphics.Color: {
+            upFontColor: { r: 0.764705882, g: 0.917647059, b: 0.894117647, a: 1 },
+            downFontColor: { r: 0.003921569, g: 0.290196078, b: 0.345098039, a: 1 }
+    },
+    com.badlogic.gdx.graphics.g2d.BitmapFont: {
+            pump-font: { file: PumpDemiBoldLET.fnt }
+    },
+    com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+            default: {
+                    font: pump-font, 
+                    fontColor: upFontColor, 
+                    downFontColor: downFontColor,
+                    up: buttonupunlocked,
+                    down: buttondownunlocked,
+            },
+            
+            disabled: {
+            	font: pump-font, 
+                fontColor: upFontColor, 
+                downFontColor: downFontColor,
+                up: buttonuplocked,
+                down: buttonuplocked,
+            }
+    }
+}
