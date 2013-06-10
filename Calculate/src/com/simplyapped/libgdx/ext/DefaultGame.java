@@ -6,15 +6,17 @@ import java.util.Map;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL10;
 import com.simplyapped.libgdx.ext.action.Transition;
+import com.simplyapped.libgdx.ext.screen.DefaultScreen;
+import com.simplyapped.libgdx.ext.screen.StagedScreen;
 
 public abstract class DefaultGame implements ApplicationListener
 {
-	protected Map<String, DefaultScreen> screens = new HashMap<String, DefaultScreen>();
-	private DefaultScreen currentScreen;
-	private DefaultScreen nextScreen;
+	protected Map<String, StagedScreen> screens = new HashMap<String, StagedScreen>();
+	private StagedScreen currentScreen;
+	private StagedScreen nextScreen;
 	private boolean isTransitioning;
+	private Transition transition;
 
 	@Override
 	public void render()
@@ -22,15 +24,11 @@ public abstract class DefaultGame implements ApplicationListener
 		// if transitioning then do the render
 		if (nextScreen != null)
 		{
-			isTransitioning = nextScreen.getStage().getRoot().getActions().size > 0;
-			if (isTransitioning)
+			isTransitioning = currentScreen.getStage().getRoot().getActions().size > 0 ||
+								nextScreen.getStage().getRoot().getActions().size > 0;
+			if (isTransitioning && transition != null)
 			{
-				Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
-				Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-				currentScreen.getStage().getRoot().act(Gdx.graphics.getDeltaTime());
-				currentScreen.getStage().draw();
-				nextScreen.getStage().act(Gdx.graphics.getDeltaTime());
-				nextScreen.getStage().draw();
+				transition.render(currentScreen, nextScreen);
 			} 
 			else
 			{
@@ -46,14 +44,15 @@ public abstract class DefaultGame implements ApplicationListener
 
 	}
 
-	public void setScreen(DefaultScreen screen)
+	public void setScreen(StagedScreen next)
 	{
 		if (!isTransitioning)
 		{
-			this.currentScreen = screen;
+			this.currentScreen = next;
 			if (this.currentScreen != null)
 				this.currentScreen.hide();
-			this.currentScreen = screen;
+			this.currentScreen = next;
+			
 			if (this.currentScreen != null)
 			{
 				this.currentScreen.show();
@@ -72,7 +71,7 @@ public abstract class DefaultGame implements ApplicationListener
 		if (!isTransitioning)
 		{
 			nextScreen = screens.get(screenTag);
-
+			this.transition = transition;
 			transition.apply(currentScreen, nextScreen);
 		}
 	}

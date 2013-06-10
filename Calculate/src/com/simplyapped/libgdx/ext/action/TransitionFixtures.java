@@ -38,37 +38,65 @@ public class TransitionFixtures
 	
 	public static Transition OverlapLeft()
 	{
-		SlideTransition slideTransition = new SlideTransition(true, true);
+		SlideTransition slideTransition = new OverlapTransition(true, true);
 		slideTransition.setDuration(1f);
 		slideTransition.setInterpolation(Interpolation.pow5);
-		slideTransition.setOverlap(true);
 		return slideTransition;
 	}
 	
 	public static Transition OverlapRight()
 	{
-		SlideTransition slideTransition = new SlideTransition(false, true);
+		SlideTransition slideTransition = new OverlapTransition(false, true);
 		slideTransition.setDuration(1f);
 		slideTransition.setInterpolation(Interpolation.pow5);
-		slideTransition.setOverlap(true);
 		return slideTransition;
 	}
 	
 	public static Transition OverlapDown()
 	{
-		SlideTransition slideTransition = new SlideTransition(true, false);
+		SlideTransition slideTransition = new OverlapTransition(true, false);
 		slideTransition.setDuration(1f);
 		slideTransition.setInterpolation(Interpolation.pow5);
-		slideTransition.setOverlap(true);
 		return slideTransition;
 	}
 	
 	public static Transition OverlapUp()
 	{
-		SlideTransition slideTransition = new SlideTransition(false, false);
+		SlideTransition slideTransition = new OverlapTransition(false, false);
 		slideTransition.setDuration(1f);
 		slideTransition.setInterpolation(Interpolation.pow5);
-		slideTransition.setOverlap(true);
+		return slideTransition;
+	}
+	
+	public static Transition UnderlapLeft()
+	{
+		SlideTransition slideTransition = new UnderlapTransition(true, true);
+		slideTransition.setDuration(1f);
+		slideTransition.setInterpolation(Interpolation.pow5);
+		return slideTransition;
+	}
+	
+	public static Transition UnderlapRight()
+	{
+		SlideTransition slideTransition = new UnderlapTransition(false, true);
+		slideTransition.setDuration(1f);
+		slideTransition.setInterpolation(Interpolation.pow5);
+		return slideTransition;
+	}
+	
+	public static Transition UnderlapDown()
+	{
+		SlideTransition slideTransition = new UnderlapTransition(true, false);
+		slideTransition.setDuration(1f);
+		slideTransition.setInterpolation(Interpolation.pow5);
+		return slideTransition;
+	}
+	
+	public static Transition UnderlapUp()
+	{
+		SlideTransition slideTransition = new UnderlapTransition(false, false);
+		slideTransition.setDuration(1f);
+		slideTransition.setInterpolation(Interpolation.pow5);
 		return slideTransition;
 	}
 }

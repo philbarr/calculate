@@ -1,11 +1,11 @@
-package com.simplyapped.libgdx.ext;
+package com.simplyapped.libgdx.ext.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.simplyapped.libgdx.ext.DefaultGame;
 
-public abstract class DefaultScreen implements Screen
+public abstract class DefaultScreen implements StagedScreen
 {
 	protected Stage stage;
 	protected DefaultGame game;

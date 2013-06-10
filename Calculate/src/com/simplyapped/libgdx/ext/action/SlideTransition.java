@@ -1,16 +1,17 @@
 package com.simplyapped.libgdx.ext.action;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
-import com.simplyapped.libgdx.ext.DefaultScreen;
+import com.simplyapped.libgdx.ext.screen.StagedScreen;
 
 public class SlideTransition implements Transition
 {
-	private boolean leftOrDown;
-	private boolean horizontal;
-	private float duration;
+	protected boolean leftOrDown;
+	protected boolean horizontal;
+	protected float duration;
 	private Interpolation interpolation;
-	private boolean overlap;
 
 	public SlideTransition(boolean leftOrDown, boolean horizontal)
 	{
@@ -19,7 +20,7 @@ public class SlideTransition implements Transition
 	}
 
 	@Override
-	public void apply(DefaultScreen currentScreen, DefaultScreen nextScreen)
+	public void apply(StagedScreen currentScreen, StagedScreen nextScreen)
 	{
 		if (currentScreen != null && nextScreen != null)
 		{
@@ -30,44 +31,31 @@ public class SlideTransition implements Transition
 
 			if (horizontal && leftOrDown) // SlideRight
 			{
-				if (!isOverlap())
-				{
-					currentScreen.getStage().getRoot().setPosition(-currentScreen.getStage().getWidth(), 0);
-				}
-			} 
-			else if (horizontal && !leftOrDown) // SlideLeft
+				currentScreen.getStage().getRoot().setPosition(-currentScreen.getStage().getWidth(), 0);
+			} else if (horizontal && !leftOrDown) // SlideLeft
 			{
 				nextScreen.getStage().getRoot().setPosition(-nextScreen.getStage().getWidth(), 0);
-			}
-			else if (!horizontal && leftOrDown) // SlideDown
+			} else if (!horizontal && leftOrDown) // SlideDown
 			{
-				if (!isOverlap())
-				{
-					currentScreen.getStage().getRoot().setPosition(0, -currentScreen.getStage().getHeight());
-				}
-			}
-			else if (!horizontal && !leftOrDown) // SlideUp
+				currentScreen.getStage().getRoot().setPosition(0, -currentScreen.getStage().getHeight());
+			} else if (!horizontal && !leftOrDown) // SlideUp
 			{
 				nextScreen.getStage().getRoot().setPosition(0, -nextScreen.getStage().getHeight());
 			}
-			
-			if (!isOverlap())
-			{
-				currentScreen.getStage().addAction(actionOut);
-			}
+
+			currentScreen.getStage().addAction(actionOut);
 			nextScreen.getStage().addAction(actionIn);
-		}		
+		}
 	}
 
-	private MoveByAction createAction(DefaultScreen screen, float duration)
+	protected MoveByAction createAction(StagedScreen screen, float duration)
 	{
 		MoveByAction action = new MoveByAction();
 		action.setDuration(duration);
 		if (horizontal)
 		{
 			action.setAmountX(screen.getStage().getWidth());
-		}
-		else
+		} else
 		{
 			action.setAmountY(screen.getStage().getHeight());
 		}
@@ -88,14 +76,14 @@ public class SlideTransition implements Transition
 		this.interpolation = interpolation;
 	}
 
-	public boolean isOverlap()
+	@Override
+	public void render(StagedScreen current, StagedScreen next)
 	{
-		return overlap;
+		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		current.getStage().getRoot().act(Gdx.graphics.getDeltaTime());
+		current.getStage().draw();
+		next.getStage().act(Gdx.graphics.getDeltaTime());
+		next.getStage().draw();
 	}
-
-	public void setOverlap(boolean overlap)
-	{
-		this.overlap = overlap;
-	}
-
 }

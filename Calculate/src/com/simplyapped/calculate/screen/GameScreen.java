@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.libgdx.ext.DefaultGame;
-import com.simplyapped.libgdx.ext.DefaultScreen;
+import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
 public class GameScreen extends DefaultScreen
 {
