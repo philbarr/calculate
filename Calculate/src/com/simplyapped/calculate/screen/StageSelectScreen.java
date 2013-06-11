@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.calculate.state.GameState;
@@ -20,9 +21,9 @@ public class StageSelectScreen extends DefaultScreen
 	private Skin skin = new Skin(Gdx.files.internal("data/stageselectscreen.json"));
 	
     // calculate width and heights for the table
-    float emptyRowHeight = CalculateGame.SCREEN_HEIGHT / 50;
-    float buttonHeight = CalculateGame.SCREEN_HEIGHT / 12;
-    float buttonWidth = CalculateGame.SCREEN_WIDTH / 2.5f;
+    float emptyRowHeight = CalculateGame.SCREEN_HEIGHT / 72;
+    float buttonHeight = CalculateGame.SCREEN_HEIGHT / 13;
+    float buttonWidth = CalculateGame.SCREEN_WIDTH / 2f;
 
 	public StageSelectScreen(DefaultGame game)
 	{
@@ -53,10 +54,12 @@ public class StageSelectScreen extends DefaultScreen
 	    window.setY(0);
 	    window.debug();
 	    
+	    window.row().padTop(emptyRowHeight * 4);
 	    for (int i = 1 ; i <= 10 ; i++)
 	    {
 	    	addButtonRow(window, i);
 	    }
+	    window.row().padBottom(emptyRowHeight * 6);
 	    
 	    window.setBackground(skin.getDrawable("stageselectscreenbackground"));
 	    stage.addActor(window);
@@ -84,10 +87,14 @@ public class StageSelectScreen extends DefaultScreen
 	        	game.transitionTo(CalculateGame.GAME_SCREEN, TransitionFixtures.OverlapLeft());
 	        }
 	    });
+	    levelButton.getLabel().setFontScale(0.6f);
+	    levelButton.align(Align.left);
+	    levelButton.padBottom(10);
+	    levelButton.padLeft(20);
 	    
 	    
-	    window.add(levelButton).width(buttonWidth).height(buttonHeight);	    	
-	    window.row().padTop(emptyRowHeight);
+	    window.add(levelButton).width(buttonWidth).height(buttonHeight).align(Align.left).padLeft(20);	    	
+	    window.row().padTop(emptyRowHeight).expandX();
 	}
 
 }
