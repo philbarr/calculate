@@ -4,3 +4,4 @@ java -cp %LIBGDX%\gdx.jar;%LIBGDX%\extensions\gdx-tools.jar com.badlogic.gdx.too
 java -cp %LIBGDX%\gdx.jar;%LIBGDX%\extensions\gdx-tools.jar com.badlogic.gdx.tools.imagepacker.TexturePacker2 stage_select_screen_atlas_src atlas_out stageselectscreen
 robocopy atlas_out ..\..\Calculate-android\assets\data /LOG:robocopylog.txt
 robocopy original ..\..\Calculate-android\assets\data PumpDemiBoldLET.fnt PumpDemiBoldLET.png /LOG+:robocopylog.txt
+robocopy original "C:\Program Files (x86)\Inkscape\share\palettes" calculatepalette.gpl /LOG+:robocopylog.txt

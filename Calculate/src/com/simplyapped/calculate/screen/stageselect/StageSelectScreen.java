@@ -1,16 +1,17 @@
-package com.simplyapped.calculate.screen;
+package com.simplyapped.calculate.screen.stageselect;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.simplyapped.calculate.CalculateGame;
-import com.simplyapped.calculate.state.GameState;
+import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
 import com.simplyapped.libgdx.ext.screen.DefaultScreen;
@@ -23,7 +24,7 @@ public class StageSelectScreen extends DefaultScreen
     // calculate width and heights for the table
     float emptyRowHeight = CalculateGame.SCREEN_HEIGHT / 72;
     float buttonHeight = CalculateGame.SCREEN_HEIGHT / 13;
-    float buttonWidth = CalculateGame.SCREEN_WIDTH / 2f;
+    float buttonWidth = CalculateGame.SCREEN_WIDTH / 1.8f;
 
 	public StageSelectScreen(DefaultGame game)
 	{
@@ -71,30 +72,41 @@ public class StageSelectScreen extends DefaultScreen
 	{
 		// buttons
 		TextButton levelButton;
-		if (level <= GameState.Instance().getMaximumAchievedLevel())
+		if (level <= GameStateFactory.getInstance().getMaximumAchievedLevel())
 	    {
 			levelButton = new TextButton("Stage " + level, skin);
+		    levelButton.addListener(new ClickListener() {
+		        @Override
+		        public void clicked(InputEvent event, float x, float y)
+		        {
+		        	GameStateFactory.getInstance().setSelectedLevel(level);
+		        	game.transitionTo(CalculateGame.GAME_SCREEN, TransitionFixtures.OverlapLeft());
+		        }
+		    });
 	    }
 	    else
 	    {
 	    	levelButton = new TextButton("Stage " + level, skin, "disabled");
+	    	levelButton.setDisabled(true);
 	    }
-	    levelButton.addListener(new ClickListener() {
-	        @Override
-	        public void clicked(InputEvent event, float x, float y)
-	        {
-	        	GameState.Instance().setSelectedLevel(level);
-	        	game.transitionTo(CalculateGame.GAME_SCREEN, TransitionFixtures.OverlapLeft());
-	        }
-	    });
 	    levelButton.getLabel().setFontScale(0.6f);
 	    levelButton.align(Align.left);
 	    levelButton.padBottom(10);
 	    levelButton.padLeft(20);
 	    
+	    Button help = new Button(skin, "help");
+	    help.addListener(new ClickListener()
+	    	{
+	    		public void clicked(InputEvent event, float x, float y) 
+	    		{
+	    			
+	    		};
+	    	}
+	    );
 	    
-	    window.add(levelButton).width(buttonWidth).height(buttonHeight).align(Align.left).padLeft(20);	    	
-	    window.row().padTop(emptyRowHeight).expandX();
+	    table.add(help).width(buttonHeight).height(buttonHeight).align(Align.left).padLeft(20);
+	    table.add(levelButton).width(buttonWidth).height(buttonHeight).align(Align.left).padLeft(-100);	    
+	    table.row().padTop(emptyRowHeight).expandX();
 	}
 
 }

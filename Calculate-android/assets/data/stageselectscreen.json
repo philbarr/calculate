@@ -18,10 +18,16 @@
             
             disabled: {
             	font: pump-font, 
-                fontColor: upFontColor, 
+                fontColor: downFontColor, 
                 downFontColor: downFontColor,
                 up: buttonuplocked,
                 down: buttonuplocked,
             }
-    }
+    },
+    com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+		    help: {
+		            up: buttonhelpup,
+		            down: buttonhelpdown,
+		    }
+    },
 }
