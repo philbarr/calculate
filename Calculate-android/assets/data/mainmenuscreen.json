@@ -1,6 +1,7 @@
 {
 
     com.badlogic.gdx.graphics.Color: {
+    		white: { r: 1, g: 1, b: 1, a: 1},
             upFontColor: { r: 0.764705882, g: 0.917647059, b: 0.894117647, a: 1 },
             downFontColor: { r: 0.003921569, g: 0.290196078, b: 0.345098039, a: 1 }
     },
@@ -10,8 +11,8 @@
     com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
             default: {
                     font: pump-font, 
-                    fontColor: upFontColor, 
-                    downFontColor: downFontColor,
+                    fontColor: white, 
+                    downFontColor: white,
                     up: buttonup,
                     down: buttondown,
             }

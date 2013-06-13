@@ -3,44 +3,56 @@ stageselectscreen.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-stageselectscreenbackground
+dialogbackground
   rotate: false
   xy: 1, 194
+  size: 489, 719
+  orig: 489, 719
+  offset: 0, 0
+  index: -1
+stageselectscreenbackground
+  rotate: false
+  xy: 492, 273
   size: 360, 640
   orig: 360, 640
   offset: 0, 0
   index: -1
 buttondownunlocked
   rotate: false
-  xy: 363, 643
+  xy: 1, 1
   size: 506, 191
   orig: 506, 191
   offset: 0, 0
   index: -1
 buttonuplocked
   rotate: false
-  xy: 363, 450
+  xy: 509, 80
   size: 506, 191
   orig: 506, 191
   offset: 0, 0
   index: -1
+
+stageselectscreen2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
 buttonupunlocked
   rotate: false
-  xy: 363, 257
+  xy: 1, 1
   size: 506, 191
   orig: 506, 191
   offset: 0, 0
   index: -1
 buttonhelpdown
   rotate: false
-  xy: 1, 1
+  xy: 509, 1
   size: 170, 191
   orig: 170, 191
   offset: 0, 0
   index: -1
 buttonhelpup
   rotate: false
-  xy: 173, 1
+  xy: 681, 1
   size: 170, 191
   orig: 170, 191
   offset: 0, 0

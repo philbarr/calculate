@@ -2,10 +2,11 @@
 
     com.badlogic.gdx.graphics.Color: {
             upFontColor: { r: 0.764705882, g: 0.917647059, b: 0.894117647, a: 1 },
-            downFontColor: { r: 0.003921569, g: 0.290196078, b: 0.345098039, a: 1 }
+            downFontColor: { r: 0.003921569, g: 0.290196078, b: 0.345098039, a: 1 },
     },
     com.badlogic.gdx.graphics.g2d.BitmapFont: {
-            pump-font: { file: PumpDemiBoldLET.fnt }
+            pump-font: { file: PumpDemiBoldLET.fnt },
+    		dialog-title-pump-font: { file: PumpDemiBoldLET.fnt },
     },
     com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
             default: {
@@ -26,8 +27,21 @@
     },
     com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		    help: {
-		            up: buttonhelpup,
-		            down: buttonhelpdown,
+	            up: buttonhelpup,
+	            down: buttonhelpdown,
 		    }
     },
+    com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
+			dialog: {
+				background: dialogbackground,
+				titleFont: dialog-title-pump-font,
+				titleFontColor: upFontColor,
+			}
+    },
+    com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+    		dialog: {
+    			font: dialog-title-pump-font,
+				fontColor: upFontColor,
+    		}
+    }
 }

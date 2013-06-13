@@ -1,0 +1,15 @@
+GIMP Palette
+Name: Calculate Palette New
+
+#
+ 0 0 0			Black
+ 255 255 255	White
+ 15 33 40		Background Dark
+ 59 80 105		Background Light
+ 0 125 247		Outline Bright
+ 0 63 111		Outline Dark
+ 53 179 255		Widget
+ 25 56 69		Alternate Background Light
+ 0 106 254		Button Up Background
+ 0 178 238		Button Down Background
+ 

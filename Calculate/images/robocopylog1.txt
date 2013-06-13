@@ -3,9 +3,9 @@
    ROBOCOPY     ::     Robust File Copy for Windows                              
 -------------------------------------------------------------------------------
 
-  Started : Wed Jun 12 16:54:25 2013
+  Started : Thu Jun 13 15:29:46 2013
 
-   Source : C:\Users\pbarr\git\Repository\Calculate\images\atlas_out\
+   Source : C:\Users\pbarr\git\Repository\Calculate\images\atlas_out1\
      Dest : C:\Users\pbarr\git\Repository\Calculate-android\assets\data\
 
     Files : *.*
@@ -14,50 +14,50 @@
 
 ------------------------------------------------------------------------------
 
-	                   8	C:\Users\pbarr\git\Repository\Calculate\images\atlas_out\
+	                   3	C:\Users\pbarr\git\Repository\Calculate\images\atlas_out1\
 	  *EXTRA File 		   11669	bauhaus93.fnt
 	  *EXTRA File 		   60585	bauhaus93.png
 	  *EXTRA File 		   11628	default.fnt
 	  *EXTRA File 		   24867	default.png
+	  *EXTRA File 		     279	gamescreen.atlas
 	  *EXTRA File 		       2	gamescreen.json
+	  *EXTRA File 		   54395	gamescreen.png
 	  *EXTRA File 		   54931	libgdx.png
-	  *EXTRA File 		     642	mainmenuscreen.json
+	  *EXTRA File 		     668	mainmenuscreen.json
 	  *EXTRA File 		   10497	PumpDemiBoldLET.fnt
 	  *EXTRA File 		   93527	PumpDemiBoldLET.png
-	  *EXTRA File 		    1356	stageselectscreen.json
+	  *EXTRA File 		     908	stageselectscreen.atlas
+	  *EXTRA File 		    1516	stageselectscreen.json
+	  *EXTRA File 		   92344	stageselectscreen.png
+	  *EXTRA File 		   15802	stageselectscreen2.png
 	  *EXTRA File 		    3088	uiskin.atlas
 	  *EXTRA File 		    2797	uiskin.json
 	  *EXTRA File 		   22779	uiskin.png
-	    Newer     		     279	gamescreen.atlas  0%  100%  
-	    Newer     		   54395	gamescreen.png  0%  100%  
-	    Newer     		    1100	mainmenuscreen.atlas  0%  100%  
-	    Newer     		  163054	mainmenuscreen.png  0%   80%  100%  
-	    Newer     		   35957	mainmenuscreen2.png  0%  100%  
-	    Newer     		     908	stageselectscreen.atlas  0%  100%  
-	    Newer     		   92344	stageselectscreen.png  0%  100%  
-	    New File  		   15802	stageselectscreen2.png  0%  100%  
+	    Newer     		     454	mainmenuscreen.atlas  0%  100%  
+	    Newer     		  848829	mainmenuscreen.png  0%   30%   61%   92%  100%  
+	    Newer     		   64999	mainmenuscreen2.png  0%  100%  
 
 ------------------------------------------------------------------------------
 
                Total    Copied   Skipped  Mismatch    FAILED    Extras
     Dirs :         1         0         1         0         0         0
-   Files :         8         8         0         0         0        13
-   Bytes :   355.3 k   355.3 k         0         0         0   291.3 k
+   Files :         3         3         0         0         0        18
+   Bytes :   892.8 k   892.8 k         0         0         0   451.4 k
    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
 
 
-   Speed :            36383900 Bytes/sec.
-   Speed :            2081.903 MegaBytes/min.
+   Speed :           182856400 Bytes/sec.
+   Speed :           10463.127 MegaBytes/min.
 
-   Ended : Wed Jun 12 16:54:25 2013
+   Ended : Thu Jun 13 15:29:46 2013
 
 -------------------------------------------------------------------------------
    ROBOCOPY     ::     Robust File Copy for Windows                              
 -------------------------------------------------------------------------------
 
-  Started : Wed Jun 12 16:54:25 2013
+  Started : Thu Jun 13 15:29:46 2013
 
-   Source : C:\Users\pbarr\git\Repository\Calculate\images\original\
+   Source : C:\Users\pbarr\git\Repository\Calculate\images\original1\
      Dest : C:\Users\pbarr\git\Repository\Calculate-android\assets\data\
 
     Files : PumpDemiBoldLET.fnt
@@ -67,7 +67,7 @@
 
 ------------------------------------------------------------------------------
 
-	                   2	C:\Users\pbarr\git\Repository\Calculate\images\original\
+	                   2	C:\Users\pbarr\git\Repository\Calculate\images\original1\
 
 ------------------------------------------------------------------------------
 
@@ -77,31 +77,31 @@
    Bytes :   101.5 k         0   101.5 k         0         0         0
    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
 
-   Ended : Wed Jun 12 16:54:25 2013
+   Ended : Thu Jun 13 15:29:46 2013
 
 -------------------------------------------------------------------------------
    ROBOCOPY     ::     Robust File Copy for Windows                              
 -------------------------------------------------------------------------------
 
-  Started : Wed Jun 12 16:54:25 2013
+  Started : Thu Jun 13 15:29:46 2013
 
-   Source : C:\Users\pbarr\git\Repository\Calculate\images\original\
+   Source : C:\Users\pbarr\git\Repository\Calculate\images\original1\
      Dest : C:\Program Files (x86)\Inkscape\share\palettes\
 
-    Files : calculatepalette.gpl
+    Files : calculatepalette1.gpl
 	    
   Options : /COPY:DAT /R:1000000 /W:30 
 
 ------------------------------------------------------------------------------
 
-	                   1	C:\Users\pbarr\git\Repository\Calculate\images\original\
+	                   1	C:\Users\pbarr\git\Repository\Calculate\images\original1\
 
 ------------------------------------------------------------------------------
 
                Total    Copied   Skipped  Mismatch    FAILED    Extras
     Dirs :         1         0         1         0         0         0
    Files :         1         0         1         0         0         0
-   Bytes :       373         0       373         0         0         0
+   Bytes :       326         0       326         0         0         0
    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
 
-   Ended : Wed Jun 12 16:54:25 2013
+   Ended : Thu Jun 13 15:29:46 2013

@@ -59,11 +59,11 @@ public class MainMenuScreen extends DefaultScreen{
 	        	game.transitionTo(CalculateGame.STAGE_SELECT_SCREEN, TransitionFixtures.OverlapLeft());
 	        }
 	    });
-	    playMenu.padBottom(CalculateGame.SCREEN_HEIGHT/40);
+	    playMenu.padBottom(CalculateGame.SCREEN_HEIGHT/30);
 	    TextButton optionMenu = new TextButton("Options", skin);
-	    optionMenu.padBottom(CalculateGame.SCREEN_HEIGHT/40);
+	    optionMenu.padBottom(CalculateGame.SCREEN_HEIGHT/30);
 	    TextButton tutorialMenu = new TextButton("Tutorial", skin);
-	    tutorialMenu.padBottom(CalculateGame.SCREEN_HEIGHT/40);
+	    tutorialMenu.padBottom(CalculateGame.SCREEN_HEIGHT/30);
 	    
 	    window.row().padTop(emptyRowHeight * 3);
 	    window.add(playMenu).width(buttonWidth).height(buttonHeight);

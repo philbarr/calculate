@@ -5,9 +5,13 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.simplyapped.calculate.CalculateGame;
@@ -99,7 +103,15 @@ public class StageSelectScreen extends DefaultScreen
 	    	{
 	    		public void clicked(InputEvent event, float x, float y) 
 	    		{
+	    			WindowStyle style = skin.get("dialog", WindowStyle.class);
+	    			Dialog dialog = new Dialog("", style);
+	    			dialog.setPosition(CalculateGame.SCREEN_WIDTH/2, CalculateGame.SCREEN_HEIGHT/2);
+	    			dialog.setSize(CalculateGame.SCREEN_WIDTH/1.3f, CalculateGame.SCREEN_HEIGHT/1.3f);
+	    			LabelStyle labelStyle = skin.get("dialog", LabelStyle.class);
+	    			labelStyle.font.setScale(0.6f);
+					dialog.text("blah blah ablh", labelStyle);
 	    			
+	    			stage.addActor(dialog);
 	    		};
 	    	}
 	    );
