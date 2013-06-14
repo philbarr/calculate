@@ -161,6 +161,26 @@
          stdDeviation="6.1254738"
          id="feGaussianBlur3805" />
     </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient6011"
+       id="linearGradient3011"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1,0,0,1.1811957,-87.500848,491.32522)"
+       x1="59.845596"
+       y1="16.368265"
+       x2="59.853069"
+       y2="146.66298" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient6011"
+       id="linearGradient3015"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1,0,0,1.1811957,-87.500848,491.32522)"
+       x1="59.845596"
+       y1="16.368265"
+       x2="59.853069"
+       y2="146.66298" />
   </defs>
   <sodipodi:namedview
      inkscape:document-units="mm"
@@ -169,8 +189,8 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.43415836"
-     inkscape:cx="-141.63211"
+     inkscape:zoom="1.7366334"
+     inkscape:cx="430.97195"
      inkscape:cy="264.75299"
      inkscape:current-layer="layer1"
      id="namedview4725"
@@ -233,8 +253,8 @@
        y="512.00031"
        rx="21.259842" />
     <path
-       style="opacity:0.7;fill:url(#linearGradient6041);fill-opacity:1;stroke:none;filter:url(#filter6043)"
-       d="m 312.65509,523.56029 c -107.85921,1.79984 -215.820957,-1.04148 -323.624999,1.4765 -8.562004,5.34318 -5.178715,18.67861 -5.5,27.79501 0,32.77818 0,65.55636 0,98.33454 115.197917,0 230.395829,0 345.593749,0 -0.7044,-40.85175 2.21348,-82.11368 -1.625,-122.6967 -3.53576,-5.08641 -9.76419,-4.99255 -14.84375,-4.90935 z"
+       style="opacity:0.7;fill:url(#linearGradient3015);fill-opacity:1;stroke:none;filter:url(#filter6043)"
+       d="m 313.6875,519.53125 c -108.60716,1.81314 -217.242936,-0.97749 -325.84375,1.5 -10.607715,5.90763 -8.893068,19.89497 -8.294646,30.18734 -0.02337,34.64562 -0.01845,69.29181 -0.01785,103.93766 117.895833,0 235.79167,0 353.6875,0 -1.36145,-42.95705 3.03863,-86.32174 -2.4375,-129 -3.74242,-5.59617 -10.79201,-6.88624 -17.09375,-6.625 z"
        id="rect6006"
        inkscape:connector-curvature="0" />
     <rect
