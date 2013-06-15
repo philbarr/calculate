@@ -16,7 +16,7 @@
    height="800"
    width="600"
    sodipodi:docname="stageselectscreenbackground.svg"
-   inkscape:export-filename="C:\Users\pbarr\git\Repository\Calculate\images\main_menu_screen_atlas_src1\mainmenubackground.png"
+   inkscape:export-filename="C:\Users\pbarr\git\Repository\Calculate\images\stage_select_screen_atlas_src1\stageselectscreenbackground.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -1195,7 +1195,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>

@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.actions.AlphaAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -111,12 +111,11 @@ public class StageSelectScreen extends DefaultScreen
 	    			LabelStyle labelStyle = skin.get("dialog", LabelStyle.class);
 //	    			labelStyle.font.setScale(0.5f);
 					dialog.text("blah blah ablh", labelStyle);
-//					FadeAction action = new FadeAction(); 
 							
-					MoveToAction action = new MoveToAction();
-					action.setDuration(2f);
-					action.setPosition(((CalculateGame.SCREEN_WIDTH-dialog.getWidth())/2), -10000);
-					action.setInterpolation(Interpolation.linear);
+					AlphaAction action = new AlphaAction();
+					action.setDuration(1f);
+					action.setReverse(true);
+					action.setInterpolation(Interpolation.pow5);
 	    			dialog.addAction(action);
 					
 	    			stage.addActor(dialog);
