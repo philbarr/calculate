@@ -10,13 +10,13 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="486.66187"
-   height="370.45386"
+   width="356.0882"
+   height="354.33072"
    id="svg4721"
    version="1.1"
    inkscape:version="0.48.2 r9819"
-   sodipodi:docname="buttondown.svg"
-   inkscape:export-filename="C:\Users\pbarr\git\Repository\Calculate\images\main_menu_screen_atlas_src1\buttondown.png"
+   sodipodi:docname="buttonhelpdown.svg"
+   inkscape:export-filename="C:\Users\pbarr\git\Repository\Calculate\images\stage_select_screen_atlas_src1\buttonhelpdown.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -147,7 +147,8 @@
        y2="146.66298" />
     <filter
        inkscape:collect="always"
-       id="filter6043">
+       id="filter6043"
+       color-interpolation-filters="sRGB">
       <feGaussianBlur
          inkscape:collect="always"
          stdDeviation="1.1850569"
@@ -155,7 +156,8 @@
     </filter>
     <filter
        inkscape:collect="always"
-       id="filter3803">
+       id="filter3803"
+       color-interpolation-filters="sRGB">
       <feGaussianBlur
          inkscape:collect="always"
          stdDeviation="6.1254738"
@@ -219,7 +221,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -227,7 +229,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(86.999689,-487.05355)">
+     transform="translate(76.634815,-487.05356)">
     <rect
        y="502.78708"
        x="-27.968199"
@@ -235,7 +237,7 @@
        width="369.70648"
        id="rect5350"
        style="fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter6002)"
-       transform="matrix(1.0285913,0,0,1.006281,-5.0393459,23.007159)" />
+       transform="matrix(0.78609995,0,0,1.006281,-21.918044,23.007159)" />
     <rect
        y="0"
        x="0"
@@ -243,27 +245,40 @@
        width="1052.3622"
        id="rect5290"
        style="opacity:0.24336285;fill:#ffffff;fill-opacity:1;stroke:none;filter:url(#filter5308)"
-       transform="matrix(0.35131106,0,0,0.36130457,-27.968198,502.78708)" />
+       transform="matrix(0.26848915,0,0,0.36130457,-39.441398,502.78708)" />
     <rect
        style="fill:#006afe;fill-opacity:1;stroke:none"
        id="rect4730"
-       width="369.70648"
+       width="282.54782"
        height="268.84473"
-       x="-28.521997"
+       x="-39.864639"
        y="512.00031"
-       rx="21.259842" />
+       rx="16.247814" />
     <path
        style="opacity:0.7;fill:url(#linearGradient3015);fill-opacity:1;stroke:none;filter:url(#filter6043)"
-       d="m 313.6875,519.53125 c -108.60716,1.81314 -217.242936,-0.97749 -325.84375,1.5 -10.607715,5.90763 -8.893068,19.89497 -8.294646,30.18734 -0.02337,34.64562 -0.01845,69.29181 -0.01785,103.93766 117.895833,0 235.79167,0 353.6875,0 -1.36145,-42.95705 3.03863,-86.32174 -2.4375,-129 -3.74242,-5.59617 -10.79201,-6.88624 -17.09375,-6.625 z"
+       d="m 313.6875,519.53125 c -108.60716,1.81314 -217.242936,-0.97749 -325.84375,1.5 -10.607715,5.90763 -8.893068,19.89497 -8.294646,30.18734 -0.02337,34.64562 -0.01845,69.29181 -0.01785,103.93766 117.895833,0 235.791666,0 353.687496,0 -1.36145,-42.95705 3.03863,-86.32174 -2.4375,-129 -3.74242,-5.59617 -10.79201,-6.88624 -17.09375,-6.625 z"
        id="rect6006"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       transform="matrix(0.76424907,0,0,1,-18.066729,0)" />
     <rect
-       transform="matrix(1.0743543,0,0,1.0977281,-12.218876,-45.649859)"
+       transform="matrix(0.82107428,0,0,1.0977281,-27.404993,-45.649859)"
        style="opacity:0.58407078;fill:#ffffff;fill-opacity:1;stroke:none;filter:url(#filter3803)"
        id="rect6047"
        width="369.70648"
        height="268.84473"
        x="-27.968199"
        y="502.78708" />
+    <text
+       xml:space="preserve"
+       style="font-size:240.56918335px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Pump Demi Bold LET;-inkscape-font-specification:Pump Demi Bold LET"
+       x="25.382574"
+       y="842.98505"
+       id="text3011"
+       sodipodi:linespacing="125%"
+       transform="scale(1.1800559,0.84741748)"><tspan
+         sodipodi:role="line"
+         id="tspan3013"
+         x="25.382574"
+         y="842.98505">?</tspan></text>
   </g>
 </svg>

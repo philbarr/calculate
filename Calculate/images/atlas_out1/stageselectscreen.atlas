@@ -10,6 +10,20 @@ stageselectscreenbackground
   orig: 600, 800
   offset: 0, 0
   index: -1
+buttonhelpup
+  rotate: false
+  xy: 603, 431
+  size: 370, 370
+  orig: 370, 370
+  offset: 0, 0
+  index: -1
+buttonhelpdown
+  rotate: false
+  xy: 603, 75
+  size: 356, 354
+  orig: 356, 354
+  offset: 0, 0
+  index: -1
 
 stageselectscreen2.png
 format: RGBA8888
@@ -22,6 +36,13 @@ dialogbackground
   orig: 489, 719
   offset: 0, 0
   index: -1
+buttondown
+  rotate: false
+  xy: 492, 373
+  size: 487, 370
+  orig: 487, 370
+  offset: 0, 0
+  index: -1
 buttondownunlocked
   rotate: false
   xy: 492, 373
@@ -29,14 +50,7 @@ buttondownunlocked
   orig: 487, 370
   offset: 0, 0
   index: -1
-buttonhelpdown
-  rotate: false
-  xy: 492, 373
-  size: 487, 370
-  orig: 487, 370
-  offset: 0, 0
-  index: -1
-buttonhelpup
+buttonup
   rotate: false
   xy: 492, 1
   size: 487, 370

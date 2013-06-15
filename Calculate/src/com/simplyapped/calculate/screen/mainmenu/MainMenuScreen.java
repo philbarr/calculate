@@ -48,7 +48,7 @@ public class MainMenuScreen extends DefaultScreen{
 	    // calculate width and heights for the table
 	    float emptyRowHeight = CalculateGame.SCREEN_HEIGHT / 30;
 	    float buttonHeight = CalculateGame.SCREEN_HEIGHT / 6;
-	    float buttonWidth = CalculateGame.SCREEN_WIDTH / 1.25f;
+	    float buttonWidth = CalculateGame.SCREEN_WIDTH / 1.5f;
 	    
 	    // buttons
 	    TextButton playMenu = new TextButton("PLAY", skin);

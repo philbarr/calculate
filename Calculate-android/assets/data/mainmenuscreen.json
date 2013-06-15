@@ -6,11 +6,12 @@
             downFontColor: { r: 0.003921569, g: 0.290196078, b: 0.345098039, a: 1 }
     },
     com.badlogic.gdx.graphics.g2d.BitmapFont: {
-            pump-font: { file: PumpDemiBoldLET.fnt }
+            pump-font: { file: PumpDemiBoldLET.fnt },
+            nina-font: { file: ninafont.fnt },
     },
     com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
             default: {
-                    font: pump-font, 
+                    font: nina-font, 
                     fontColor: white, 
                     downFontColor: white,
                     up: buttonup,

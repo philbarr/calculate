@@ -2,11 +2,12 @@ package com.simplyapped.calculate.screen.stageselect;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -59,7 +60,7 @@ public class StageSelectScreen extends DefaultScreen
 	    window.setY(0);
 	    window.debug();
 	    
-	    window.row().padTop(emptyRowHeight * 4);
+	    window.row().padTop(emptyRowHeight);
 	    for (int i = 1 ; i <= 10 ; i++)
 	    {
 	    	addButtonRow(window, i);
@@ -105,12 +106,19 @@ public class StageSelectScreen extends DefaultScreen
 	    		{
 	    			WindowStyle style = skin.get("dialog", WindowStyle.class);
 	    			Dialog dialog = new Dialog("", style);
-	    			dialog.setPosition(CalculateGame.SCREEN_WIDTH/2, CalculateGame.SCREEN_HEIGHT/2);
 	    			dialog.setSize(CalculateGame.SCREEN_WIDTH/1.3f, CalculateGame.SCREEN_HEIGHT/1.3f);
+	    			dialog.setPosition(((CalculateGame.SCREEN_WIDTH-dialog.getWidth())/2), ((CalculateGame.SCREEN_HEIGHT-dialog.getHeight())/2));
 	    			LabelStyle labelStyle = skin.get("dialog", LabelStyle.class);
-	    			labelStyle.font.setScale(0.6f);
+//	    			labelStyle.font.setScale(0.5f);
 					dialog.text("blah blah ablh", labelStyle);
-	    			
+//					FadeAction action = new FadeAction(); 
+							
+					MoveToAction action = new MoveToAction();
+					action.setDuration(2f);
+					action.setPosition(((CalculateGame.SCREEN_WIDTH-dialog.getWidth())/2), -10000);
+					action.setInterpolation(Interpolation.linear);
+	    			dialog.addAction(action);
+					
 	    			stage.addActor(dialog);
 	    		};
 	    	}
