@@ -123,8 +123,8 @@ public class StageSelectScreen extends DefaultScreen
 	    	}
 	    );
 	    
+	    table.add(levelButton).width(buttonWidth).height(buttonHeight).align(Align.left).padLeft(100);	    
 	    table.add(help).width(buttonHeight).height(buttonHeight).align(Align.left).padLeft(20);
-	    table.add(levelButton).width(buttonWidth).height(buttonHeight).align(Align.left).padLeft(-100);	    
 	    table.row().padTop(emptyRowHeight).expandX();
 	}
 
