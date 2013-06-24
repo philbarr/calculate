@@ -35,7 +35,7 @@ public class GameScreen extends DefaultScreen
 			{
 				if (keycode == Keys.BACK)
 				{
-					game.transitionTo(CalculateGame.MAIN_MENU_SCREEN, TransitionFixtures.UnderlapRight());
+					game.transitionTo(CalculateGame.STAGE_SELECT_SCREEN, TransitionFixtures.UnderlapRight());
 					return true;
 				}
 				return false;

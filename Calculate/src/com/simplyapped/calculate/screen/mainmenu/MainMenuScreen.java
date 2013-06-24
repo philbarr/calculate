@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -64,8 +65,11 @@ public class MainMenuScreen extends DefaultScreen{
 	    optionMenu.padBottom(CalculateGame.SCREEN_HEIGHT/30);
 	    TextButton tutorialMenu = new TextButton("Tutorial", skin);
 	    tutorialMenu.padBottom(CalculateGame.SCREEN_HEIGHT/30);
+	    Image titleImage = new Image(skin, "title");
 	    
-	    window.row().padTop(emptyRowHeight * 3);
+	    window.row();
+	    window.add(titleImage).pad(emptyRowHeight);
+	    window.row().padTop(emptyRowHeight * 4);
 	    window.add(playMenu).width(buttonWidth).height(buttonHeight);
 	    window.row().padTop(emptyRowHeight);
 	    window.add(optionMenu).width(buttonWidth).height(buttonHeight);
