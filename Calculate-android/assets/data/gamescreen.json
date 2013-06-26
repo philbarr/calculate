@@ -1,17 +1,21 @@
 {
 	com.badlogic.gdx.graphics.Color: {
-		upFontColor: { r: 1, g: 1, b: 1, a: 1},
-        upFontColor2: { r: 0.764705882, g: 0.917647059, b: 0.894117647, a: 1 },
-        downFontColor: { r: 0.003921569, g: 0.290196078, b: 0.345098039, a: 1 },
+		white: { r: 1, g: 1, b: 1, a: 1},
+		black: { r: 0.09, g: 0.09, b: 0.09, a: 1},
 	},
 	com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	        pump-font: { file: PumpDemiBoldLET.fnt },
 	        nina-font: { file: ninafont.fnt },
+	        liberation-font: { file: liberation.fnt },
 	},
 	com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
-		calc: {
-			font: pump-font,
-			fontColor: upFontColor,
-		}
+		calculation: {
+			font: liberation-font,
+			fontColor: black,
+		},
+		number: {
+			font: liberation-font,
+			fontColor: white,
+		},
 	}
 }

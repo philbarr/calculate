@@ -33,7 +33,6 @@ public abstract class DefaultScreen implements StagedScreen
 		    stage.act();
 		    stage.draw();
 	    }
-//	    Table.drawDebug(stage);
 	}
 
 	@Override

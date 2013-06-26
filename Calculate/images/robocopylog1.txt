@@ -3,7 +3,7 @@
    ROBOCOPY     ::     Robust File Copy for Windows                              
 -------------------------------------------------------------------------------
 
-  Started : Tue Jun 25 15:53:09 2013
+  Started : Wed Jun 26 23:46:20 2013
 
    Source : C:\Users\pbarr\git\Repository\Calculate\images\atlas_out1\
      Dest : C:\Users\pbarr\git\Repository\Calculate-android\assets\data\
@@ -19,7 +19,9 @@
 	  *EXTRA File 		   60585	bauhaus93.png
 	  *EXTRA File 		   11628	default.fnt
 	  *EXTRA File 		   24867	default.png
-	  *EXTRA File 		     526	gamescreen.json
+	  *EXTRA File 		     532	gamescreen.json
+	  *EXTRA File 		   11660	liberation.fnt
+	  *EXTRA File 		   15522	liberation.png
 	  *EXTRA File 		   54931	libgdx.png
 	  *EXTRA File 		     716	mainmenuscreen.json
 	  *EXTRA File 		   65523	mainmenuscreen3.png
@@ -32,8 +34,8 @@
 	  *EXTRA File 		    3088	uiskin.atlas
 	  *EXTRA File 		    2797	uiskin.json
 	  *EXTRA File 		   22779	uiskin.png
-	    Newer     		     410	gamescreen.atlas  0%  100%  
-	    Newer     		  653235	gamescreen.png  0%   40%   80%  100%  
+	    Newer     		     538	gamescreen.atlas  0%  100%  
+	    Newer     		  653554	gamescreen.png  0%   40%   80%  100%  
 	    Newer     		     550	mainmenuscreen.atlas  0%  100%  
 	    Newer     		  712219	mainmenuscreen.png  0%   36%   73%  100%  
 	    Newer     		   65523	mainmenuscreen2.png  0%  100%  
@@ -45,21 +47,21 @@
 
                Total    Copied   Skipped  Mismatch    FAILED    Extras
     Dirs :         1         0         1         0         0         0
-   Files :         8         8         0         0         0        17
-   Bytes :    2.12 m    2.12 m         0         0         0   496.3 k
+   Files :         8         8         0         0         0        19
+   Bytes :    2.12 m    2.12 m         0         0         0   522.8 k
    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
 
 
-   Speed :           171156153 Bytes/sec.
-   Speed :            9793.633 MegaBytes/min.
+   Speed :           171190538 Bytes/sec.
+   Speed :            9795.601 MegaBytes/min.
 
-   Ended : Tue Jun 25 15:53:09 2013
+   Ended : Wed Jun 26 23:46:20 2013
 
 -------------------------------------------------------------------------------
    ROBOCOPY     ::     Robust File Copy for Windows                              
 -------------------------------------------------------------------------------
 
-  Started : Tue Jun 25 15:53:09 2013
+  Started : Wed Jun 26 23:46:20 2013
 
    Source : C:\Users\pbarr\git\Repository\Calculate\images\original1\
      Dest : C:\Users\pbarr\git\Repository\Calculate-android\assets\data\
@@ -81,13 +83,13 @@
    Bytes :   101.5 k         0   101.5 k         0         0         0
    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
 
-   Ended : Tue Jun 25 15:53:09 2013
+   Ended : Wed Jun 26 23:46:20 2013
 
 -------------------------------------------------------------------------------
    ROBOCOPY     ::     Robust File Copy for Windows                              
 -------------------------------------------------------------------------------
 
-  Started : Tue Jun 25 15:53:09 2013
+  Started : Wed Jun 26 23:46:20 2013
 
    Source : C:\Users\pbarr\git\Repository\Calculate\images\original1\
      Dest : C:\Users\pbarr\git\Repository\Calculate-android\assets\data\
@@ -109,13 +111,41 @@
    Bytes :    56.1 k         0    56.1 k         0         0         0
    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
 
-   Ended : Tue Jun 25 15:53:09 2013
+   Ended : Wed Jun 26 23:46:20 2013
 
 -------------------------------------------------------------------------------
    ROBOCOPY     ::     Robust File Copy for Windows                              
 -------------------------------------------------------------------------------
 
-  Started : Tue Jun 25 15:53:09 2013
+  Started : Wed Jun 26 23:46:20 2013
+
+   Source : C:\Users\pbarr\git\Repository\Calculate\images\original1\
+     Dest : C:\Users\pbarr\git\Repository\Calculate-android\assets\data\
+
+    Files : liberation.fnt
+	    liberation.png
+	    
+  Options : /COPY:DAT /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                   2	C:\Users\pbarr\git\Repository\Calculate\images\original1\
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         1         0         1         0         0         0
+   Files :         2         0         2         0         0         0
+   Bytes :    26.5 k         0    26.5 k         0         0         0
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+   Ended : Wed Jun 26 23:46:20 2013
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Wed Jun 26 23:46:21 2013
 
    Source : C:\Users\pbarr\git\Repository\Calculate\images\original1\
      Dest : C:\Program Files (x86)\Inkscape\share\palettes\
@@ -136,4 +166,4 @@
    Bytes :       326         0       326         0         0         0
    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
 
-   Ended : Tue Jun 25 15:53:09 2013
+   Ended : Wed Jun 26 23:46:21 2013

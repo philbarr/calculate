@@ -25,3 +25,11 @@ calcbackground
   orig: 180, 187
   offset: 0, 0
   index: -1
+numberbackground
+  rotate: false
+  xy: 603, 618
+  size: 50, 50
+  split: 10, 9, 10, 10
+  orig: 50, 50
+  offset: 0, 0
+  index: -1

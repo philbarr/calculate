@@ -5,5 +5,6 @@ java -cp %LIBGDX%\gdx.jar;%LIBGDX%\extensions\gdx-tools.jar com.badlogic.gdx.too
 robocopy atlas_out1 ..\..\Calculate-android\assets\data /LOG:robocopylog1.txt
 robocopy original1 ..\..\Calculate-android\assets\data PumpDemiBoldLET.fnt PumpDemiBoldLET.png /LOG+:robocopylog1.txt
 robocopy original1 ..\..\Calculate-android\assets\data ninafont.fnt ninafont.png /LOG+:robocopylog1.txt
+robocopy original1 ..\..\Calculate-android\assets\data liberation.fnt liberation.png /LOG+:robocopylog1.txt
 robocopy original1 "C:\Program Files (x86)\Inkscape\share\palettes" calculatepalette1.gpl /LOG+:robocopylog1.txt
 pause
