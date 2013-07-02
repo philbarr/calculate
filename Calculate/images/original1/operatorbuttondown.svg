@@ -16,8 +16,8 @@
    id="svg2985"
    version="1.1"
    inkscape:version="0.48.2 r9819"
-   sodipodi:docname="numberbackground.svg"
-   inkscape:export-filename="C:\Users\pbarr\git\Repository\Calculate\images\game_screen_atlas_src1\numberbackground.png"
+   sodipodi:docname="operatorbuttondown.svg"
+   inkscape:export-filename="C:\Users\pbarr\git\Repository\Calculate\images\game_screen_atlas_src1\operatorbuttondown.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -109,7 +109,7 @@
        inkscape:connector-curvature="0"
        transform="matrix(0.11904762,0,0,0.11904762,-25.371429,459.59973)" />
     <rect
-       style="fill:#006afe;fill-opacity:1;stroke:none"
+       style="fill:#dfe6e8;fill-opacity:1;stroke:none"
        id="rect2993"
        width="57.142857"
        height="57.142857"

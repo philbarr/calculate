@@ -17,5 +17,23 @@
 			font: liberation-font,
 			fontColor: white,
 		},
-	}
+	},
+	com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+            plus: {
+                    up: operatorbuttonupplus,
+                    down: operatorbuttondownplus,
+            },
+            minus: {
+                    up: operatorbuttonupminus,
+                    down: operatorbuttondownminus,
+            },
+            divide: {
+                    up: operatorbuttonupdivide,
+                    down: operatorbuttondowndivide,
+            },
+            multiply: {
+                    up: operatorbuttonupmultiply,
+                    down: operatorbuttondownmultiply,
+            },
+    }
 }

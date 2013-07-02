@@ -27,7 +27,70 @@ calcbackground
   index: -1
 numberbackground
   rotate: false
-  xy: 603, 618
+  xy: 603, 604
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+operatorbuttondowndivide
+  rotate: false
+  xy: 765, 926
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+operatorbuttondownminus
+  rotate: false
+  xy: 183, 124
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+operatorbuttondownmultiply
+  rotate: false
+  xy: 603, 538
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+operatorbuttondownplus
+  rotate: false
+  xy: 669, 604
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+operatorbuttonupdivide
+  rotate: false
+  xy: 765, 860
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+operatorbuttonupminus
+  rotate: false
+  xy: 831, 926
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+operatorbuttonupmultiply
+  rotate: false
+  xy: 183, 58
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+operatorbuttonupplus
+  rotate: false
+  xy: 249, 124
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+numberbackground
+  rotate: false
+  xy: 603, 486
   size: 50, 50
   split: 10, 9, 10, 10
   orig: 50, 50

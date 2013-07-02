@@ -49,9 +49,9 @@ public enum Operator implements EquationElement
 		case MINUS:
 			return "-";
 		case DIVIDE:
-			return "/";
+			return "%";
 		case MULTIPLY:
-			return "*";
+			return "X";
 		}
 		return "";
 	}
