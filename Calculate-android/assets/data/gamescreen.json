@@ -2,6 +2,12 @@
 	com.badlogic.gdx.graphics.Color: {
 		white: { r: 1, g: 1, b: 1, a: 1},
 		black: { r: 0.09, g: 0.09, b: 0.09, a: 1},
+		red: { r: 1, g: 0.09, b: 0.09, a: 0.8 },
+		redOn: { r: 1, g: 0.09, b: 0.09, a: 1 },
+		grey: {r: 0.5, g: 0.5, b: 0.5, a: 0.8},
+		greyOn: {r: 0.5, g: 0.5, b: 0.5, a: 1},
+		blue: {r: 0.156, g: 0.552, b: 0.179, a: 0.8},
+		blueOn: {r: 0.156, g: 0.552, b: 0.179, a: 1},
 	},
 	com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	        pump-font: { file: PumpDemiBoldLET.fnt },
@@ -9,31 +15,29 @@
 	        liberation-font: { file: liberation.fnt },
 	},
 	com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
-		calculation: {
-			font: liberation-font,
-			fontColor: black,
-		},
-		number: {
+	    calculation: {
+	      font: liberation-font,
+	      fontColor: black,
+	    }
+	},
+    com.simplyapped.libgdx.ext.scene2d.FlatUIButton$FlatUIButtonStyle: {
+      operator: {
 			font: liberation-font,
 			fontColor: white,
-		},
-	},
-	com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
-            plus: {
-                    up: operatorbuttonupplus,
-                    down: operatorbuttondownplus,
-            },
-            minus: {
-                    up: operatorbuttonupminus,
-                    down: operatorbuttondownminus,
-            },
-            divide: {
-                    up: operatorbuttonupdivide,
-                    down: operatorbuttondowndivide,
-            },
-            multiply: {
-                    up: operatorbuttonupmultiply,
-                    down: operatorbuttondownmultiply,
-            },
+			backgroundColor: grey,
+			backgroundPressedColor: greyOn,
+	  },
+	  ce: {
+			font: liberation-font,
+			fontColor: white,
+			backgroundColor: red,
+			backgroundPressedColor: redOn,
+	  },
+	  number: {
+			font: liberation-font,
+			fontColor: white,
+			backgroundColor: blue,
+			backgroundPressedColor: blueOn,
+	  },
     }
 }
