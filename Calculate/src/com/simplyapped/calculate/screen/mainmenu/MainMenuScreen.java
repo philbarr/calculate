@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
+import com.simplyapped.libgdx.ext.scene2d.FlatUIButton;
 import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
 public class MainMenuScreen extends DefaultScreen{
@@ -32,7 +34,7 @@ public class MainMenuScreen extends DefaultScreen{
 			@Override
 			public boolean keyDown(InputEvent event, int keycode)
 			{
-				if (keycode == Keys.BACK)
+				if (keycode == Keys.BACK || keycode == Keys.BACKSPACE)
 				{
 					Gdx.app.exit();
 				}
@@ -47,12 +49,12 @@ public class MainMenuScreen extends DefaultScreen{
 	    window.debug();
 	    
 	    // calculate width and heights for the table
-	    float emptyRowHeight = CalculateGame.SCREEN_HEIGHT / 30;
-	    float buttonHeight = CalculateGame.SCREEN_HEIGHT / 6;
-	    float buttonWidth = CalculateGame.SCREEN_WIDTH / 1.5f;
+	    float emptyRowHeight = CalculateGame.SCREEN_HEIGHT / 17;
+	    float buttonHeight = CalculateGame.SCREEN_HEIGHT / 7;
+	    float buttonWidth = CalculateGame.SCREEN_WIDTH / 2f;
 	    
 	    // buttons
-	    TextButton playMenu = new TextButton("PLAY", skin);
+	    Button playMenu = new FlatUIButton("PLAY", skin, "play");
 	    playMenu.addListener(new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y)
@@ -60,25 +62,16 @@ public class MainMenuScreen extends DefaultScreen{
 	        	game.transitionTo(CalculateGame.STAGE_SELECT_SCREEN, TransitionFixtures.OverlapLeft());
 	        }
 	    });
-	    playMenu.padBottom(CalculateGame.SCREEN_HEIGHT/30);
-	    TextButton optionMenu = new TextButton("Options", skin);
-	    optionMenu.padBottom(CalculateGame.SCREEN_HEIGHT/30);
-	    TextButton tutorialMenu = new TextButton("Tutorial", skin);
-	    tutorialMenu.padBottom(CalculateGame.SCREEN_HEIGHT/30);
-	    Image titleImage = new Image(skin, "title");
-	    
+//	    playMenu.padBottom(CalculateGame.SCREEN_HEIGHT/30);
+	    playMenu.setSize(buttonWidth, buttonHeight);
+	    playMenu.setPosition(CalculateGame.SCREEN_WIDTH/2-playMenu.getWidth()/2, emptyRowHeight);
 	    window.row();
-	    window.add(titleImage).pad(emptyRowHeight);
-	    window.row().padTop(emptyRowHeight * 4);
-	    window.add(playMenu).width(buttonWidth).height(buttonHeight);
-	    window.row().padTop(emptyRowHeight);
-	    window.add(optionMenu).width(buttonWidth).height(buttonHeight);
-	    window.row().padTop(emptyRowHeight);
-	    window.add(tutorialMenu).width(buttonWidth).height(buttonHeight);
-	    window.row().padTop(emptyRowHeight);
+	    
 	    window.setBackground(skin.getDrawable("mainmenubackground"));
 	    
 	    stage.addActor(window);
+	    stage.addActor(playMenu);
+	    
 	    Gdx.input.setInputProcessor(stage);
 	    Gdx.input.setCatchBackKey(true);
 	}

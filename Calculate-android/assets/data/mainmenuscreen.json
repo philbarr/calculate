@@ -1,21 +1,21 @@
 {
 
     com.badlogic.gdx.graphics.Color: {
-    		white: { r: 1, g: 1, b: 1, a: 1},
-            upFontColor: { r: 0.764705882, g: 0.917647059, b: 0.894117647, a: 1 },
-            downFontColor: { r: 0.003921569, g: 0.290196078, b: 0.345098039, a: 1 }
+    		white: { r: 1, g: 1, b:1, a: 1},
+    		red: { r: 0.9, g: 0, b: 0, a: 0.8},
+    		redOn: { r: 0.9, g: 0, b: 0, a: 1},
     },
     com.badlogic.gdx.graphics.g2d.BitmapFont: {
             pump-font: { file: PumpDemiBoldLET.fnt },
             nina-font: { file: ninafont.fnt },
+	        liberation-font: { file: liberation.fnt },
     },
-    com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
-            default: {
-                    font: nina-font, 
-                    fontColor: white, 
-                    downFontColor: white,
-                    up: buttonup,
-                    down: buttondown,
-            }
+    com.simplyapped.libgdx.ext.scene2d.FlatUIButton$FlatUIButtonStyle: {
+        play: {
+  			font: liberation-font,
+  			fontColor: white,
+  			backgroundColor: red,
+  			backgroundPressedColor: redOn,
+  	  	},
     }
 }

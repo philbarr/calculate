@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Interpolation;
 
 public class TransitionFixtures
 {
-	private static float duration = 1f;
+	private static float duration = 0.7f;
 	private static Interpolation interpolation = Interpolation.pow5;
 	
 	

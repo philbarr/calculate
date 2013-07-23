@@ -1,48 +1,45 @@
 {
 
     com.badlogic.gdx.graphics.Color: {
-    		upFontColor: { r: 1, g: 1, b: 1, a: 1},
-            upFontColor2: { r: 0.764705882, g: 0.917647059, b: 0.894117647, a: 1 },
-            downFontColor: { r: 0.003921569, g: 0.290196078, b: 0.345098039, a: 1 },
+    		white: { r: 1, g: 1, b:1, a: 1},
+            red: { r: 0.9, g: 0, b: 0, a: 0.8},
+    		redOn: { r: 0.9, g: 0, b: 0, a: 1},
     },
     com.badlogic.gdx.graphics.g2d.BitmapFont: {
             pump-font: { file: PumpDemiBoldLET.fnt },
             nina-font: { file: ninafont.fnt },
+            liberation-font: { file: liberation.fnt },
     },
-    com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
-            default: {
-                    font: nina-font, 
-                    fontColor: upFontColor, 
-                    downFontColor: downFontColor,
-                    up: buttonupunlocked,
-                    down: buttondownunlocked,
-            },
-            
-            disabled: {
-            	font: nina-font, 
-                fontColor: downFontColor, 
-                downFontColor: downFontColor,
-                up: buttonuplocked,
-                down: buttonuplocked,
-            }
-    },
-    com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
-		    help: {
-	            up: buttonhelpup,
-	            down: buttonhelpdown,
-		    }
-    },
-    com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
-			dialog: {
-				background: dialogbackground,
-				titleFont: nina-font,
-				titleFontColor: upFontColor,
-			}
-    },
-    com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
-    		dialog: {
-    			font: nina-font,
-				fontColor: upFontColor,
-    		}
+    com.simplyapped.libgdx.ext.scene2d.FlatUIButton$FlatUIButtonStyle: {
+        l1: {
+  			font: liberation-font,
+  			fontColor: white,
+  			backgroundColor: red,
+  			backgroundPressedColor: redOn,
+  	  	},
+  	  	l2: {
+  			font: liberation-font,
+  			fontColor: white,
+  			backgroundColor: red,
+  			backgroundPressedColor: redOn,
+  	  	},
+  	  	l3: {
+  			font: liberation-font,
+  			fontColor: white,
+  			backgroundColor: red,
+  			backgroundPressedColor: redOn,
+  	  	},
+  	  	l4: {
+  			font: liberation-font,
+  			fontColor: white,
+  			backgroundColor: red,
+  			backgroundPressedColor: redOn,
+  	  	},
+  	  	l5: {
+  			font: liberation-font,
+  			fontColor: white,
+  			backgroundColor: red,
+  			backgroundPressedColor: redOn,
+  	  	},
     }
 }

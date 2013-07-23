@@ -19,6 +19,7 @@ import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
+import com.simplyapped.libgdx.ext.scene2d.FlatUIButton;
 import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
 public class StageSelectScreen extends DefaultScreen
@@ -45,7 +46,7 @@ public class StageSelectScreen extends DefaultScreen
 			@Override
 			public boolean keyDown(InputEvent event, int keycode)
 			{
-				if (keycode == Keys.BACK)
+				if (keycode == Keys.BACK || keycode == Keys.BACKSPACE)
 				{
 					game.transitionTo(CalculateGame.MAIN_MENU_SCREEN, TransitionFixtures.UnderlapRight());
 					return true;
@@ -77,9 +78,9 @@ public class StageSelectScreen extends DefaultScreen
 	{
 		// buttons
 		TextButton levelButton;
-		if (level <= GameStateFactory.getInstance().getMaximumAchievedLevel())
+		if (true)//(level <= GameStateFactory.getInstance().getMaximumAchievedLevel())
 	    {
-			levelButton = new TextButton("Stage " + level, skin);
+			levelButton = new FlatUIButton("Stage " + level, skin, "l1");
 		    levelButton.addListener(new ClickListener() {
 		        @Override
 		        public void clicked(InputEvent event, float x, float y)
@@ -99,6 +100,7 @@ public class StageSelectScreen extends DefaultScreen
 	    levelButton.padBottom(10);
 	    levelButton.padLeft(20);
 	    
+	    /*
 	    Button help = new Button(skin, "help");
 	    help.addListener(new ClickListener()
 	    	{
@@ -122,9 +124,9 @@ public class StageSelectScreen extends DefaultScreen
 	    		};
 	    	}
 	    );
-	    
+	    */
 	    table.add(levelButton).width(buttonWidth).height(buttonHeight).align(Align.left).padLeft(100);	    
-	    table.add(help).width(buttonHeight).height(buttonHeight).align(Align.left).padLeft(20);
+	//    table.add(help).width(buttonHeight).height(buttonHeight).align(Align.left).padLeft(20);
 	    table.row().padTop(emptyRowHeight).expandX();
 	}
 

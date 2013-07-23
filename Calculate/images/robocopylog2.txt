@@ -1,0 +1,170 @@
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Tue Jul 23 22:43:54 2013
+
+   Source : C:\Users\pbarr\git\Repository\Calculate\images\atlas_out2\
+     Dest : C:\Users\pbarr\git\Repository\Calculate-android\assets\data\
+
+    Files : *.*
+	    
+  Options : *.* /COPY:DAT /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                   6	C:\Users\pbarr\git\Repository\Calculate\images\atlas_out2\
+	  *EXTRA File 		   11669	bauhaus93.fnt
+	  *EXTRA File 		   60585	bauhaus93.png
+	  *EXTRA File 		   11628	default.fnt
+	  *EXTRA File 		   24867	default.png
+	  *EXTRA File 		    1229	gamescreen.json
+	  *EXTRA File 		   11660	liberation.fnt
+	  *EXTRA File 		   15522	liberation.png
+	  *EXTRA File 		   54931	libgdx.png
+	  *EXTRA File 		     599	mainmenuscreen.json
+	  *EXTRA File 		   65523	mainmenuscreen2.png
+	  *EXTRA File 		   65523	mainmenuscreen3.png
+	  *EXTRA File 		   11710	ninafont.fnt
+	  *EXTRA File 		   45785	ninafont.png
+	  *EXTRA File 		   10497	PumpDemiBoldLET.fnt
+	  *EXTRA File 		   93527	PumpDemiBoldLET.png
+	  *EXTRA File 		    1190	stageselectscreen.json
+	  *EXTRA File 		   86100	stageselectscreen2.png
+	  *EXTRA File 		   86100	stageselectscreen3.png
+	  *EXTRA File 		    3088	uiskin.atlas
+	  *EXTRA File 		    2797	uiskin.json
+	  *EXTRA File 		   22779	uiskin.png
+	    Newer     		     412	gamescreen.atlas  0%  100%  
+	    Newer     		  149805	gamescreen.png  0%   87%  100%  
+	    Newer     		     181	mainmenuscreen.atlas  0%  100%  
+	    Newer     		  288265	mainmenuscreen.png  0%   45%   90%  100%  
+	    Newer     		     193	stageselectscreen.atlas  0%  100%  
+	    Newer     		  141922	stageselectscreen.png  0%   92%  100%  
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         1         0         1         0         0         0
+   Files :         6         6         0         0         0        21
+   Bytes :   567.1 k   567.1 k         0         0         0   671.2 k
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+
+   Speed :            32265444 Bytes/sec.
+   Speed :            1846.243 MegaBytes/min.
+
+   Ended : Tue Jul 23 22:43:54 2013
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Tue Jul 23 22:43:54 2013
+
+   Source : C:\Users\pbarr\git\Repository\Calculate\images\original2\
+     Dest : C:\Users\pbarr\git\Repository\Calculate-android\assets\data\
+
+    Files : PumpDemiBoldLET.fnt
+	    PumpDemiBoldLET.png
+	    
+  Options : /COPY:DAT /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                   2	C:\Users\pbarr\git\Repository\Calculate\images\original2\
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         1         0         1         0         0         0
+   Files :         2         0         2         0         0         0
+   Bytes :   101.5 k         0   101.5 k         0         0         0
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+   Ended : Tue Jul 23 22:43:54 2013
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Tue Jul 23 22:43:54 2013
+
+   Source : C:\Users\pbarr\git\Repository\Calculate\images\original2\
+     Dest : C:\Users\pbarr\git\Repository\Calculate-android\assets\data\
+
+    Files : ninafont.fnt
+	    ninafont.png
+	    
+  Options : /COPY:DAT /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                   2	C:\Users\pbarr\git\Repository\Calculate\images\original2\
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         1         0         1         0         0         0
+   Files :         2         0         2         0         0         0
+   Bytes :    56.1 k         0    56.1 k         0         0         0
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+   Ended : Tue Jul 23 22:43:54 2013
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Tue Jul 23 22:43:54 2013
+
+   Source : C:\Users\pbarr\git\Repository\Calculate\images\original2\
+     Dest : C:\Users\pbarr\git\Repository\Calculate-android\assets\data\
+
+    Files : liberation.fnt
+	    liberation.png
+	    
+  Options : /COPY:DAT /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                   2	C:\Users\pbarr\git\Repository\Calculate\images\original2\
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         1         0         1         0         0         0
+   Files :         2         0         2         0         0         0
+   Bytes :    26.5 k         0    26.5 k         0         0         0
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+   Ended : Tue Jul 23 22:43:54 2013
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Tue Jul 23 22:43:54 2013
+
+   Source : C:\Users\pbarr\git\Repository\Calculate\images\original2\
+     Dest : C:\Program Files (x86)\Inkscape\share\palettes\
+
+    Files : calculatepalette1.gpl
+	    
+  Options : /COPY:DAT /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                   0	C:\Users\pbarr\git\Repository\Calculate\images\original2\
+	  *EXTRA File 		     326	calculatepalette1.gpl
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         1         0         1         0         0         0
+   Files :         0         0         0         0         0         1
+   Bytes :         0         0         0         0         0       326
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+   Ended : Tue Jul 23 22:43:54 2013
