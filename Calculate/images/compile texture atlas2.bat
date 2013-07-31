@@ -7,4 +7,5 @@ robocopy original2 ..\..\Calculate-android\assets\data PumpDemiBoldLET.fnt PumpD
 robocopy original2 ..\..\Calculate-android\assets\data ninafont.fnt ninafont.png /LOG+:robocopylog2.txt
 robocopy original2 ..\..\Calculate-android\assets\data liberation.fnt liberation.png /LOG+:robocopylog2.txt
 robocopy original2 "C:\Program Files (x86)\Inkscape\share\palettes" calculatepalette1.gpl /LOG+:robocopylog2.txt
+robocopy original2 ..\..\Calculate-android\res\drawable-mdpi icon48x48.png /LOG+:robocopylog2.txt
 pause

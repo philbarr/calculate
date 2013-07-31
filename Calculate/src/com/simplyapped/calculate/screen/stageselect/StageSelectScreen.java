@@ -2,19 +2,19 @@ package com.simplyapped.calculate.screen.stageselect;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.AlphaAction;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.libgdx.ext.DefaultGame;
@@ -29,8 +29,7 @@ public class StageSelectScreen extends DefaultScreen
 	
     // calculate width and heights for the table
     float emptyRowHeight = CalculateGame.SCREEN_HEIGHT / 72;
-    float buttonHeight = CalculateGame.SCREEN_HEIGHT / 13;
-    float buttonWidth = CalculateGame.SCREEN_WIDTH / 1.8f;
+    float buttonSize = CalculateGame.SCREEN_HEIGHT / 7;
 
 	public StageSelectScreen(DefaultGame game)
 	{
@@ -62,10 +61,16 @@ public class StageSelectScreen extends DefaultScreen
 	    window.debug();
 	    
 	    window.row().padTop(emptyRowHeight);
+	    Table stageTable = new Table();
+	    stageTable.setWidth(CalculateGame.SCREEN_WIDTH);
 	    for (int i = 1 ; i <= 10 ; i++)
 	    {
-	    	addButtonRow(window, i);
+	    	addButtonRow(stageTable, i);
 	    }
+	    
+	    ScrollPane pane = new ScrollPane(stageTable);
+	    pane.setWidth(CalculateGame.SCREEN_WIDTH);
+	    window.add(pane);
 	    window.row().padBottom(emptyRowHeight * 6);
 	    
 	    window.setBackground(skin.getDrawable("stageselectscreenbackground"));
@@ -80,7 +85,7 @@ public class StageSelectScreen extends DefaultScreen
 		TextButton levelButton;
 		if (true)//(level <= GameStateFactory.getInstance().getMaximumAchievedLevel())
 	    {
-			levelButton = new FlatUIButton("Stage " + level, skin, "l1");
+			levelButton = new FlatUIButton("" + level, skin, "l" + level);
 		    levelButton.addListener(new ClickListener() {
 		        @Override
 		        public void clicked(InputEvent event, float x, float y)
@@ -95,10 +100,7 @@ public class StageSelectScreen extends DefaultScreen
 	    	levelButton = new TextButton("Stage " + level, skin, "disabled");
 	    	levelButton.setDisabled(true);
 	    }
-	    levelButton.getLabel().setFontScale(0.6f);
-	    levelButton.align(Align.left);
-	    levelButton.padBottom(10);
-	    levelButton.padLeft(20);
+	    levelButton.getLabel().setFontScale(1.5f);
 	    
 	    /*
 	    Button help = new Button(skin, "help");
@@ -125,9 +127,36 @@ public class StageSelectScreen extends DefaultScreen
 	    	}
 	    );
 	    */
-	    table.add(levelButton).width(buttonWidth).height(buttonHeight).align(Align.left).padLeft(100);	    
-	//    table.add(help).width(buttonHeight).height(buttonHeight).align(Align.left).padLeft(20);
+	    table.add(levelButton).width(buttonSize).height(buttonSize).align(Align.left).expandX().padLeft(0f).padRight(20f);	
+	    
+	    Table details = new Table(skin);
+	    details.add("Attempts: ", "details").align(Align.left);
+	    details.add("1", "details").align(Align.right);
+	    details.row();
+	    details.add("Completed: ", "details").align(Align.left);
+	    details.add("1", "details").align(Align.right);
+	    details.setBackground(getDetailsBackground());
+	    details.pad(15f);
+	    table.add(details);
 	    table.row().padTop(emptyRowHeight).expandX();
+	    table.debug();
 	}
 
+	private TextureRegionDrawable getDetailsBackground()
+	{
+		Pixmap pix = new Pixmap(1,1,Format.RGBA4444);
+		pix.setColor(0.2f,0.2f,0.2f,0.8f);
+		pix.fill();
+		Texture texture = new Texture(pix);
+		TextureRegionDrawable trd = new TextureRegionDrawable(new TextureRegion(texture));
+		return trd;
+	}
+
+	@Override
+	public void render(float delta)
+	{
+		// TODO Auto-generated method stub
+		super.render(delta);
+//		Table.drawDebug(stage);
+	}
 }
