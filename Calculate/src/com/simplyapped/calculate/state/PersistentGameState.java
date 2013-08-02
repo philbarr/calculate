@@ -4,31 +4,9 @@ public class PersistentGameState implements GameState
 {
 
 	@Override
-	public int getSelectedLevel()
+	public LevelDetails getLevelDetails(int level)
 	{
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
-
-	@Override
-	public void setSelectedLevel(int selectedLevel)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public int getMaximumAchievedLevel()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setMaximumAchievedLevel(int maximumAchievedLevel)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
 }

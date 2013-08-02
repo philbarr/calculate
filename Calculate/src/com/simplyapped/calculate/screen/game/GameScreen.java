@@ -89,9 +89,20 @@ public class GameScreen extends DefaultScreen
 	    operatorsTable.setPosition(CalculateGame.SCREEN_WIDTH/2 - panelwidth/2, CalculateGame.SCREEN_HEIGHT - CalculateGame.SCREEN_HEIGHT/1.8f);
 	    operatorsTable.setBackground(new TextureRegionDrawable(new TextureRegion(texture)));
 //	    operatorsTable.debug();
+	    
+	    Table operandsTable = new Table();
+	    operandsTable.row();
+	    operandsTable.add(new FlatUIButton("23", skin, "operand"));
+	    operandsTable.add(new FlatUIButton("24", skin, "operand"));
+	    operandsTable.add(new FlatUIButton("23", skin, "operand"));
+	    operandsTable.setWidth(panelwidth);
+	    operandsTable.setPosition(CalculateGame.SCREEN_WIDTH/2 - panelwidth/2, CalculateGame.SCREEN_HEIGHT - CalculateGame.SCREEN_HEIGHT/1.1f);
+	    operandsTable.setBackground(new TextureRegionDrawable(new TextureRegion(texture)));
+	    
 	    window.setBackground(skin.getDrawable("gamescreenbackground"));
 	    stage.addActor(window);
 	    stage.addActor(calculationPane);
+	    stage.addActor(operandsTable);
 	    stage.addActor(operatorsTable);
 	    
 	    drawCalculationTable();

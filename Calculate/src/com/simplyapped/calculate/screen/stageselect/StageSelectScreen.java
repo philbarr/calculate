@@ -6,17 +6,24 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.AlphaAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.calculate.state.GameStateFactory;
+import com.simplyapped.calculate.state.LevelDetails;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
 import com.simplyapped.libgdx.ext.scene2d.FlatUIButton;
@@ -72,7 +79,6 @@ public class StageSelectScreen extends DefaultScreen
 	    pane.setWidth(CalculateGame.SCREEN_WIDTH);
 	    window.add(pane);
 	    window.row().padBottom(emptyRowHeight * 6);
-	    
 	    window.setBackground(skin.getDrawable("stageselectscreenbackground"));
 	    stage.addActor(window);
 	    Gdx.input.setInputProcessor(stage);
@@ -83,63 +89,68 @@ public class StageSelectScreen extends DefaultScreen
 	{
 		// buttons
 		TextButton levelButton;
-		if (true)//(level <= GameStateFactory.getInstance().getMaximumAchievedLevel())
+		levelButton = new FlatUIButton("" + level, skin, "l" + level);
+	    levelButton.addListener(new ClickListener() {
+	        @Override
+	        public void clicked(InputEvent event, float x, float y)
+	        {
+    			WindowStyle style = skin.get("dialog", WindowStyle.class);
+    			Dialog dialog = new Dialog("", style);
+    			dialog.setSize(CalculateGame.SCREEN_WIDTH/1.3f, CalculateGame.SCREEN_HEIGHT/1.3f);
+    			dialog.setPosition(((CalculateGame.SCREEN_WIDTH-dialog.getWidth())/2), ((CalculateGame.SCREEN_HEIGHT-dialog.getHeight())/2));
+    			LabelStyle labelStyle = skin.get("dialog", LabelStyle.class);
+				dialog.text("blah blah ablh", labelStyle);
+				
+				AlphaAction action = new AlphaAction();
+				action.setDuration(1f);
+				action.setReverse(true);
+				action.setInterpolation(Interpolation.pow5);
+    			dialog.addAction(action);
+				
+    			stage.addActor(dialog);
+	        	game.transitionTo(CalculateGame.GAME_SCREEN, TransitionFixtures.OverlapLeft());
+	        }
+	    });
+	    levelButton.getLabel().setFontScale(1.5f);
+	    
+	    table.add(levelButton).width(buttonSize).height(buttonSize).align(Align.left).expandX().padLeft(0f).padRight(20f);	
+	    table.add(createDetailsTable(level)).expandX().fill();
+	    
+	    table.row().padTop(emptyRowHeight).expandX();
+	    table.debug();
+	}
+
+	private Table createDetailsTable(int level)
+	{
+		LevelDetails levelDetails = GameStateFactory.getInstance().getLevelDetails(level);
+		Table details = new Table(skin);
+	    float fontScale = 0.7f;
+	    
+	    if ((levelDetails.isLocked()))
 	    {
-			levelButton = new FlatUIButton("" + level, skin, "l" + level);
-		    levelButton.addListener(new ClickListener() {
-		        @Override
-		        public void clicked(InputEvent event, float x, float y)
-		        {
-		        	GameStateFactory.getInstance().setSelectedLevel(level);
-		        	game.transitionTo(CalculateGame.GAME_SCREEN, TransitionFixtures.OverlapLeft());
-		        }
-		    });
+	    	Label locked = new Label("Locked", skin, "details");
+	    	details.add(locked).align(Align.center);
 	    }
 	    else
 	    {
-	    	levelButton = new TextButton("Stage " + level, skin, "disabled");
-	    	levelButton.setDisabled(true);
+	    	Label attempts = new Label("Attempts: ", skin, "details");
+			Label attemptsVal = new Label(levelDetails.getAttempts() +"", skin, "details");
+	    	attempts.setFontScale(fontScale);
+	    	attemptsVal.setFontScale(fontScale);
+	    	details.add(attempts).align(Align.left);
+	    	details.add(attemptsVal).align(Align.right);
+	    	details.row();
+	    	Label completed = new Label("Completed: ", skin, "details");
+	    	Label completedVal = new Label("1", skin, "details");
+	    	completed.setFontScale(fontScale);
+	    	completedVal.setFontScale(fontScale);
+	    	details.add(completed).align(Align.left);
+	    	details.add(completedVal).align(Align.right);
 	    }
-	    levelButton.getLabel().setFontScale(1.5f);
-	    
-	    /*
-	    Button help = new Button(skin, "help");
-	    help.addListener(new ClickListener()
-	    	{
-	    		public void clicked(InputEvent event, float x, float y) 
-	    		{
-	    			WindowStyle style = skin.get("dialog", WindowStyle.class);
-	    			Dialog dialog = new Dialog("", style);
-	    			dialog.setSize(CalculateGame.SCREEN_WIDTH/1.3f, CalculateGame.SCREEN_HEIGHT/1.3f);
-	    			dialog.setPosition(((CalculateGame.SCREEN_WIDTH-dialog.getWidth())/2), ((CalculateGame.SCREEN_HEIGHT-dialog.getHeight())/2));
-	    			LabelStyle labelStyle = skin.get("dialog", LabelStyle.class);
-//	    			labelStyle.font.setScale(0.5f);
-					dialog.text("blah blah ablh", labelStyle);
-							
-					AlphaAction action = new AlphaAction();
-					action.setDuration(1f);
-					action.setReverse(true);
-					action.setInterpolation(Interpolation.pow5);
-	    			dialog.addAction(action);
-					
-	    			stage.addActor(dialog);
-	    		};
-	    	}
-	    );
-	    */
-	    table.add(levelButton).width(buttonSize).height(buttonSize).align(Align.left).expandX().padLeft(0f).padRight(20f);	
-	    
-	    Table details = new Table(skin);
-	    details.add("Attempts: ", "details").align(Align.left);
-	    details.add("1", "details").align(Align.right);
-	    details.row();
-	    details.add("Completed: ", "details").align(Align.left);
-	    details.add("1", "details").align(Align.right);
 	    details.setBackground(getDetailsBackground());
-	    details.pad(15f);
-	    table.add(details);
-	    table.row().padTop(emptyRowHeight).expandX();
-	    table.debug();
+	    details.pad(15f);	   
+	    
+		return details;
 	}
 
 	private TextureRegionDrawable getDetailsBackground()
@@ -157,6 +168,6 @@ public class StageSelectScreen extends DefaultScreen
 	{
 		// TODO Auto-generated method stub
 		super.render(delta);
-//		Table.drawDebug(stage);
+		Table.drawDebug(stage);
 	}
 }

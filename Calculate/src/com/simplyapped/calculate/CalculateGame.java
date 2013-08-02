@@ -5,6 +5,7 @@ import com.simplyapped.calculate.screen.game.GameScreen;
 import com.simplyapped.calculate.screen.mainmenu.MainMenuScreen;
 import com.simplyapped.calculate.screen.stageselect.StageSelectScreen;
 import com.simplyapped.calculate.state.GameStateFactory;
+import com.simplyapped.calculate.state.LevelDetails;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
 
@@ -18,7 +19,8 @@ public class CalculateGame extends DefaultGame {
 	
 	@Override
 	public void create() {
-		GameStateFactory.getInstance().setMaximumAchievedLevel(3);
+		LevelDetails levelDetails = GameStateFactory.getInstance().getLevelDetails(1);
+		levelDetails.setLocked(false);
 		
 		TransitionFixtures.setInterpolation(Interpolation.pow5);
 		

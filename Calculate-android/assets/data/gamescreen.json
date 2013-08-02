@@ -21,6 +21,12 @@
 	    }
 	},
     com.simplyapped.libgdx.ext.scene2d.FlatUIButton$FlatUIButtonStyle: {
+      operand: {
+			font: liberation-font,
+			fontColor: white,
+			backgroundColor: blue,
+			backgroundPressedColor: blueOn,
+	  },
       operator: {
 			font: liberation-font,
 			fontColor: white,

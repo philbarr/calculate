@@ -1,44 +1,22 @@
 package com.simplyapped.calculate.state;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class InMemoryGameState implements GameState
 {
-	private int selectedLevel;
-	private int maximumAchievedLevel;
+	private Map<Integer, LevelDetails> details = new HashMap<Integer, LevelDetails>();
 	
-
-	/* (non-Javadoc)
-	 * @see com.simplyapped.calculate.state.GameState#getSelectedLevel()
-	 */
 	@Override
-	public int getSelectedLevel()
+	public LevelDetails getLevelDetails(int level)
 	{
-		return selectedLevel;
+		if (!details.containsKey(level))
+		{
+			LevelDetails detail = new LevelDetails();
+			detail.setLocked(true);
+			details.put(level, detail);
+		}
+		
+		return details.get(level);
 	}
-
-	/* (non-Javadoc)
-	 * @see com.simplyapped.calculate.state.GameState#setSelectedLevel(int)
-	 */
-	@Override
-	public void setSelectedLevel(int selectedLevel)
-	{
-		this.selectedLevel = selectedLevel;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.simplyapped.calculate.state.GameState#getMaximumAchievedLevel()
-	 */
-	@Override
-	public int getMaximumAchievedLevel()
-	{
-		return maximumAchievedLevel;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.simplyapped.calculate.state.GameState#setMaximumAchievedLevel(int)
-	 */
-	@Override
-	public void setMaximumAchievedLevel(int maximumAchievedLevel)
-	{
-		this.maximumAchievedLevel = maximumAchievedLevel;
-	}	
 }
