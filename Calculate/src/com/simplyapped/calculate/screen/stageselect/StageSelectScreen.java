@@ -95,7 +95,7 @@ public class StageSelectScreen extends DefaultScreen
 	        public void clicked(InputEvent event, float x, float y)
 	        {
     			WindowStyle style = skin.get("dialog", WindowStyle.class);
-    			Dialog dialog = new Dialog("", style);
+    			Dialog dialog = new Dialog("dialog", style);
     			dialog.setSize(CalculateGame.SCREEN_WIDTH/1.3f, CalculateGame.SCREEN_HEIGHT/1.3f);
     			dialog.setPosition(((CalculateGame.SCREEN_WIDTH-dialog.getWidth())/2), ((CalculateGame.SCREEN_HEIGHT-dialog.getHeight())/2));
     			LabelStyle labelStyle = skin.get("dialog", LabelStyle.class);
@@ -108,7 +108,7 @@ public class StageSelectScreen extends DefaultScreen
     			dialog.addAction(action);
 				
     			stage.addActor(dialog);
-	        	game.transitionTo(CalculateGame.GAME_SCREEN, TransitionFixtures.OverlapLeft());
+//	        	game.transitionTo(CalculateGame.GAME_SCREEN, TransitionFixtures.OverlapLeft());
 	        }
 	    });
 	    levelButton.getLabel().setFontScale(1.5f);

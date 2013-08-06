@@ -3,9 +3,16 @@ stageselectscreen.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-stageselectscreenbackground
+dialogbackground
   rotate: false
   xy: 1, 1
+  size: 489, 719
+  orig: 489, 719
+  offset: 0, 0
+  index: -1
+stageselectscreenbackground
+  rotate: false
+  xy: 492, 308
   size: 253, 412
   orig: 253, 412
   offset: 0, 0

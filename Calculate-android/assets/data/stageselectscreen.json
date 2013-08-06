@@ -14,7 +14,17 @@
 	    details: {
 	      font: liberation-font,
 	      fontColor: white,
+	    },
+	    dialog: {
+	      font: liberation-font,
+	      fontColor: white,
 	    }
+	},
+	com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
+	  dialog: {
+	    background: dialogbackground,
+	    titleFont: liberation-font,
+	  }
 	},
     com.simplyapped.libgdx.ext.scene2d.FlatUIButton$FlatUIButtonStyle: {
         l1: {
