@@ -68,7 +68,7 @@ public class StageSelectScreen extends DefaultScreen
 	    window.setFillParent(true);
 	    window.setX(0);
 	    window.setY(0);
-	    window.debug();
+//	    window.debug();
 	    
 	    window.row().padTop(emptyRowHeight);
 	    Table stageTable = new Table();
@@ -99,16 +99,18 @@ public class StageSelectScreen extends DefaultScreen
 	        @Override
 	        public void clicked(InputEvent event, float x, float y)
 	        {
-	        	// create the dialog
+				// create the dialog
     			Dialog dialog = new Dialog("", skin, "dialog");
     			dialog.setSize(CalculateGame.SCREEN_WIDTH/1.1f, CalculateGame.SCREEN_HEIGHT/2f);
     			dialog.setPosition(((CalculateGame.SCREEN_WIDTH-dialog.getWidth())/2), ((CalculateGame.SCREEN_HEIGHT-dialog.getHeight())/2));
     			LabelStyle labelStyle = skin.get("dialog", LabelStyle.class);
     			LevelInfo info = GameStateFactory.getInstance().getLevelInfo(level);
+    			LevelDetails levelDetails = GameStateFactory.getInstance().getLevelDetails(level);
     			String text = String.format(DIALOG_DETAILS_TEXT, info.getNumberOfCards(), info.getTimeLimit(), info.getConsecutiveWinsRequired());
-    			text+= info.isUseAllCards() ? "Use Only The Cards You Need" : "You MUST Use All Cards";
+    			text+= info.isUseAllCards() ? "You MUST Use All Cards" : "Use Only The Cards You Need";
 				Label details = new Label(text, labelStyle);
     			details.setFontScale(0.7f);
+    			
 				FlatUIButton playButton = new FlatUIButton("Play", skin, "dialogPlay");
 				playButton.addListener(new ClickListener(){
 					@Override
@@ -120,23 +122,21 @@ public class StageSelectScreen extends DefaultScreen
 					}
 				});
 				disposables.add(playButton);
-				FlatUIButton cancelButton = new FlatUIButton("Cancel", skin, "dialogCancel");
+				FlatUIButton cancelButton = new FlatUIButton("Close", skin, "dialogCancel");
 				disposables.add(cancelButton);
 				dialog.getContentTable().add(details);
 				dialog.getButtonTable().defaults().pad(15f).width(CalculateGame.SCREEN_WIDTH/3.5f).padBottom(45f);
-				dialog.getButtonTable().add(playButton);
+				if (!levelDetails.isLocked())
+				{
+					dialog.getButtonTable().add(playButton);
+				}
 				dialog.getButtonTable().add(cancelButton);
-				dialog.debug();
 				
-				// set fade in transition
-				AlphaAction action = new AlphaAction();
-				action.setDuration(1f);
-				action.setReverse(true);
-				action.setInterpolation(Interpolation.pow5);
-    			dialog.addAction(action);
+    			dialog.addAction(createAction());
 				
     			stage.addActor(dialog);
 	        }
+
 	    });
 	    levelButton.getLabel().setFontScale(1.5f);
 	    disposables.add(levelButton);
@@ -145,6 +145,15 @@ public class StageSelectScreen extends DefaultScreen
 	    rowTable.add(createDetailsTable(level)).width(buttonSize*1.5f).height(buttonSize/1.3f).pad(20f);
 	    table.add(rowTable);
 	    table.row().padTop(emptyRowHeight).expandX();
+	}
+
+	private AlphaAction createAction()
+	{
+		AlphaAction action = new AlphaAction();
+		action.setDuration(0.5f);
+		action.setReverse(true);
+		action.setInterpolation(Interpolation.pow5);
+		return action;
 	}
 
 	private Table createDetailsTable(int level)
@@ -197,6 +206,6 @@ public class StageSelectScreen extends DefaultScreen
 	{
 		// TODO Auto-generated method stub
 		super.render(delta);
-		Table.drawDebug(stage);
+//		Table.drawDebug(stage);
 	}
 }
