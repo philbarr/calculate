@@ -17,9 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -34,6 +31,9 @@ import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
 public class StageSelectScreen extends DefaultScreen
 {
+	protected static final String DIALOG_DETAILS_TEXT = "Number Of Cards: %s%n" +
+														"Time Limit: %s Seconds%n" +
+														"Consecutive Wins Required: %s%n";
 	private Table window;
 	private Skin skin = new Skin(Gdx.files.internal("data/stageselectscreen.json"));
 	
@@ -101,10 +101,14 @@ public class StageSelectScreen extends DefaultScreen
 	        {
 	        	// create the dialog
     			Dialog dialog = new Dialog("", skin, "dialog");
-    			dialog.setSize(CalculateGame.SCREEN_WIDTH/1.1f, CalculateGame.SCREEN_HEIGHT/1.3f);
+    			dialog.setSize(CalculateGame.SCREEN_WIDTH/1.1f, CalculateGame.SCREEN_HEIGHT/2f);
     			dialog.setPosition(((CalculateGame.SCREEN_WIDTH-dialog.getWidth())/2), ((CalculateGame.SCREEN_HEIGHT-dialog.getHeight())/2));
     			LabelStyle labelStyle = skin.get("dialog", LabelStyle.class);
-				dialog.text("blah blah ablh\nasdf", labelStyle);
+    			LevelInfo info = GameStateFactory.getInstance().getLevelInfo(level);
+    			String text = String.format(DIALOG_DETAILS_TEXT, info.getNumberOfCards(), info.getTimeLimit(), info.getConsecutiveWinsRequired());
+    			text+= info.isUseAllCards() ? "Use Only The Cards You Need" : "You MUST Use All Cards";
+				Label details = new Label(text, labelStyle);
+    			details.setFontScale(0.7f);
 				FlatUIButton playButton = new FlatUIButton("Play", skin, "dialogPlay");
 				playButton.addListener(new ClickListener(){
 					@Override
@@ -115,7 +119,10 @@ public class StageSelectScreen extends DefaultScreen
 						game.transitionTo(CalculateGame.GAME_SCREEN, TransitionFixtures.OverlapLeft());
 					}
 				});
+				disposables.add(playButton);
 				FlatUIButton cancelButton = new FlatUIButton("Cancel", skin, "dialogCancel");
+				disposables.add(cancelButton);
+				dialog.getContentTable().add(details);
 				dialog.getButtonTable().defaults().pad(15f).width(CalculateGame.SCREEN_WIDTH/3.5f).padBottom(45f);
 				dialog.getButtonTable().add(playButton);
 				dialog.getButtonTable().add(cancelButton);
