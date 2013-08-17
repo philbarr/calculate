@@ -28,6 +28,6 @@ public class CalculateGame extends DefaultGame {
 		addScreen(GAME_SCREEN, new GameScreen(this));
 		addScreen(STAGE_SELECT_SCREEN, new StageSelectScreen(this));
 		
-		setScreen(MAIN_MENU_SCREEN);
+		setScreen(STAGE_SELECT_SCREEN);
 	}
 }

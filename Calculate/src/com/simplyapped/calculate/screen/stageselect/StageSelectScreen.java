@@ -1,5 +1,6 @@
 package com.simplyapped.calculate.screen.stageselect;
 
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -24,6 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.calculate.state.LevelDetails;
+import com.simplyapped.calculate.state.LevelInfo;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
 import com.simplyapped.libgdx.ext.scene2d.FlatUIButton;
@@ -36,7 +39,7 @@ public class StageSelectScreen extends DefaultScreen
 	
     // calculate width and heights for the table
     float emptyRowHeight = CalculateGame.SCREEN_HEIGHT / 72;
-    float buttonSize = CalculateGame.SCREEN_HEIGHT / 7;
+    float buttonSize = CalculateGame.SCREEN_HEIGHT / 5;
 
 	public StageSelectScreen(DefaultGame game)
 	{
@@ -70,7 +73,7 @@ public class StageSelectScreen extends DefaultScreen
 	    window.row().padTop(emptyRowHeight);
 	    Table stageTable = new Table();
 	    stageTable.setWidth(CalculateGame.SCREEN_WIDTH);
-	    for (int i = 1 ; i <= 10 ; i++)
+	    for (int i = 1 ; i <= LevelInfo.NUMBER_OF_LEVELS ; i++)
 	    {
 	    	addButtonRow(stageTable, i);
 	    }
@@ -87,20 +90,38 @@ public class StageSelectScreen extends DefaultScreen
 
 	private void addButtonRow(Table table, final int level)
 	{
+		Table rowTable = new Table();
+		rowTable.setBackground(createBackground(0.9f,0.9f,0.9f,0.8f));
+		
 		// buttons
-		TextButton levelButton;
-		levelButton = new FlatUIButton("" + level, skin, "l" + level);
+		FlatUIButton levelButton = new FlatUIButton("" + level, skin, "l" + level);
 	    levelButton.addListener(new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y)
 	        {
-    			WindowStyle style = skin.get("dialog", WindowStyle.class);
-    			Dialog dialog = new Dialog("dialog", style);
-    			dialog.setSize(CalculateGame.SCREEN_WIDTH/1.3f, CalculateGame.SCREEN_HEIGHT/1.3f);
+	        	// create the dialog
+    			Dialog dialog = new Dialog("", skin, "dialog");
+    			dialog.setSize(CalculateGame.SCREEN_WIDTH/1.1f, CalculateGame.SCREEN_HEIGHT/1.3f);
     			dialog.setPosition(((CalculateGame.SCREEN_WIDTH-dialog.getWidth())/2), ((CalculateGame.SCREEN_HEIGHT-dialog.getHeight())/2));
     			LabelStyle labelStyle = skin.get("dialog", LabelStyle.class);
-				dialog.text("blah blah ablh", labelStyle);
+				dialog.text("blah blah ablh\nasdf", labelStyle);
+				FlatUIButton playButton = new FlatUIButton("Play", skin, "dialogPlay");
+				playButton.addListener(new ClickListener(){
+					@Override
+					public void clicked(InputEvent event, float x, float y)
+					{
+						super.clicked(event, x, y);
+						GameStateFactory.getInstance().setCurrentLevel(level);
+						game.transitionTo(CalculateGame.GAME_SCREEN, TransitionFixtures.OverlapLeft());
+					}
+				});
+				FlatUIButton cancelButton = new FlatUIButton("Cancel", skin, "dialogCancel");
+				dialog.getButtonTable().defaults().pad(15f).width(CalculateGame.SCREEN_WIDTH/3.5f).padBottom(45f);
+				dialog.getButtonTable().add(playButton);
+				dialog.getButtonTable().add(cancelButton);
+				dialog.debug();
 				
+				// set fade in transition
 				AlphaAction action = new AlphaAction();
 				action.setDuration(1f);
 				action.setReverse(true);
@@ -108,16 +129,15 @@ public class StageSelectScreen extends DefaultScreen
     			dialog.addAction(action);
 				
     			stage.addActor(dialog);
-//	        	game.transitionTo(CalculateGame.GAME_SCREEN, TransitionFixtures.OverlapLeft());
 	        }
 	    });
 	    levelButton.getLabel().setFontScale(1.5f);
+	    disposables.add(levelButton);
 	    
-	    table.add(levelButton).width(buttonSize).height(buttonSize).align(Align.left).expandX().padLeft(0f).padRight(20f);	
-	    table.add(createDetailsTable(level)).expandX().fill();
-	    
+	    rowTable.add(levelButton).width(buttonSize).height(buttonSize/1.3f).align(Align.left).expandX().padLeft(0f).pad(20f);	
+	    rowTable.add(createDetailsTable(level)).width(buttonSize*1.5f).height(buttonSize/1.3f).pad(20f);
+	    table.add(rowTable);
 	    table.row().padTop(emptyRowHeight).expandX();
-	    table.debug();
 	}
 
 	private Table createDetailsTable(int level)
@@ -147,19 +167,21 @@ public class StageSelectScreen extends DefaultScreen
 	    	details.add(completed).align(Align.left);
 	    	details.add(completedVal).align(Align.right);
 	    }
-	    details.setBackground(getDetailsBackground());
+	    details.setBackground(createBackground(0.2f,0.2f,0.2f,0.8f));
 	    details.pad(15f);	   
 	    
 		return details;
 	}
 
-	private TextureRegionDrawable getDetailsBackground()
+	private TextureRegionDrawable createBackground(float r, float g, float b, float a)
 	{
 		Pixmap pix = new Pixmap(1,1,Format.RGBA4444);
-		pix.setColor(0.2f,0.2f,0.2f,0.8f);
+		pix.setColor(r,g,b,a);
 		pix.fill();
+		disposables.add(pix);
 		Texture texture = new Texture(pix);
 		TextureRegionDrawable trd = new TextureRegionDrawable(new TextureRegion(texture));
+		disposables.add(texture);
 		return trd;
 	}
 

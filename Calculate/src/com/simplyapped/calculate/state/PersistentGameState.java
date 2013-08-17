@@ -1,6 +1,6 @@
 package com.simplyapped.calculate.state;
 
-public class PersistentGameState implements GameState
+public class PersistentGameState extends GameState
 {
 
 	@Override

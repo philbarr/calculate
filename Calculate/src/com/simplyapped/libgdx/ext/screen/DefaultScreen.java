@@ -1,14 +1,20 @@
 package com.simplyapped.libgdx.ext.screen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.simplyapped.libgdx.ext.DefaultGame;
 
 public abstract class DefaultScreen implements StagedScreen
 {
 	protected Stage stage;
 	protected DefaultGame game;
+	protected List<Disposable> disposables = new ArrayList<Disposable>();
 
 	public DefaultScreen(DefaultGame game)
 	{
@@ -69,6 +75,16 @@ public abstract class DefaultScreen implements StagedScreen
 		if (stage != null)
 		{
 			stage.dispose();
+		}
+		for (Disposable disposable : disposables)
+		{
+			try
+			{
+				disposable.dispose();
+			} catch (GdxRuntimeException e)
+			{
+				// already disposed not bothered
+			}
 		}
 	}
 }

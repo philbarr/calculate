@@ -3,7 +3,7 @@ package com.simplyapped.calculate.state;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InMemoryGameState implements GameState
+public class InMemoryGameState extends GameState
 {
 	private Map<Integer, LevelDetails> details = new HashMap<Integer, LevelDetails>();
 	

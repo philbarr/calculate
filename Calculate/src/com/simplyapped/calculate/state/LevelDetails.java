@@ -5,6 +5,8 @@ public class LevelDetails
 	private boolean isLocked;
 	private int attempts;
 	private int completed;
+	private int consecutive;
+	
 	public boolean isLocked()
 	{
 		return isLocked;
@@ -29,5 +31,17 @@ public class LevelDetails
 	public void increaseAttempts()
 	{
 		attempts++;
+	}
+	public int getConsecutive()
+	{
+		return consecutive;
+	}
+	public void resetConsecutive()
+	{
+		consecutive = 0;
+	}
+	public void increaseConsecutive()
+	{
+		consecutive++;
 	}
 }

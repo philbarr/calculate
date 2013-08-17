@@ -27,7 +27,19 @@
 	  }
 	},
     com.simplyapped.libgdx.ext.scene2d.FlatUIButton$FlatUIButtonStyle: {
-        l1: {
+        dialogPlay: {
+  			font: liberation-font,
+  			fontColor: white,
+  			backgroundColor: { r: 0.1, g: 0.9, b: 0.1, a: 0.8},
+  			backgroundPressedColor: { r: 0.1, g: 0.9, b: 0.1, a: 1},
+  	  	},
+  	  	dialogCancel: {
+  			font: liberation-font,
+  			fontColor: white,
+  			backgroundColor: { r: 0.9, g: 0, b: 0, a: 0.8},
+  			backgroundPressedColor: { r: 0.9, g: 0, b: 0, a: 1},
+  	  	},
+  	  	l1: {
   			font: liberation-font,
   			fontColor: white,
   			backgroundColor: { r: 0.188235294117647, g: 0.635294117647059, b: 0.756862745098039, a: 0.8 },
