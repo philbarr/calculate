@@ -1,7 +1,7 @@
 SET LIBGDX="C:\Development\Java\lib\libgdx-0.9.7"
 java -cp %LIBGDX%\gdx.jar;%LIBGDX%\extensions\gdx-tools.jar com.badlogic.gdx.tools.imagepacker.TexturePacker2 main_menu_screen_atlas_src2 atlas_out2 mainmenuscreen
 java -cp %LIBGDX%\gdx.jar;%LIBGDX%\extensions\gdx-tools.jar com.badlogic.gdx.tools.imagepacker.TexturePacker2 game_screen_atlas_src2 atlas_out2 gamescreen
-java -cp %LIBGDX%\gdx.jar;%LIBGDX%\extensions\gdx-tools.jar com.badlogic.gdx.tools.imagepacker.TexturePacker2 level_info_screen_atlas_src2 atlas_out2 levelinfo
+java -cp %LIBGDX%\gdx.jar;%LIBGDX%\extensions\gdx-tools.jar com.badlogic.gdx.tools.imagepacker.TexturePacker2 stage_intro_screen_atlas_src2 atlas_out2 stageintroscreen
 java -cp %LIBGDX%\gdx.jar;%LIBGDX%\extensions\gdx-tools.jar com.badlogic.gdx.tools.imagepacker.TexturePacker2 stage_select_screen_atlas_src2 atlas_out2 stageselectscreen
 robocopy atlas_out2 ..\..\Calculate-android\assets\data /LOG:robocopylog2.txt
 robocopy original2 ..\..\Calculate-android\assets\data PumpDemiBoldLET.fnt PumpDemiBoldLET.png /LOG+:robocopylog2.txt

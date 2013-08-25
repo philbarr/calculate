@@ -2,6 +2,7 @@ package com.simplyapped.calculate;
 
 import com.badlogic.gdx.math.Interpolation;
 import com.simplyapped.calculate.screen.game.GameScreen;
+import com.simplyapped.calculate.screen.levelintro.StageIntroScreen;
 import com.simplyapped.calculate.screen.mainmenu.MainMenuScreen;
 import com.simplyapped.calculate.screen.stageselect.StageSelectScreen;
 import com.simplyapped.calculate.state.GameStateFactory;
@@ -16,6 +17,7 @@ public class CalculateGame extends DefaultGame {
 	public final static String MAIN_MENU_SCREEN = "MainMenuScreen";
 	public final static String GAME_SCREEN = "GameScreen";
 	public final static String STAGE_SELECT_SCREEN = "StageSelectScreen";
+	public final static String STAGE_INTRO_SCREEN = "StageIntroScreen";
 	
 	@Override
 	public void create() {
@@ -27,7 +29,8 @@ public class CalculateGame extends DefaultGame {
 		addScreen(MAIN_MENU_SCREEN, new MainMenuScreen(this));
 		addScreen(GAME_SCREEN, new GameScreen(this));
 		addScreen(STAGE_SELECT_SCREEN, new StageSelectScreen(this));
+		addScreen(STAGE_INTRO_SCREEN, new StageIntroScreen(this));
 		
-		setScreen(STAGE_SELECT_SCREEN);
+		setScreen(STAGE_INTRO_SCREEN);
 	}
 }

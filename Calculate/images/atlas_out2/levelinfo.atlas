@@ -5,8 +5,36 @@ filter: Nearest,Nearest
 repeat: none
 levelinfoscreenbackground
   rotate: false
-  xy: 1, 1
+  xy: 1, 67
   size: 295, 381
   orig: 295, 381
+  offset: 0, 0
+  index: -1
+cardbackblue
+  rotate: false
+  xy: 1, 1
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+cardbackred
+  rotate: false
+  xy: 298, 384
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+cardfrontblue
+  rotate: false
+  xy: 67, 1
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+cardfrontred
+  rotate: false
+  xy: 298, 318
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1

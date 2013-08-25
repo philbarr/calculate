@@ -1,0 +1,18 @@
+{
+      com.badlogic.gdx.graphics.g2d.BitmapFont: {
+            pump-font: { file: PumpDemiBoldLET.fnt },
+            nina-font: { file: ninafont.fnt },
+            liberation-font: { file: liberation.fnt },
+    },
+
+  com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
+    cardbackred: {
+     imageUp: "cardbackred",
+	 font: liberation-font,
+    },
+    cardbackblue: {
+     imageUp: "cardbackblue",
+	 font: liberation-font,  
+    }
+  }
+}

@@ -30,6 +30,7 @@ public class GameScreen extends DefaultScreen
 {
 	private Table window;
 	private Skin skin = new Skin(Gdx.files.internal("data/gamescreen.json"));
+	private Skin cards = new Skin(Gdx.files.internal("data/stageintroscreen.json")); // because in future we need to think more carefully about how we group assets
 	private ScrollPane calculationPane;
 	private Table calculationTable;
 	private Texture texture;

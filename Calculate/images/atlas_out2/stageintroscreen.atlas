@@ -1,9 +1,9 @@
 
-levelinfo.png
+stageintroscreen.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-levelinfoscreenbackground
+stageintroscreenbackground
   rotate: false
   xy: 1, 67
   size: 295, 381
