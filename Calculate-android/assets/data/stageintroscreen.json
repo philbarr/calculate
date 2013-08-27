@@ -5,13 +5,21 @@
             liberation-font: { file: liberation.fnt },
     },
 
-  com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
+  com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
     cardbackred: {
-     imageUp: "cardbackred",
+     up: "cardbackred",
 	 font: liberation-font,
     },
     cardbackblue: {
-     imageUp: "cardbackblue",
+     up: "cardbackblue",
+	 font: liberation-font,  
+    },
+    cardfrontred: {
+     up: "cardfrontred",
+	 font: liberation-font,
+    },
+    cardfrontblue: {
+     up: "cardfrontblue",
 	 font: liberation-font,  
     }
   }

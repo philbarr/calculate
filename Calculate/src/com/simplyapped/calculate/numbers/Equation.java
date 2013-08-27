@@ -8,7 +8,7 @@ import java.util.Stack;
 public class Equation implements EquationElement
 {
 	private List<EquationElement> elements = new ArrayList<EquationElement>();
-	private Generator generator = new GeneratorImpl();
+	private Generator generator = new Generator();
 	private Stack<Integer> numbers = new Stack<Integer>();
 	private int total;
 	
