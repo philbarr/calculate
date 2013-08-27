@@ -60,30 +60,32 @@ public class StageIntroScreen extends DefaultScreen
 		stage.addActor(back);
 		
 		//cards
-		final int cardSize = CalculateGame.SCREEN_WIDTH / 5;
-		final int leftRedMargin = CalculateGame.SCREEN_WIDTH / 9;
-		final int leftBlueMargin = CalculateGame.SCREEN_WIDTH / 7;
-		final int redCardsHeight = CalculateGame.SCREEN_HEIGHT/2;
-		final int blueCardsHeight = CalculateGame.SCREEN_HEIGHT/4;
-		final int redSpacing = 0;
-		final int blueSpacing = 0;
+		final int redCardsHeight = (int) (CalculateGame.SCREEN_HEIGHT/1.5f);
+		final int blueCardsHeight = (int) (CalculateGame.SCREEN_HEIGHT/2.2f);
+		final int cardSize = CalculateGame.SCREEN_WIDTH / 6;
+		final int redSpacing = (int) (cardSize/2.7f);
+		final int blueSpacing = (int) (cardSize/2.2f);
+		final int redMargin = (CalculateGame.SCREEN_WIDTH - (3 * redSpacing) - (4 * cardSize))/2;
+		final int blueMargin = (CalculateGame.SCREEN_WIDTH - (2 * blueSpacing) - (3 * cardSize))/2;
 		for (int cardindex = 0; cardindex < 13; cardindex++)
 		{
 			ImageTextButton card;
 			if (cardindex <= 3)
 			{
 				card = new ImageTextButton("", skin, "cardbackred");
-				card.setPosition(leftRedMargin + redSpacing + (cardindex * cardSize), redCardsHeight );
-				
+				card.setPosition(redMargin + (cardindex * redSpacing ) + (cardindex * cardSize), redCardsHeight );
 				redCards.add(card);
 			}
 			else
 			{
 				int blueCardIndex = cardindex - 4;
+				int row = blueCardIndex / 3;
 				card = new ImageTextButton("", skin, "cardbackblue");
-				card.setPosition(leftBlueMargin + blueSpacing + blueCardIndex * cardSize, blueCardsHeight );
+				card.setPosition(blueMargin + ((blueCardIndex % 3) * blueSpacing) + ((blueCardIndex % 3) * cardSize), blueCardsHeight - (blueSpacing + cardSize) * row);
 				blueCards.add(card);
 			}
+			card.getImageCell().expand().fill(); // makes the image for the card take up the whole cell
+//			card.debug();
 			card.size(cardSize);
 			stage.addActor(card);
 		}
@@ -111,6 +113,7 @@ public class StageIntroScreen extends DefaultScreen
 		default:
 			break;
 		}
+		Table.drawDebug(stage);
 	}
 
 	private void renderShufflingReds(float delta)

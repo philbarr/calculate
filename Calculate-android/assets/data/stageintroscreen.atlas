@@ -5,36 +5,36 @@ filter: Nearest,Nearest
 repeat: none
 stageintroscreenbackground
   rotate: false
-  xy: 1, 67
+  xy: 1, 6
   size: 295, 381
   orig: 295, 381
   offset: 0, 0
   index: -1
 cardbackblue
   rotate: false
-  xy: 1, 1
-  size: 64, 64
-  orig: 64, 64
+  xy: 298, 195
+  size: 193, 192
+  orig: 193, 192
   offset: 0, 0
   index: -1
 cardbackred
   rotate: false
-  xy: 298, 384
-  size: 64, 64
-  orig: 64, 64
+  xy: 493, 195
+  size: 193, 192
+  orig: 193, 192
   offset: 0, 0
   index: -1
 cardfrontblue
   rotate: false
-  xy: 67, 1
-  size: 64, 64
-  orig: 64, 64
+  xy: 688, 195
+  size: 191, 192
+  orig: 191, 192
   offset: 0, 0
   index: -1
 cardfrontred
   rotate: false
-  xy: 298, 318
-  size: 64, 64
-  orig: 64, 64
+  xy: 298, 1
+  size: 191, 192
+  orig: 191, 192
   offset: 0, 0
   index: -1
