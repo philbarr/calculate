@@ -39,7 +39,7 @@ public class Generator
 	public Stack<Integer> shuffledSmallNumbers()
 	{
 		Stack<Integer> stack = new Stack<Integer>();
-		stack.addAll(Arrays.asList(1,2,3,4,5,6,7,8,9,0));
+		stack.addAll(Arrays.asList(1,2,3,4,5,6,7,8,9));
 		Collections.shuffle(stack);
 		return stack;
 	}

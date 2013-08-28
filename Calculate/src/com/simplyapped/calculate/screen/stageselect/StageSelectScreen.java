@@ -104,7 +104,7 @@ public class StageSelectScreen extends DefaultScreen
     			dialog.setSize(CalculateGame.SCREEN_WIDTH/1.1f, CalculateGame.SCREEN_HEIGHT/2f);
     			dialog.setPosition(((CalculateGame.SCREEN_WIDTH-dialog.getWidth())/2), ((CalculateGame.SCREEN_HEIGHT-dialog.getHeight())/2));
     			LabelStyle labelStyle = skin.get("dialog", LabelStyle.class);
-    			LevelInfo info = GameStateFactory.getInstance().getLevelInfo(level);
+    			LevelInfo info = LevelInfo.getLevel(level);
     			LevelDetails levelDetails = GameStateFactory.getInstance().getLevelDetails(level);
     			String text = String.format(DIALOG_DETAILS_TEXT, info.getNumberOfCards(), info.getTimeLimit(), info.getConsecutiveWinsRequired());
     			text+= info.isUseAllCards() ? "You MUST Use All Cards" : "Use Only The Cards You Need";

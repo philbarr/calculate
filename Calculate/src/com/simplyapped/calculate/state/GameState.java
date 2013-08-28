@@ -1,13 +1,29 @@
 package com.simplyapped.calculate.state;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+import com.simplyapped.calculate.numbers.Generator;
+
 public abstract class GameState
 {
+	private Generator generator = new Generator();
 	private int currentLevel;
-	public abstract LevelDetails getLevelDetails(int level);
+	private List<Integer> bigCards = new ArrayList<Integer>();
+	private List<Integer> smallCards = new ArrayList<Integer>();
+	private Stack<Integer> shuffledBigNumbers;
+	private Stack<Integer> shuffledSmallNumbers;
 	
-	public LevelInfo getLevelInfo(int level)
+	public abstract LevelDetails getLevelDetails(int level);
+	public GameState()
 	{
-		return LevelInfo.getLevel(level);
+		shuffledBigNumbers = generator.shuffledBigNumbers();
+		shuffledSmallNumbers = generator.shuffledSmallNumbers();		
+	}
+	public LevelInfo getLevelInfo()
+	{
+		return LevelInfo.getLevel(getCurrentLevel());
 	}
 
 	public int getCurrentLevel()
@@ -20,4 +36,22 @@ public abstract class GameState
 		this.currentLevel = currentLevel;
 	}
 	
+	public int selectBigNumber()
+	{
+		int big = shuffledBigNumbers.pop();
+		bigCards.add(big);
+		return big;
+	}
+	
+	public int selectSmallNumber()
+	{
+		int small = shuffledSmallNumbers.pop();
+		smallCards.add(small);
+		return small;
+	}
+	
+	public int cardsLeftForUserSelect()
+	{
+		return getLevelInfo().getNumberOfCards() - bigCards.size() - smallCards.size();
+	}
 }

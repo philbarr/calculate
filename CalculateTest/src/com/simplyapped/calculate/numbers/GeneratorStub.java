@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-public class GeneratorStub implements Generator
+public class GeneratorStub// implements Generator
 {
 	
 	private Iterator<Operator> operatorIterator;
@@ -14,13 +14,13 @@ public class GeneratorStub implements Generator
 		operatorIterator = Arrays.asList(operators).iterator();
 	}
 
-	@Override
+//	@Override
 	public Operator generateOperator()
 	{
 		return operatorIterator.next();
 	}
 
-	@Override
+//	@Override
 	public void shuffle(List<Integer> tempNumbers)
 	{
 		// do nothing

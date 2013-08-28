@@ -21,7 +21,7 @@ public class EquationTest
 		// expect Equation to skip DIVIDE and go straight to PLUS
 		GeneratorStub stub = new GeneratorStub(new Operator[]{Operator.DIVIDE, Operator.PLUS});
 		Equation e = new Equation();
-		e.setGenerator(stub);
+//		e.setGenerator(stub)
 		e.construct(new int[] { 6, 5 });
 		Assert.assertEquals(11, e.getTotal());
 	}
@@ -32,7 +32,7 @@ public class EquationTest
 		// expect Equation to skip MINUS and go straight to PLUS
 		GeneratorStub stub = new GeneratorStub(new Operator[]{Operator.MINUS, Operator.PLUS});
 		Equation e = new Equation();
-		e.setGenerator(stub);
+//		e.setGenerator(stub);
 		e.construct(new int[] { 6, 6 });
 		Assert.assertEquals(12, e.getTotal());
 	}

@@ -31,6 +31,7 @@ public class CalculateGame extends DefaultGame {
 		addScreen(STAGE_SELECT_SCREEN, new StageSelectScreen(this));
 		addScreen(STAGE_INTRO_SCREEN, new StageIntroScreen(this));
 		
+		GameStateFactory.getInstance().setCurrentLevel(1);
 		setScreen(STAGE_INTRO_SCREEN);
 	}
 }

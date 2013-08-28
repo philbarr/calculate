@@ -5,6 +5,21 @@
             liberation-font: { file: liberation.fnt },
     },
 
+    com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+      title: {
+        font: liberation-font,
+        fontColor: { r: 0.9, g: 0.9, b: 0.9, a: 0.9 },
+      },
+      targetTitle: {
+        font: liberation-font,
+        fontColor: { r: 0.1, g: 0.9, b: 0.1, a: 0.9 },
+      },
+      target: {
+        font: liberation-font,
+        fontColor: { r: 0.1, g: 0.9, b: 0.1, a: 0.9 },
+      }
+    },
+
   com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
     cardbackred: {
      up: "cardbackred",

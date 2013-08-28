@@ -6,7 +6,7 @@ public class LevelInfo
 {
 	public static final int NUMBER_OF_LEVELS = 10; // alter switch statement when this changes
 
-	static LevelInfo getLevel(int level)
+	public static LevelInfo getLevel(int level)
 	{
 		
 		switch (level) // change NUMBER_OF_LEVELS when more cases are added / removed.
