@@ -7,6 +7,13 @@ public class TransitionFixtures
 	private static float duration = 0.7f;
 	private static Interpolation interpolation = Interpolation.pow5;
 	
+	public static Transition Fade()
+	{
+		FadeTransition t = new FadeTransition();
+		t.setDuration(duration);
+		t.setInterpolation(interpolation);
+		return t;
+	}
 	
 	public static Transition SlideLeft()
 	{

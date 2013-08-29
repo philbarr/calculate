@@ -86,6 +86,7 @@ public class StageIntroScreen extends DefaultScreen
 	private List<TextButton> blueCards = new ArrayList<TextButton>();
 	final int cardSize = CalculateGame.SCREEN_WIDTH / 6;
 	private Scene scene;
+	private float finishWait;
 	
 	public StageIntroScreen(DefaultGame game)
 	{
@@ -204,11 +205,22 @@ public class StageIntroScreen extends DefaultScreen
 			renderGeneratingTargetNumber(delta);
 			break;
 		case FINISHED:
+			renderFinished(delta);
 			break;
 		default:
 			break;			
 		}
 //		Table.drawDebug(stage);
+	}
+
+	private void renderFinished(float delta)
+	{
+		finishWait += delta;
+		if (finishWait > 1)
+		{
+			game.transitionTo(CalculateGame.GAME_SCREEN, TransitionFixtures.Fade());
+		}
+			
 	}
 
 	private void renderShuffling(final float delta)
@@ -230,12 +242,10 @@ public class StageIntroScreen extends DefaultScreen
 
 	private void renderGeneratingTargetNumber(float delta)
 	{
-		targetTitle.setVisible(true);
-		target.setVisible(true);
-		targetTitle.getColor().a = 0;
-		target.getColor().a = 0;
-		targetTitle.addAction(fadeIn(1));
-		target.addAction(fadeIn(1));
+		title.setText("Your Target Number");
+		title.setVisible(true);
+		title.getColor().a = 0;
+		title.addAction(fadeIn(1));
 		scene = Scene.FINISHED;
 	}
 
