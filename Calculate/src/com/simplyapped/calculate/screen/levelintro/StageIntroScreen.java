@@ -49,7 +49,9 @@ public class StageIntroScreen extends DefaultScreen
 				button.setPosition(card.getX(), card.getY());
 				button.setSize(cardSize, cardSize);
 				card.setVisible(false);
-				title.setText(String.format("Select %s Cards", StageIntroScreen.this.state.cardsLeftForUserSelect()));
+				int count = StageIntroScreen.this.state.cardsLeftForUserSelect();
+				String format = count > 1 ? "Select %s Cards" : "Select %s Card";
+				title.setText(String.format(format, count));
 				if (StageIntroScreen.this.state.cardsLeftForUserSelect() == 0)
 				{
 					StageIntroScreen.this.scene = Scene.DISMISS_CARDS;

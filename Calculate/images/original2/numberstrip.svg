@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="96.845512"
+   height="898.92053"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.2 r9819"
+   sodipodi:docname="numberstrip.svg"
+   inkscape:export-filename="C:\Users\pbarr\git\Repository\Calculate\images\stage_intro_screen_atlas_src2\numberstrip.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="289.64286"
+     inkscape:cy="86.685815"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:snap-page="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1600"
+     inkscape:window-height="848"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#333333;fill-opacity:1;stroke:none"
+       id="rect2985"
+       width="96.845512"
+       height="898.92053"
+       x="0"
+       y="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:144px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#f2f2f2;fill-opacity:1;stroke:none;font-family:Liberation Mono;-inkscape-font-specification:Liberation Mono"
+       x="26.748928"
+       y="47.425781"
+       id="text2987"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2989"
+         x="26.748928"
+         y="47.425781"
+         style="font-size:72px">1</tspan><tspan
+         sodipodi:role="line"
+         x="26.748928"
+         y="137.42578"
+         id="tspan2991"
+         style="font-size:72px">2</tspan><tspan
+         sodipodi:role="line"
+         x="26.748928"
+         y="227.42578"
+         id="tspan2993"
+         style="font-size:72px">3</tspan><tspan
+         sodipodi:role="line"
+         x="26.748928"
+         y="317.42578"
+         id="tspan2995"
+         style="font-size:72px">4</tspan><tspan
+         sodipodi:role="line"
+         x="26.748928"
+         y="407.42578"
+         id="tspan2997"
+         style="font-size:72px">5</tspan><tspan
+         sodipodi:role="line"
+         x="26.748928"
+         y="497.42578"
+         id="tspan2999"
+         style="font-size:72px">6</tspan><tspan
+         sodipodi:role="line"
+         x="26.748928"
+         y="587.42578"
+         id="tspan3001"
+         style="font-size:72px">7</tspan><tspan
+         sodipodi:role="line"
+         x="26.748928"
+         y="677.42578"
+         id="tspan3003"
+         style="font-size:72px">8</tspan><tspan
+         sodipodi:role="line"
+         x="26.748928"
+         y="767.42578"
+         id="tspan3005"
+         style="font-size:72px">9</tspan><tspan
+         sodipodi:role="line"
+         x="26.748928"
+         y="857.42578"
+         style="font-size:72px"
+         id="tspan3017">0</tspan></text>
+  </g>
+</svg>

@@ -3,37 +3,44 @@ stageintroscreen.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+numberstrip
+  rotate: false
+  xy: 1, 65
+  size: 97, 899
+  orig: 97, 899
+  offset: 0, 0
+  index: -1
 stageintroscreenbackground
   rotate: false
-  xy: 1, 6
+  xy: 100, 583
   size: 295, 381
   orig: 295, 381
   offset: 0, 0
   index: -1
 cardbackblue
   rotate: false
-  xy: 298, 195
+  xy: 100, 389
   size: 193, 192
   orig: 193, 192
   offset: 0, 0
   index: -1
 cardbackred
   rotate: false
-  xy: 493, 195
+  xy: 100, 195
   size: 193, 192
   orig: 193, 192
   offset: 0, 0
   index: -1
 cardfrontblue
   rotate: false
-  xy: 688, 195
+  xy: 100, 1
   size: 191, 192
   orig: 191, 192
   offset: 0, 0
   index: -1
 cardfrontred
   rotate: false
-  xy: 298, 1
+  xy: 295, 389
   size: 191, 192
   orig: 191, 192
   offset: 0, 0
