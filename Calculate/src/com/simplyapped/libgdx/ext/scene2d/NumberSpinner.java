@@ -14,18 +14,13 @@ public class NumberSpinner extends Actor
 	private int a;
 	private TextureRegion numberstrip;
 
-	public NumberSpinner(TextureRegion region)
+	public NumberSpinner(TextureRegion numberstrip)
 	{
-		this.numberstrip = region;
-		action = new IntAction(0, 1000);
-		action.setDuration(5);
+		this.numberstrip = numberstrip;
+		action = new IntAction(0, 500);
+		action.setInterpolation(Interpolation.swingOut);
+		action.setDuration(2f);
 		getActions().add(action);
-	}
-	
-	@Override
-	public void act(float delta)
-	{
-		super.act(delta);
 	}
 	
 	@Override
