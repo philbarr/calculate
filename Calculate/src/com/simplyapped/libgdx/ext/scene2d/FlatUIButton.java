@@ -41,6 +41,7 @@ public class FlatUIButton extends TextButton implements Disposable
 		super(text, textButtonStyle);
 		this.style = textButtonStyle;
 		pix = new Pixmap(1, 1, Format.RGBA4444);
+		disposables.add(pix);
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import com.simplyapped.calculate.numbers.Equation;
 import com.simplyapped.calculate.numbers.Generator;
 
 public abstract class GameState
@@ -14,6 +15,7 @@ public abstract class GameState
 	private List<Integer> smallCards = new ArrayList<Integer>();
 	private Stack<Integer> shuffledBigNumbers;
 	private Stack<Integer> shuffledSmallNumbers;
+	private Equation equation;
 	
 	public abstract LevelDetails getLevelDetails(int level);
 	public GameState()
@@ -53,5 +55,13 @@ public abstract class GameState
 	public int cardsLeftForUserSelect()
 	{
 		return getLevelInfo().getNumberOfCards() - bigCards.size() - smallCards.size();
+	}
+	public void setCurrentEquation(Equation eq)
+	{
+		this.equation = eq;
+	}
+	public Equation getCurrentEquation()
+	{
+		return equation;
 	}
 }

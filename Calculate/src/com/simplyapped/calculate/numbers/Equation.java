@@ -24,6 +24,7 @@ public class Equation implements EquationElement
 		setElements(elements);
 	}
 	
+
 	public void construct(int... nums)
 	{
 		if (nums.length == 0)

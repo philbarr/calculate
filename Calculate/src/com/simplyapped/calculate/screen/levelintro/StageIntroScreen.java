@@ -8,7 +8,8 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,11 +19,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.esotericsoftware.tablelayout.Cell;
 import com.simplyapped.calculate.CalculateGame;
+import com.simplyapped.calculate.numbers.Equation;
 import com.simplyapped.calculate.state.GameState;
 import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
+import com.simplyapped.libgdx.ext.scene2d.FlatUI;
+import com.simplyapped.libgdx.ext.scene2d.NumberSpinner;
 import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
 public class StageIntroScreen extends DefaultScreen
@@ -45,6 +50,7 @@ public class StageIntroScreen extends DefaultScreen
 			{
 				String styleName = isCardRed ? "cardfrontred" : "cardfrontblue";
 				int number = isCardRed ? StageIntroScreen.this.state.selectBigNumber() : StageIntroScreen.this.state.selectSmallNumber();
+				selectedNumbers.add(number);
 				TextButton button = new TextButton(number + "", skin, styleName);
 				button.setPosition(card.getX(), card.getY());
 				button.setSize(cardSize, cardSize);
@@ -89,6 +95,8 @@ public class StageIntroScreen extends DefaultScreen
 	final int cardSize = CalculateGame.SCREEN_WIDTH / 6;
 	private Scene scene;
 	private float finishWait;
+	private Cell<?> titleCell;
+	private List<Integer> selectedNumbers = new ArrayList<Integer>();
 	
 	public StageIntroScreen(DefaultGame game)
 	{
@@ -99,6 +107,7 @@ public class StageIntroScreen extends DefaultScreen
 	public void show()
 	{
 		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, false);
+		selectedNumbers = new ArrayList<Integer>();
 		
 		stage.addListener(new ClickListener()
 		{
@@ -122,7 +131,7 @@ public class StageIntroScreen extends DefaultScreen
 		
 		title = new Label(String.format("Select %s Cards", StageIntroScreen.this.state.cardsLeftForUserSelect()), skin, "title");
 		title.setAlignment(Align.center);
-		back.add(title).expandX().fillX().center().top().pad(CalculateGame.SCREEN_HEIGHT/10f);
+		titleCell = back.add(title).expandX().fillX().center().top().pad(CalculateGame.SCREEN_HEIGHT/10f);
 		back.row();
 		targetTitle = new Label("Target Number", skin, "targetTitle");
 		targetTitle.setAlignment(Align.center);
@@ -186,9 +195,13 @@ public class StageIntroScreen extends DefaultScreen
 			card.setSize(cardSize, cardSize);
 			stage.addActor(card);
 		}
+		TextureRegion region = skin.getSprite("numberstrip");
+		NumberSpinner spinner = new NumberSpinner(region);
+		spinner.setX(100);
+		stage.addActor(spinner);
 		
 		Gdx.input.setInputProcessor(stage);
-		scene = Scene.SHUFFLING;
+		scene = Scene.GENERATING_TARGET_NUMBER;
 	}
 	
 	@Override
@@ -218,7 +231,7 @@ public class StageIntroScreen extends DefaultScreen
 	private void renderFinished(float delta)
 	{
 		finishWait += delta;
-		if (finishWait > 1)
+		if (finishWait > 30)
 		{
 			game.transitionTo(CalculateGame.GAME_SCREEN, TransitionFixtures.Fade());
 		}
@@ -244,11 +257,29 @@ public class StageIntroScreen extends DefaultScreen
 
 	private void renderGeneratingTargetNumber(float delta)
 	{
-		title.setText("Your Target Number");
-		title.setVisible(true);
-		title.getColor().a = 0;
-		title.addAction(fadeIn(1));
-		scene = Scene.FINISHED;
+		synchronized(this)
+		{
+			titleCell.pad(CalculateGame.SCREEN_WIDTH/5f);
+			
+			title.getStyle().background = FlatUI.CreateBackgroundDrawable(0.2f, 0.2f, 0.2f, 0.9f, title.getWidth(), title.getHeight());
+			title.setText("\nYour\n\nTarget\n\nNumber\n ");
+			title.setVisible(true);
+			title.getColor().a = 0;
+			title.addAction(fadeIn(1));
+			
+			int[] nums = new int[selectedNumbers.size()];
+			for (int i = 0; i < nums.length; i++)
+			{
+				nums[i] = selectedNumbers.get(i);
+			}
+			Equation eq = new Equation(nums);
+			GameStateFactory.getInstance().setCurrentEquation(eq);
+			
+			
+
+//			image.setBounds(0, 0, image.getWidth(), 100);
+			//scene = Scene.FINISHED;
+		}
 	}
 
 	private void renderDismissCards(float delta)
