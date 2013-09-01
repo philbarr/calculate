@@ -1,44 +1,70 @@
 package com.simplyapped.libgdx.ext.scene2d;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.actions.FloatAction;
 import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 
-public class NumberSpinner extends Actor
+public class NumberSpinner extends Widget
 {
 	private IntAction action;
-	private int a;
 	private TextureRegion numberstrip;
+	private int viewportHeight;
+	private int height;
 
-	public NumberSpinner(TextureRegion numberstrip)
+	public NumberSpinner(TextureRegion numberstrip, int viewportHeight, int numberHeight, int from, int to, Interpolation interpolation, int duration)
 	{
+		this.height = numberstrip.getRegionHeight();
 		this.numberstrip = numberstrip;
-		action = new IntAction(0, 500);
-		action.setInterpolation(Interpolation.swingOut);
-		action.setDuration(2f);
+		this.viewportHeight = viewportHeight;
+		int offset = numberHeight/4;
+		action = new IntAction((from * numberHeight) - offset, (to * numberHeight) - offset);
+		action.setInterpolation(interpolation);
+		action.setDuration(duration);
 		getActions().add(action);
 	}
 	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha)
 	{
-		int heightOfANumber = 100;
+		int position = action.getValue();
 		
-		TextureRegion region = new TextureRegion(
+		position =  position % height;
+		while (position<=0)
+		{
+			position+=height; // allows for spinning off the top of the region (just start again at the top, which is taken care of)
+		}
+		
+		TextureRegion regionMain = new TextureRegion(
 				numberstrip,
 				0,
-				action.getValue(),
+				position,
 				numberstrip.getRegionWidth(),
-				heightOfANumber);
+				viewportHeight);
+		
 		batch.draw(
-				region,
+				regionMain,
 				getX(),
 				getY(), 
 				numberstrip.getRegionWidth(),
-				heightOfANumber);
+				viewportHeight);
+		
+		// deal with the case where the end of the strip joins the start of a new strip
+		if (position > height - viewportHeight)
+		{
+			TextureRegion extraRegion = new TextureRegion(
+					numberstrip,
+					0,
+					0,
+					numberstrip.getRegionWidth(),
+					position - (height - viewportHeight));
+			batch.draw(
+					extraRegion,
+					getX(),
+					getY(), 
+					numberstrip.getRegionWidth(),
+					position - (height - viewportHeight));
+		}
 	}
 }

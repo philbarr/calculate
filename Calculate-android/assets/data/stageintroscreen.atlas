@@ -5,9 +5,9 @@ filter: Nearest,Nearest
 repeat: none
 numberstrip
   rotate: false
-  xy: 1, 65
-  size: 97, 899
-  orig: 97, 899
+  xy: 1, 64
+  size: 97, 900
+  orig: 97, 900
   offset: 0, 0
   index: -1
 stageintroscreenbackground

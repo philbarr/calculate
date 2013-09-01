@@ -85,8 +85,6 @@ public class StageIntroScreen extends DefaultScreen
 	}
 	
 	private Label title;
-	private Label targetTitle;
-	private Label target;
 	private GameState state = GameStateFactory.getInstance();
 
 	private Skin skin = new Skin(Gdx.files.internal("data/stageintroscreen.json"));
@@ -97,6 +95,7 @@ public class StageIntroScreen extends DefaultScreen
 	private float finishWait;
 	private Cell<?> titleCell;
 	private List<Integer> selectedNumbers = new ArrayList<Integer>();
+	private Table targetTable;
 	
 	public StageIntroScreen(DefaultGame game)
 	{
@@ -133,19 +132,11 @@ public class StageIntroScreen extends DefaultScreen
 		title.setAlignment(Align.center);
 		titleCell = back.add(title).expandX().fillX().center().top().pad(CalculateGame.SCREEN_HEIGHT/10f);
 		back.row();
-		targetTitle = new Label("Target Number", skin, "targetTitle");
-		targetTitle.setAlignment(Align.center);
-		targetTitle.setVisible(false);
-		back.add(targetTitle).expandX().fillX().center().top().pad(CalculateGame.SCREEN_HEIGHT/10f);
+		targetTable = new Table();
+		back.add(targetTable).expandX().fillX().center().top().pad(CalculateGame.SCREEN_HEIGHT/10f);
 		back.row();
-		target = new Label("354", skin, "target");
-		target.setAlignment(Align.center);
-		target.setFontScale(2f);
-		target.setVisible(false);
-		back.add(target).expandX().fillX().center().top().pad(CalculateGame.SCREEN_HEIGHT/10f);
 		back.row();
 		back.add().expand().fill();
-		back.debug();
 
 		//cards
 		final int redCardsHeight = (int) (CalculateGame.SCREEN_HEIGHT/1.5f);
@@ -195,13 +186,10 @@ public class StageIntroScreen extends DefaultScreen
 			card.setSize(cardSize, cardSize);
 			stage.addActor(card);
 		}
-		TextureRegion region = skin.getSprite("numberstrip");
-		NumberSpinner spinner = new NumberSpinner(region);
-		spinner.setX(100);
-		stage.addActor(spinner);
+		
 		
 		Gdx.input.setInputProcessor(stage);
-		scene = Scene.GENERATING_TARGET_NUMBER;
+		scene = Scene.SHUFFLING;
 	}
 	
 	@Override
@@ -231,7 +219,7 @@ public class StageIntroScreen extends DefaultScreen
 	private void renderFinished(float delta)
 	{
 		finishWait += delta;
-		if (finishWait > 30)
+		if (finishWait > 8)
 		{
 			game.transitionTo(CalculateGame.GAME_SCREEN, TransitionFixtures.Fade());
 		}
@@ -273,12 +261,29 @@ public class StageIntroScreen extends DefaultScreen
 				nums[i] = selectedNumbers.get(i);
 			}
 			Equation eq = new Equation(nums);
+			while (eq.getTotal() < 100 || eq.getTotal() > 999)
+			{
+				eq = new Equation(nums);
+			}
 			GameStateFactory.getInstance().setCurrentEquation(eq);
 			
+			int targetNumber = 111;//eq.getTotal();
+			Gdx.app.log("target", targetNumber+"");
 			
+			TextureRegion region = skin.getSprite("numberstrip");
+			
+			char[] chars = ("" + targetNumber).toCharArray();
+			Gdx.app.log("eq", eq.toString());
+			for (int i = 0; i < chars.length; i++)
+			{
+				int num = Integer.parseInt(chars[i]+"");
+				int from = i % 2 == 0 ? num : num+20;
+				int to =   i % 2 == 0 ? num+20 : num;
+				NumberSpinner spinner = new NumberSpinner(region, 90, 90, from, to, swingOut, 4);
+				targetTable.add(spinner).expand().fill();
+			}
 
-//			image.setBounds(0, 0, image.getWidth(), 100);
-			//scene = Scene.FINISHED;
+			scene = Scene.FINISHED;
 		}
 	}
 
@@ -290,12 +295,12 @@ public class StageIntroScreen extends DefaultScreen
 			for (TextButton card : redCards)
 			{
 				int xPos = card.getX() < CalculateGame.SCREEN_WIDTH/2 ? -CalculateGame.SCREEN_WIDTH : CalculateGame.SCREEN_WIDTH * 2; 
-				card.addAction(moveTo(xPos, CalculateGame.SCREEN_HEIGHT, 2, pow5));
+				card.addAction(moveTo(xPos, CalculateGame.SCREEN_HEIGHT, 1, pow5));
 			}
 			for (TextButton card : blueCards)
 			{
 				int xPos = card.getX() < CalculateGame.SCREEN_WIDTH/2 ? -CalculateGame.SCREEN_WIDTH : CalculateGame.SCREEN_WIDTH * 2; 
-				card.addAction(moveTo(xPos, 0, 2, pow5));
+				card.addAction(moveTo(xPos, 0, 1, pow5));
 			}
 			scene = Scene.GENERATING_TARGET_NUMBER;
 		}
