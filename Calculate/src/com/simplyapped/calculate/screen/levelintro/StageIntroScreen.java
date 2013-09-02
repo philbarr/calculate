@@ -219,7 +219,7 @@ public class StageIntroScreen extends DefaultScreen
 	private void renderFinished(float delta)
 	{
 		finishWait += delta;
-		if (finishWait > 8)
+		if (finishWait > 70)
 		{
 			game.transitionTo(CalculateGame.GAME_SCREEN, TransitionFixtures.Fade());
 		}
@@ -261,28 +261,38 @@ public class StageIntroScreen extends DefaultScreen
 				nums[i] = selectedNumbers.get(i);
 			}
 			Equation eq = new Equation(nums);
-			while (eq.getTotal() < 100 || eq.getTotal() > 999)
+			while (eq.getTotal() < 20 || eq.getTotal() > 99999)
 			{
 				eq = new Equation(nums);
 			}
 			GameStateFactory.getInstance().setCurrentEquation(eq);
 			
-			int targetNumber = 111;//eq.getTotal();
+			int targetNumber = eq.getTotal();
 			Gdx.app.log("target", targetNumber+"");
 			
 			TextureRegion region = skin.getSprite("numberstrip");
 			
-			char[] chars = ("" + targetNumber).toCharArray();
-			Gdx.app.log("eq", eq.toString());
-			for (int i = 0; i < chars.length; i++)
+			char[] digits = ("" + targetNumber).toCharArray();
+			if(digits.length == 2 || digits.length == 3)
 			{
-				int num = Integer.parseInt(chars[i]+"");
+				targetTable.add().expand().fill(); //table padding needed if only 2 or 3 digits
+			}
+			for(Equation e : eq.getEquationConstruction())
+			{
+				Gdx.app.log("eq", e.toString());				
+			}
+			for (int i = 0; i < digits.length; i++)
+			{
+				int num = Integer.parseInt(digits[i]+"");
 				int from = i % 2 == 0 ? num : num+20;
 				int to =   i % 2 == 0 ? num+20 : num;
-				NumberSpinner spinner = new NumberSpinner(region, 90, 90, from, to, swingOut, 4);
+				NumberSpinner spinner = new NumberSpinner(region, 90, 90, from, to, swingOut, 3 + (i*0.2f));
 				targetTable.add(spinner).expand().fill();
 			}
-
+			if(digits.length == 2 || digits.length == 3)
+			{
+				targetTable.add().expand().fill();//table padding needed if only 2 or 3 digits
+			}
 			scene = Scene.FINISHED;
 		}
 	}

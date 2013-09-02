@@ -13,7 +13,7 @@ public class NumberSpinner extends Widget
 	private int viewportHeight;
 	private int height;
 
-	public NumberSpinner(TextureRegion numberstrip, int viewportHeight, int numberHeight, int from, int to, Interpolation interpolation, int duration)
+	public NumberSpinner(TextureRegion numberstrip, int viewportHeight, int numberHeight, int from, int to, Interpolation interpolation, float duration)
 	{
 		this.height = numberstrip.getRegionHeight();
 		this.numberstrip = numberstrip;
@@ -23,7 +23,7 @@ public class NumberSpinner extends Widget
 		action.setInterpolation(interpolation);
 		action.setDuration(duration);
 		getActions().add(action);
-	}
+	}	
 	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha)
@@ -33,7 +33,7 @@ public class NumberSpinner extends Widget
 		position =  position % height;
 		while (position<=0)
 		{
-			position+=height; // allows for spinning off the top of the region (just start again at the top, which is taken care of)
+			position+=height; // allows for spinning off the bottom of the region (just start again at the top, which is taken care of)
 		}
 		
 		TextureRegion regionMain = new TextureRegion(
