@@ -32,7 +32,17 @@ public abstract class DefaultGame implements ApplicationListener
 			} 
 			else
 			{
-				setScreen(nextScreen);
+				this.currentScreen = nextScreen;
+				if (this.currentScreen != null)
+				{
+					this.currentScreen.hide();
+				}
+				this.currentScreen = nextScreen;
+				
+				if (this.currentScreen != null)
+				{
+					this.currentScreen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+				}
 				nextScreen = null;
 				isTransitioning = false;
 			}
@@ -79,8 +89,11 @@ public abstract class DefaultGame implements ApplicationListener
 	@Override
 	public void dispose()
 	{
+		System.out.println("disposing screen");
 		if (currentScreen != null)
-			currentScreen.hide();
+		{
+			currentScreen.dispose();
+		}
 	}
 
 	@Override

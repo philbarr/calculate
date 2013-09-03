@@ -1,10 +1,12 @@
 package com.simplyapped.calculate;
 
 import com.badlogic.gdx.math.Interpolation;
+import com.simplyapped.calculate.numbers.Equation;
 import com.simplyapped.calculate.screen.game.GameScreen;
 import com.simplyapped.calculate.screen.levelintro.StageIntroScreen;
 import com.simplyapped.calculate.screen.mainmenu.MainMenuScreen;
 import com.simplyapped.calculate.screen.stageselect.StageSelectScreen;
+import com.simplyapped.calculate.state.GameState;
 import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.calculate.state.LevelDetails;
 import com.simplyapped.libgdx.ext.DefaultGame;
@@ -21,8 +23,10 @@ public class CalculateGame extends DefaultGame {
 	
 	@Override
 	public void create() {
-		LevelDetails levelDetails = GameStateFactory.getInstance().getLevelDetails(1);
+		GameState state = GameStateFactory.getInstance();
+		LevelDetails levelDetails = state.getLevelDetails(1);
 		levelDetails.setLocked(false);
+		state.setCurrentEquation(new Equation(100,4,7,8));
 		
 		TransitionFixtures.setInterpolation(Interpolation.pow5);
 		
@@ -31,7 +35,7 @@ public class CalculateGame extends DefaultGame {
 		addScreen(STAGE_SELECT_SCREEN, new StageSelectScreen(this));
 		addScreen(STAGE_INTRO_SCREEN, new StageIntroScreen(this));
 		
-		GameStateFactory.getInstance().setCurrentLevel(1);
-		setScreen(STAGE_INTRO_SCREEN);
+		state.setCurrentLevel(1);
+		setScreen(GAME_SCREEN);
 	}
 }

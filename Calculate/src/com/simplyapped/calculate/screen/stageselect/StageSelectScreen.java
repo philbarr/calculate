@@ -118,7 +118,7 @@ public class StageSelectScreen extends DefaultScreen
 					{
 						super.clicked(event, x, y);
 						GameStateFactory.getInstance().setCurrentLevel(level);
-						game.transitionTo(CalculateGame.GAME_SCREEN, TransitionFixtures.OverlapLeft());
+						game.transitionTo(CalculateGame.STAGE_INTRO_SCREEN, TransitionFixtures.OverlapLeft());
 					}
 				});
 				disposables.add(playButton);

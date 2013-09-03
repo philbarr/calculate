@@ -8,7 +8,6 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -85,7 +84,7 @@ public class StageIntroScreen extends DefaultScreen
 	}
 	
 	private Label title;
-	private GameState state = GameStateFactory.getInstance();
+	private GameState state;
 
 	private Skin skin = new Skin(Gdx.files.internal("data/stageintroscreen.json"));
 	private List<TextButton> redCards = new ArrayList<TextButton>();
@@ -94,7 +93,7 @@ public class StageIntroScreen extends DefaultScreen
 	private Scene scene;
 	private float finishWait;
 	private Cell<?> titleCell;
-	private List<Integer> selectedNumbers = new ArrayList<Integer>();
+	private List<Integer> selectedNumbers;
 	private Table targetTable;
 	
 	public StageIntroScreen(DefaultGame game)
@@ -106,6 +105,7 @@ public class StageIntroScreen extends DefaultScreen
 	public void show()
 	{
 		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, false);
+		state = GameStateFactory.getInstance();
 		selectedNumbers = new ArrayList<Integer>();
 		
 		stage.addListener(new ClickListener()
@@ -153,6 +153,7 @@ public class StageIntroScreen extends DefaultScreen
 		final float shuffleduration = 0.5f;
 		final float shuffledelayduration = 0.1f;
 		final Interpolation interpolation = circle;
+		Gdx.app.log("asfd", "show called");
 		
 		for (int cardindex = 0; cardindex < 13; cardindex++)
 		{
@@ -163,6 +164,7 @@ public class StageIntroScreen extends DefaultScreen
 				int width = redMargin + (cardindex * redSpacing ) + (cardindex * cardSize);
 				card.setPosition(width, redCardsHeight );
 				card.addAction(sequence(
+						delay(0.5f),
 						moveTo(shuffleWidth, shuffleHeightRed, shuffleduration, interpolation), 
 						delay(shuffledelayduration), 
 						moveTo(width, redCardsHeight, shuffleduration, interpolation)));
@@ -176,13 +178,39 @@ public class StageIntroScreen extends DefaultScreen
 				int width = blueMargin + ((blueCardIndex % 3) * blueSpacing) + ((blueCardIndex % 3) * cardSize);
 				int height = blueCardsHeight - (blueSpacing + cardSize) * row;
 				card.setPosition(width, height);
-				card.addAction(sequence(
-						delay(2*shuffleduration + shuffledelayduration),
-						moveTo(shuffleWidth, shuffleHeightBlue, shuffleduration, interpolation), 
-						delay(shuffledelayduration), 
-						moveTo(width, height, shuffleduration, interpolation)));
+				if (blueCardIndex == 0)
+				{
+					card.addAction(sequence(
+							delay(2*shuffleduration + shuffledelayduration),
+							moveTo(shuffleWidth, shuffleHeightBlue, shuffleduration, interpolation), 
+							delay(shuffledelayduration), 
+							moveTo(width, height, shuffleduration, interpolation),
+							run(new Runnable(){
+								public void run()
+								{
+									for (final TextButton card : redCards)
+									{
+										card.addListener(new CardClickListener(card, true));
+									}
+									for (TextButton card : blueCards)
+									{
+										card.addListener(new CardClickListener(card, false));
+									}
+									scene = Scene.SELECTING;
+								}
+							})));
+				}
+				else
+				{
+					card.addAction(sequence(
+							delay(2*shuffleduration + shuffledelayduration),
+							moveTo(shuffleWidth, shuffleHeightBlue, shuffleduration, interpolation), 
+							delay(shuffledelayduration), 
+							moveTo(width, height, shuffleduration, interpolation)));
+				}
 				blueCards.add(card);
 			}
+			
 			card.setSize(cardSize, cardSize);
 			stage.addActor(card);
 		}
@@ -219,7 +247,7 @@ public class StageIntroScreen extends DefaultScreen
 	private void renderFinished(float delta)
 	{
 		finishWait += delta;
-		if (finishWait > 70)
+		if (finishWait > 6)
 		{
 			game.transitionTo(CalculateGame.GAME_SCREEN, TransitionFixtures.Fade());
 		}
@@ -228,19 +256,7 @@ public class StageIntroScreen extends DefaultScreen
 
 	private void renderShuffling(final float delta)
 	{
-		if (blueCards.get(0).getActions().size == 0)
-		{
-			for (final TextButton card : redCards)
-			{
-				card.addListener(new CardClickListener(card, true));
-			}
-			for (TextButton card : blueCards)
-			{
-				card.addListener(new CardClickListener(card, false));
-			}
-			scene = Scene.SELECTING;
-		}
-
+		// do nothing whilst the runnable attached to the Action in one of the blue cards runs
 	}
 
 	private void renderGeneratingTargetNumber(float delta)

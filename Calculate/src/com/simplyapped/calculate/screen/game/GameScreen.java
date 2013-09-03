@@ -42,6 +42,7 @@ public class GameScreen extends DefaultScreen
 		pix.setColor(0.979f,0.979f,0.979f,0.8f);
 		pix.fill();
 		texture = new Texture(pix);
+		disposables.add(texture);
 	}
 
 	@Override
@@ -86,10 +87,9 @@ public class GameScreen extends DefaultScreen
 	    operatorsTable.add().width(20f).expand(false, false).pad(0);
 	    operatorsTable.add(getCEButton());
 		operatorsTable.setWidth(panelwidth);                                                                                               
-	    operatorsTable.setHeight(CalculateGame.SCREEN_HEIGHT/15f);                                                                                             
+	    operatorsTable.setHeight(CalculateGame.SCREEN_HEIGHT/15f);
 	    operatorsTable.setPosition(CalculateGame.SCREEN_WIDTH/2 - panelwidth/2, CalculateGame.SCREEN_HEIGHT - CalculateGame.SCREEN_HEIGHT/1.8f);
 	    operatorsTable.setBackground(new TextureRegionDrawable(new TextureRegion(texture)));
-//	    operatorsTable.debug();
 	    
 	    Table operandsTable = new Table();
 	    operandsTable.row();
@@ -114,6 +114,7 @@ public class GameScreen extends DefaultScreen
 	private Actor getCEButton()
 	{
 		FlatUIButton button = new FlatUIButton("CE", skin, "ce");
+		disposables.add(button);
 		return button;
 	}
 
@@ -128,7 +129,8 @@ public class GameScreen extends DefaultScreen
 			case MULTIPLY: text = "X"; break;
 			case DIVIDE: text = "%"; break;
 		}
-		Button button = new FlatUIButton(text, skin, "operator");
+		FlatUIButton button = new FlatUIButton(text, skin, "operator");
+		disposables.add(button);
 		return button;
 	}
 

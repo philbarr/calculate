@@ -1,8 +1,6 @@
 package com.simplyapped.libgdx.ext.scene2d;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
@@ -22,9 +20,10 @@ import com.badlogic.gdx.utils.Disposable;
  */
 public class FlatUIButton extends TextButton implements Disposable
 {
-	private List<Disposable> disposables = new ArrayList<Disposable>();
 	private FlatUIButtonStyle style;
 	private Pixmap pix;
+	private Texture texture;
+	private boolean isTextureDisposed;
 	
 	public FlatUIButton (String text, Skin skin) {
 		this(text, skin.get(FlatUIButtonStyle.class));
@@ -41,7 +40,6 @@ public class FlatUIButton extends TextButton implements Disposable
 		super(text, textButtonStyle);
 		this.style = textButtonStyle;
 		pix = new Pixmap(1, 1, Format.RGBA4444);
-		disposables.add(pix);
 	}
 
 	@Override
@@ -56,7 +54,8 @@ public class FlatUIButton extends TextButton implements Disposable
 			pix.setColor(style.backgroundColor);
 		}
 		pix.fill();
-		Texture texture = new Texture(pix);
+		texture = new Texture(pix);
+		
 		Sprite s = new Sprite(new TextureRegion(texture));
 		s.setSize(this.getWidth(), this.getHeight());
 		s.setX(this.getX());
@@ -72,15 +71,18 @@ public class FlatUIButton extends TextButton implements Disposable
 	@Override
 	public void dispose()
 	{
-		for (Disposable dis : disposables)
+		try
 		{
-			try
+			if (texture != null && !isTextureDisposed)
 			{
-				dis.dispose();
-			} catch (Exception e)
-			{
-				// it's already disposed, so that's fine
+				System.out.println("disposing FlatUIButton Texture");
+				texture.dispose();
+				isTextureDisposed = true;
 			}
+		} catch (Exception e)
+		{
+			System.out.println(e.toString());
+			// it's already disposed, so that's fine
 		}
 	}
 }

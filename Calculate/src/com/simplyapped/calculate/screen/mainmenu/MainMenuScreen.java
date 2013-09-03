@@ -54,7 +54,7 @@ public class MainMenuScreen extends DefaultScreen{
 	    float buttonWidth = CalculateGame.SCREEN_WIDTH / 2f;
 	    
 	    // buttons
-	    Button playMenu = new FlatUIButton("PLAY", skin, "play");
+	    FlatUIButton playMenu = new FlatUIButton("PLAY", skin, "play");
 	    playMenu.addListener(new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y)
@@ -62,9 +62,9 @@ public class MainMenuScreen extends DefaultScreen{
 	        	game.transitionTo(CalculateGame.STAGE_SELECT_SCREEN, TransitionFixtures.OverlapLeft());
 	        }
 	    });
-//	    playMenu.padBottom(CalculateGame.SCREEN_HEIGHT/30);
 	    playMenu.setSize(buttonWidth, buttonHeight);
 	    playMenu.setPosition(CalculateGame.SCREEN_WIDTH/2-playMenu.getWidth()/2, emptyRowHeight);
+	    disposables.add(playMenu);
 	    window.row();
 	    
 	    window.setBackground(skin.getDrawable("mainmenubackground"));

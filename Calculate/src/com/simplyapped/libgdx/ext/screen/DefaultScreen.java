@@ -52,7 +52,7 @@ public abstract class DefaultScreen implements StagedScreen
 	@Override
 	public void hide()
 	{
-		dispose();
+		//dispose();
 	}
 
 	@Override
@@ -80,9 +80,12 @@ public abstract class DefaultScreen implements StagedScreen
 		{
 			try
 			{
+				System.out.println("disposing: " + disposable.toString());
 				disposable.dispose();
+				
 			} catch (GdxRuntimeException e)
 			{
+				System.out.println(e.toString());
 				// already disposed not bothered
 			}
 		}
