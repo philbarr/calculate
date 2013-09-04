@@ -45,5 +45,15 @@
 			backgroundColor: blue,
 			backgroundPressedColor: blueOn,
 	  },
-    }
+    },
+    com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+    cardbackred: {
+     up: "cardbackred",
+	 font: liberation-font,
+    },
+    cardbackblue: {
+     up: "cardbackblue",
+	 font: liberation-font,  
+    },
+  }
 }

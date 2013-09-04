@@ -1,26 +1,30 @@
 package com.simplyapped.calculate.screen.game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Pixmap.Format;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.calculate.numbers.Operator;
+import com.simplyapped.calculate.state.GameState;
+import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
 import com.simplyapped.libgdx.ext.scene2d.FlatUIButton;
@@ -28,12 +32,27 @@ import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
 public class GameScreen extends DefaultScreen
 {
+	private class OperandListener extends ClickListener
+	{
+		@Override
+		public void clicked(InputEvent event, float x, float y)
+		{
+			if (!GameScreen.this.isOperatorToSelectNext) // can select an operand
+			{
+				TextButton button = (TextButton) event.getTarget();
+				button.setVisible(false);
+			}
+		}
+	}
+
 	private Table window;
 	private Skin skin = new Skin(Gdx.files.internal("data/gamescreen.json"));
 	private Skin cards = new Skin(Gdx.files.internal("data/stageintroscreen.json")); // because in future we need to think more carefully about how we group assets
 	private ScrollPane calculationPane;
 	private Table calculationTable;
 	private Texture texture;
+	private List<TextButton> cardButtons = new ArrayList<TextButton>();
+	private boolean isOperatorToSelectNext;
 
 	public GameScreen(DefaultGame game)
 	{
@@ -48,7 +67,7 @@ public class GameScreen extends DefaultScreen
 	@Override
 	public void show()
 	{
-		float panelwidth = CalculateGame.SCREEN_WIDTH/1.4f; // used for the width of the operatorsTable, titleTable, and numbersTable
+		float panelwidth = CalculateGame.SCREEN_WIDTH/1.3f; // used for the width of the operatorsTable, titleTable, and numbersTable
 
 		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, false);
 	    stage.addListener(new ClickListener()
@@ -93,12 +112,30 @@ public class GameScreen extends DefaultScreen
 	    
 	    Table operandsTable = new Table();
 	    operandsTable.row();
-	    operandsTable.add(new FlatUIButton("23", skin, "operand"));
-	    operandsTable.add(new FlatUIButton("24", skin, "operand"));
-	    operandsTable.add(new FlatUIButton("23", skin, "operand"));
+	    GameState state = GameStateFactory.getInstance();
+	    for (int bigCard : state.getBigCards())
+		{
+			TextButton button = new TextButton(bigCard + "", cards, "cardfrontred");
+			button.addListener(new OperandListener());
+			operandsTable.add(button);
+			cardButtons.add(button);
+		}
+	    int index = 0;
+	    for (int smallCard : state.getSmallCards())
+		{
+	    	if (index++ % 3 == 0)
+	    	{
+	    		operandsTable.row();
+	    	}
+			TextButton button = new TextButton(smallCard + "", cards, "cardfrontblue");
+			button.addListener(new OperandListener());
+			operandsTable.add(button);
+			cardButtons.add(button);
+		}
 	    operandsTable.setWidth(panelwidth);
 	    operandsTable.setPosition(CalculateGame.SCREEN_WIDTH/2 - panelwidth/2, CalculateGame.SCREEN_HEIGHT - CalculateGame.SCREEN_HEIGHT/1.1f);
 	    operandsTable.setBackground(new TextureRegionDrawable(new TextureRegion(texture)));
+	    resetButtons();
 	    
 	    window.setBackground(skin.getDrawable("gamescreenbackground"));
 	    stage.addActor(window);
@@ -109,6 +146,14 @@ public class GameScreen extends DefaultScreen
 	    drawCalculationTable();
 	    Gdx.input.setInputProcessor(stage);
 	    Gdx.input.setCatchBackKey(true);
+	}
+
+	private void resetButtons()
+	{
+		for(TextButton b : cardButtons)
+		{
+			b.setVisible(true);
+		}
 	}
 
 	private Actor getCEButton()

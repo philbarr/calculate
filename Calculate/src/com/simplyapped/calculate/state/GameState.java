@@ -41,20 +41,20 @@ public abstract class GameState
 	public int selectBigNumber()
 	{
 		int big = shuffledBigNumbers.pop();
-		bigCards.add(big);
+		getBigCards().add(big);
 		return big;
 	}
 	
 	public int selectSmallNumber()
 	{
 		int small = shuffledSmallNumbers.pop();
-		smallCards.add(small);
+		getSmallCards().add(small);
 		return small;
 	}
 	
 	public int cardsLeftForUserSelect()
 	{
-		return getLevelInfo().getNumberOfCards() - bigCards.size() - smallCards.size();
+		return getLevelInfo().getNumberOfCards() - getBigCards().size() - getSmallCards().size();
 	}
 	public void setCurrentEquation(Equation eq)
 	{
@@ -63,5 +63,13 @@ public abstract class GameState
 	public Equation getCurrentEquation()
 	{
 		return equation;
+	}
+	public List<Integer> getBigCards()
+	{
+		return bigCards;
+	}
+	public List<Integer> getSmallCards()
+	{
+		return smallCards;
 	}
 }
