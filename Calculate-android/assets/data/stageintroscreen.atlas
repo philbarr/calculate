@@ -38,9 +38,16 @@ cardfrontblue
   orig: 191, 192
   offset: 0, 0
   index: -1
-cardfrontred
+cardfrontgreen
   rotate: false
   xy: 295, 389
+  size: 191, 192
+  orig: 191, 192
+  offset: 0, 0
+  index: -1
+cardfrontred
+  rotate: false
+  xy: 295, 195
   size: 191, 192
   orig: 191, 192
   offset: 0, 0

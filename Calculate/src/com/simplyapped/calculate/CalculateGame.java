@@ -26,7 +26,8 @@ public class CalculateGame extends DefaultGame {
 		GameState state = GameStateFactory.getInstance();
 		LevelDetails levelDetails = state.getLevelDetails(1);
 		levelDetails.setLocked(false);
-		state.setCurrentEquation(new Equation(100,4,7,8));
+		state.setCurrentEquation(new Equation(state.selectBigNumber(),25,2,state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber()));
+		
 		
 		TransitionFixtures.setInterpolation(Interpolation.pow5);
 		

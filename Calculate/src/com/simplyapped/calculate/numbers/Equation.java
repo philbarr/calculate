@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
+import com.badlogic.gdx.Gdx;
+
 public class Equation implements EquationElement
 {
 	private List<EquationElement> elements = new ArrayList<EquationElement>();
@@ -19,7 +21,7 @@ public class Equation implements EquationElement
 		construct(nums);
 	}
 	
-	public Equation(List<EquationElement> elements)
+	public Equation(List<EquationElement> elements) throws NonIntegerDivisionException
 	{
 		setElements(elements);
 	}
@@ -59,15 +61,26 @@ public class Equation implements EquationElement
 			
 			if (oldOperator != null && !oldOperator.isEquivalent(newOperator))
 			{
-				operand1 = new Equation(getElements());
-				Equation operand2 = new Equation(nextNumber);
-				while ((newOperator == Operator.DIVIDE && operand1.getTotal() % nextNumber != 0) ||
-						newOperator.apply(operand1.getTotal(), operand2) == 0)
+				try
 				{
-					newOperator = getGenerator().generateOperator();
+					operand1 = new Equation(getElements());
+				} catch (NonIntegerDivisionException e1)
+				{
+					Gdx.app.error(Equation.class.toString(), e1.getMessage());
 				}
-				total = newOperator.apply(operand1, operand2);
-				
+				Equation operand2 = new Equation(nextNumber);
+				try
+				{
+					while ((newOperator == Operator.DIVIDE && operand1.getTotal() % nextNumber != 0) || 
+							newOperator.apply(operand1.getTotal(), operand2) == 0)
+					{
+						newOperator = getGenerator().generateOperator();
+					}
+					total = newOperator.apply(operand1, operand2);
+				} catch (NonIntegerDivisionException e)
+				{
+					Gdx.app.error(Equation.class.toString(), e.getMessage());
+				}
 				getElements().clear();
 				getElements().add(operand1);
 				getElements().add(newOperator);
@@ -76,12 +89,19 @@ public class Equation implements EquationElement
 			else
 			{
 				Equation operand2 = new Equation(nextNumber);
-				while ((newOperator == Operator.DIVIDE && getTotal() % nextNumber != 0) ||
-						newOperator.apply(getTotal(), operand2) == 0)
+				try
 				{
-					newOperator = getGenerator().generateOperator();
+					while ((newOperator == Operator.DIVIDE && getTotal() % nextNumber != 0) ||
+							newOperator.apply(getTotal(), operand2) == 0)
+					{
+						newOperator = getGenerator().generateOperator();
+					}
+					total = newOperator.apply(getTotal(), operand2);
+				} catch (NonIntegerDivisionException e)
+				{
+					Gdx.app.error(Equation.class.toString(), e.getMessage());
+					e.printStackTrace();
 				}
-				total = newOperator.apply(getTotal(), operand2);
 				
 				getElements().add(newOperator);
 				getElements().add(operand2);
@@ -166,7 +186,7 @@ public class Equation implements EquationElement
 		return elements;
 	}
 
-	public void setElements(List<EquationElement> elements)
+	public void setElements(List<EquationElement> elements) throws NonIntegerDivisionException
 	{
 		this.getElements().addAll(elements);
 		Operator operator = null;

@@ -52,7 +52,7 @@ public class StageIntroScreen extends DefaultScreen
 				selectedNumbers.add(number);
 				TextButton button = new TextButton(number + "", skin, styleName);
 				button.setPosition(card.getX(), card.getY());
-				button.setSize(cardSize, cardSize);
+				button.setSize(CARD_SIZE, CARD_SIZE);
 				card.setVisible(false);
 				int count = StageIntroScreen.this.state.cardsLeftForUserSelect();
 				String format = count > 1 ? "Select %s Cards" : "Select %s Card";
@@ -89,7 +89,7 @@ public class StageIntroScreen extends DefaultScreen
 	private Skin skin = new Skin(Gdx.files.internal("data/stageintroscreen.json"));
 	private List<TextButton> redCards = new ArrayList<TextButton>();
 	private List<TextButton> blueCards = new ArrayList<TextButton>();
-	final int cardSize = CalculateGame.SCREEN_WIDTH / 6;
+	public final static int CARD_SIZE = CalculateGame.SCREEN_WIDTH / 6;
 	private Scene scene;
 	private float finishWait;
 	private Cell<?> titleCell;
@@ -141,14 +141,14 @@ public class StageIntroScreen extends DefaultScreen
 		//cards
 		final int redCardsHeight = (int) (CalculateGame.SCREEN_HEIGHT/1.5f);
 		final int blueCardsHeight = (int) (CalculateGame.SCREEN_HEIGHT/2.2f);
-		final int redSpacing = (int) (cardSize/2.7f);
-		final int blueSpacing = (int) (cardSize/2.2f);
-		final int redMargin = (CalculateGame.SCREEN_WIDTH - (3 * redSpacing) - (4 * cardSize))/2; // 4 cards, 3 spaces
-		final int blueMargin = (CalculateGame.SCREEN_WIDTH - (2 * blueSpacing) - (3 * cardSize))/2; // 3 cards, 2 spaces
+		final int redSpacing = (int) (CARD_SIZE/2.7f);
+		final int blueSpacing = (int) (CARD_SIZE/2.2f);
+		final int redMargin = (CalculateGame.SCREEN_WIDTH - (3 * redSpacing) - (4 * CARD_SIZE))/2; // 4 cards, 3 spaces
+		final int blueMargin = (CalculateGame.SCREEN_WIDTH - (2 * blueSpacing) - (3 * CARD_SIZE))/2; // 3 cards, 2 spaces
 
-		final int shuffleWidth = CalculateGame.SCREEN_WIDTH / 2 - cardSize / 2;
-		final int shuffleHeightRed = redCardsHeight + cardSize/2;
-		final int shuffleHeightBlue = blueCardsHeight - cardSize;
+		final int shuffleWidth = CalculateGame.SCREEN_WIDTH / 2 - CARD_SIZE / 2;
+		final int shuffleHeightRed = redCardsHeight + CARD_SIZE/2;
+		final int shuffleHeightBlue = blueCardsHeight - CARD_SIZE;
 		
 		final float shuffleduration = 0.5f;
 		final float shuffledelayduration = 0.1f;
@@ -161,7 +161,7 @@ public class StageIntroScreen extends DefaultScreen
 			if (cardindex <= 3)
 			{
 				card = new TextButton("", skin, "cardbackred");
-				int width = redMargin + (cardindex * redSpacing ) + (cardindex * cardSize);
+				int width = redMargin + (cardindex * redSpacing ) + (cardindex * CARD_SIZE);
 				card.setPosition(width, redCardsHeight );
 				card.addAction(sequence(
 						delay(0.5f),
@@ -175,8 +175,8 @@ public class StageIntroScreen extends DefaultScreen
 				int blueCardIndex = cardindex - 4;
 				int row = blueCardIndex / 3;
 				card = new TextButton("", skin, "cardbackblue");
-				int width = blueMargin + ((blueCardIndex % 3) * blueSpacing) + ((blueCardIndex % 3) * cardSize);
-				int height = blueCardsHeight - (blueSpacing + cardSize) * row;
+				int width = blueMargin + ((blueCardIndex % 3) * blueSpacing) + ((blueCardIndex % 3) * CARD_SIZE);
+				int height = blueCardsHeight - (blueSpacing + CARD_SIZE) * row;
 				card.setPosition(width, height);
 				if (blueCardIndex == 0)
 				{
@@ -211,7 +211,7 @@ public class StageIntroScreen extends DefaultScreen
 				blueCards.add(card);
 			}
 			
-			card.setSize(cardSize, cardSize);
+			card.setSize(CARD_SIZE, CARD_SIZE);
 			stage.addActor(card);
 		}
 		

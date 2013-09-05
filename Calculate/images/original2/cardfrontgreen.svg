@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="191.45454"
+   height="192"
+   id="svg2985"
+   version="1.1"
+   inkscape:version="0.48.2 r9819"
+   sodipodi:docname="cardfrontgreen.svg"
+   inkscape:export-filename="C:\Users\pbarr\git\Repository\Calculate\images\stage_intro_screen_atlas_src2\cardfrontgreen.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs2987">
+    <linearGradient
+       id="linearGradient3821">
+      <stop
+         style="stop-color:#dbf5fe;stop-opacity:1;"
+         offset="0"
+         id="stop3823" />
+      <stop
+         style="stop-color:#45ccfc;stop-opacity:1;"
+         offset="1"
+         id="stop3825" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.75"
+     inkscape:cx="78.808076"
+     inkscape:cy="99.322991"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:document-units="px"
+     inkscape:grid-bbox="true"
+     inkscape:snap-page="true"
+     inkscape:window-width="1600"
+     inkscape:window-height="848"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata2990">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     transform="translate(63.63636,64)">
+    <rect
+       style="fill:#86b300;fill-opacity:1;stroke:none"
+       id="rect2993"
+       width="191.45454"
+       height="192"
+       x="-63.63636"
+       y="-64"
+       ry="23.466667" />
+    <rect
+       ry="10.445453"
+       y="-50.909092"
+       x="-51.090912"
+       height="165.81818"
+       width="165.81818"
+       id="rect3829"
+       style="fill:#0b2833;fill-opacity:1;stroke:none" />
+    <rect
+       style="fill:#bdfc00;fill-opacity:1;stroke:none"
+       id="rect3048"
+       width="143.56419"
+       height="143.56419"
+       x="-39.963917"
+       y="-39.782097"
+       ry="9.0435982" />
+    <path
+       style="opacity:0.27884617;fill:#fcfcfc;fill-opacity:1;stroke:none"
+       d="M 23.46875 0 C 10.468216 0 -1.3333201e-017 10.468216 0 23.46875 L 0 120.4375 L 191.46875 64.90625 L 191.46875 23.46875 C 191.46875 10.468216 181.00053 2.1134541e-017 168 0 L 23.46875 0 z "
+       transform="translate(-63.63636,-64)"
+       id="rect4058" />
+  </g>
+</svg>

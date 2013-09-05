@@ -18,7 +18,7 @@ public enum Operator implements EquationElement
 		return false;
 	}
 
-	public int apply(int operand1, int operand2)
+	public int apply(int operand1, int operand2) throws NonIntegerDivisionException
 	{
 		// yes we could do this with a strategy pattern but really what's the point?
 		switch (this)
@@ -32,7 +32,7 @@ public enum Operator implements EquationElement
 			{
 				return operand1 / operand2;				
 			}
-			throw new NumberFormatException("attempting to divide gives a non-integer result: " + operand1 + " / " + operand2);
+			throw new NonIntegerDivisionException("attempting to divide gives a non-integer result: " + operand1 + " / " + operand2);
 		case MULTIPLY:
 			return operand1 * operand2;
 		}
@@ -56,12 +56,12 @@ public enum Operator implements EquationElement
 		return "";
 	}
 
-	public int apply(int operand1, Equation operand2)
+	public int apply(int operand1, Equation operand2) throws NonIntegerDivisionException
 	{
 		return apply(operand1, operand2.getTotal());
 	}
 
-	public int apply(Equation operand1, Equation operand2)
+	public int apply(Equation operand1, Equation operand2) throws NonIntegerDivisionException
 	{
 		return apply(operand1.getTotal(), operand2.getTotal());
 	}

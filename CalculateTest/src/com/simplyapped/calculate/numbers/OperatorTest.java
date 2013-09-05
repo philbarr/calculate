@@ -15,14 +15,14 @@ public class OperatorTest
 		Assert.assertFalse(Operator.MINUS.isEquivalent(Operator.MULTIPLY));
 	}
 	
-	@Test(expected=NumberFormatException.class)
-	public void OperatorDivideExceptionTest()
+	@Test(expected=NonIntegerDivisionException.class)
+	public void OperatorDivideExceptionTest() throws NonIntegerDivisionException
 	{
 		Operator.DIVIDE.apply(3,2);
 	}
 	
 	@Test
-	public void OperatorDivideTest()
+	public void OperatorDivideTest() throws NonIntegerDivisionException
 	{
 		int res = Operator.DIVIDE.apply(6,3);
 		Assert.assertSame(2, res);

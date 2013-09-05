@@ -3,23 +3,30 @@ gamescreen.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+dialogbackground
+  rotate: false
+  xy: 1, 190
+  size: 489, 719
+  orig: 489, 719
+  offset: 0, 0
+  index: -1
 gamescreenbackground
   rotate: false
-  xy: 1, 147
+  xy: 492, 546
   size: 248, 363
   orig: 248, 363
   offset: 0, 0
   index: -1
 graphtile
   rotate: false
-  xy: 251, 190
+  xy: 492, 224
   size: 160, 320
   orig: 160, 320
   offset: 0, 0
   index: -1
 calcbackground
   rotate: false
-  xy: 251, 1
+  xy: 1, 1
   size: 180, 187
   split: 15, 13, 18, 19
   orig: 180, 187
