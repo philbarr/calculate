@@ -26,7 +26,7 @@ public class CalculateGame extends DefaultGame {
 		GameState state = GameStateFactory.getInstance();
 		LevelDetails levelDetails = state.getLevelDetails(1);
 		levelDetails.setLocked(false);
-		state.setCurrentEquation(new Equation(state.selectBigNumber(),25,2,state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber()));
+//		state.setCurrentEquation(new Equation(state.selectBigNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber()));
 		
 		
 		TransitionFixtures.setInterpolation(Interpolation.pow5);
@@ -37,6 +37,6 @@ public class CalculateGame extends DefaultGame {
 		addScreen(STAGE_INTRO_SCREEN, new StageIntroScreen(this));
 		
 		state.setCurrentLevel(1);
-		setScreen(GAME_SCREEN);
+		setScreen(MAIN_MENU_SCREEN);
 	}
 }

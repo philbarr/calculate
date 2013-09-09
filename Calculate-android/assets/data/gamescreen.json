@@ -6,6 +6,7 @@
 		redOn: { r: 1, g: 0.09, b: 0.09, a: 1 },
 		grey: {r: 0.5, g: 0.5, b: 0.5, a: 0.8},
 		greyOn: {r: 0.5, g: 0.5, b: 0.5, a: 1},
+		titleColour: {r: 0.7, g: 0.7, b: 0.7, a: 1},
 		blue: {r: 0.156, g: 0.552, b: 0.179, a: 0.8},
 		blueOn: {r: 0.156, g: 0.552, b: 0.179, a: 1},
 	},
@@ -22,7 +23,11 @@
 	    dialog: {
 	      font: liberation-font,
 	      fontColor: white,
-	    }
+	    },
+	    title: {
+	      font: liberation-font,
+	      fontColor: titleColour,
+	    },
 	},
 	
 	com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {

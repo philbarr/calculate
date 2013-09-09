@@ -6,7 +6,7 @@ repeat: none
 mainmenubackground
   rotate: false
   xy: 1, 1
-  size: 370, 478
-  orig: 370, 478
+  size: 812, 1012
+  orig: 812, 1012
   offset: 0, 0
   index: -1

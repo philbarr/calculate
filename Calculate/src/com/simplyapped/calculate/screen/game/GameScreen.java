@@ -45,7 +45,7 @@ public class GameScreen extends DefaultScreen
 		@Override
 		public void clicked(InputEvent event, float x, float y)
 		{
-			if (GameScreen.this.isOperatorToSelectNext) // can select an operator
+			if (isOperatorToSelectNext) // can select an operator
 			{
 				EquationElementFlatUIButton button = (EquationElementFlatUIButton) event.getListenerActor();
 				if (calculationElements.size()>0 &&
@@ -55,8 +55,8 @@ public class GameScreen extends DefaultScreen
 				{
 					carryLine();
 				}
-				GameScreen.this.addElement(button.getData());
-				GameScreen.this.isOperatorToSelectNext = false;
+				addElement(button.getData());
+				isOperatorToSelectNext = false;
 			}
 		}
 	}
@@ -66,7 +66,7 @@ public class GameScreen extends DefaultScreen
 		@Override
 		public void clicked(InputEvent event, float x, float y)
 		{
-			if (!GameScreen.this.isOperatorToSelectNext) // can select an operand
+			if (!isOperatorToSelectNext) // can select an operand
 			{
 				EquationElementTextButton button = (EquationElementTextButton) event.getListenerActor();
 				
@@ -77,18 +77,17 @@ public class GameScreen extends DefaultScreen
 					// check that the new number won't cause a NonIntegerDivisionException
 					if (calculationElements.size() > 0)
 					{
-						List<EquationElement> lastLine = lastLine();
+						List<EquationElement> lastLine = new ArrayList<EquationElement>(lastLine());
 						lastLine.add(newEquation);
 						new Equation(lastLine);
 					}
-					GameScreen.this.addElement(newEquation);
+					addElement(newEquation);
 					button.setVisible(false);
-					GameScreen.this.isOperatorToSelectNext = true;
+					isOperatorToSelectNext = true;
 				} catch (NonIntegerDivisionException e)
 				{
 					showNonIntegerDivisionMessage();
 					List<EquationElement> lastLine = lastLine();
-					lastLine.remove(lastLine.size()-1); // remove the added number
 					lastLine.remove(lastLine.size()-1); // remove the offending divide
 					isOperatorToSelectNext = true;
 					drawCalculationTable();
@@ -100,6 +99,7 @@ public class GameScreen extends DefaultScreen
 		
 	}
 
+	private float totalTime = 12;
 	private Table window;
 	private Skin skin = new Skin(Gdx.files.internal("data/gamescreen.json"));
 	private Skin cards = new Skin(Gdx.files.internal("data/stageintroscreen.json")); // because in future we need to think more carefully about how we group assets
@@ -109,6 +109,7 @@ public class GameScreen extends DefaultScreen
 	private List<TextButton> cardButtons = new ArrayList<TextButton>();
 	private boolean isOperatorToSelectNext;
 	private List<List<EquationElement>> calculationElements = new ArrayList<List<EquationElement>>();
+	private Label timerLabel;
 
 	public GameScreen(DefaultGame game)
 	{
@@ -188,13 +189,12 @@ public class GameScreen extends DefaultScreen
 			{
 				if (keycode == Keys.BACK || keycode == Keys.BACKSPACE)
 				{
-					game.transitionTo(CalculateGame.STAGE_SELECT_SCREEN, TransitionFixtures.UnderlapRight());
+					showQuitDialog();
 					return true;
 				}
 				return false;
 			}
 		});
-	    
 	    window = new Table();	    
 	    window.setFillParent(true);
 	    
@@ -203,19 +203,19 @@ public class GameScreen extends DefaultScreen
 	    
 	    calculationPane = new ScrollPane(calculationTable);
 	    calculationPane.getStyle().background = new NinePatchDrawable( skin.getPatch("calcbackground"));
-	    calculationPane.setWidth(CalculateGame.SCREEN_WIDTH/1.2f);
+	    calculationPane.setWidth(panelwidth);
 	    calculationPane.setHeight(CalculateGame.SCREEN_HEIGHT/3f);
 	    calculationPane.setPosition(CalculateGame.SCREEN_WIDTH/2 - calculationPane.getWidth()/2, CalculateGame.SCREEN_HEIGHT - CalculateGame.SCREEN_HEIGHT/2.2f);
 	    calculationPane.setScrollingDisabled(true, false);
-	    calculationTable.debug();
+
 	    
 	    Table operatorsTable = new Table();
-	    operatorsTable.row().expandX().top().fill().pad(10);
+		operatorsTable.row().expandX().top().fill().pad(10);
 	    operatorsTable.add(getOperatorButton(Operator.PLUS));
 	    operatorsTable.add(getOperatorButton(Operator.MINUS));
 	    operatorsTable.add(getOperatorButton(Operator.MULTIPLY));
 	    operatorsTable.add(getOperatorButton(Operator.DIVIDE));
-	    operatorsTable.add().width(20f).expand(false, false).pad(0);
+	    operatorsTable.add().width(20f).expand(false, false);
 	    operatorsTable.add(getCEButton());
 		operatorsTable.setWidth(panelwidth);                                                                                               
 	    operatorsTable.setHeight(CalculateGame.SCREEN_HEIGHT/15f);
@@ -223,6 +223,7 @@ public class GameScreen extends DefaultScreen
 	    operatorsTable.setBackground(new TextureRegionDrawable(new TextureRegion(texture)));
 	    
 	    Table operandsTable = new Table();
+	    int operandsPadding = 10;
 	    operandsTable.row();
 	    GameState state = GameStateFactory.getInstance();
 	    int index = 0;
@@ -232,7 +233,7 @@ public class GameScreen extends DefaultScreen
 			button.setData(bigCard);
 			button.addListener(new OperandListener());
 			index++;
-			operandsTable.add(button).align(Align.center).expandX().fillX().size(StageIntroScreen.CARD_SIZE, StageIntroScreen.CARD_SIZE).pad(10);
+			operandsTable.add(button).align(Align.center).expandX().fillX().size(StageIntroScreen.CARD_SIZE, StageIntroScreen.CARD_SIZE).pad(operandsPadding);
 			cardButtons.add(button);
 		}
 	    for (int smallCard : state.getSmallCards())
@@ -244,23 +245,47 @@ public class GameScreen extends DefaultScreen
 	    	EquationElementTextButton button = new EquationElementTextButton(smallCard + "", cards, "cardfrontblue");
 	    	button.setData(smallCard);
 			button.addListener(new OperandListener());
-			operandsTable.add(button).align(Align.center).expandX().fillX().size(StageIntroScreen.CARD_SIZE, StageIntroScreen.CARD_SIZE).pad(10);
+			operandsTable.add(button).align(Align.center).expandX().fillX().size(StageIntroScreen.CARD_SIZE, StageIntroScreen.CARD_SIZE).pad(operandsPadding);
 			cardButtons.add(button);
 		}
 	    
-	    operandsTable.setPosition(CalculateGame.SCREEN_WIDTH/2 - panelwidth/2, CalculateGame.SCREEN_HEIGHT - CalculateGame.SCREEN_HEIGHT/1.3f);
-	    operandsTable.setWidth(panelwidth);
+	    operandsTable.setPosition(CalculateGame.SCREEN_WIDTH/2 - panelwidth/2 - operandsPadding, CalculateGame.SCREEN_HEIGHT - CalculateGame.SCREEN_HEIGHT/1.3f);
+	    operandsTable.setWidth(panelwidth + operandsPadding*2);
 	    operandsTable.setBackground(new TextureRegionDrawable(new TextureRegion(texture)));
 	    
 	    window.setBackground(skin.getDrawable("gamescreenbackground"));
+
+	    // title labels
+	    Table titleTable = new Table();
+	    titleTable.setBackground(skin.getDrawable("titlebackground"));
+	    titleTable.setWidth(CalculateGame.SCREEN_WIDTH);
+	    float titleBackgroundHeight = CalculateGame.SCREEN_HEIGHT / 11f;
+		titleTable.setHeight(titleBackgroundHeight);
+	    titleTable.setPosition(0, CalculateGame.SCREEN_HEIGHT - titleTable.getHeight());
+	    Label targetLabel = new Label("Target: " + GameStateFactory.getInstance().getCurrentEquation().getTotal(), skin, "title");
+	    targetLabel.setAlignment(Align.center);
+	    float labelHeight = CalculateGame.SCREEN_HEIGHT - titleBackgroundHeight + (targetLabel.getHeight()/2);
+	    float pad = 10f;
+		targetLabel.setPosition((CalculateGame.SCREEN_WIDTH - calculationPane.getWidth())/2 + pad, labelHeight);
+	    timerLabel = new Label("Time:   ", skin, "title");
+	    timerLabel.setPosition(((CalculateGame.SCREEN_WIDTH - calculationPane.getWidth())/2) + calculationPane.getWidth() - timerLabel.getWidth() - pad, labelHeight);
+
 	    stage.addActor(window);
 	    stage.addActor(calculationPane);
+	    stage.addActor(titleTable);
+	    stage.addActor(timerLabel);
+	    stage.addActor(targetLabel);
 	    stage.addActor(operatorsTable);
 	    stage.addActor(operandsTable);
 	    
 	    resetGame();
 	    Gdx.input.setInputProcessor(stage);
 	    Gdx.input.setCatchBackKey(true);
+	}
+
+	protected void showQuitDialog()
+	{
+		game.transitionTo(CalculateGame.STAGE_SELECT_SCREEN, TransitionFixtures.UnderlapRight());
 	}
 
 	private void resetGame()
@@ -333,7 +358,18 @@ public class GameScreen extends DefaultScreen
 	{
 		super.render(delta);
 		
-		Table.drawDebug(stage);
+		// update time
+		if (timerLabel != null)
+		{
+			int time = (int)(totalTime-=delta);
+			String timeStr = String.valueOf(time);
+			if (timeStr.toCharArray().length == 1)
+			{
+				timeStr = " " + timeStr;
+			}
+			timerLabel.setText("Time: " + timeStr);
+		}
+//		Table.drawDebug(stage);
 	}
 
 	private Label getLabel(List<EquationElement> line)

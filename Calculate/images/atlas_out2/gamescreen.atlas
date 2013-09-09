@@ -3,23 +3,23 @@ gamescreen.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-dialogbackground
-  rotate: false
-  xy: 1, 190
-  size: 489, 719
-  orig: 489, 719
-  offset: 0, 0
-  index: -1
 gamescreenbackground
   rotate: false
-  xy: 492, 546
-  size: 248, 363
-  orig: 248, 363
+  xy: 1, 292
+  size: 572, 654
+  orig: 572, 654
+  offset: 0, 0
+  index: -1
+titlebackground
+  rotate: false
+  xy: 1, 190
+  size: 800, 100
+  orig: 800, 100
   offset: 0, 0
   index: -1
 graphtile
   rotate: false
-  xy: 492, 224
+  xy: 575, 626
   size: 160, 320
   orig: 160, 320
   offset: 0, 0
@@ -30,5 +30,17 @@ calcbackground
   size: 180, 187
   split: 15, 13, 18, 19
   orig: 180, 187
+  offset: 0, 0
+  index: -1
+
+gamescreen2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+dialogbackground
+  rotate: false
+  xy: 1, 1
+  size: 489, 719
+  orig: 489, 719
   offset: 0, 0
   index: -1

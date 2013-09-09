@@ -106,6 +106,9 @@ public class StageIntroScreen extends DefaultScreen
 	{
 		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, false);
 		state = GameStateFactory.getInstance();
+		redCards = new ArrayList<TextButton>();
+		blueCards = new ArrayList<TextButton>();
+		state.resetCurrentGameInfo();
 		selectedNumbers = new ArrayList<Integer>();
 		
 		stage.addListener(new ClickListener()

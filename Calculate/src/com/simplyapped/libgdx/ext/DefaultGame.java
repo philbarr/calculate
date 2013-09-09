@@ -99,6 +99,7 @@ public abstract class DefaultGame implements ApplicationListener
 	@Override
 	public void pause()
 	{
+		System.out.println("pausing screen");
 		if (currentScreen != null)
 			currentScreen.pause();
 	}
@@ -106,6 +107,7 @@ public abstract class DefaultGame implements ApplicationListener
 	@Override
 	public void resume()
 	{
+		System.out.println("resuming screen");
 		if (currentScreen != null)
 			currentScreen.resume();
 	}
@@ -113,6 +115,7 @@ public abstract class DefaultGame implements ApplicationListener
 	@Override
 	public void resize(int width, int height)
 	{
+		System.out.println("resizing screen");
 		if (currentScreen != null)
 			currentScreen.resize(width, height);
 	}

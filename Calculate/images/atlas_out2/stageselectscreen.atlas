@@ -12,8 +12,8 @@ dialogbackground
   index: -1
 stageselectscreenbackground
   rotate: false
-  xy: 492, 308
-  size: 253, 412
-  orig: 253, 412
+  xy: 492, 80
+  size: 528, 640
+  orig: 528, 640
   offset: 0, 0
   index: -1

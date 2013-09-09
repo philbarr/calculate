@@ -20,8 +20,7 @@ public abstract class GameState
 	public abstract LevelDetails getLevelDetails(int level);
 	public GameState()
 	{
-		shuffledBigNumbers = generator.shuffledBigNumbers();
-		shuffledSmallNumbers = generator.shuffledSmallNumbers();		
+		resetCurrentGameInfo();
 	}
 	public LevelInfo getLevelInfo()
 	{
@@ -71,5 +70,13 @@ public abstract class GameState
 	public List<Integer> getSmallCards()
 	{
 		return smallCards;
+	}
+	public void resetCurrentGameInfo()
+	{
+		shuffledBigNumbers = generator.shuffledBigNumbers();
+		shuffledSmallNumbers = generator.shuffledSmallNumbers();		
+		smallCards.clear();
+		bigCards.clear();
+		this.equation = null;
 	}
 }
