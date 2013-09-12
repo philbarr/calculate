@@ -1,17 +1,33 @@
 {
-
-    com.badlogic.gdx.graphics.Color: {
-            green: { r: 0, g: 0.9, b: 0, a: 0.9},
-    },
+	com.badlogic.gdx.graphics.Color: {
+		white: { r: 0.9, g: 0.9, b: 0.9, a: 1},
+		black: { r: 0.09, g: 0.09, b: 0.09, a: 1},
+		red: { r: 1, g: 0.09, b: 0.09, a: 0.8 },
+		redOn: { r: 1, g: 0.09, b: 0.09, a: 1 },
+		grey: {r: 0.5, g: 0.5, b: 0.5, a: 0.8},
+		greyOn: {r: 0.5, g: 0.5, b: 0.5, a: 1},
+		titleColour: {r: 0.7, g: 0.7, b: 0.7, a: 1},
+		blue: {r: 0.156, g: 0.552, b: 0.179, a: 0.8},
+		blueOn: {r: 0.156, g: 0.552, b: 0.179, a: 1},
+	},
     com.badlogic.gdx.graphics.g2d.BitmapFont: {
             pump-font: { file: PumpDemiBoldLET.fnt },
             nina-font: { file: ninafont.fnt },
-            liberation-font: { file: liberation.fnt },
+            liberation-font: { file: liberation96.fnt },
+            liberation-font-32: { file: liberation32.fnt },
     },
     com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	    text: {
 	      font: liberation-font,
-	      fontColor: green,
+	      fontColor: white,
 	    }
 	},
+	com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton$FlatUIButtonStyle: {
+        playagain: {
+  			font: liberation-font-32,
+  			fontColor: white,
+  			backgroundColor: red,
+  			backgroundPressedColor: redOn,
+  	  	},
+    }
 }

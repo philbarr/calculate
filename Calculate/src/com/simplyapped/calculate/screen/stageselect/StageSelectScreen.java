@@ -109,7 +109,7 @@ public class StageSelectScreen extends DefaultScreen
     			String text = String.format(DIALOG_DETAILS_TEXT, info.getNumberOfCards(), info.getTimeLimit(), info.getConsecutiveWinsRequired());
     			text+= info.isUseAllCards() ? "You MUST Use All Cards" : "Use Only The Cards You Need";
 				Label details = new Label(text, labelStyle);
-    			details.setFontScale(0.7f);
+    			details.setFontScale(0.2f);
     			
 				FlatUIButton playButton = new FlatUIButton("Play", skin, "dialogPlay");
 				playButton.addListener(new ClickListener(){
@@ -121,8 +121,10 @@ public class StageSelectScreen extends DefaultScreen
 						game.transitionTo(CalculateGame.STAGE_INTRO_SCREEN, TransitionFixtures.OverlapLeft());
 					}
 				});
+				playButton.getLabel().setFontScale(0.3f);
 				disposables.add(playButton);
 				FlatUIButton cancelButton = new FlatUIButton("Close", skin, "dialogCancel");
+				cancelButton.getLabel().setFontScale(0.3f);
 				disposables.add(cancelButton);
 				dialog.getContentTable().add(details);
 				dialog.getButtonTable().defaults().pad(15f).width(CalculateGame.SCREEN_WIDTH/3.5f).padBottom(45f);
@@ -138,7 +140,7 @@ public class StageSelectScreen extends DefaultScreen
 	        }
 
 	    });
-	    levelButton.getLabel().setFontScale(1.5f);
+	    levelButton.getLabel().setFontScale(1f);
 	    disposables.add(levelButton);
 	    
 	    rowTable.add(levelButton).width(buttonSize).height(buttonSize/1.3f).align(Align.left).expandX().padLeft(0f).pad(20f);	
@@ -160,11 +162,12 @@ public class StageSelectScreen extends DefaultScreen
 	{
 		LevelDetails levelDetails = GameStateFactory.getInstance().getLevelDetails(level);
 		Table details = new Table(skin);
-	    float fontScale = 0.7f;
+	    float fontScale = 0.2f;
 	    
 	    if ((levelDetails.isLocked()))
 	    {
 	    	Label locked = new Label("Locked", skin, "details");
+	    	locked.setFontScale(0.3f);
 	    	details.add(locked).align(Align.center);
 	    }
 	    else

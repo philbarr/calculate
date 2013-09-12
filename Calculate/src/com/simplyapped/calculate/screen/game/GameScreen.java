@@ -99,7 +99,8 @@ public class GameScreen extends DefaultScreen
 		
 	}
 
-	private float totalTime = 12;
+	private static final float TIMEOUT = 10;
+	private float totalTime;
 	private Table window;
 	private Skin skin = new Skin(Gdx.files.internal("data/gamescreen.json"));
 	private Skin cards = new Skin(Gdx.files.internal("data/stageintroscreen.json")); // because in future we need to think more carefully about how we group assets
@@ -110,6 +111,7 @@ public class GameScreen extends DefaultScreen
 	private boolean isOperatorToSelectNext;
 	private List<List<EquationElement>> calculationElements = new ArrayList<List<EquationElement>>();
 	private Label timerLabel;
+	private boolean isTransitioning;
 
 	public GameScreen(DefaultGame game)
 	{
@@ -130,7 +132,7 @@ public class GameScreen extends DefaultScreen
 		LabelStyle labelStyle = skin.get("dialog", LabelStyle.class);
 		String text = "Whole Numbers Only!\nNo Fractions Allowed!";
 		Label details = new Label(text, labelStyle);
-		details.setFontScale(0.7f);
+		details.setFontScale(0.3f);
 		
 		FlatUIButton okButton = new FlatUIButton("Ok", skin, "dialogOk");
 		disposables.add(okButton);
@@ -179,6 +181,8 @@ public class GameScreen extends DefaultScreen
 	@Override
 	public void show()
 	{
+		isTransitioning = false;
+		totalTime = TIMEOUT;
 		float panelwidth = CalculateGame.SCREEN_WIDTH/1.3f; // used for the width of the operatorsTable, titleTable, and numbersTable
 
 		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, false);
@@ -208,7 +212,6 @@ public class GameScreen extends DefaultScreen
 	    calculationPane.setPosition(CalculateGame.SCREEN_WIDTH/2 - calculationPane.getWidth()/2, CalculateGame.SCREEN_HEIGHT - CalculateGame.SCREEN_HEIGHT/2.2f);
 	    calculationPane.setScrollingDisabled(true, false);
 
-	    
 	    Table operatorsTable = new Table();
 		operatorsTable.row().expandX().top().fill().pad(10);
 	    operatorsTable.add(getOperatorButton(Operator.PLUS));
@@ -259,17 +262,27 @@ public class GameScreen extends DefaultScreen
 	    Table titleTable = new Table();
 	    titleTable.setBackground(skin.getDrawable("titlebackground"));
 	    titleTable.setWidth(CalculateGame.SCREEN_WIDTH);
+	    
 	    float titleBackgroundHeight = CalculateGame.SCREEN_HEIGHT / 11f;
 		titleTable.setHeight(titleBackgroundHeight);
 	    titleTable.setPosition(0, CalculateGame.SCREEN_HEIGHT - titleTable.getHeight());
+	    
+	    // target label
 	    Label targetLabel = new Label("Target: " + GameStateFactory.getInstance().getCurrentEquation().getTotal(), skin, "title");
-	    targetLabel.setAlignment(Align.center);
-	    float labelHeight = CalculateGame.SCREEN_HEIGHT - titleBackgroundHeight + (targetLabel.getHeight()/2);
+	    targetLabel.setAlignment(Align.left, Align.bottom);
+	    targetLabel.setHeight(titleBackgroundHeight);
 	    float pad = 10f;
-		targetLabel.setPosition((CalculateGame.SCREEN_WIDTH - calculationPane.getWidth())/2 + pad, labelHeight);
+	    targetLabel.setWidth(CalculateGame.SCREEN_WIDTH/2 - pad);
+	    float labelHeight = CalculateGame.SCREEN_HEIGHT - titleBackgroundHeight;
+		targetLabel.setPosition((CalculateGame.SCREEN_WIDTH - calculationPane.getWidth())/2 - pad, labelHeight);
+		
+		// timer label
 	    timerLabel = new Label("Time:   ", skin, "title");
-	    timerLabel.setPosition(((CalculateGame.SCREEN_WIDTH - calculationPane.getWidth())/2) + calculationPane.getWidth() - timerLabel.getWidth() - pad, labelHeight);
-
+	    timerLabel.setPosition(((CalculateGame.SCREEN_WIDTH - calculationPane.getWidth())/2) + calculationPane.getWidth() - timerLabel.getWidth() + pad, labelHeight);
+	    timerLabel.setHeight(titleBackgroundHeight);
+	    timerLabel.setWidth(CalculateGame.SCREEN_WIDTH/2);
+	    timerLabel.setAlignment(Align.left,Align.bottom);
+	    
 	    stage.addActor(window);
 	    stage.addActor(calculationPane);
 	    stage.addActor(titleTable);
@@ -332,7 +345,6 @@ public class GameScreen extends DefaultScreen
 
 		calculationPane.setScrollY(calculationTable.getHeight());
 	    calculationTable.row();
-//	    calculationTable.add().expandY();
 	}
 
 	private void createRow(Table calculation, List<EquationElement> line)
@@ -359,9 +371,15 @@ public class GameScreen extends DefaultScreen
 		super.render(delta);
 		
 		// update time
-		if (timerLabel != null)
+		if (timerLabel != null && !isTransitioning)
 		{
 			int time = (int)(totalTime-=delta);
+			if (time <= 0)
+			{
+				isTransitioning = true;
+				game.transitionTo(CalculateGame.WINNER_SCREEN, TransitionFixtures.Fade());
+			}
+			
 			String timeStr = String.valueOf(time);
 			if (timeStr.toCharArray().length == 1)
 			{
@@ -369,7 +387,6 @@ public class GameScreen extends DefaultScreen
 			}
 			timerLabel.setText("Time: " + timeStr);
 		}
-//		Table.drawDebug(stage);
 	}
 
 	private Label getLabel(List<EquationElement> line)

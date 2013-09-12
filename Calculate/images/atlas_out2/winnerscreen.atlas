@@ -5,15 +5,22 @@ filter: Nearest,Nearest
 repeat: none
 winnerscreenbackground
   rotate: false
-  xy: 1, 33
+  xy: 1, 35
   size: 512, 654
   orig: 512, 654
   offset: 0, 0
   index: -1
 winnerballoon
   rotate: false
-  xy: 515, 1
+  xy: 515, 3
   size: 284, 686
   orig: 284, 686
+  offset: 0, 0
+  index: -1
+tickertape
+  rotate: false
+  xy: 1, 1
+  size: 20, 32
+  orig: 20, 32
   offset: 0, 0
   index: -1

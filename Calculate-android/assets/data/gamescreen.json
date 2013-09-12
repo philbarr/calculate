@@ -13,19 +13,19 @@
 	com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	        pump-font: { file: PumpDemiBoldLET.fnt },
 	        nina-font: { file: ninafont.fnt },
-	        liberation-font: { file: liberation.fnt },
+	        liberation-font-32: { file: liberation32.fnt },
 	},
 	com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	    calculation: {
-	      font: liberation-font,
+	      font: liberation-font-32,
 	      fontColor: black,
 	    },
 	    dialog: {
-	      font: liberation-font,
+	      font: liberation-font-32,
 	      fontColor: white,
 	    },
 	    title: {
-	      font: liberation-font,
+	      font: liberation-font-32,
 	      fontColor: titleColour,
 	    },
 	},
@@ -33,41 +33,42 @@
 	com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 	  dialog: {
 	    background: dialogbackground,
-	    titleFont: liberation-font,
+	    titleFont: liberation-font-32,
 	  }
 	},
 	
-    com.simplyapped.libgdx.ext.scene2d.FlatUIButton$FlatUIButtonStyle: {
+    com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton$FlatUIButtonStyle: {
       operand: {
-			font: liberation-font,
+			font: liberation-font-32,
 			fontColor: white,
 			backgroundColor: blue,
 			backgroundPressedColor: blueOn,
 	  },
       operator: {
-			font: liberation-font,
+			font: liberation-font-32,
 			fontColor: white,
 			backgroundColor: grey,
 			backgroundPressedColor: greyOn,
 	  },
 	  ce: {
-			font: liberation-font,
+			font: liberation-font-32,
 			fontColor: white,
 			backgroundColor: red,
 			backgroundPressedColor: redOn,
 	  },
 	  number: {
-			font: liberation-font,
+			font: liberation-font-32,
 			fontColor: white,
 			backgroundColor: blue,
 			backgroundPressedColor: blueOn,
 	  },
 	  dialogOk: {
-  			font: liberation-font,
+  			font: liberation-font-32,
   			fontColor: white,
   			backgroundColor: { r: 0.1, g: 0.9, b: 0.1, a: 0.8},
   			backgroundPressedColor: { r: 0.1, g: 0.9, b: 0.1, a: 1},
   	  	},
     },
+
     
 }

@@ -1,6 +1,7 @@
 package com.simplyapped.calculate;
 
 import com.badlogic.gdx.math.Interpolation;
+import com.simplyapped.calculate.numbers.Equation;
 import com.simplyapped.calculate.screen.game.GameScreen;
 import com.simplyapped.calculate.screen.loser.LoserScreen;
 import com.simplyapped.calculate.screen.mainmenu.MainMenuScreen;
@@ -29,8 +30,7 @@ public class CalculateGame extends DefaultGame {
 		GameState state = GameStateFactory.getInstance();
 		LevelDetails levelDetails = state.getLevelDetails(1);
 		levelDetails.setLocked(false);
-//		state.setCurrentEquation(new Equation(state.selectBigNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber()));
-		
+		state.setCurrentEquation(new Equation(state.selectBigNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber()));
 		
 		TransitionFixtures.setInterpolation(Interpolation.pow5);
 		
@@ -42,6 +42,6 @@ public class CalculateGame extends DefaultGame {
 		addScreen(LOSER_SCREEN, new LoserScreen(this));
 		
 		state.setCurrentLevel(1);
-		setScreen(WINNER_SCREEN);
+		setScreen(MAIN_MENU_SCREEN);
 	}
 }

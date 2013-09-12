@@ -8,7 +8,7 @@
     com.badlogic.gdx.graphics.g2d.BitmapFont: {
             pump-font: { file: PumpDemiBoldLET.fnt },
             nina-font: { file: ninafont.fnt },
-            liberation-font: { file: liberation.fnt },
+            liberation-font: { file: liberation96.fnt },
     },
     com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	    details: {
@@ -26,7 +26,7 @@
 	    titleFont: liberation-font,
 	  }
 	},
-    com.simplyapped.libgdx.ext.scene2d.FlatUIButton$FlatUIButtonStyle: {
+    com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton$FlatUIButtonStyle: {
         dialogPlay: {
   			font: liberation-font,
   			fontColor: white,

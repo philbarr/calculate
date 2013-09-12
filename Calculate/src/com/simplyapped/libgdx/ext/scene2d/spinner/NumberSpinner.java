@@ -1,18 +1,49 @@
 package com.simplyapped.libgdx.ext.scene2d.spinner;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class NumberSpinner extends Widget
 {
+	public final static int DEFAULT_WIDTH_SPINNER = 97;
+	
+	public static Table createNumberSpinnerTable(int targetNumber, Interpolation interpolation, float duration, float hangingdelay)
+	{
+		Table targetTable = new Table();
+		targetTable.row();
+		char[] digits = ("" + targetNumber).toCharArray();
+		targetTable.setWidth(digits.length * DEFAULT_WIDTH_SPINNER);
+	
+		for (int i = 0; i < digits.length; i++)
+		{
+			int num = Integer.parseInt(digits[i]+"");
+			int from = i % 2 == 0 ? num : num+20;
+			int to =   i % 2 == 0 ? num+20 : num;
+			NumberSpinner spinner = new NumberSpinner(from, to, interpolation, duration + (i*hangingdelay));
+			targetTable.add(spinner).expand().fill();
+			
+		}
+		return targetTable;
+	}
+	
 	private IntAction action;
 	private TextureRegion numberstrip;
 	private int viewportHeight;
 	private int height;
 
+	public NumberSpinner(int from, int to, Interpolation interpolation, float duration)
+	{
+		this(new TextureAtlas(Gdx.files.classpath("com/simplyapped/libgdx/ext/scene2d/spinner/numberspinner.atlas")).findRegion("numberstrip"), 90, 90, from, to, interpolation, duration);
+	}
+	
 	public NumberSpinner(TextureRegion numberstrip, int viewportHeight, int numberHeight, int from, int to, Interpolation interpolation, float duration)
 	{
 		this.height = numberstrip.getRegionHeight();
@@ -50,7 +81,7 @@ public class NumberSpinner extends Widget
 				numberstrip.getRegionWidth(),
 				viewportHeight);
 		
-		// deal with the case where the end of the strip joins the start of a new strip
+		// deal with the case where the end of the strip joins the start of a new strip at the top
 		if (position > height - viewportHeight)
 		{
 			TextureRegion extraRegion = new TextureRegion(

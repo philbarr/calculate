@@ -8,7 +8,6 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.esotericsoftware.tablelayout.Cell;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.calculate.numbers.Equation;
@@ -57,6 +57,7 @@ public class StageIntroScreen extends DefaultScreen
 				int count = StageIntroScreen.this.state.cardsLeftForUserSelect();
 				String format = count > 1 ? "Select %s Cards" : "Select %s Card";
 				title.setText(String.format(format, count));
+				
 				if (StageIntroScreen.this.state.cardsLeftForUserSelect() == 0)
 				{
 					StageIntroScreen.this.scene = Scene.DISMISS_CARDS;
@@ -133,6 +134,9 @@ public class StageIntroScreen extends DefaultScreen
 		
 		title = new Label(String.format("Select %s Cards", StageIntroScreen.this.state.cardsLeftForUserSelect()), skin, "title");
 		title.setAlignment(Align.center);
+		TextureRegionDrawable backstyle = FlatUI.CreateBackgroundDrawable(0.2f, 0.2f, 0.2f, 0.9f, title.getWidth(), title.getHeight());
+		disposables.add(backstyle.getRegion().getTexture());
+		title.getStyle().background = backstyle;
 		titleCell = back.add(title).expandX().fillX().center().top().pad(CalculateGame.SCREEN_HEIGHT/10f);
 		back.row();
 		targetTable = new Table();
@@ -268,7 +272,9 @@ public class StageIntroScreen extends DefaultScreen
 		{
 			titleCell.pad(CalculateGame.SCREEN_WIDTH/5f);
 			
-			title.getStyle().background = FlatUI.CreateBackgroundDrawable(0.2f, 0.2f, 0.2f, 0.9f, title.getWidth(), title.getHeight());
+			TextureRegionDrawable back = FlatUI.CreateBackgroundDrawable(0.2f, 0.2f, 0.2f, 0.9f, title.getWidth(), title.getHeight());
+			disposables.add(back.getRegion().getTexture());
+			title.getStyle().background = back;
 			title.setText("\nYour\n\nTarget\n\nNumber\n ");
 			title.setVisible(true);
 			title.getColor().a = 0;
@@ -289,29 +295,9 @@ public class StageIntroScreen extends DefaultScreen
 			int targetNumber = eq.getTotal();
 			Gdx.app.log("target", targetNumber+"");
 			
-			TextureRegion region = skin.getSprite("numberstrip");
-			
-			char[] digits = ("" + targetNumber).toCharArray();
-			if(digits.length == 2 || digits.length == 3)
-			{
-				targetTable.add().expand().fill(); //table padding needed if only 2 or 3 digits
-			}
-			for(Equation e : eq.getEquationConstruction())
-			{
-				Gdx.app.log("eq", e.toString());				
-			}
-			for (int i = 0; i < digits.length; i++)
-			{
-				int num = Integer.parseInt(digits[i]+"");
-				int from = i % 2 == 0 ? num : num+20;
-				int to =   i % 2 == 0 ? num+20 : num;
-				NumberSpinner spinner = new NumberSpinner(region, 90, 90, from, to, swingOut, 3 + (i*0.2f));
-				targetTable.add(spinner).expand().fill();
-			}
-			if(digits.length == 2 || digits.length == 3)
-			{
-				targetTable.add().expand().fill();//table padding needed if only 2 or 3 digits
-			}
+			Table spinner = NumberSpinner.createNumberSpinnerTable(targetNumber, swingOut, 3, 0.2f);
+			spinner.setPosition(CalculateGame.SCREEN_WIDTH/2 - spinner.getWidth()/2, CalculateGame.SCREEN_HEIGHT/5f);
+			stage.addActor(spinner);
 			scene = Scene.FINISHED;
 		}
 	}

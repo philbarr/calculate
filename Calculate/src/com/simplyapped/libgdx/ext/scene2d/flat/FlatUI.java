@@ -28,7 +28,7 @@ public class FlatUI extends Table implements Disposable
 	private FlatUIStyle style;
 	private Pixmap pix;
 	
-	public static Drawable CreateBackgroundDrawable(float r, float g, float b, float a, float width, float height)
+	public static TextureRegionDrawable CreateBackgroundDrawable(float r, float g, float b, float a, float width, float height)
 	{
 		Pixmap pix = new Pixmap(1,1,Format.RGBA4444);
 		pix.setColor(new Color(r,g,b,a));

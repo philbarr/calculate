@@ -1,0 +1,12 @@
+
+numberspinner.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+numberstrip
+  rotate: false
+  xy: 1, 1
+  size: 97, 900
+  orig: 97, 900
+  offset: 0, 0
+  index: -1
