@@ -26,7 +26,7 @@ import com.simplyapped.calculate.state.LevelDetails;
 import com.simplyapped.calculate.state.LevelInfo;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
-import com.simplyapped.libgdx.ext.scene2d.FlatUIButton;
+import com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton;
 import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
 public class StageSelectScreen extends DefaultScreen

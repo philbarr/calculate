@@ -2,7 +2,7 @@ package com.simplyapped.calculate.screen.game.actor;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.simplyapped.calculate.numbers.Operator;
-import com.simplyapped.libgdx.ext.scene2d.FlatUIButton;
+import com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton;
 
 public class EquationElementFlatUIButton extends FlatUIButton
 {

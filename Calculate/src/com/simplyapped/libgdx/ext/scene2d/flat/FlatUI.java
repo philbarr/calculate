@@ -1,4 +1,4 @@
-package com.simplyapped.libgdx.ext.scene2d;
+package com.simplyapped.libgdx.ext.scene2d.flat;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -30,12 +30,12 @@ import com.simplyapped.calculate.numbers.NonIntegerDivisionException;
 import com.simplyapped.calculate.numbers.Operator;
 import com.simplyapped.calculate.screen.game.actor.EquationElementFlatUIButton;
 import com.simplyapped.calculate.screen.game.actor.EquationElementTextButton;
-import com.simplyapped.calculate.screen.levelintro.StageIntroScreen;
+import com.simplyapped.calculate.screen.stageintro.StageIntroScreen;
 import com.simplyapped.calculate.state.GameState;
 import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
-import com.simplyapped.libgdx.ext.scene2d.FlatUIButton;
+import com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton;
 import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
 public class GameScreen extends DefaultScreen

@@ -1,4 +1,4 @@
-package com.simplyapped.calculate.screen.levelintro;
+package com.simplyapped.calculate.screen.stageintro;
 
 import static com.badlogic.gdx.math.Interpolation.*;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
@@ -25,8 +25,8 @@ import com.simplyapped.calculate.state.GameState;
 import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
-import com.simplyapped.libgdx.ext.scene2d.FlatUI;
-import com.simplyapped.libgdx.ext.scene2d.NumberSpinner;
+import com.simplyapped.libgdx.ext.scene2d.flat.FlatUI;
+import com.simplyapped.libgdx.ext.scene2d.spinner.NumberSpinner;
 import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
 public class StageIntroScreen extends DefaultScreen

@@ -1,0 +1,17 @@
+{
+
+    com.badlogic.gdx.graphics.Color: {
+            green: { r: 0, g: 0.9, b: 0, a: 0.9},
+    },
+    com.badlogic.gdx.graphics.g2d.BitmapFont: {
+            pump-font: { file: PumpDemiBoldLET.fnt },
+            nina-font: { file: ninafont.fnt },
+            liberation-font: { file: liberation.fnt },
+    },
+    com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	    text: {
+	      font: liberation-font,
+	      fontColor: green,
+	    }
+	},
+}
