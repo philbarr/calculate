@@ -6,6 +6,7 @@ import java.util.Map;
 public class InMemoryGameState extends GameState
 {
 	private Map<Integer, LevelDetails> details = new HashMap<Integer, LevelDetails>();
+	private int remainingSolutions;
 	
 	@Override
 	public LevelDetails getLevelDetails(int level)
@@ -18,5 +19,29 @@ public class InMemoryGameState extends GameState
 		}
 		
 		return details.get(level);
+	}
+
+	@Override
+	public int getRemainingSolutions()
+	{
+		return remainingSolutions;
+	}
+
+	@Override
+	public void setLevelDetails(int level, LevelDetails details)
+	{
+		this.details.put(level, details);
+	}
+
+	@Override
+	public void increaseRemainingSolutions(int increase)
+	{
+		remainingSolutions += increase;
+	}
+
+	@Override
+	public void decreaseSolutions()
+	{
+		remainingSolutions = remainingSolutions == 0 ? 0 : remainingSolutions - 1;
 	}
 }

@@ -1,7 +1,21 @@
 package com.simplyapped.calculate.state;
 
+import com.badlogic.gdx.utils.Json;
+
 public class LevelDetails
 {
+	public static String serialize(LevelDetails details)
+	{
+		String json = new Json().toJson(details);
+		return json;
+	}
+	
+	public static LevelDetails deserialize(String json)
+	{
+		LevelDetails fromJson = new Json().fromJson(LevelDetails.class, json);
+		return fromJson;
+	}
+	
 	private boolean isLocked;
 	private int attempts;
 	private int completed;

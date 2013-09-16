@@ -75,16 +75,23 @@ public class GameScreen extends DefaultScreen
 					Equation newEquation = new Equation(button.getData());
 
 					// check that the new number won't cause a NonIntegerDivisionException
+					// and check if user has won
 					if (calculationElements.size() > 0)
 					{
 						List<EquationElement> lastLine = new ArrayList<EquationElement>(lastLine());
 						lastLine.add(newEquation);
-						new Equation(lastLine);
+						Equation equation = new Equation(lastLine); // auto-checks for NonIntegerDivisionException
+						GameState state = GameStateFactory.getInstance();
+						if (equation.getTotal() == state.getCurrentEquation().getTotal())
+						{
+							game.transitionTo(CalculateGame.WINNER_SCREEN, TransitionFixtures.Fade());
+						}
 					}
 					addElement(newEquation);
 					button.setVisible(false);
 					isOperatorToSelectNext = true;
-				} catch (NonIntegerDivisionException e)
+				} 
+				catch (NonIntegerDivisionException e)
 				{
 					showNonIntegerDivisionMessage();
 					List<EquationElement> lastLine = lastLine();
@@ -99,7 +106,7 @@ public class GameScreen extends DefaultScreen
 		
 	}
 
-	private static final float TIMEOUT = 10;
+	private static final float TIMEOUT = 60;
 	private float totalTime;
 	private Table window;
 	private Skin skin = new Skin(Gdx.files.internal("data/gamescreen.json"));
@@ -112,6 +119,7 @@ public class GameScreen extends DefaultScreen
 	private List<List<EquationElement>> calculationElements = new ArrayList<List<EquationElement>>();
 	private Label timerLabel;
 	private boolean isTransitioning;
+	private boolean isPaused;
 
 	public GameScreen(DefaultGame game)
 	{
@@ -298,6 +306,7 @@ public class GameScreen extends DefaultScreen
 
 	protected void showQuitDialog()
 	{
+		//TODO sort this out showquitdialog
 		game.transitionTo(CalculateGame.STAGE_SELECT_SCREEN, TransitionFixtures.UnderlapRight());
 	}
 
@@ -371,13 +380,13 @@ public class GameScreen extends DefaultScreen
 		super.render(delta);
 		
 		// update time
-		if (timerLabel != null && !isTransitioning)
+		if (timerLabel != null && !isTransitioning && !isPaused)
 		{
 			int time = (int)(totalTime-=delta);
 			if (time <= 0)
 			{
 				isTransitioning = true;
-				game.transitionTo(CalculateGame.WINNER_SCREEN, TransitionFixtures.Fade());
+				game.transitionTo(CalculateGame.LOSER_SCREEN, TransitionFixtures.Fade());
 			}
 			
 			String timeStr = String.valueOf(time);
@@ -401,6 +410,18 @@ public class GameScreen extends DefaultScreen
 		return label;
 	}
 
+	@Override
+	public void pause()
+	{
+		isPaused = true;
+	}
+	
+	@Override
+	public void resume()
+	{
+		isPaused = false;
+	}
+	
 	private List<EquationElement> lastLine()
 	{
 		return calculationElements.get(calculationElements.size()-1);

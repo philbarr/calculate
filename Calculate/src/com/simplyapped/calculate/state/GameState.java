@@ -18,6 +18,12 @@ public abstract class GameState
 	private Equation equation;
 	
 	public abstract LevelDetails getLevelDetails(int level);
+	public abstract void setLevelDetails(int level, LevelDetails details);
+
+	public abstract void increaseRemainingSolutions(int increase);
+	public abstract int getRemainingSolutions();
+	public abstract void decreaseSolutions();
+
 	public GameState()
 	{
 		resetCurrentGameInfo();

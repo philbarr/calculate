@@ -225,6 +225,7 @@ public class StageIntroScreen extends DefaultScreen
 		
 		Gdx.input.setInputProcessor(stage);
 		scene = Scene.SHUFFLING;
+		finishWait = 0;
 	}
 	
 	@Override

@@ -24,13 +24,16 @@ public class CalculateGame extends DefaultGame {
 	public final static String STAGE_INTRO_SCREEN = "StageIntroScreen";
 	public final static String WINNER_SCREEN = "WinnerScreen";
 	public final static String LOSER_SCREEN = "LoserScreen";
+	public final static int STARTING_SOLUTIONS = 10;
 	
 	@Override
 	public void create() {
 		GameState state = GameStateFactory.getInstance();
 		LevelDetails levelDetails = state.getLevelDetails(1);
 		levelDetails.setLocked(false);
-		state.setCurrentEquation(new Equation(state.selectBigNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber()));
+		state.setLevelDetails(1, levelDetails);
+		state.resetCurrentGameInfo();
+//		state.setCurrentEquation(new Equation(state.selectBigNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber()));
 		
 		TransitionFixtures.setInterpolation(Interpolation.pow5);
 		
@@ -41,7 +44,9 @@ public class CalculateGame extends DefaultGame {
 		addScreen(WINNER_SCREEN, new WinnerScreen(this));
 		addScreen(LOSER_SCREEN, new LoserScreen(this));
 		
-		state.setCurrentLevel(1);
+//		state.setCurrentLevel(1);
 		setScreen(MAIN_MENU_SCREEN);
 	}
+	
+	
 }
