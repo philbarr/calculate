@@ -7,10 +7,8 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.AlphaAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -134,8 +132,6 @@ public class StageSelectScreen extends DefaultScreen
 				}
 				dialog.getButtonTable().add(cancelButton);
 				
-    			dialog.addAction(createAction());
-				
     			stage.addActor(dialog);
 	        }
 
@@ -147,15 +143,6 @@ public class StageSelectScreen extends DefaultScreen
 	    rowTable.add(createDetailsTable(level)).width(buttonSize*1.5f).height(buttonSize/1.3f).pad(20f);
 	    table.add(rowTable);
 	    table.row().padTop(emptyRowHeight).expandX();
-	}
-
-	private AlphaAction createAction()
-	{
-		AlphaAction action = new AlphaAction();
-		action.setDuration(0.5f);
-		action.setReverse(true);
-		action.setInterpolation(Interpolation.pow5);
-		return action;
 	}
 
 	private Table createDetailsTable(int level)
@@ -207,8 +194,6 @@ public class StageSelectScreen extends DefaultScreen
 	@Override
 	public void render(float delta)
 	{
-		// TODO Auto-generated method stub
 		super.render(delta);
-//		Table.drawDebug(stage);
 	}
 }

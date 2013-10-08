@@ -1,6 +1,5 @@
 package com.simplyapped.libgdx.ext.action;
 
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.simplyapped.libgdx.ext.screen.StagedScreen;
 

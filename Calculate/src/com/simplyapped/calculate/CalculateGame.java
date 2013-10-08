@@ -1,7 +1,6 @@
 package com.simplyapped.calculate;
 
 import com.badlogic.gdx.math.Interpolation;
-import com.simplyapped.calculate.numbers.Equation;
 import com.simplyapped.calculate.screen.game.GameScreen;
 import com.simplyapped.calculate.screen.loser.LoserScreen;
 import com.simplyapped.calculate.screen.mainmenu.MainMenuScreen;
@@ -33,7 +32,7 @@ public class CalculateGame extends DefaultGame {
 		levelDetails.setLocked(false);
 		state.setLevelDetails(1, levelDetails);
 		state.resetCurrentGameInfo();
-//		state.setCurrentEquation(new Equation(state.selectBigNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber()));
+		//state.setCurrentEquation(new Equation(state.selectBigNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber()));
 		
 		TransitionFixtures.setInterpolation(Interpolation.pow5);
 		

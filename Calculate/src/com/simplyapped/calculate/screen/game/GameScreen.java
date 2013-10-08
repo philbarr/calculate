@@ -66,20 +66,20 @@ public class GameScreen extends DefaultScreen
 		@Override
 		public void clicked(InputEvent event, float x, float y)
 		{
+			EquationElementTextButton button = (EquationElementTextButton) event.getListenerActor();
+			Equation number = new Equation(button.getData());
+
 			if (!isOperatorToSelectNext) // can select an operand
 			{
-				EquationElementTextButton button = (EquationElementTextButton) event.getListenerActor();
-				
 				try
 				{
-					Equation newEquation = new Equation(button.getData());
 
 					// check that the new number won't cause a NonIntegerDivisionException
 					// and check if user has won
 					if (calculationElements.size() > 0)
 					{
 						List<EquationElement> lastLine = new ArrayList<EquationElement>(lastLine());
-						lastLine.add(newEquation);
+						lastLine.add(number);
 						Equation equation = new Equation(lastLine); // auto-checks for NonIntegerDivisionException
 						GameState state = GameStateFactory.getInstance();
 						if (equation.getTotal() == state.getCurrentEquation().getTotal())
@@ -87,7 +87,7 @@ public class GameScreen extends DefaultScreen
 							game.transitionTo(CalculateGame.WINNER_SCREEN, TransitionFixtures.Fade());
 						}
 					}
-					addElement(newEquation);
+					addElement(number);
 					button.setVisible(false);
 					isOperatorToSelectNext = true;
 				} 
@@ -99,13 +99,21 @@ public class GameScreen extends DefaultScreen
 					isOperatorToSelectNext = true;
 					drawCalculationTable();
 				}
-				
+			}
+			else // deal with the case where the user wants to start a new line
+			{
+				if (lastLine().size() > 1)
+				{	
+					textButtonTotalLines.add(calculationElements.size()); // store the line number so when it is rendered we know to draw it as a textbutton
+					addElementLine(number);
+					button.setVisible(false);
+					drawCalculationTable();
+				}
 			}
 		}
-
-		
 	}
 
+	private List<Integer> textButtonTotalLines = new ArrayList<Integer>(); 
 	private static final float TIMEOUT = 60;
 	private float totalTime;
 	private Table window;
@@ -140,7 +148,6 @@ public class GameScreen extends DefaultScreen
 		LabelStyle labelStyle = skin.get("dialog", LabelStyle.class);
 		String text = "Whole Numbers Only!\nNo Fractions Allowed!";
 		Label details = new Label(text, labelStyle);
-		details.setFontScale(0.3f);
 		
 		FlatUIButton okButton = new FlatUIButton("Ok", skin, "dialogOk");
 		disposables.add(okButton);
@@ -190,6 +197,7 @@ public class GameScreen extends DefaultScreen
 	public void show()
 	{
 		isTransitioning = false;
+		textButtonTotalLines = new ArrayList<Integer>();
 		totalTime = TIMEOUT;
 		float panelwidth = CalculateGame.SCREEN_WIDTH/1.3f; // used for the width of the operatorsTable, titleTable, and numbersTable
 
@@ -347,16 +355,17 @@ public class GameScreen extends DefaultScreen
 	private void drawCalculationTable()
 	{
 		calculationTable.clear();
+		int row = 1;
 		for(List<EquationElement> line : calculationElements)
 		{
-			createRow(calculationTable, line);
+			createRow(calculationTable, line, row++);
 		}
 
 		calculationPane.setScrollY(calculationTable.getHeight());
 	    calculationTable.row();
 	}
 
-	private void createRow(Table calculation, List<EquationElement> line)
+	private void createRow(Table calculation, List<EquationElement> line, int row)
 	{
 		calculation.row();
 	    calculation.add(getLabel(line)).expandX().top().left().padLeft(20).padTop(20).fillX();
@@ -371,7 +380,14 @@ public class GameScreen extends DefaultScreen
 		{
 			Gdx.app.error(Equation.class.toString(), e.getMessage());
 		}
-	    calculation.add(new Label(tempEq.getTotal() + "", skin, "calculation")).minWidth(100).padRight(40).padTop(20).top().fillX();
+		
+	    Actor totalActor;
+	    if (textButtonTotalLines.contains(row))
+	    {
+	    	
+	    }
+	    totalActor = new Label(tempEq.getTotal() + "", skin, "calculation");
+		calculation.add(totalActor).minWidth(100).padRight(40).padTop(20).top().fillX();
 	}
 	
 	@Override

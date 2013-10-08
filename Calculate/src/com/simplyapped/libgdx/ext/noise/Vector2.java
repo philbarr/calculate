@@ -1,6 +1,7 @@
 package com.simplyapped.libgdx.ext.noise;
 
 public final class Vector2 extends BaseVector {
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 2170889059548078960L;
 
 	public float x, y;

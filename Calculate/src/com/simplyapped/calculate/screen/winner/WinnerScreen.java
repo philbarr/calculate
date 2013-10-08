@@ -6,7 +6,6 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -21,10 +20,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.libgdx.ext.DefaultGame;
-import com.simplyapped.libgdx.ext.action.TransitionFixtures;
+import com.simplyapped.libgdx.ext.action.TransitionFixtures; 
 import com.simplyapped.libgdx.ext.scene2d.flat.FlatUI;
 import com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton;
-import com.simplyapped.libgdx.ext.scene2d.spinner.NumberSpinner;
+import com.simplyapped.libgdx.ext.scene2d.spinner.NumberSpinnerTable;
 import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
 
@@ -89,7 +88,7 @@ public class WinnerScreen extends DefaultScreen
 
 		// number spinner
 		int total = GameStateFactory.getInstance().getCurrentEquation().getTotal();
-		Table numberTable = NumberSpinner.createNumberSpinnerTable(Math.abs(total), Interpolation.elasticOut, 2, 0.2f);
+		Table numberTable = new NumberSpinnerTable(Math.abs(total), Interpolation.elasticOut, 2, 0.2f);
 		numberTable.setPosition(CalculateGame.SCREEN_WIDTH/2 - numberTable.getWidth()/2, CalculateGame.SCREEN_HEIGHT/2f - numberTable.getHeight()/2);
 		stage.addActor(numberTable);
 
@@ -102,9 +101,9 @@ public class WinnerScreen extends DefaultScreen
 		TextureRegionDrawable back = FlatUI.CreateBackgroundDrawable(0.2f, 0.2f, 0.2f, 0.9f, label.getWidth(), label.getHeight());
 		disposables.add(back.getRegion().getTexture());
 		label.getStyle().background = back;
-		stage.addActor(label);
+		stage.addActor(label); 
 		
-	    // calculate width and heights for the table
+	    // calculate width and heights for the table 
 	    float emptyRowHeight = CalculateGame.SCREEN_HEIGHT / 17;
 	    float buttonHeight = CalculateGame.SCREEN_HEIGHT / 7;
 	    float buttonWidth = CalculateGame.SCREEN_WIDTH / 2f;

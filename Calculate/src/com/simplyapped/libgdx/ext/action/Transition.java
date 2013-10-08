@@ -3,7 +3,6 @@ package com.simplyapped.libgdx.ext.action;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.math.Interpolation;
-import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 import com.simplyapped.libgdx.ext.screen.StagedScreen;
 
 

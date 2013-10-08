@@ -9,8 +9,12 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.DelayAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import com.badlogic.gdx.scenes.scene2d.actions.TemporalAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -18,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.tablelayout.Cell;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.calculate.numbers.Equation;
@@ -26,11 +31,13 @@ import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
 import com.simplyapped.libgdx.ext.scene2d.flat.FlatUI;
-import com.simplyapped.libgdx.ext.scene2d.spinner.NumberSpinner;
+import com.simplyapped.libgdx.ext.scene2d.spinner.NumberSpinnerTable;
 import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
 public class StageIntroScreen extends DefaultScreen
 {
+	private static final int PAUSE_BEFORE_TRANSITION = 6;
+
 	private final class CardClickListener extends ClickListener
 	{
 		private final TextButton card;
@@ -96,6 +103,7 @@ public class StageIntroScreen extends DefaultScreen
 	private Cell<?> titleCell;
 	private List<Integer> selectedNumbers;
 	private Table targetTable;
+	private NumberSpinnerTable spinner;
 	
 	public StageIntroScreen(DefaultGame game)
 	{
@@ -160,7 +168,6 @@ public class StageIntroScreen extends DefaultScreen
 		final float shuffleduration = 0.5f;
 		final float shuffledelayduration = 0.1f;
 		final Interpolation interpolation = circle;
-		Gdx.app.log("asfd", "show called");
 		
 		for (int cardindex = 0; cardindex < 13; cardindex++)
 		{
@@ -187,7 +194,7 @@ public class StageIntroScreen extends DefaultScreen
 				card.setPosition(width, height);
 				if (blueCardIndex == 0)
 				{
-					card.addAction(sequence(
+					SequenceAction action = sequence(
 							delay(2*shuffleduration + shuffledelayduration),
 							moveTo(shuffleWidth, shuffleHeightBlue, shuffleduration, interpolation), 
 							delay(shuffledelayduration), 
@@ -205,7 +212,9 @@ public class StageIntroScreen extends DefaultScreen
 									}
 									scene = Scene.SELECTING;
 								}
-							})));
+							}));
+					
+					card.addAction(action);
 				}
 				else
 				{
@@ -222,6 +231,56 @@ public class StageIntroScreen extends DefaultScreen
 			stage.addActor(card);
 		}
 		
+		stage.addListener(new ClickListener(){
+			@Override
+			public synchronized void clicked(InputEvent event, float x, float y)
+			{
+				if (scene == Scene.SHUFFLING)
+				{
+					for(TextButton card : redCards)
+					{
+						finishCardActions(card);
+					}
+					for(TextButton card : blueCards)
+					{
+						finishCardActions(card);
+					}
+				}
+				if (spinner != null && scene == Scene.FINISHED)
+				{
+					if (spinner.isSpinning())
+					{
+						spinner.finishSpinning();
+					}
+					else
+					{
+						finishWait = StageIntroScreen.PAUSE_BEFORE_TRANSITION + 1;
+					}
+				}
+			}
+
+			private void finishCardActions(TextButton card)
+			{
+				for (Action action : card.getActions())
+				{
+					if (action != null && action instanceof SequenceAction)
+					{
+						Array<Action> actions = ((SequenceAction)action).getActions();
+						for (Action a : actions)
+						{
+							if (a instanceof TemporalAction)
+							{
+								((TemporalAction)a).finish();
+							}
+							else if(a instanceof DelayAction)
+							{
+								((DelayAction)a).finish();
+							}
+						}
+					}
+				}
+			}
+		});
 		
 		Gdx.input.setInputProcessor(stage);
 		scene = Scene.SHUFFLING;
@@ -255,7 +314,7 @@ public class StageIntroScreen extends DefaultScreen
 	private void renderFinished(float delta)
 	{
 		finishWait += delta;
-		if (finishWait > 6)
+		if (finishWait > StageIntroScreen.PAUSE_BEFORE_TRANSITION)
 		{
 			game.transitionTo(CalculateGame.GAME_SCREEN, TransitionFixtures.Fade());
 		}
@@ -296,7 +355,7 @@ public class StageIntroScreen extends DefaultScreen
 			int targetNumber = eq.getTotal();
 			Gdx.app.log("target", targetNumber+"");
 			
-			Table spinner = NumberSpinner.createNumberSpinnerTable(targetNumber, swingOut, 3, 0.2f);
+			spinner = new NumberSpinnerTable(targetNumber, swingOut, 3, 0.2f);
 			spinner.setPosition(CalculateGame.SCREEN_WIDTH/2 - spinner.getWidth()/2, CalculateGame.SCREEN_HEIGHT/5f);
 			stage.addActor(spinner);
 			scene = Scene.FINISHED;
