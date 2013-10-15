@@ -31,7 +31,7 @@ public class StageSelectScreen extends DefaultScreen
 {
 	protected static final String DIALOG_DETAILS_TEXT = "Number Of Cards: %s%n" +
 														"Time Limit: %s Seconds%n" +
-														"Consecutive Wins Required: %s%n";
+														"Wins Required: %s%n";
 	private Table window;
 	private Skin skin = new Skin(Gdx.files.internal("data/stageselectscreen.json"));
 	
@@ -104,7 +104,7 @@ public class StageSelectScreen extends DefaultScreen
     			LabelStyle labelStyle = skin.get("dialog", LabelStyle.class);
     			LevelInfo info = LevelInfo.getLevel(level);
     			LevelDetails levelDetails = GameStateFactory.getInstance().getLevelDetails(level);
-    			String text = String.format(DIALOG_DETAILS_TEXT, info.getNumberOfCards(), info.getTimeLimit(), info.getConsecutiveWinsRequired());
+    			String text = String.format(DIALOG_DETAILS_TEXT, info.getNumberOfCards(), info.getTimeLimit(), info.getCompletedRequired());
     			text+= info.isUseAllCards() ? "You MUST Use All Cards" : "Use Only The Cards You Need";
 				Label details = new Label(text, labelStyle);
     			details.setFontScale(0.2f);
@@ -167,7 +167,7 @@ public class StageSelectScreen extends DefaultScreen
 	    	details.add(attemptsVal).align(Align.right);
 	    	details.row();
 	    	Label completed = new Label("Completed: ", skin, "details");
-	    	Label completedVal = new Label("1", skin, "details");
+	    	Label completedVal = new Label(levelDetails.getCompleted() + "", skin, "details");
 	    	completed.setFontScale(fontScale);
 	    	completedVal.setFontScale(fontScale);
 	    	details.add(completed).align(Align.left);

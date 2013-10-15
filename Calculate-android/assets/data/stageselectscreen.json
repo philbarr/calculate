@@ -4,6 +4,7 @@
     		white: { r: 1, g: 1, b:1, a: 1},
             red: { r: 0.9, g: 0, b: 0, a: 0.8},
     		redOn: { r: 0.9, g: 0, b: 0, a: 1},
+    		black: { r: 0.09, g: 0.09, b: 0.09, a: 1},
     },
     com.badlogic.gdx.graphics.g2d.BitmapFont: {
             pump-font: { file: PumpDemiBoldLET.fnt },
@@ -17,7 +18,7 @@
 	    },
 	    dialog: {
 	      font: liberation-font,
-	      fontColor: white,
+	      fontColor: black,
 	    }
 	},
 	com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {

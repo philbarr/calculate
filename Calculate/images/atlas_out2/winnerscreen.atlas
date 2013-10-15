@@ -20,7 +20,7 @@ winnerballoon
 tickertape
   rotate: false
   xy: 1, 1
-  size: 20, 32
-  orig: 20, 32
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: -1

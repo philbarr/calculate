@@ -55,13 +55,13 @@ public class StageIntroScreen extends DefaultScreen
 			if (StageIntroScreen.this.scene == Scene.SELECTING) // only respond to events during the Selecting Numbers stage
 			{
 				String styleName = isCardRed ? "cardfrontred" : "cardfrontblue";
-				int number = isCardRed ? StageIntroScreen.this.state.selectBigNumber() : StageIntroScreen.this.state.selectSmallNumber();
+				int number = isCardRed ? state.selectBigNumber() : state.selectSmallNumber();
 				selectedNumbers.add(number);
 				TextButton button = new TextButton(number + "", skin, styleName);
 				button.setPosition(card.getX(), card.getY());
 				button.setSize(CARD_SIZE, CARD_SIZE);
 				card.setVisible(false);
-				int count = StageIntroScreen.this.state.cardsLeftForUserSelect();
+				int count = state.cardsLeftForUserSelect();
 				String format = count > 1 ? "Select %s Cards" : "Select %s Card";
 				title.setText(String.format(format, count));
 				

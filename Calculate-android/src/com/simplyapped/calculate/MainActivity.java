@@ -1,5 +1,6 @@
 package com.simplyapped.calculate;
 
+import android.media.AudioManager;
 import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
@@ -13,8 +14,8 @@ public class MainActivity extends AndroidApplication {
         super.onCreate(savedInstanceState);
         
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
-        cfg.useGL20 = false;
-        
+        cfg.useGL20 = true;
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         GameStateFactory.setType(GameStateType.PERSISTENT);
         
         initialize(new CalculateGame(), cfg);

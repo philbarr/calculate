@@ -3,7 +3,7 @@
    ROBOCOPY     ::     Robust File Copy for Windows                              
 -------------------------------------------------------------------------------
 
-  Started : Thu Sep 12 22:41:42 2013
+  Started : Tue Oct 15 12:20:26 2013
 
    Source : C:\Users\pbarr\git\Repository\Calculate\images\atlas_out2\
      Dest : C:\Users\pbarr\git\Repository\Calculate-android\assets\data\
@@ -14,18 +14,20 @@
 
 ------------------------------------------------------------------------------
 
-	                  15	C:\Users\pbarr\git\Repository\Calculate\images\atlas_out2\
+	                  14	C:\Users\pbarr\git\Repository\Calculate\images\atlas_out2\
+	*EXTRA Dir        -1	C:\Users\pbarr\git\Repository\Calculate-android\assets\data\particle\
 	  *EXTRA File 		   11669	bauhaus93.fnt
 	  *EXTRA File 		   60585	bauhaus93.png
-	  *EXTRA File 		    2030	celebration.pcl
 	  *EXTRA File 		   11628	default.fnt
 	  *EXTRA File 		   24867	default.png
-	  *EXTRA File 		    1996	gamescreen.json
+	  *EXTRA File 		    2473	gamescreen.json
+	  *EXTRA File 		   20242	gamescreen2.png
 	  *EXTRA File 		   11662	liberation32.fnt
 	  *EXTRA File 		   15522	liberation32.png
 	  *EXTRA File 		   11841	liberation96.fnt
 	  *EXTRA File 		   51551	liberation96.png
 	  *EXTRA File 		   54931	libgdx.png
+	  *EXTRA File 		     943	loserscreen.json
 	  *EXTRA File 		     606	mainmenuscreen.json
 	  *EXTRA File 		   65523	mainmenuscreen2.png
 	  *EXTRA File 		   65523	mainmenuscreen3.png
@@ -41,39 +43,38 @@
 	  *EXTRA File 		    2797	uiskin.json
 	  *EXTRA File 		   22779	uiskin.png
 	  *EXTRA File 		    1114	winnerscreen.json
-	    Newer     		     692	gamescreen.atlas  0%  100%  
-	    Newer     		  538597	gamescreen.png  0%   48%   97%  100%  
-	    Newer     		   20242	gamescreen2.png  0%  100%  
+	    Newer     		     625	gamescreen.atlas  0%  100%  
+	    Newer     		  539638	gamescreen.png  0%   48%   97%  100%  
 	    Newer     		     285	loserscreen.atlas  0%  100%  
 	    Newer     		  537600	loserscreen.png  0%   48%   97%  100%  
 	    Newer     		     183	mainmenuscreen.atlas  0%  100%  
 	    Newer     		   1.1 m	mainmenuscreen.png  0%   22%   44%   66%   88%  100%  
 	    Newer     		     816	stageintroscreen.atlas  0%  100%  
 	    Newer     		  543575	stageintroscreen.png  0%   48%   96%  100%  
-	    Newer     		     301	stageselectscreen.atlas  0%  100%  
-	    Newer     		  484106	stageselectscreen.png  0%   27%   54%   81%  100%  
+	    Newer     		     300	stageselectscreen.atlas  0%  100%  
+	    Newer     		  469438	stageselectscreen.png  0%   27%   55%   83%  100%  
 	    Newer     		     383	winnerscreen.atlas  0%  100%  
-	    Newer     		  497592	winnerscreen.png  0%   26%   52%   79%  100%  
+	    Newer     		  497586	winnerscreen.png  0%   26%   52%   79%  100%  
 
 ------------------------------------------------------------------------------
 
                Total    Copied   Skipped  Mismatch    FAILED    Extras
-    Dirs :         1         0         1         0         0         0
-   Files :        15        13         2         0         0        26
-   Bytes :    3.79 m    3.63 m   171.8 k         0         0   740.9 k
+    Dirs :         1         0         1         0         0         1
+   Files :        14        12         2         0         0        27
+   Bytes :    3.76 m    3.59 m   171.8 k         0         0   760.1 k
    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
 
 
-   Speed :           122820838 Bytes/sec.
-   Speed :            7027.864 MegaBytes/min.
+   Speed :           157229291 Bytes/sec.
+   Speed :            8996.732 MegaBytes/min.
 
-   Ended : Thu Sep 12 22:41:42 2013
+   Ended : Tue Oct 15 12:20:26 2013
 
 -------------------------------------------------------------------------------
    ROBOCOPY     ::     Robust File Copy for Windows                              
 -------------------------------------------------------------------------------
 
-  Started : Thu Sep 12 22:41:42 2013
+  Started : Tue Oct 15 12:20:26 2013
 
    Source : C:\Users\pbarr\git\Repository\Calculate\images\original2\
      Dest : C:\Users\pbarr\git\Repository\Calculate-android\assets\data\
@@ -95,13 +96,13 @@
    Bytes :   101.5 k         0   101.5 k         0         0         0
    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
 
-   Ended : Thu Sep 12 22:41:42 2013
+   Ended : Tue Oct 15 12:20:26 2013
 
 -------------------------------------------------------------------------------
    ROBOCOPY     ::     Robust File Copy for Windows                              
 -------------------------------------------------------------------------------
 
-  Started : Thu Sep 12 22:41:43 2013
+  Started : Tue Oct 15 12:20:26 2013
 
    Source : C:\Users\pbarr\git\Repository\Calculate\images\original2\
      Dest : C:\Users\pbarr\git\Repository\Calculate-android\assets\data\
@@ -123,13 +124,13 @@
    Bytes :    56.1 k         0    56.1 k         0         0         0
    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
 
-   Ended : Thu Sep 12 22:41:43 2013
+   Ended : Tue Oct 15 12:20:26 2013
 
 -------------------------------------------------------------------------------
    ROBOCOPY     ::     Robust File Copy for Windows                              
 -------------------------------------------------------------------------------
 
-  Started : Thu Sep 12 22:41:43 2013
+  Started : Tue Oct 15 12:20:26 2013
 
    Source : C:\Users\pbarr\git\Repository\Calculate\images\original2\
      Dest : C:\Users\pbarr\git\Repository\Calculate-android\assets\data\
@@ -151,13 +152,13 @@
    Bytes :    61.9 k         0    61.9 k         0         0         0
    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
 
-   Ended : Thu Sep 12 22:41:43 2013
+   Ended : Tue Oct 15 12:20:26 2013
 
 -------------------------------------------------------------------------------
    ROBOCOPY     ::     Robust File Copy for Windows                              
 -------------------------------------------------------------------------------
 
-  Started : Thu Sep 12 22:41:43 2013
+  Started : Tue Oct 15 12:20:26 2013
 
    Source : C:\Users\pbarr\git\Repository\Calculate\images\original2\
      Dest : C:\Users\pbarr\git\Repository\Calculate-android\assets\data\
@@ -179,13 +180,13 @@
    Bytes :    26.5 k         0    26.5 k         0         0         0
    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
 
-   Ended : Thu Sep 12 22:41:43 2013
+   Ended : Tue Oct 15 12:20:26 2013
 
 -------------------------------------------------------------------------------
    ROBOCOPY     ::     Robust File Copy for Windows                              
 -------------------------------------------------------------------------------
 
-  Started : Thu Sep 12 22:41:43 2013
+  Started : Tue Oct 15 12:20:26 2013
 
    Source : C:\Users\pbarr\git\Repository\Calculate\images\original2\
      Dest : C:\Program Files (x86)\Inkscape\share\palettes\
@@ -207,13 +208,13 @@
    Bytes :         0         0         0         0         0       326
    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
 
-   Ended : Thu Sep 12 22:41:43 2013
+   Ended : Tue Oct 15 12:20:26 2013
 
 -------------------------------------------------------------------------------
    ROBOCOPY     ::     Robust File Copy for Windows                              
 -------------------------------------------------------------------------------
 
-  Started : Thu Sep 12 22:41:43 2013
+  Started : Tue Oct 15 12:20:26 2013
 
    Source : C:\Users\pbarr\git\Repository\Calculate\images\original2\
      Dest : C:\Users\pbarr\git\Repository\Calculate-android\res\drawable-mdpi\
@@ -234,4 +235,4 @@
    Bytes :     5.4 k         0     5.4 k         0         0         0
    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
 
-   Ended : Thu Sep 12 22:41:43 2013
+   Ended : Tue Oct 15 12:20:26 2013

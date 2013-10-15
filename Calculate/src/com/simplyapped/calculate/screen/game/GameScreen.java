@@ -33,6 +33,7 @@ import com.simplyapped.calculate.screen.game.actor.EquationElementTextButton;
 import com.simplyapped.calculate.screen.stageintro.StageIntroScreen;
 import com.simplyapped.calculate.state.GameState;
 import com.simplyapped.calculate.state.GameStateFactory;
+import com.simplyapped.calculate.state.LevelDetails;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
 import com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton;
@@ -42,14 +43,17 @@ public class GameScreen extends DefaultScreen
 {
 	private class OperatorClickListener extends ClickListener
 	{
+		private final int MAX_LINE_LENGTH = 8;
+
 		@Override
 		public void clicked(InputEvent event, float x, float y)
 		{
+			EquationElementFlatUIButton button = (EquationElementFlatUIButton) event.getListenerActor();
 			if (isOperatorToSelectNext) // can select an operator
 			{
-				EquationElementFlatUIButton button = (EquationElementFlatUIButton) event.getListenerActor();
+				
 				if (calculationElements.size()>0 &&
-					(lastLine().size() > 6 ||
+					(lastLineLength() > MAX_LINE_LENGTH ||
 					 (lastLine().size() > 2 && !((Operator)lastLine().get(lastLine().size()-2)).isEquivalent(button.getData()))
 					))
 				{
@@ -58,6 +62,27 @@ public class GameScreen extends DefaultScreen
 				addElement(button.getData());
 				isOperatorToSelectNext = false;
 			}
+			else
+			{
+				// when the user has changed their mind and wants to choose a different operator
+				if (calculationElements.size()>0 && lastLine().size() >= 2) 
+				{
+					lastLine().remove(lastLine().size()-1);
+					addElement(button.getData());
+					isOperatorToSelectNext = false;
+				}
+			}
+		}
+
+		private int lastLineLength()
+		{
+			String str = "";
+			for (EquationElement e : lastLine())
+			{
+				str+=e.toString();
+			}
+			str = str.replace("(", "").replace(")", "").replace(" ", "");
+			return str.length();
 		}
 	}
 
@@ -84,7 +109,20 @@ public class GameScreen extends DefaultScreen
 						GameState state = GameStateFactory.getInstance();
 						if (equation.getTotal() == state.getCurrentEquation().getTotal())
 						{
-							game.transitionTo(CalculateGame.WINNER_SCREEN, TransitionFixtures.Fade());
+							if (state.getLevelInfo().isUseAllCards() && !allCardsUsed())
+							{
+								showDialogMessage("At this Level you must use\n ALL your cards");
+							}
+							else
+							{
+								final LevelDetails current = state.getLevelDetails(state.getCurrentLevel());
+								current.increaseCompleted();
+								if (state.getLevelInfo().getCompletedRequired() == current.getCompleted())
+								{
+									state.getLevelDetails(state.getCurrentLevel() + 1).setLocked(false);
+								}
+								game.transitionTo(CalculateGame.WINNER_SCREEN, TransitionFixtures.Fade());
+							}
 						}
 					}
 					addElement(number);
@@ -93,7 +131,7 @@ public class GameScreen extends DefaultScreen
 				} 
 				catch (NonIntegerDivisionException e)
 				{
-					showNonIntegerDivisionMessage();
+					showDialogMessage("Whole Numbers Only!\nNo Fractions Allowed!");
 					List<EquationElement> lastLine = lastLine();
 					lastLine.remove(lastLine.size()-1); // remove the offending divide
 					isOperatorToSelectNext = true;
@@ -111,10 +149,22 @@ public class GameScreen extends DefaultScreen
 				}
 			}
 		}
+
+		private boolean allCardsUsed()
+		{
+			for (TextButton button : cardButtons)
+			{
+				if(button.isVisible())
+				{
+					return false;
+				}
+			}
+			return true;
+		}
 	}
 
 	private List<Integer> textButtonTotalLines = new ArrayList<Integer>(); 
-	private static final float TIMEOUT = 60;
+	private static float TIMEOUT = 60;
 	private float totalTime;
 	private Table window;
 	private Skin skin = new Skin(Gdx.files.internal("data/gamescreen.json"));
@@ -139,23 +189,28 @@ public class GameScreen extends DefaultScreen
 		disposables.add(texture);
 	}
 
-	private void showNonIntegerDivisionMessage()
+	private void showDialogMessage(final String message)
 	{
-		// create the dialog
-		Dialog dialog = new Dialog("", skin, "dialog");
-		dialog.setSize(CalculateGame.SCREEN_WIDTH/1.1f, CalculateGame.SCREEN_HEIGHT/2f);
-		dialog.setPosition(((CalculateGame.SCREEN_WIDTH-dialog.getWidth())/2), ((CalculateGame.SCREEN_HEIGHT-dialog.getHeight())/2));
-		LabelStyle labelStyle = skin.get("dialog", LabelStyle.class);
-		String text = "Whole Numbers Only!\nNo Fractions Allowed!";
-		Label details = new Label(text, labelStyle);
+		Dialog dialog = createDialog(message);
 		
 		FlatUIButton okButton = new FlatUIButton("Ok", skin, "dialogOk");
 		disposables.add(okButton);
-		dialog.getContentTable().add(details);
 		dialog.getButtonTable().defaults().pad(15f).width(CalculateGame.SCREEN_WIDTH/3.5f).padBottom(45f);
 		dialog.getButtonTable().add(okButton);
 		
 		stage.addActor(dialog);
+	}
+
+	private Dialog createDialog(String message)
+	{
+		Dialog dialog = new Dialog("", skin, "dialog");
+		dialog.setSize(CalculateGame.SCREEN_WIDTH/1.1f, CalculateGame.SCREEN_HEIGHT/2f);
+		dialog.setPosition(((CalculateGame.SCREEN_WIDTH-dialog.getWidth())/2), ((CalculateGame.SCREEN_HEIGHT-dialog.getHeight())/2));
+		LabelStyle labelStyle = skin.get("dialog", LabelStyle.class);
+		Label details = new Label(message, labelStyle);
+		dialog.getContentTable().add(details);
+		dialog.getButtonTable().defaults().pad(15f).width(CalculateGame.SCREEN_WIDTH/3.5f).padBottom(45f);
+		return dialog;
 	}
 	
 	public void carryLine()
@@ -199,7 +254,7 @@ public class GameScreen extends DefaultScreen
 		isTransitioning = false;
 		textButtonTotalLines = new ArrayList<Integer>();
 		totalTime = TIMEOUT;
-		float panelwidth = CalculateGame.SCREEN_WIDTH/1.3f; // used for the width of the operatorsTable, titleTable, and numbersTable
+		float panelwidth = CalculateGame.SCREEN_WIDTH/1.05f; // used for the width of the operatorsTable, titleTable, and numbersTable
 
 		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, false);
 	    stage.addListener(new ClickListener()
@@ -229,7 +284,7 @@ public class GameScreen extends DefaultScreen
 	    calculationPane.setScrollingDisabled(true, false);
 
 	    Table operatorsTable = new Table();
-		operatorsTable.row().expandX().top().fill().pad(10);
+		operatorsTable.row().expand().top().fill().pad(5);
 	    operatorsTable.add(getOperatorButton(Operator.PLUS));
 	    operatorsTable.add(getOperatorButton(Operator.MINUS));
 	    operatorsTable.add(getOperatorButton(Operator.MULTIPLY));
@@ -237,7 +292,7 @@ public class GameScreen extends DefaultScreen
 	    operatorsTable.add().width(20f).expand(false, false);
 	    operatorsTable.add(getCEButton());
 		operatorsTable.setWidth(panelwidth);                                                                                               
-	    operatorsTable.setHeight(CalculateGame.SCREEN_HEIGHT/15f);
+	    operatorsTable.setHeight(CalculateGame.SCREEN_HEIGHT/11f);
 	    operatorsTable.setPosition(CalculateGame.SCREEN_WIDTH/2 - panelwidth/2, CalculateGame.SCREEN_HEIGHT - CalculateGame.SCREEN_HEIGHT/1.8f);
 	    operatorsTable.setBackground(new TextureRegionDrawable(new TextureRegion(texture)));
 	    
@@ -293,6 +348,7 @@ public class GameScreen extends DefaultScreen
 		targetLabel.setPosition((CalculateGame.SCREEN_WIDTH - calculationPane.getWidth())/2 - pad, labelHeight);
 		
 		// timer label
+		TIMEOUT = state.getLevelInfo().getTimeLimit();
 	    timerLabel = new Label("Time:   ", skin, "title");
 	    timerLabel.setPosition(((CalculateGame.SCREEN_WIDTH - calculationPane.getWidth())/2) + calculationPane.getWidth() - timerLabel.getWidth() + pad, labelHeight);
 	    timerLabel.setHeight(titleBackgroundHeight);
@@ -314,8 +370,27 @@ public class GameScreen extends DefaultScreen
 
 	protected void showQuitDialog()
 	{
-		//TODO sort this out showquitdialog
-		game.transitionTo(CalculateGame.STAGE_SELECT_SCREEN, TransitionFixtures.UnderlapRight());
+	
+		// create the dialog
+		Dialog dialog = createDialog("Are you sure you\nwant to quit?");
+		
+		FlatUIButton quitButton = new FlatUIButton("Quit", skin, "dialogQuit");
+		FlatUIButton playOnButton = new FlatUIButton("Play On", skin, "dialogPlayOn");
+		disposables.add(playOnButton);
+		disposables.add(quitButton);
+		
+		dialog.getButtonTable().add(quitButton);
+		dialog.getButtonTable().add(playOnButton);
+		
+		quitButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				game.transitionTo(CalculateGame.STAGE_SELECT_SCREEN, TransitionFixtures.UnderlapRight());
+			}
+		});
+		
+		stage.addActor(dialog);
 	}
 
 	private void resetGame()

@@ -23,7 +23,7 @@ public abstract class GameState
 	public abstract void increaseRemainingSolutions(int increase);
 	public abstract int getRemainingSolutions();
 	public abstract void decreaseSolutions();
-
+	
 	public GameState()
 	{
 		resetCurrentGameInfo();
@@ -47,6 +47,7 @@ public abstract class GameState
 	{
 		int big = shuffledBigNumbers.pop();
 		getBigCards().add(big);
+		addAttempt();
 		return big;
 	}
 	
@@ -54,9 +55,18 @@ public abstract class GameState
 	{
 		int small = shuffledSmallNumbers.pop();
 		getSmallCards().add(small);
+		addAttempt();
 		return small;
 	}
 	
+	private void addAttempt()
+	{
+		// the user has made an attempt to play the game the first time they select a card
+		if (getLevelInfo().getNumberOfCards() - cardsLeftForUserSelect() == 1)
+		{
+			getLevelDetails(getCurrentLevel()).increaseAttempts();
+		}
+	}
 	public int cardsLeftForUserSelect()
 	{
 		return getLevelInfo().getNumberOfCards() - getBigCards().size() - getSmallCards().size();

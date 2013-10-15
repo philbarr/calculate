@@ -31,11 +31,11 @@ public class LevelInfo
 	private int numberOfCards;
 	private boolean useAllCards;
 	private int timeLimit;
-	private int consecutiveWinsRequired;
+	private int completedRequired;
 	
-	public int getConsecutiveWinsRequired()
+	public int getCompletedRequired()
 	{
-		return consecutiveWinsRequired;
+		return completedRequired;
 	}
 
 	public int getNumberOfCards()
@@ -53,12 +53,12 @@ public class LevelInfo
 		return timeLimit;
 	}
 
-	public LevelInfo(int numberOfCards, boolean useAllCards, int timeLimit, int consectutiveWinsRequired)
+	public LevelInfo(int numberOfCards, boolean useAllCards, int timeLimit, int completedRequired)
 	{
 		this.numberOfCards = numberOfCards;
 		this.useAllCards = useAllCards;
 		this.timeLimit = timeLimit;
-		this.consecutiveWinsRequired = consectutiveWinsRequired;
+		this.completedRequired = completedRequired;
 	}
 	
 }
