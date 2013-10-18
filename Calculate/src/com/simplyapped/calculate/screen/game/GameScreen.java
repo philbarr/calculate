@@ -63,6 +63,7 @@ public class GameScreen extends DefaultScreen
 					isOperatorToSelectNext = false;
 				}
 			}
+			calculationTable.update();
 		}
 
 		
@@ -117,7 +118,7 @@ public class GameScreen extends DefaultScreen
 					List<EquationElement> lastLine = calculationTable.lastLine();
 					lastLine.remove(lastLine.size()-1); // remove the offending divide
 					isOperatorToSelectNext = true;
-					calculationTable.update();
+					
 				}
 			}
 			else // deal with the case where the user wants to start a new line
@@ -127,9 +128,10 @@ public class GameScreen extends DefaultScreen
 					calculationTable.getTextButtonTotalLines().add(calculationTable.size()); // store the line number so when it is rendered we know to draw it as a textbutton
 					calculationTable.addElementLine(number);
 					button.setVisible(false);
-					calculationTable.update();
+					
 				}
 			}
+			calculationTable.update();
 		}
 
 		private boolean allCardsUsed()

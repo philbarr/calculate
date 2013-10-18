@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -74,6 +75,7 @@ public class CalculationTable extends Table
 	    }
 	    totalActor = new Label(tempEq.getTotal() + "", skin, "calculation");
 		calculation.add(totalActor).minWidth(100).padRight(40).padTop(20).top().fillX();
+		
 	}
 	
 	public void carryLine()
