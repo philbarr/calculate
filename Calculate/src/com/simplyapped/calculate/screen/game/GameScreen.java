@@ -15,13 +15,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.calculate.numbers.Equation;
@@ -44,7 +42,7 @@ public class GameScreen extends DefaultScreen
 {
 	private class OperatorClickListener extends ClickListener
 	{
-		private final int MAX_LINE_LENGTH = 8;
+		
 
 		@Override
 		public void clicked(InputEvent event, float x, float y)
@@ -52,14 +50,6 @@ public class GameScreen extends DefaultScreen
 			EquationElementFlatUIButton button = (EquationElementFlatUIButton) event.getListenerActor();
 			if (isOperatorToSelectNext) // can select an operator
 			{
-				
-				if (calculationTable.size()>0 &&
-					(lastLineLength() > MAX_LINE_LENGTH ||
-					 (calculationTable.lastLine().size() > 2 && !((Operator)calculationTable.lastLine().get(calculationTable.lastLine().size()-2)).isEquivalent(button.getData()))
-					))
-				{
-					calculationTable.carryLine();
-				}
 				calculationTable.addElement(button.getData());
 				isOperatorToSelectNext = false;
 			}
@@ -75,16 +65,7 @@ public class GameScreen extends DefaultScreen
 			}
 		}
 
-		private int lastLineLength()
-		{
-			String str = "";
-			for (EquationElement e : calculationTable.lastLine())
-			{
-				str+=e.toString();
-			}
-			str = str.replace("(", "").replace(")", "").replace(" ", "");
-			return str.length();
-		}
+		
 	}
 
 	private class OperandListener extends ClickListener
@@ -337,17 +318,29 @@ public class GameScreen extends DefaultScreen
 		
 		FlatUIButton quitButton = new FlatUIButton("Quit", skin, "dialogQuit");
 		FlatUIButton playOnButton = new FlatUIButton("Play On", skin, "dialogPlayOn");
+		FlatUIButton viewSolutionButton = new FlatUIButton("View Solution", skin, "dialogViewSolution");
 		disposables.add(playOnButton);
 		disposables.add(quitButton);
+		disposables.add(viewSolutionButton);
 		
 		dialog.getButtonTable().add(quitButton);
 		dialog.getButtonTable().add(playOnButton);
+		dialog.getButtonTable().row();
+		dialog.getButtonTable().add(viewSolutionButton).colspan(2);
 		
 		quitButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y)
 			{
 				game.transitionTo(CalculateGame.STAGE_SELECT_SCREEN, TransitionFixtures.UnderlapRight());
+			}
+		});
+		
+		viewSolutionButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				game.transitionTo(CalculateGame.VIEW_SOLUTION_SCREEN, TransitionFixtures.Fade());
 			}
 		});
 		

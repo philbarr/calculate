@@ -1,4 +1,4 @@
-package com.simplyapped.calculate.numbers;
+package com.simplyapped.calculate.numbers.generator;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
-public class Generator
+import com.simplyapped.calculate.numbers.Operator;
+
+public class RandomGenerator implements IGenerator
 {
 //	private final int[] cards={1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 25, 50, 75, 100};
 	
@@ -16,6 +18,7 @@ public class Generator
 	 * @see com.simplyapped.calculate.numbers.Generator#generateOperator()
 	 */
 	
+	@Override
 	public Operator generateOperator()
 	{
 		Operator operator = OPERATORS[new Random().nextInt(OPERATORS.length)];
@@ -23,11 +26,13 @@ public class Generator
 	}
 
 	
+	@Override
 	public void shuffle(List<Integer> numbers)
 	{
 		Collections.shuffle(numbers);
 	}
 	
+	@Override
 	public Stack<Integer> shuffledBigNumbers()
 	{
 		Stack<Integer> stack = new Stack<Integer>();
@@ -36,6 +41,7 @@ public class Generator
 		return stack;
 	}
 	
+	@Override
 	public Stack<Integer> shuffledSmallNumbers()
 	{
 		Stack<Integer> stack = new Stack<Integer>();

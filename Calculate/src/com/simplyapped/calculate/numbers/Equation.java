@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Stack;
 
 import com.badlogic.gdx.Gdx;
+import com.simplyapped.calculate.numbers.generator.IGenerator;
+import com.simplyapped.calculate.numbers.generator.RandomGenerator;
 
 public class Equation implements EquationElement
 {
 	private List<EquationElement> elements = new ArrayList<EquationElement>();
-	private Generator generator = new Generator();
+	private IGenerator generator = new RandomGenerator();
 	private Stack<Integer> numbers = new Stack<Integer>();
 	private int total;
 	
@@ -202,17 +204,23 @@ public class Equation implements EquationElement
 			}
 			else
 			{
-				total = operator.apply(getTotal(), (Equation)elements.get(i));
+				try
+				{
+					total = operator.apply(getTotal(), (Equation) elements.get(i));
+				} catch (Exception e)
+				{
+					System.out.println(e);
+				}
 			}
 		}
 	}
 
-	public Generator getGenerator()
+	public IGenerator getGenerator()
 	{
 		return generator;
 	}
 
-	public void setGenerator(Generator generator)
+	public void setGenerator(IGenerator generator)
 	{
 		this.generator = generator;
 	}

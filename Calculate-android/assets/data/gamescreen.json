@@ -77,10 +77,14 @@
       dialogPlayOn: {
             font: liberation-font-32,
             fontColor: black,
+            backgroundColor: { r: 0.1, g: 0.1, b: 0.9, a: 0.8},
+            backgroundPressedColor: { r: 0.1, g: 0.1, b: 0.9, a: 1},
+        },
+      dialogViewSolution: {
+            font: liberation-font-32,
+            fontColor: black,
             backgroundColor: { r: 0.1, g: 0.9, b: 0.1, a: 0.8},
             backgroundPressedColor: { r: 0.1, g: 0.9, b: 0.1, a: 1},
         },
     },
-
-    
 }

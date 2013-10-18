@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.Stack;
 
 import com.simplyapped.calculate.numbers.Equation;
-import com.simplyapped.calculate.numbers.Generator;
+import com.simplyapped.calculate.numbers.generator.GeneratorFactory;
+import com.simplyapped.calculate.numbers.generator.IGenerator;
+import com.simplyapped.calculate.numbers.generator.RandomGenerator;
 
 public abstract class GameState
 {
-	private Generator generator = new Generator();
+	private IGenerator generator = GeneratorFactory.getGenerator();
 	private int currentLevel;
 	private List<Integer> bigCards = new ArrayList<Integer>();
 	private List<Integer> smallCards = new ArrayList<Integer>();

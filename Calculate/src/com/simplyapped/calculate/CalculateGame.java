@@ -1,9 +1,11 @@
 package com.simplyapped.calculate;
 
 import com.badlogic.gdx.math.Interpolation;
+import com.simplyapped.calculate.numbers.Equation;
 import com.simplyapped.calculate.screen.game.GameScreen;
 import com.simplyapped.calculate.screen.loser.LoserScreen;
 import com.simplyapped.calculate.screen.mainmenu.MainMenuScreen;
+import com.simplyapped.calculate.screen.solution.ViewSolutionScreen;
 import com.simplyapped.calculate.screen.stageintro.StageIntroScreen;
 import com.simplyapped.calculate.screen.stageselect.StageSelectScreen;
 import com.simplyapped.calculate.screen.winner.WinnerScreen;
@@ -23,6 +25,7 @@ public class CalculateGame extends DefaultGame {
 	public final static String STAGE_INTRO_SCREEN = "StageIntroScreen";
 	public final static String WINNER_SCREEN = "WinnerScreen";
 	public final static String LOSER_SCREEN = "LoserScreen";
+	public final static String VIEW_SOLUTION_SCREEN = "ViewSolutionScreen";
 	public final static int STARTING_SOLUTIONS = 10;
 	
 	@Override
@@ -32,7 +35,7 @@ public class CalculateGame extends DefaultGame {
 		levelDetails.setLocked(false);
 		state.setLevelDetails(1, levelDetails);
 		state.resetCurrentGameInfo();
-		//state.setCurrentEquation(new Equation(state.selectBigNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber()));
+		state.setCurrentEquation(new Equation(state.selectBigNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber()));
 		
 		TransitionFixtures.setInterpolation(Interpolation.pow5);
 		
@@ -42,9 +45,9 @@ public class CalculateGame extends DefaultGame {
 		addScreen(STAGE_INTRO_SCREEN, new StageIntroScreen(this));
 		addScreen(WINNER_SCREEN, new WinnerScreen(this));
 		addScreen(LOSER_SCREEN, new LoserScreen(this));
+		addScreen(VIEW_SOLUTION_SCREEN, new ViewSolutionScreen(this));
 		
-//		state.setCurrentLevel(1);
-		setScreen(MAIN_MENU_SCREEN);
+		setScreen(VIEW_SOLUTION_SCREEN);
 	}
 	
 	

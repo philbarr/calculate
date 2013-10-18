@@ -15,9 +15,11 @@ import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.calculate.numbers.Equation;
 import com.simplyapped.calculate.numbers.EquationElement;
 import com.simplyapped.calculate.numbers.NonIntegerDivisionException;
+import com.simplyapped.calculate.numbers.Operator;
 
 public class CalculationTable extends Table
 {
+	private final int MAX_LINE_LENGTH = 8;
 	private List<List<EquationElement>> calculationElements = new ArrayList<List<EquationElement>>();
 	private Skin skin = new Skin(Gdx.files.internal("data/gamescreen.json"));
 	private Skin cards = new Skin(Gdx.files.internal("data/stageintroscreen.json"));
@@ -109,12 +111,31 @@ public class CalculationTable extends Table
 		}
 		else
 		{
+			if (this.size()>0 &&
+					(lastLineLength() > MAX_LINE_LENGTH ||
+					 (element instanceof Operator && lastLine().size() > 2 && (lastLine().get(lastLine().size()-2)) instanceof Operator && !((Operator)lastLine().get(lastLine().size()-2)).isEquivalent((Operator)element))
+					))
+				{
+					carryLine();
+				}
 			List<EquationElement> line = calculationElements.get(calculationElements.size()-1);
 			line.add(element);
 		}
-		update();
+		if (element instanceof Equation)
+		{
+			update();
+		}
 	}
-	
+	private int lastLineLength()
+	{
+		String str = "";
+		for (EquationElement e : lastLine())
+		{
+			str+=e.toString();
+		}
+		str = str.replace("(", "").replace(")", "").replace(" ", "");
+		return str.length();
+	}
 	private Label getLabel(List<EquationElement> line)
 	{
 		String lineString = "";
