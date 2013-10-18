@@ -8,32 +8,54 @@ import com.simplyapped.calculate.numbers.Operator;
 public class FakeGenerator implements IGenerator
 {
 
+	private Stack<Operator> operators;
+	private Stack<Integer> numbers;
+
+	public FakeGenerator()
+	{
+		operators = new Stack<Operator>();
+		numbers = new Stack<Integer>();
+	}
+	
+	public void pushOperator(Operator op)
+	{
+		operators.push(op);
+	}
+	
+	public void pushNumber(int number)
+	{
+		numbers.push(number);
+	}
+	
 	@Override
 	public Operator generateOperator()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		if (operators.size() == 0)
+		{
+			return Operator.MULTIPLY;
+		}
+		else
+		{
+			final Operator pop = operators.remove(0);
+			return pop;
+		}
 	}
 
 	@Override
 	public void shuffle(List<Integer> numbers)
 	{
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public Stack<Integer> shuffledBigNumbers()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return numbers;
 	}
 
 	@Override
 	public Stack<Integer> shuffledSmallNumbers()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return numbers;
 	}
 
 }

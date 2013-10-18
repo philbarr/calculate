@@ -25,6 +25,7 @@ public class CalculationTable extends Table
 	private Skin cards = new Skin(Gdx.files.internal("data/stageintroscreen.json"));
 	private ScrollPane calculationPane;
 	private List<Integer> textButtonTotalLines = new ArrayList<Integer>(); 
+	private boolean isExpectingOperator = false;
 	
 	public CalculationTable()
 	{
@@ -38,7 +39,7 @@ public class CalculationTable extends Table
 	
 	public void update()
 	{
-		calculationPane.setPosition(CalculateGame.SCREEN_WIDTH/2 - calculationPane.getWidth()/2, CalculateGame.SCREEN_HEIGHT - CalculateGame.SCREEN_HEIGHT/2.2f);
+		calculationPane.setPosition(CalculateGame.SCREEN_WIDTH/2 - calculationPane.getWidth()/2, CalculateGame.SCREEN_HEIGHT -  calculationPane.getHeight() - (CalculateGame.SCREEN_HEIGHT/13f));
 		this.clear();
 		int row = 1;
 		for(List<EquationElement> line : calculationElements)
@@ -94,6 +95,7 @@ public class CalculationTable extends Table
 		List<EquationElement> line = new ArrayList<EquationElement>();
 		line.add(element);
 		calculationElements.add(line);
+		isExpectingOperator = true;
 	}
 	
 	@Override
@@ -105,6 +107,12 @@ public class CalculationTable extends Table
 	
 	public void addElement(EquationElement element)
 	{
+		if (element instanceof Operator && !isExpectingOperator ||
+			element instanceof Equation && isExpectingOperator)
+		{
+			return;//ignore when trying to add to equations next to each other or two operators.
+		}
+		
 		if (calculationElements.size() == 0) //blank calculation table
 		{
 			addElementLine(element);
@@ -112,18 +120,18 @@ public class CalculationTable extends Table
 		else
 		{
 			if (this.size()>0 &&
-					(lastLineLength() > MAX_LINE_LENGTH ||
-					 (element instanceof Operator && lastLine().size() > 2 && (lastLine().get(lastLine().size()-2)) instanceof Operator && !((Operator)lastLine().get(lastLine().size()-2)).isEquivalent((Operator)element))
-					))
+					(lastLineLength() > MAX_LINE_LENGTH && isExpectingOperator && element instanceof Operator) ||
+					 (isExpectingOperator &&
+					  element instanceof Operator && 
+					  lastLine().size() > 2 && 
+					  (lastLine().get(lastLine().size()-2)) instanceof Operator && 
+					  !((Operator)lastLine().get(lastLine().size()-2)).isEquivalent((Operator)element)))
 				{
 					carryLine();
 				}
 			List<EquationElement> line = calculationElements.get(calculationElements.size()-1);
 			line.add(element);
-		}
-		if (element instanceof Equation)
-		{
-			update();
+			isExpectingOperator = !isExpectingOperator;
 		}
 	}
 	private int lastLineLength()

@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Stack;
 
 import com.badlogic.gdx.Gdx;
+import com.simplyapped.calculate.numbers.generator.GeneratorFactory;
 import com.simplyapped.calculate.numbers.generator.IGenerator;
 import com.simplyapped.calculate.numbers.generator.RandomGenerator;
 
 public class Equation implements EquationElement
 {
 	private List<EquationElement> elements = new ArrayList<EquationElement>();
-	private IGenerator generator = new RandomGenerator();
+	private IGenerator generator = GeneratorFactory.getGenerator();
 	private Stack<Integer> numbers = new Stack<Integer>();
 	private int total;
 	
@@ -59,7 +60,7 @@ public class Equation implements EquationElement
 		{
 			int nextNumber = tempNumbers.pop();
 			
-			Operator newOperator = getGenerator().generateOperator();
+			Operator newOperator = generator.generateOperator();
 			
 			if (oldOperator != null && !oldOperator.isEquivalent(newOperator))
 			{
@@ -76,7 +77,7 @@ public class Equation implements EquationElement
 					while ((newOperator == Operator.DIVIDE && operand1.getTotal() % nextNumber != 0) || 
 							newOperator.apply(operand1.getTotal(), operand2) == 0)
 					{
-						newOperator = getGenerator().generateOperator();
+						newOperator = generator.generateOperator();
 					}
 					total = newOperator.apply(operand1, operand2);
 				} catch (NonIntegerDivisionException e)
@@ -96,7 +97,7 @@ public class Equation implements EquationElement
 					while ((newOperator == Operator.DIVIDE && getTotal() % nextNumber != 0) ||
 							newOperator.apply(getTotal(), operand2) == 0)
 					{
-						newOperator = getGenerator().generateOperator();
+						newOperator = generator.generateOperator();
 					}
 					total = newOperator.apply(getTotal(), operand2);
 				} catch (NonIntegerDivisionException e)
@@ -215,13 +216,4 @@ public class Equation implements EquationElement
 		}
 	}
 
-	public IGenerator getGenerator()
-	{
-		return generator;
-	}
-
-	public void setGenerator(IGenerator generator)
-	{
-		this.generator = generator;
-	}
 }

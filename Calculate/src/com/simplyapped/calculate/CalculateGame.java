@@ -2,6 +2,10 @@ package com.simplyapped.calculate;
 
 import com.badlogic.gdx.math.Interpolation;
 import com.simplyapped.calculate.numbers.Equation;
+import com.simplyapped.calculate.numbers.Operator;
+import com.simplyapped.calculate.numbers.generator.FakeGenerator;
+import com.simplyapped.calculate.numbers.generator.GeneratorFactory;
+import com.simplyapped.calculate.numbers.generator.RandomGenerator;
 import com.simplyapped.calculate.screen.game.GameScreen;
 import com.simplyapped.calculate.screen.loser.LoserScreen;
 import com.simplyapped.calculate.screen.mainmenu.MainMenuScreen;
@@ -30,12 +34,34 @@ public class CalculateGame extends DefaultGame {
 	
 	@Override
 	public void create() {
+		final FakeGenerator generator = new FakeGenerator();
+		generator.pushNumber(50);
+		generator.pushOperator(Operator.MINUS);
+		generator.pushNumber(2);
+		generator.pushOperator(Operator.MINUS);
+		generator.pushNumber(9);
+		generator.pushOperator(Operator.MINUS);
+		generator.pushNumber(4);
+		generator.pushOperator(Operator.MINUS);
+		generator.pushNumber(6);
+		generator.pushOperator(Operator.PLUS);
+		generator.pushNumber(3);
+		generator.pushOperator(Operator.MINUS);
+		generator.pushNumber(5);
+		generator.pushOperator(Operator.MULTIPLY);
+		generator.pushNumber(7);
+		GeneratorFactory.setGenerator(generator);
+		
+		GeneratorFactory.setGenerator(new RandomGenerator());
+		
 		GameState state = GameStateFactory.getInstance();
+		
 		LevelDetails levelDetails = state.getLevelDetails(1);
 		levelDetails.setLocked(false);
 		state.setLevelDetails(1, levelDetails);
 		state.resetCurrentGameInfo();
-		state.setCurrentEquation(new Equation(state.selectBigNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber()));
+		final Equation eq = new Equation(state.selectBigNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber());
+		state.setCurrentEquation(eq);
 		
 		TransitionFixtures.setInterpolation(Interpolation.pow5);
 		
