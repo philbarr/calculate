@@ -72,7 +72,7 @@ public class CalculateGame extends DefaultGame {
 		addScreen(WINNER_SCREEN, new WinnerScreen(this));
 		addScreen(LOSER_SCREEN, new LoserScreen(this));
 		addScreen(VIEW_SOLUTION_SCREEN, new ViewSolutionScreen(this));
-		
+		 
 		setScreen(MAIN_MENU_SCREEN);
 	}
 	
