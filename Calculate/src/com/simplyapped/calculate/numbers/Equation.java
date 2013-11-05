@@ -8,7 +8,6 @@ import java.util.Stack;
 import com.badlogic.gdx.Gdx;
 import com.simplyapped.calculate.numbers.generator.GeneratorFactory;
 import com.simplyapped.calculate.numbers.generator.IGenerator;
-import com.simplyapped.calculate.numbers.generator.RandomGenerator;
 
 public class Equation implements EquationElement
 {

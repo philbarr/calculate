@@ -7,7 +7,6 @@ import java.util.Stack;
 import com.simplyapped.calculate.numbers.Equation;
 import com.simplyapped.calculate.numbers.generator.GeneratorFactory;
 import com.simplyapped.calculate.numbers.generator.IGenerator;
-import com.simplyapped.calculate.numbers.generator.RandomGenerator;
 
 public abstract class GameState
 {

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -23,7 +22,7 @@ public class CalculationTable extends Table
 	private final int MAX_LINE_LENGTH = 8;
 	private List<List<EquationElement>> calculationElements = new ArrayList<List<EquationElement>>();
 	private Skin skin = new Skin(Gdx.files.internal("data/gamescreen.json"));
-	private Skin cards = new Skin(Gdx.files.internal("data/stageintroscreen.json"));
+//	private Skin cards = new Skin(Gdx.files.internal("data/stageintroscreen.json"));
 	private ScrollPane calculationPane;
 	private List<Integer> textButtonTotalLines = new ArrayList<Integer>(); 
 	private boolean isExpectingOperator = false;
