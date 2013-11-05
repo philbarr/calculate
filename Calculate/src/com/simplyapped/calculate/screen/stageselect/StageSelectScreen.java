@@ -1,6 +1,8 @@
 package com.simplyapped.calculate.screen.stageselect;
 
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -18,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Disposable;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.calculate.state.LevelDetails;
@@ -48,6 +51,10 @@ public class StageSelectScreen extends DefaultScreen
 	public void show()
 	{
 		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, false);
+		if (disposables==null)
+		{
+			disposables = new ArrayList<Disposable>();
+		}
 		stage.addListener(new ClickListener()
 		{
 			@Override

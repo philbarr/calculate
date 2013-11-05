@@ -61,23 +61,26 @@ public class ViewSolutionScreen extends DefaultScreen
 		float panelwidth = CalculateGame.SCREEN_WIDTH/1.05f; 
 		calculationTable = new CalculationTable();
 	    calculationTable.setPanelWidth(panelwidth);
-	    calculationTable.setPanelHeight(CalculateGame.SCREEN_HEIGHT/1.8f);
+	    calculationTable.setPanelHeight(CalculateGame.SCREEN_HEIGHT/1.9f);
 	    
 	    List<Equation> currentEquation = state.getCurrentEquation().getEquationConstruction();
+	    
 	    for (Equation eq : currentEquation)
 		{
-				for (EquationElement element : eq.getElements())
+			for (EquationElement element : eq.getElements())
+			{
+				if (element instanceof Equation && ((Equation)element).getOperandCount() > 1)
 				{
-					if (element instanceof Equation && ((Equation)element).getOperandCount() > 1)
-					{
-						calculationTable.addElement(new Equation(((Equation)element).getTotal()));
-					}
-					else
-					{
-						calculationTable.addElement(element);
-					}
+					calculationTable.addElement(new Equation(((Equation)element).getTotal()));
 				}
+				else
+				{
+					calculationTable.addElement(element);
+				}
+			}
+			calculationTable.newLine();
 		}
+	    calculationTable.removeLine();
 	    calculationTable.update();
 	    
 		int total = GameStateFactory.getInstance().getCurrentEquation().getTotal();

@@ -43,6 +43,10 @@
     cardfrontblue: {
      up: "cardfrontblue",
 	 font: liberation-font,  
-    }
+    },
+    cardfrontgreen: {
+     up: "cardfrontgreen",
+	 font: liberation-font,  
+    },
   }
 }

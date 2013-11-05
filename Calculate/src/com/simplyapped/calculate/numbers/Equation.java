@@ -204,13 +204,7 @@ public class Equation implements EquationElement
 			}
 			else
 			{
-				try
-				{
-					total = operator.apply(getTotal(), (Equation) elements.get(i));
-				} catch (Exception e)
-				{
-					System.out.println(e);
-				}
+				total = operator.apply(getTotal(), (Equation) elements.get(i));
 			}
 		}
 	}

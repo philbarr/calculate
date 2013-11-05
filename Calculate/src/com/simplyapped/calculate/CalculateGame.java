@@ -34,23 +34,23 @@ public class CalculateGame extends DefaultGame {
 	
 	@Override
 	public void create() {
-		final FakeGenerator generator = new FakeGenerator();
-		generator.pushNumber(50);
-		generator.pushOperator(Operator.MINUS);
-		generator.pushNumber(2);
-		generator.pushOperator(Operator.MINUS);
-		generator.pushNumber(9);
-		generator.pushOperator(Operator.MINUS);
-		generator.pushNumber(4);
-		generator.pushOperator(Operator.MINUS);
-		generator.pushNumber(6);
-		generator.pushOperator(Operator.PLUS);
-		generator.pushNumber(3);
-		generator.pushOperator(Operator.MINUS);
-		generator.pushNumber(5);
-		generator.pushOperator(Operator.MULTIPLY);
-		generator.pushNumber(7);
-		GeneratorFactory.setGenerator(generator);
+		final FakeGenerator fake = new FakeGenerator();
+		fake.pushNumber(50);
+		fake.pushOperator(Operator.MINUS);
+		fake.pushNumber(2);
+		fake.pushOperator(Operator.MINUS);
+		fake.pushNumber(9);
+		fake.pushOperator(Operator.MINUS);
+		fake.pushNumber(4);
+		fake.pushOperator(Operator.MINUS);
+		fake.pushNumber(6);
+		fake.pushOperator(Operator.PLUS);
+		fake.pushNumber(3);
+		fake.pushOperator(Operator.MINUS);
+		fake.pushNumber(5);
+		fake.pushOperator(Operator.MULTIPLY);
+		fake.pushNumber(7);
+		//GeneratorFactory.setGenerator(fake);
 		
 		GeneratorFactory.setGenerator(new RandomGenerator());
 		
@@ -60,8 +60,8 @@ public class CalculateGame extends DefaultGame {
 		levelDetails.setLocked(false);
 		state.setLevelDetails(1, levelDetails);
 		state.resetCurrentGameInfo();
-		final Equation eq = new Equation(state.selectBigNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber());
-		state.setCurrentEquation(eq);
+//		final Equation eq = new Equation(state.selectBigNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber());
+//		state.setCurrentEquation(eq);
 		
 		TransitionFixtures.setInterpolation(Interpolation.pow5);
 		

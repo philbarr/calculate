@@ -286,7 +286,7 @@ public class GameScreen extends DefaultScreen
 	    Label targetLabel = new Label("Target: " + GameStateFactory.getInstance().getCurrentEquation().getTotal(), skin, "title");
 	    targetLabel.setAlignment(Align.left, Align.bottom);
 	    targetLabel.setHeight(titleBackgroundHeight);
-	    float pad = 20f;
+	    float pad = -3f;
 	    targetLabel.setWidth(CalculateGame.SCREEN_WIDTH/2 - pad);
 	    float labelHeight = CalculateGame.SCREEN_HEIGHT - titleBackgroundHeight;
 		targetLabel.setPosition((CalculateGame.SCREEN_WIDTH - panelwidth)/2 - pad, labelHeight);
