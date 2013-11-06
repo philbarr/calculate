@@ -74,7 +74,5 @@ public class CalculateGame extends DefaultGame {
 		addScreen(VIEW_SOLUTION_SCREEN, new ViewSolutionScreen(this));
 		 
 		setScreen(MAIN_MENU_SCREEN);
-	}
-	
-	
+	}	
 }
