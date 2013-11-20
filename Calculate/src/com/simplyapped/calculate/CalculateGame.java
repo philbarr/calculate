@@ -1,7 +1,6 @@
 package com.simplyapped.calculate;
 
 import com.badlogic.gdx.math.Interpolation;
-import com.simplyapped.calculate.numbers.Equation;
 import com.simplyapped.calculate.numbers.Operator;
 import com.simplyapped.calculate.numbers.generator.FakeGenerator;
 import com.simplyapped.calculate.numbers.generator.GeneratorFactory;
@@ -18,9 +17,12 @@ import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.calculate.state.LevelDetails;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
+import com.simplyapped.libgdx.ext.billing.BillingService;
 
 public class CalculateGame extends DefaultGame {
 
+	public final static String LICENSE_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAq1vMWnPcNoqiZBGovCp9iI6vJkcrv09KEQMqkk9uwUL7xjfSzMpKJfn9tgyWhcRh1lZV6+01kWC7t1g0YnG8861g7Mu0OTLsGjNVX4K3EB1DJcDD9U+YE5LyqaNnDceXhPb0ujHD20W14Ua//WQcpeXoz9thbZIwufWNUjnlvbzLAWkzol1C7ftokUuWcG1A4o2tsr1bG+OGmtDEJiO9FCRbBWzyha/R4BR9BexaUb2QXi4ygb6h39G+3yaU90j0W+Byjf43KBKTVfGbi2KNFLgw+V4yQsUf7B0nxVM6DzlsVhFxZITI/AUJj6Gi4Ef7OY2s8CyMnVO3xfu76IfYhQIDAQAB";
+	
 	public final static int SCREEN_HEIGHT = 800;
 	public final static int SCREEN_WIDTH = 600;
 	public final static String MAIN_MENU_SCREEN = "MainMenuScreen";
@@ -31,6 +33,8 @@ public class CalculateGame extends DefaultGame {
 	public final static String LOSER_SCREEN = "LoserScreen";
 	public final static String VIEW_SOLUTION_SCREEN = "ViewSolutionScreen";
 	public final static int STARTING_SOLUTIONS = 10;
+	
+	private BillingService billing;
 	
 	@Override
 	public void create() {
@@ -74,5 +78,22 @@ public class CalculateGame extends DefaultGame {
 		addScreen(VIEW_SOLUTION_SCREEN, new ViewSolutionScreen(this));
 		 
 		setScreen(MAIN_MENU_SCREEN);
+	}
+	
+	@Override
+	public void dispose() {
+		super.dispose();
+		if (billing != null)
+		{
+			billing.dispose();
+		}
+	}
+
+	public BillingService getBilling() {
+		return billing;
+	}
+
+	public void setBilling(BillingService billing) {
+		this.billing = billing;
 	}	
 }

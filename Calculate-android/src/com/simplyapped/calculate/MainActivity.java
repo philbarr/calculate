@@ -3,13 +3,16 @@ package com.simplyapped.calculate;
 import android.media.AudioManager;
 import android.os.Bundle;
 
+import com.android.vending.billing.AndroidBillingService;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.calculate.state.GameStateFactory.GameStateType;
+import com.simplyapped.libgdx.ext.billing.BillingService;
 
 public class MainActivity extends AndroidApplication {
-    @Override
+
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
@@ -18,6 +21,9 @@ public class MainActivity extends AndroidApplication {
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         GameStateFactory.setType(GameStateType.PERSISTENT);
         
-        initialize(new CalculateGame(), cfg);
+        
+        CalculateGame calculateGame = new CalculateGame();
+        calculateGame.setBilling(new AndroidBillingService(this));
+		initialize(calculateGame, cfg);
     }
 }
