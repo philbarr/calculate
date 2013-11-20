@@ -3,7 +3,10 @@ package com.android.vending.billing;
 import android.content.Context;
 
 import com.android.vending.billing.util.IabHelper;
+import com.android.vending.billing.util.IabHelper.QueryInventoryFinishedListener;
 import com.android.vending.billing.util.IabResult;
+import com.android.vending.billing.util.Inventory;
+import com.simplyapped.libgdx.ext.billing.BillingQueryInventoryFinishedListnener;
 import com.simplyapped.libgdx.ext.billing.BillingService;
 import com.simplyapped.libgdx.ext.billing.BillingServiceSetupFinishedListener;
 
@@ -31,6 +34,17 @@ public class AndroidBillingService implements BillingService {
 	public void dispose() {
 		if (mHelper != null) mHelper.dispose();
 		   mHelper = null;
+	}
+
+	@Override
+	public void queryInventoryAsync(final BillingQueryInventoryFinishedListnener listener) {
+		mHelper.queryInventoryAsync(new QueryInventoryFinishedListener() {
+			
+			@Override
+			public void onQueryInventoryFinished(IabResult result, Inventory inv) {
+				listener.onQueryInventoryFinished(new AndroidBillingResult(result), new AndroidBillingInventory(inv));
+			}
+		});
 	}
 
 }

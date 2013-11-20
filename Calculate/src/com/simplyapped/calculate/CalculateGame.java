@@ -22,6 +22,9 @@ import com.simplyapped.libgdx.ext.billing.BillingService;
 public class CalculateGame extends DefaultGame {
 
 	public final static String LICENSE_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAq1vMWnPcNoqiZBGovCp9iI6vJkcrv09KEQMqkk9uwUL7xjfSzMpKJfn9tgyWhcRh1lZV6+01kWC7t1g0YnG8861g7Mu0OTLsGjNVX4K3EB1DJcDD9U+YE5LyqaNnDceXhPb0ujHD20W14Ua//WQcpeXoz9thbZIwufWNUjnlvbzLAWkzol1C7ftokUuWcG1A4o2tsr1bG+OGmtDEJiO9FCRbBWzyha/R4BR9BexaUb2QXi4ygb6h39G+3yaU90j0W+Byjf43KBKTVfGbi2KNFLgw+V4yQsUf7B0nxVM6DzlsVhFxZITI/AUJj6Gi4Ef7OY2s8CyMnVO3xfu76IfYhQIDAQAB";
+	public final static String TEN_SOLUTIONS_ID = "com.simplyapped.calculate.tensolutions";
+	public final static String TWENTY_FIVE_SOLUTIONS_ID = "com.simplyapped.calculate.twentyfivesolutions";
+	public final static String FIFTY_SOLUTIONS_ID = "com.simplyapped.calculate.fiftysolutions";
 	
 	public final static int SCREEN_HEIGHT = 800;
 	public final static int SCREEN_WIDTH = 600;
