@@ -10,7 +10,7 @@ import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.calculate.state.GameStateFactory.GameStateType;
 import com.simplyapped.libgdx.ext.billing.BillingService;
 
-public class MainActivity extends AndroidApplication {
+public class CalculateGameActivity extends AndroidApplication {
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
