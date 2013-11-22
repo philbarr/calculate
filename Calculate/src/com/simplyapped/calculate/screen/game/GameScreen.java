@@ -1,7 +1,9 @@
 package com.simplyapped.calculate.screen.game;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -21,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.esotericsoftware.tablelayout.Cell;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.calculate.numbers.Equation;
 import com.simplyapped.calculate.numbers.EquationElement;
@@ -29,6 +32,7 @@ import com.simplyapped.calculate.numbers.Operator;
 import com.simplyapped.calculate.screen.actor.CalculationTable;
 import com.simplyapped.calculate.screen.game.actor.EquationElementFlatUIButton;
 import com.simplyapped.calculate.screen.game.actor.EquationElementTextButton;
+import com.simplyapped.calculate.screen.game.actor.RowEquationElementTextButton;
 import com.simplyapped.calculate.screen.stageintro.StageIntroScreen;
 import com.simplyapped.calculate.state.GameState;
 import com.simplyapped.calculate.state.GameStateFactory;
@@ -40,10 +44,40 @@ import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
 public class GameScreen extends DefaultScreen
 {
+	private class CardCapableCalculationTable extends CalculationTable
+	{
+		@Override
+		protected Actor createTotalActor(int row, Equation total) {
+			if (textButtonTotalLines.contains(row) && !allCardsUsed())
+		    {
+				RowEquationElementTextButton button = new RowEquationElementTextButton(total.getTotal() + "", cards, "cardfrontgreen");
+				button.setData(total.getTotal());
+				button.setRow(row);
+				button.addListener(new OperandListener());
+				return button;
+		    }
+			else
+			{
+				return super.createTotalActor(row, total);
+			}
+		}
+		
+		@Override
+		protected void padTotalCell(Cell<?> cell, int row) {
+			if (textButtonTotalLines.contains(row))
+		    {
+				cell.height(StageIntroScreen.CARD_SIZE / 2).pad(10);
+				cell.minWidth(140).padRight(40).padTop(20).top().fillX();
+		    }
+			else
+			{
+				super.padTotalCell(cell,row);
+			}
+		}
+	}
+	
 	private class OperatorClickListener extends ClickListener
 	{
-		
-
 		@Override
 		public void clicked(InputEvent event, float x, float y)
 		{
@@ -65,10 +99,8 @@ public class GameScreen extends DefaultScreen
 			}
 			calculationTable.update();
 		}
-
-		
 	}
-
+	
 	private class OperandListener extends ClickListener
 	{
 		@Override
@@ -81,7 +113,6 @@ public class GameScreen extends DefaultScreen
 			{
 				try
 				{
-
 					// check that the new number won't cause a NonIntegerDivisionException
 					// and check if user has won
 					if (calculationTable.size() > 0)
@@ -100,6 +131,8 @@ public class GameScreen extends DefaultScreen
 							{
 								final LevelDetails current = state.getLevelDetails(state.getCurrentLevel());
 								current.increaseCompleted();
+								
+								// unlock next stage if they've got that far
 								if (state.getLevelInfo().getCompletedRequired() == current.getCompleted())
 								{
 									state.getLevelDetails(state.getCurrentLevel() + 1).setLocked(false);
@@ -111,6 +144,7 @@ public class GameScreen extends DefaultScreen
 					calculationTable.addElement(number);
 					button.setVisible(false);
 					isOperatorToSelectNext = true;
+					greenCardCheck(button);
 				} 
 				catch (NonIntegerDivisionException e)
 				{
@@ -125,26 +159,36 @@ public class GameScreen extends DefaultScreen
 			{
 				if (calculationTable.lastLine().size() > 1)
 				{	
-					calculationTable.getTextButtonTotalLines().add(calculationTable.size()); // store the line number so when it is rendered we know to draw it as a textbutton
+					greenCardCheck(button);
 					calculationTable.addElementLine(number);
 					button.setVisible(false);
-					
 				}
 			}
 			calculationTable.update();
 		}
 
-		private boolean allCardsUsed()
-		{
-			for (TextButton button : cardButtons)
+		private void greenCardCheck(EquationElementTextButton button) {
+			if (button instanceof RowEquationElementTextButton)
 			{
-				if(button.isVisible())
-				{
-					return false;
-				}
+				textButtonTotalLines.remove(((RowEquationElementTextButton)button).getRow());
 			}
-			return true;
+			else
+			{
+				textButtonTotalLines.add(calculationTable.size()); // store the line number so when it is rendered we know to draw it as a textbutton						
+			}
 		}
+
+	}
+	private boolean allCardsUsed()
+	{
+		for (TextButton button : cardButtons)
+		{
+			if(button.isVisible())
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 
 	
@@ -153,7 +197,7 @@ public class GameScreen extends DefaultScreen
 	private Table window;
 	private Skin skin = new Skin(Gdx.files.internal("data/gamescreen.json"));
 	private Skin cards = new Skin(Gdx.files.internal("data/stageintroscreen.json")); // because in future we need to think more carefully about how we group assets
-	
+	private Set<Integer> textButtonTotalLines = new HashSet<Integer>();
 	private CalculationTable calculationTable;
 	private Texture texture;
 	private List<TextButton> cardButtons = new ArrayList<TextButton>();
@@ -201,6 +245,7 @@ public class GameScreen extends DefaultScreen
 	public void show()
 	{
 		isTransitioning = false;
+		textButtonTotalLines = new HashSet<Integer>();
 
 		totalTime = TIMEOUT;
 		float panelwidth = CalculateGame.SCREEN_WIDTH/1.05f; // used for the width of the operatorsTable, titleTable, and numbersTable
@@ -222,8 +267,8 @@ public class GameScreen extends DefaultScreen
 	    window = new Table();	    
 	    window.setFillParent(true);
 	    
-	    calculationTable = new CalculationTable();
-		
+	    calculationTable = new CardCapableCalculationTable();
+		calculationTable.debug();
 	    calculationTable.setPanelWidth(panelwidth);
 	    calculationTable.setPanelHeight(CalculateGame.SCREEN_HEIGHT/3f);
 
@@ -356,6 +401,7 @@ public class GameScreen extends DefaultScreen
 		{
 			b.setVisible(true);
 		}
+		textButtonTotalLines = new HashSet<Integer>();
 		isOperatorToSelectNext = false;
 	}
 
@@ -390,7 +436,7 @@ public class GameScreen extends DefaultScreen
 	public void render(float delta)
 	{
 		super.render(delta);
-		
+		Table.drawDebug(stage);
 		// update time
 		if (timerLabel != null && !isTransitioning && !isPaused)
 		{

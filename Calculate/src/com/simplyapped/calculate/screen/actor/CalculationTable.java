@@ -1,7 +1,9 @@
 package com.simplyapped.calculate.screen.actor;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -11,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.esotericsoftware.tablelayout.Cell;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.calculate.numbers.Equation;
 import com.simplyapped.calculate.numbers.EquationElement;
@@ -22,9 +25,8 @@ public class CalculationTable extends Table
 	private final int MAX_LINE_LENGTH = 8;
 	private List<List<EquationElement>> calculationElements = new ArrayList<List<EquationElement>>();
 	private Skin skin = new Skin(Gdx.files.internal("data/gamescreen.json"));
-//	private Skin cards = new Skin(Gdx.files.internal("data/stageintroscreen.json"));
 	private ScrollPane calculationPane;
-	private List<Integer> textButtonTotalLines = new ArrayList<Integer>(); 
+ 
 	
 	public CalculationTable()
 	{
@@ -53,27 +55,33 @@ public class CalculationTable extends Table
 	public void createRow(Table calculation, List<EquationElement> line, int row)
 	{
 		calculation.row();
-	    calculation.add(getLabel(line)).expandX().top().left().padLeft(20).padTop(20).fillX();
+	    calculation.add(getLabel(line)).expandX().top().left().padLeft(20).padTop(0).fillX();
 	    Label actor = new Label("=", skin, "calculation");
 	    actor.setAlignment(Align.center);
-		calculation.add(actor).width(60).padTop(20).top();
+		calculation.add(actor).width(60).padTop(0).top();
 		Equation tempEq = new Equation();
 		try
 		{
 			tempEq.setElements(line);
-		} catch (NonIntegerDivisionException e)
+		} 
+		catch (NonIntegerDivisionException e)
 		{
 			Gdx.app.error(Equation.class.toString(), e.getMessage());
 		}
 		
-	    Actor totalActor;
-	    if (getTextButtonTotalLines().contains(row))
-	    {
-	    	
-	    }
-	    totalActor = new Label(tempEq.getTotal() + "", skin, "calculation");
-		calculation.add(totalActor).minWidth(100).padRight(40).padTop(20).top().fillX();
-		
+	    Actor totalActor = createTotalActor(row, tempEq);
+		Cell<?> cell = calculation.add(totalActor);
+		padTotalCell(cell, row);
+	}
+
+	protected Actor createTotalActor(int row, Equation tempEq) 
+	{
+		return new Label(tempEq.getTotal() + "", skin, "calculation");
+	}
+
+	protected void padTotalCell(Cell<?> cell, int row) 
+	{
+		cell.minWidth(100).padRight(40).padTop(0).top().fillX();
 	}
 	
 	public void carryLine()
@@ -155,16 +163,6 @@ public class CalculationTable extends Table
 	public int size()
 	{
 		return calculationElements.size();
-	}
-
-	public List<Integer> getTextButtonTotalLines()
-	{
-		return textButtonTotalLines;
-	}
-
-	public void setTextButtonTotalLines(List<Integer> textButtonTotalLines)
-	{
-		this.textButtonTotalLines = textButtonTotalLines;
 	}
 
 	public void setPanelWidth(float panelwidth) 

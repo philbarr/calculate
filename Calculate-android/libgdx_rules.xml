@@ -7,6 +7,23 @@
     <!-- Make sure that the required properties were set in "libgdx.properties". -->
     <fail message="libgdx.main.dir is not set. Make sure to set it in the libgdx.properties file." unless="libgdx.main.dir" />
  
+    <target name="rename-release-with-version-number">
+        <xmlproperty file="AndroidManifest.xml" 
+                     prefix="themanifest" 
+                     collapseAttributes="true"/>
+
+        <!--  see ${sdk.dir}/tools/ant/build.xml -set-release-mode -->
+        <property name="out.packaged.file" 
+                  location="${out.absolute.dir}/${ant.project.name}-${themanifest.manifest.android:versionName}-release-unsigned.apk" />
+        <property name="out.final.file" 
+                  location="${out.absolute.dir}/${ant.project.name}-${themanifest.manifest.android:versionName}-release.apk" />
+    </target>
+    
+    <target name="-set-release-mode"
+         depends="rename-release-with-version-number,android_rules.-set-release-mode">
+        <echo message="target: ${build.target}"></echo>
+    </target>
+    
     <target name="-pre-build">
         <!-- We copy over the gdx.jar to the Android project's libs directory because all
              attempts to reference to JARs in external directories were unsuccessful. This
@@ -82,4 +99,7 @@
         </do-only-if-manifest-hasCode>
     </target>
  
+    <!-- clean and release -->
+    <target depends="clean, release" name="rebuild">
+    </target>
 </project>

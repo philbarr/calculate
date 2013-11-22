@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 public class EquationElementTextButton extends TextButton
 {
 	private Integer data;
-
 	public EquationElementTextButton(String text, Skin skin)
 	{
 		super(text, skin);
