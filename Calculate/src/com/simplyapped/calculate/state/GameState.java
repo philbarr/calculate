@@ -29,7 +29,7 @@ public abstract class GameState
 	{
 		resetCurrentGameInfo();
 	}
-	public LevelInfo getLevelInfo()
+	public LevelInfo getCurrentLevelInfo()
 	{
 		return LevelInfo.getLevel(getCurrentLevel());
 	}
@@ -63,14 +63,14 @@ public abstract class GameState
 	private void addAttempt()
 	{
 		// the user has made an attempt to play the game the first time they select a card
-		if (getLevelInfo().getNumberOfCards() - cardsLeftForUserSelect() == 1)
+		if (getCurrentLevelInfo().getNumberOfCards() - cardsLeftForUserSelect() == 1)
 		{
 			getLevelDetails(getCurrentLevel()).increaseAttempts();
 		}
 	}
 	public int cardsLeftForUserSelect()
 	{
-		return getLevelInfo().getNumberOfCards() - getBigCards().size() - getSmallCards().size();
+		return getCurrentLevelInfo().getNumberOfCards() - getBigCards().size() - getSmallCards().size();
 	}
 	public void setCurrentEquation(Equation eq)
 	{

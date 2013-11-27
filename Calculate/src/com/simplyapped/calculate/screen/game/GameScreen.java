@@ -53,6 +53,7 @@ public class GameScreen extends DefaultScreen
 				RowEquationElementTextButton button = new RowEquationElementTextButton(total.getTotal() + "", cards, "cardfrontgreen");
 				button.setData(total.getTotal());
 				button.setRow(row);
+				button.setWidth(100);
 				button.addListener(new OperandListener());
 				return button;
 		    }
@@ -66,8 +67,10 @@ public class GameScreen extends DefaultScreen
 		protected void padTotalCell(Cell<?> cell, int row) {
 			if (textButtonTotalLines.contains(row))
 		    {
-				cell.height(StageIntroScreen.CARD_SIZE / 2).pad(10);
+				cell.height(StageIntroScreen.CARD_SIZE / 2).pad(20);
 				cell.minWidth(140).padRight(40).padTop(20).top().fillX();
+				cell.maxWidth(140);
+				
 		    }
 			else
 			{
@@ -113,6 +116,7 @@ public class GameScreen extends DefaultScreen
 			{
 				try
 				{
+					GameState state = GameStateFactory.getInstance();
 					// check that the new number won't cause a NonIntegerDivisionException
 					// and check if user has won
 					if (calculationTable.size() > 0)
@@ -120,10 +124,9 @@ public class GameScreen extends DefaultScreen
 						List<EquationElement> lastLine = new ArrayList<EquationElement>(calculationTable.lastLine());
 						lastLine.add(number);
 						Equation equation = new Equation(lastLine); // auto-checks for NonIntegerDivisionException
-						GameState state = GameStateFactory.getInstance();
 						if (equation.getTotal() == state.getCurrentEquation().getTotal())
 						{
-							if (state.getLevelInfo().isUseAllCards() && !allCardsUsed())
+							if (state.getCurrentLevelInfo().isUseAllCards() && !allCardsUsed())
 							{
 								showDialogMessage("At this Level you must use\n ALL your cards");
 							}
@@ -133,13 +136,17 @@ public class GameScreen extends DefaultScreen
 								current.increaseCompleted();
 								
 								// unlock next stage if they've got that far
-								if (state.getLevelInfo().getCompletedRequired() == current.getCompleted())
+								if (state.getCurrentLevelInfo().getCompletedRequired() == current.getCompleted())
 								{
 									state.getLevelDetails(state.getCurrentLevel() + 1).setLocked(false);
 								}
 								game.transitionTo(CalculateGame.WINNER_SCREEN, TransitionFixtures.Fade());
 							}
 						}
+					}
+					else if (number.getTotal() == state.getCurrentEquation().getTotal()) // check for the case when the first number added is the answer
+					{
+						
 					}
 					calculationTable.addElement(number);
 					button.setVisible(false);
@@ -159,7 +166,14 @@ public class GameScreen extends DefaultScreen
 			{
 				if (calculationTable.lastLine().size() > 1)
 				{	
-					greenCardCheck(button);
+					if (button instanceof RowEquationElementTextButton)
+					{
+						textButtonTotalLines.remove(((RowEquationElementTextButton)button).getRow());
+					}
+					else
+					{
+						textButtonTotalLines.add(calculationTable.size());
+					}
 					calculationTable.addElementLine(number);
 					button.setVisible(false);
 				}
@@ -171,10 +185,6 @@ public class GameScreen extends DefaultScreen
 			if (button instanceof RowEquationElementTextButton)
 			{
 				textButtonTotalLines.remove(((RowEquationElementTextButton)button).getRow());
-			}
-			else
-			{
-				textButtonTotalLines.add(calculationTable.size()); // store the line number so when it is rendered we know to draw it as a textbutton						
 			}
 		}
 
@@ -337,7 +347,7 @@ public class GameScreen extends DefaultScreen
 		targetLabel.setPosition((CalculateGame.SCREEN_WIDTH - panelwidth)/2 - pad, labelHeight);
 		
 		// timer label
-		TIMEOUT = state.getLevelInfo().getTimeLimit();
+		TIMEOUT = state.getCurrentLevelInfo().getTimeLimit();
 	    timerLabel = new Label("Time:   ", skin, "title");
 	    timerLabel.setPosition(((CalculateGame.SCREEN_WIDTH - panelwidth)/2) + panelwidth - timerLabel.getWidth() + pad, labelHeight);
 	    timerLabel.setHeight(titleBackgroundHeight);
@@ -436,7 +446,7 @@ public class GameScreen extends DefaultScreen
 	public void render(float delta)
 	{
 		super.render(delta);
-		Table.drawDebug(stage);
+//		Table.drawDebug(stage);
 		// update time
 		if (timerLabel != null && !isTransitioning && !isPaused)
 		{

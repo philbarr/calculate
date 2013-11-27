@@ -30,7 +30,7 @@ import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 public class WinnerScreen extends DefaultScreen
 {
 	private static final int BALLOON_COUNT = 30;
-	private static final float BALLOON_MOVE_DURATION = 10;
+	
 	private Skin skin = new Skin(Gdx.files.internal("data/winnerscreen.json"));
 	private int BALLOON_RANDOM_OFFSET = CalculateGame.SCREEN_WIDTH;
 	
@@ -73,15 +73,16 @@ public class WinnerScreen extends DefaultScreen
 			Image image = new Image(skin, "winnerballoon");
 			float height = r.nextInt(CalculateGame.SCREEN_HEIGHT) - CalculateGame.SCREEN_HEIGHT;
 			float x =  r.nextInt(BALLOON_RANDOM_OFFSET-(int)image.getWidth());
+			float ballonMoveDuration = (r.nextFloat())*10f + 2f; // random between 2 and 12
 			image.setPosition(x, height);
 			image.setScale(0.3f);
 			image.addAction(
 					sequence(
-						moveBy(0, CalculateGame.SCREEN_HEIGHT - height, BALLOON_MOVE_DURATION + (CalculateGame.SCREEN_HEIGHT/height)),
+						moveBy(0, CalculateGame.SCREEN_HEIGHT - height, ballonMoveDuration + (CalculateGame.SCREEN_HEIGHT/height)),
 						repeat(RepeatAction.FOREVER, 
 							sequence(
 								moveTo(x, -image.getHeight()),
-								moveBy(0, CalculateGame.SCREEN_HEIGHT*2, BALLOON_MOVE_DURATION)
+								moveBy(0, CalculateGame.SCREEN_HEIGHT*2, ballonMoveDuration)
 								))));
 			stage.addActor(image);
 		}

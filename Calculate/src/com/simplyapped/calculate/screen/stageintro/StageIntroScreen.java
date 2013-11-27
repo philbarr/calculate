@@ -346,7 +346,15 @@ public class StageIntroScreen extends DefaultScreen
 				nums[i] = selectedNumbers.get(i);
 			}
 			Equation eq = new Equation(nums);
-			while (eq.getTotal() < 20 || eq.getTotal() > 99999)
+			int attempts = 0;
+			// try and find a number between min and max range using selected numbers
+			// that doesn't use any of the cards (because then the answer would just be a single card)
+			// have 100 attempts then just give up and use the last one
+			while ((eq.getTotal() < state.getCurrentLevelInfo().getMinRange() || 
+					eq.getTotal() > state.getCurrentLevelInfo().getMaxRange() ||
+					state.getBigCards().contains(eq.getTotal()) || 
+					state.getBigCards().contains(eq.getTotal())) 
+						&& attempts++ < 100)
 			{
 				eq = new Equation(nums);
 			}

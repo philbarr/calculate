@@ -55,10 +55,10 @@ public class CalculationTable extends Table
 	public void createRow(Table calculation, List<EquationElement> line, int row)
 	{
 		calculation.row();
-	    calculation.add(getLabel(line)).expandX().top().left().padLeft(20).padTop(0).fillX();
+	    calculation.add(getLabel(line)).expandX().top().left().padLeft(20).padTop(20).fillX();
 	    Label actor = new Label("=", skin, "calculation");
 	    actor.setAlignment(Align.center);
-		calculation.add(actor).width(60).padTop(0).top();
+		calculation.add(actor).width(60).padTop(20).top();
 		Equation tempEq = new Equation();
 		try
 		{
@@ -81,7 +81,7 @@ public class CalculationTable extends Table
 
 	protected void padTotalCell(Cell<?> cell, int row) 
 	{
-		cell.minWidth(100).padRight(40).padTop(0).top().fillX();
+		cell.minWidth(100).padRight(40).padTop(20).top().fillX();
 	}
 	
 	public void carryLine()
@@ -112,10 +112,12 @@ public class CalculationTable extends Table
 		update();
 	}
 	
-	public void addElement(EquationElement element)
+	public boolean addElement(EquationElement element)
 	{
+		boolean lineAdded = false;
 		if (calculationElements.size() == 0) //blank calculation table
 		{
+			lineAdded = true;
 			addElementLine(element);
 		}
 		else
@@ -126,12 +128,14 @@ public class CalculationTable extends Table
 				boolean equivalent =  twoElementsBack instanceof Operator && ((Operator)twoElementsBack).isEquivalent((Operator)element); // is the last inputted operator compatible with this one
 				if	(lastLineLength() > MAX_LINE_LENGTH || !equivalent)
 				{
+					lineAdded = true;
 					carryLine();
 				}
 			}
 			List<EquationElement> line = calculationElements.get(calculationElements.size()-1);
 			line.add(element);
 		}
+		return lineAdded;
 	}
 	private int lastLineLength()
 	{

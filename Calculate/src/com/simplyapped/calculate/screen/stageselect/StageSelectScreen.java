@@ -74,7 +74,6 @@ public class StageSelectScreen extends DefaultScreen
 	    window.setFillParent(true);
 	    window.setX(0);
 	    window.setY(0);
-//	    window.debug();
 	    
 	    window.row().padTop(emptyRowHeight);
 	    Table stageTable = new Table();
@@ -101,12 +100,18 @@ public class StageSelectScreen extends DefaultScreen
 		
 		// buttons
 		FlatUIButton levelButton = new FlatUIButton("" + level, skin, "l" + level);
-	    levelButton.addListener(new ClickListener() {
+
+	    levelButton.getLabel().setFontScale(1f);
+	    disposables.add(levelButton);
+	    
+	    rowTable.add(levelButton).width(buttonSize).height(buttonSize/1.3f).align(Align.left).expandX().padLeft(0f).pad(20f);	
+	    rowTable.add(createDetailsTable(level)).width(buttonSize*1.5f).height(buttonSize/1.3f).pad(20f);
+	    rowTable.addListener(new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y)
 	        {
 				// create the dialog
-    			Dialog dialog = new Dialog("", skin, "dialog");
+    			final Dialog dialog = new Dialog("", skin, "dialog");
     			dialog.setSize(CalculateGame.SCREEN_WIDTH/1.1f, CalculateGame.SCREEN_HEIGHT/2f);
     			dialog.setPosition(((CalculateGame.SCREEN_WIDTH-dialog.getWidth())/2), ((CalculateGame.SCREEN_HEIGHT-dialog.getHeight())/2));
     			LabelStyle labelStyle = skin.get("dialog", LabelStyle.class);
@@ -130,6 +135,14 @@ public class StageSelectScreen extends DefaultScreen
 				playButton.getLabel().setFontScale(0.3f);
 				disposables.add(playButton);
 				FlatUIButton cancelButton = new FlatUIButton("Close", skin, "dialogCancel");
+				cancelButton.addListener(new ClickListener()
+					{
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						super.clicked(event, x, y);
+						dialog.hide();
+					}
+					});
 				cancelButton.getLabel().setFontScale(0.3f);
 				disposables.add(cancelButton);
 				dialog.getContentTable().add(details);
@@ -144,11 +157,6 @@ public class StageSelectScreen extends DefaultScreen
 	        }
 
 	    });
-	    levelButton.getLabel().setFontScale(1f);
-	    disposables.add(levelButton);
-	    
-	    rowTable.add(levelButton).width(buttonSize).height(buttonSize/1.3f).align(Align.left).expandX().padLeft(0f).pad(20f);	
-	    rowTable.add(createDetailsTable(level)).width(buttonSize*1.5f).height(buttonSize/1.3f).pad(20f);
 	    table.add(rowTable);
 	    table.row().padTop(emptyRowHeight).expandX();
 	}
