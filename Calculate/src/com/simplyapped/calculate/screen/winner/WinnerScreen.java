@@ -51,6 +51,7 @@ public class WinnerScreen extends DefaultScreen
 			{
 				if (keycode == Keys.BACK || keycode == Keys.BACKSPACE)
 				{
+					game.transitionTo(CalculateGame.STAGE_SELECT_SCREEN, TransitionFixtures.UnderlapRight());
 					return true;
 				}
 				return false;

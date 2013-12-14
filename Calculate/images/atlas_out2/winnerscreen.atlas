@@ -10,11 +10,11 @@ winnerscreenbackground
   orig: 512, 654
   offset: 0, 0
   index: -1
-winnerballoon
+stageunlocked
   rotate: false
-  xy: 515, 3
-  size: 284, 686
-  orig: 284, 686
+  xy: 515, 192
+  size: 497, 497
+  orig: 497, 497
   offset: 0, 0
   index: -1
 tickertape
@@ -22,5 +22,17 @@ tickertape
   xy: 1, 1
   size: 32, 32
   orig: 32, 32
+  offset: 0, 0
+  index: -1
+
+winnerscreen2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+winnerballoon
+  rotate: false
+  xy: 1, 1
+  size: 284, 686
+  orig: 284, 686
   offset: 0, 0
   index: -1

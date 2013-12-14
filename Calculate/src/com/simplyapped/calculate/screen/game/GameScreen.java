@@ -48,7 +48,7 @@ public class GameScreen extends DefaultScreen
 	{
 		@Override
 		protected Actor createTotalActor(int row, Equation total) {
-			if (textButtonTotalLines.contains(row) && !allCardsUsed())
+			if (textButtonTotalLines.contains(row))
 		    {
 				RowEquationElementTextButton button = new RowEquationElementTextButton(total.getTotal() + "", cards, "cardfrontgreen");
 				button.setData(total.getTotal());
@@ -146,7 +146,7 @@ public class GameScreen extends DefaultScreen
 					}
 					else if (number.getTotal() == state.getCurrentEquation().getTotal()) // check for the case when the first number added is the answer
 					{
-						
+						game.transitionTo(CalculateGame.WINNER_SCREEN, TransitionFixtures.Fade());
 					}
 					calculationTable.addElement(number);
 					button.setVisible(false);
@@ -451,7 +451,7 @@ public class GameScreen extends DefaultScreen
 		if (timerLabel != null && !isTransitioning && !isPaused)
 		{
 			int time = (int)(totalTime-=delta);
-			if (time <= 0)
+			if (time <= -100000)
 			{
 				isTransitioning = true;
 				game.transitionTo(CalculateGame.LOSER_SCREEN, TransitionFixtures.Fade());
