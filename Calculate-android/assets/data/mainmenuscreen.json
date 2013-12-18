@@ -4,6 +4,8 @@
     		white: { r: 1, g: 1, b:1, a: 1},
     		red: { r: 0.9, g: 0, b: 0, a: 0.8},
     		redOn: { r: 0.9, g: 0, b: 0, a: 1},
+    		green: { r: 0, g: 0.9, b: 0, a: 0.8},
+    		greenOn: { r: 0, g: 0.9, b: 0, a: 1},
     },
     com.badlogic.gdx.graphics.g2d.BitmapFont: {
             pump-font: { file: PumpDemiBoldLET.fnt },
@@ -17,5 +19,11 @@
   			backgroundColor: red,
   			backgroundPressedColor: redOn,
   	  	},
-    }
+        shop: {
+  			font: liberation-font,
+  			fontColor: white,
+  			backgroundColor: green,
+  			backgroundPressedColor: greenOn,
+  	  	},
+  	}
 }

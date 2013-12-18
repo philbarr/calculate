@@ -8,6 +8,7 @@ import com.simplyapped.calculate.numbers.generator.RandomGenerator;
 import com.simplyapped.calculate.screen.game.GameScreen;
 import com.simplyapped.calculate.screen.loser.LoserScreen;
 import com.simplyapped.calculate.screen.mainmenu.MainMenuScreen;
+import com.simplyapped.calculate.screen.shop.ShopScreen;
 import com.simplyapped.calculate.screen.solution.ViewSolutionScreen;
 import com.simplyapped.calculate.screen.stageintro.StageIntroScreen;
 import com.simplyapped.calculate.screen.stageselect.StageSelectScreen;
@@ -35,6 +36,7 @@ public class CalculateGame extends DefaultGame {
 	public final static String WINNER_SCREEN = "WinnerScreen";
 	public final static String LOSER_SCREEN = "LoserScreen";
 	public final static String VIEW_SOLUTION_SCREEN = "ViewSolutionScreen";
+	public final static String SHOP_SCREEN = "ViewSolutionScreen";
 	public final static int STARTING_SOLUTIONS = 10;
 	
 	private BillingService billing;
@@ -79,6 +81,7 @@ public class CalculateGame extends DefaultGame {
 		addScreen(WINNER_SCREEN, new WinnerScreen(this));
 		addScreen(LOSER_SCREEN, new LoserScreen(this));
 		addScreen(VIEW_SOLUTION_SCREEN, new ViewSolutionScreen(this));
+		addScreen(SHOP_SCREEN, new ShopScreen(this));
 		 
 		setScreen(MAIN_MENU_SCREEN);
 	}

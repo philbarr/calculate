@@ -62,12 +62,24 @@ public class MainMenuScreen extends DefaultScreen{
 	    playMenu.setSize(buttonWidth, buttonHeight);
 	    playMenu.setPosition(CalculateGame.SCREEN_WIDTH/2-playMenu.getWidth()/2, emptyRowHeight);
 	    disposables.add(playMenu);
-	    window.row();
+	    
+	    FlatUIButton shopMenu = new FlatUIButton("SHOP", skin, "shop");
+	    shopMenu.addListener(new ClickListener() {
+	        @Override
+	        public void clicked(InputEvent event, float x, float y)
+	        {
+	        	game.transitionTo(CalculateGame.SHOP_SCREEN, TransitionFixtures.OverlapLeft());
+	        }
+	    });
+	    shopMenu.setSize(buttonWidth, buttonHeight);
+	    shopMenu.setPosition(CalculateGame.SCREEN_WIDTH/2-playMenu.getWidth()/2, emptyRowHeight - emptyRowHeight + (buttonHeight*2));
+	    disposables.add(shopMenu);
 	    
 	    window.setBackground(skin.getDrawable("mainmenubackground"));
 	    
 	    stage.addActor(window);
 	    stage.addActor(playMenu);
+	    stage.addActor(shopMenu);
 	    
 	    Gdx.input.setInputProcessor(stage);
 	    Gdx.input.setCatchBackKey(true);

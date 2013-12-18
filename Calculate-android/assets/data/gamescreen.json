@@ -1,5 +1,6 @@
 {
 	com.badlogic.gdx.graphics.Color: {
+		whiteOn: { r: 1, g: 1, b:1, a: 1},
 		white: { r: 0.9, g: 0.9, b: 0.9, a: 1},
 		black: { r: 0.09, g: 0.09, b: 0.09, a: 1},
 		red: { r: 1, g: 0.09, b: 0.09, a: 0.8 },
@@ -22,7 +23,7 @@
 	    },
 	    dialog: {
 	      font: liberation-font-32,
-	      fontColor: white,
+	      fontColor: black,
 	    },
 	    title: {
 	      font: liberation-font-32,
@@ -84,6 +85,12 @@
             font: liberation-font-32,
             fontColor: black,
             backgroundColor: { r: 0.1, g: 0.9, b: 0.1, a: 0.8},
+            backgroundPressedColor: { r: 0.1, g: 0.9, b: 0.1, a: 1},
+        },
+        dialogWhite: {
+            font: liberation-font-32,
+            fontColor: whiteOn,
+            backgroundColor: { r: 0.1, g: 0.9, b: 0.1, a: 0.9},
             backgroundPressedColor: { r: 0.1, g: 0.9, b: 0.1, a: 1},
         },
     },
