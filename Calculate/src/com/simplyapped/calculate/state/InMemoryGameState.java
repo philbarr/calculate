@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class InMemoryGameState extends GameState
 {
+	private boolean isViewingSolution;
 	private Map<Integer, LevelDetails> details = new HashMap<Integer, LevelDetails>();
 	private int remainingSolutions;
 	
@@ -43,5 +44,15 @@ public class InMemoryGameState extends GameState
 	public void decreaseSolutions()
 	{
 		remainingSolutions = remainingSolutions == 0 ? 0 : remainingSolutions - 1;
+	}
+
+	@Override
+	public boolean isViewingSolution() {
+		return isViewingSolution;
+	}
+
+	@Override
+	public void setViewingSolution(boolean isViewing) {
+		isViewingSolution=isViewing;
 	}
 }

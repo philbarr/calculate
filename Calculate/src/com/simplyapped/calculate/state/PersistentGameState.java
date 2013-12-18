@@ -6,6 +6,7 @@ import com.simplyapped.calculate.CalculateGame;
 
 public class PersistentGameState extends GameState
 {
+	private static final String IS_VIEWING_SOLUTION_KEY = "isViewingSolution";
 	private static final String KEY_SOLUTIONS = "solutions";
 	private Preferences preferences;
 	
@@ -59,5 +60,15 @@ public class PersistentGameState extends GameState
 		remainingSolutions = remainingSolutions == 0 ? 0 : remainingSolutions - 1;
 		preferences.putInteger(KEY_SOLUTIONS, remainingSolutions);
 		preferences.flush();
+	}
+
+	@Override
+	public boolean isViewingSolution() {
+		return preferences.getBoolean(IS_VIEWING_SOLUTION_KEY, false);
+	}
+
+	@Override
+	public void setViewingSolution(boolean isViewing) {
+		preferences.putBoolean(IS_VIEWING_SOLUTION_KEY, isViewing);
 	}
 }

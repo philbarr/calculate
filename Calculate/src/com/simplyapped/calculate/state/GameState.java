@@ -24,6 +24,7 @@ public abstract class GameState
 	public abstract void increaseRemainingSolutions(int increase);
 	public abstract int getRemainingSolutions();
 	public abstract void decreaseSolutions();
+	public abstract boolean isViewingSolution();
 	
 	public GameState()
 	{
@@ -96,4 +97,5 @@ public abstract class GameState
 		bigCards.clear();
 		this.equation = null;
 	}
+	public abstract void setViewingSolution(boolean isViewing);
 }

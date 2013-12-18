@@ -383,7 +383,7 @@ public class GameScreen extends DefaultScreen
 		dialog.getButtonTable().add(quitButton);
 		dialog.getButtonTable().add(playOnButton);
 		dialog.getButtonTable().row();
-		dialog.getButtonTable().add(viewSolutionButton).colspan(2);
+		dialog.getButtonTable().add(viewSolutionButton).colspan(2).fillX();
 		
 		quitButton.addListener(new ClickListener(){
 			@Override
@@ -397,7 +397,16 @@ public class GameScreen extends DefaultScreen
 			@Override
 			public void clicked(InputEvent event, float x, float y)
 			{
-				game.transitionTo(CalculateGame.VIEW_SOLUTION_SCREEN, TransitionFixtures.Fade());
+				GameState state = GameStateFactory.getInstance();
+				if (state.getRemainingSolutions() > 0)
+				{
+					game.transitionTo(CalculateGame.VIEW_SOLUTION_SCREEN, TransitionFixtures.Fade());
+				}
+				else
+				{
+					state.setViewingSolution(true);
+					game.transitionTo(CalculateGame.SHOP_SCREEN, TransitionFixtures.OverlapLeft());
+				}
 			}
 		});
 		

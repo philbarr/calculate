@@ -38,7 +38,7 @@ public class ViewSolutionScreen extends DefaultScreen
 	public void show()
 	{
 		state = GameStateFactory.getInstance();
-
+		state.setViewingSolution(false); // we are now showing the solution, so we can safely stop worrying about if we need to show it
 		window = new Table();	    
 	    window.setFillParent(true);
 	    window.setBackground(skin.getDrawable("gamescreenbackground"));
