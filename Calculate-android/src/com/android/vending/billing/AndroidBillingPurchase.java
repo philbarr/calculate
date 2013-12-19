@@ -13,32 +13,32 @@ public class AndroidBillingPurchase implements BillingPurchase {
 	
 	@Override
 	public String getItemType() {
-		return purchase.getItemType();
+		return getPurchase().getItemType();
 	}
 
 	@Override
 	public String getOrderId() {
-		return purchase.getOrderId();
+		return getPurchase().getOrderId();
 	}
 
 	@Override
 	public String getPackageName() {
-		return purchase.getPackageName();
+		return getPurchase().getPackageName();
 	}
 
 	@Override
 	public String getProductId() {
-		return purchase.getSku();
+		return getPurchase().getSku();
 	}
 
 	@Override
 	public long getPurchaseTime() {
-		return purchase.getPurchaseTime();
+		return getPurchase().getPurchaseTime();
 	}
 
 	@Override
 	public BillingPurchase.PURCHASE_STATE getPurchaseState() {
-		switch (purchase.getPurchaseState())
+		switch (getPurchase().getPurchaseState())
 		{
 		case 0:
 			return BillingPurchase.PURCHASE_STATE.PURCHASED;
@@ -52,22 +52,26 @@ public class AndroidBillingPurchase implements BillingPurchase {
 
 	@Override
 	public String getDeveloperPayload() {
-		return purchase.getDeveloperPayload();
+		return getPurchase().getDeveloperPayload();
 	}
 
 	@Override
 	public String getToken() {
-		return purchase.getToken();
+		return getPurchase().getToken();
 	}
 
 	@Override
 	public String getOriginalJson() {
-		return purchase.getOriginalJson();
+		return getPurchase().getOriginalJson();
 	}
 
 	@Override
 	public String getSignature() {
-		return purchase.getSignature();
+		return getPurchase().getSignature();
+	}
+
+	public Purchase getPurchase() {
+		return purchase;
 	}
 
 }

@@ -18,7 +18,7 @@ public interface BillingService {
 	 *
 	 * @param listener The listener to notify when the setup process is complete.
 	 */
-	public abstract void startSetup(BillingServiceSetupFinishedListener listener);
+	public abstract void startSetup(String licenseKey, BillingServiceSetupFinishedListener listener);
 
 	/**
 	 * Dispose of object, releasing resources. It's very important to call this
@@ -31,18 +31,18 @@ public interface BillingService {
 	/** Returns whether subscriptions are supported. */
 	public abstract boolean subscriptionsSupported();
 
-	public abstract void launchPurchaseFlow(String sku,
+	public abstract void launchPurchaseFlow(String productId,
 			int requestCode, BillingOnPurchaseFinishedListener listener);
 
-	public abstract void launchPurchaseFlow(String sku,
+	public abstract void launchPurchaseFlow(String productId,
 			int requestCode, BillingOnPurchaseFinishedListener listener,
 			String extraData);
 
 	public abstract void launchSubscriptionPurchaseFlow(
-			String sku, int requestCode, BillingOnPurchaseFinishedListener listener);
+			String productId, int requestCode, BillingOnPurchaseFinishedListener listener);
 
 	public abstract void launchSubscriptionPurchaseFlow(
-			String sku, int requestCode,
+			String productId, int requestCode,
 			BillingOnPurchaseFinishedListener listener, String extraData);
 
 	/**
@@ -54,7 +54,7 @@ public interface BillingService {
 	 * MUST be called from the UI thread of the Activity.
 	 *
 	 * @param act The calling activity.
-	 * @param sku The sku of the item to purchase.
+	 * @param productId The productId of the item to purchase.
 	 * @param itemType indicates if it's a product or a subscription (ITEM_TYPE_INAPP or ITEM_TYPE_SUBS)
 	 * @param requestCode A request code (to differentiate from other responses --
 	 *     as in {@link android.app.Activity#startActivityForResult}).
@@ -63,28 +63,28 @@ public interface BillingService {
 	 *     when the purchase completes. This extra data will be permanently bound to that purchase
 	 *     and will always be returned when the purchase is queried.
 	 */
-	public abstract void launchPurchaseFlow(String sku,
+	public abstract void launchPurchaseFlow(String productId,
 			String itemType, int requestCode,
 			BillingOnPurchaseFinishedListener listener, String extraData);
 
-	public abstract BillingInventory queryInventory(boolean querySkuDetails,
-			List<String> moreSkus) throws Exception;
+	public abstract BillingInventory queryInventory(boolean queryProductIdDetails,
+			List<String> moreProductIds) throws Exception;
 
 	/**
 	 * Queries the inventory. This will query all owned items from the server, as well as
-	 * information on additional skus, if specified. This method may block or take long to execute.
+	 * information on additional productIds, if specified. This method may block or take long to execute.
 	 * Do not call from a UI thread. For that, use the non-blocking version {@link #refreshInventoryAsync}.
 	 *
-	 * @param querySkuDetails if true, SKU details (price, description, etc) will be queried as well
+	 * @param queryProductIdDetails if true, Product details (price, description, etc) will be queried as well
 	 *     as purchase information.
-	 * @param moreItemSkus additional PRODUCT skus to query information on, regardless of ownership.
-	 *     Ignored if null or if querySkuDetails is false.
-	 * @param moreSubsSkus additional SUBSCRIPTIONS skus to query information on, regardless of ownership.
-	 *     Ignored if null or if querySkuDetails is false.
+	 * @param moreItemProductIds additional PRODUCT ProductIds to query information on, regardless of ownership.
+	 *     Ignored if null or if queryProductIdDetails is false.
+	 * @param moreSubscriptionProductIds additional SUBSCRIPTIONS ProductIds to query information on, regardless of ownership.
+	 *     Ignored if null or if queryProductIdDetails is false.
 	 * @throws IabException if a problem occurs while refreshing the inventory.
 	 */
-	public abstract BillingInventory queryInventory(boolean querySkuDetails,
-			List<String> moreItemSkus, List<String> moreSubsSkus)
+	public abstract BillingInventory queryInventory(boolean queryProductIdDetails,
+			List<String> moreItemProductIds, List<String> moreSubscriptionProductIds)
 			throws Exception;
 
 	/**
@@ -93,17 +93,17 @@ public interface BillingService {
 	 * and call back the specified listener upon completion. This method is safe to
 	 * call from a UI thread.
 	 *
-	 * @param querySkuDetails as in {@link #queryInventory}
-	 * @param moreSkus as in {@link #queryInventory}
+	 * @param queryProductIdDetails as in {@link #queryInventory}
+	 * @param moreProductIds as in {@link #queryInventory}
 	 * @param listener The listener to notify when the refresh operation completes.
 	 */
-	public abstract void queryInventoryAsync(boolean querySkuDetails,
-			List<String> moreSkus, BillingQueryInventoryFinishedListener listener);
+	public abstract void queryInventoryAsync(boolean queryProductIdDetails,
+			List<String> moreProductIds, BillingQueryInventoryFinishedListener listener);
 
 	public abstract void queryInventoryAsync(
 			BillingQueryInventoryFinishedListener listener);
 
-	public abstract void queryInventoryAsync(boolean querySkuDetails,
+	public abstract void queryInventoryAsync(boolean queryProductIdDetails,
 			BillingQueryInventoryFinishedListener listener);
 
 	/**

@@ -233,13 +233,18 @@ public class GameScreen extends DefaultScreen
 
 	private void showDialogMessage(final String message)
 	{
-		Dialog dialog = createDialog(message);
+		final Dialog dialog = createDialog(message);
 		
 		FlatUIButton okButton = new FlatUIButton("Ok", skin, "dialogOk");
 		disposables.add(okButton);
 		dialog.getButtonTable().defaults().pad(15f).width(CalculateGame.SCREEN_WIDTH/3.5f).padBottom(45f);
 		dialog.getButtonTable().add(okButton);
-		
+		okButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				dialog.remove();
+			}
+		});
 		stage.addActor(dialog);
 	}
 

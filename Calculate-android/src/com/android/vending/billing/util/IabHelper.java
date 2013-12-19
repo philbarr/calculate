@@ -69,7 +69,7 @@ import java.util.List;
  * @author Bruno Oliveira (Google)
  *
  */
-public class IabHelper implements BillingService {
+public class IabHelper {
     // Is debug logging enabled?
     boolean mDebugLog = false;
     String mDebugTag = "IabHelper";
@@ -196,8 +196,7 @@ public class IabHelper implements BillingService {
     /* (non-Javadoc)
 	 * @see com.android.vending.billing.util.BillingService#startSetup(com.android.vending.billing.util.IabHelper.OnIabSetupFinishedListener)
 	 */
-    @Override
-	public void startSetup(final OnIabSetupFinishedListener listener) {
+    public void startSetup(final OnIabSetupFinishedListener listener) {
         // If already set up, can't do it again.
         checkNotDisposed();
         if (mSetupDone) throw new IllegalStateException("IAB helper is already set up.");
@@ -275,10 +274,6 @@ public class IabHelper implements BillingService {
         }
     }
 
-    /* (non-Javadoc)
-	 * @see com.android.vending.billing.util.BillingService#dispose()
-	 */
-    @Override
 	public void dispose() {
         logDebug("Disposing.");
         mSetupDone = false;
@@ -297,10 +292,6 @@ public class IabHelper implements BillingService {
         if (mDisposed) throw new IllegalStateException("IabHelper was disposed of, so it cannot be used.");
     }
 
-    /* (non-Javadoc)
-	 * @see com.android.vending.billing.util.BillingService#subscriptionsSupported()
-	 */
-    @Override
 	public boolean subscriptionsSupported() {
         checkNotDisposed();
         return mSubscriptionsSupported;
@@ -327,45 +318,25 @@ public class IabHelper implements BillingService {
     // the purchase finishes
     OnIabPurchaseFinishedListener mPurchaseListener;
 
-    /* (non-Javadoc)
-	 * @see com.android.vending.billing.util.BillingService#launchPurchaseFlow(android.app.Activity, java.lang.String, int, com.android.vending.billing.util.IabHelper.OnIabPurchaseFinishedListener)
-	 */
-    @Override
 	public void launchPurchaseFlow(Activity act, String sku, int requestCode, OnIabPurchaseFinishedListener listener) {
         launchPurchaseFlow(act, sku, requestCode, listener, "");
     }
 
-    /* (non-Javadoc)
-	 * @see com.android.vending.billing.util.BillingService#launchPurchaseFlow(android.app.Activity, java.lang.String, int, com.android.vending.billing.util.IabHelper.OnIabPurchaseFinishedListener, java.lang.String)
-	 */
-    @Override
 	public void launchPurchaseFlow(Activity act, String sku, int requestCode,
             OnIabPurchaseFinishedListener listener, String extraData) {
         launchPurchaseFlow(act, sku, ITEM_TYPE_INAPP, requestCode, listener, extraData);
     }
 
-    /* (non-Javadoc)
-	 * @see com.android.vending.billing.util.BillingService#launchSubscriptionPurchaseFlow(android.app.Activity, java.lang.String, int, com.android.vending.billing.util.IabHelper.OnIabPurchaseFinishedListener)
-	 */
-    @Override
 	public void launchSubscriptionPurchaseFlow(Activity act, String sku, int requestCode,
             OnIabPurchaseFinishedListener listener) {
         launchSubscriptionPurchaseFlow(act, sku, requestCode, listener, "");
     }
 
-    /* (non-Javadoc)
-	 * @see com.android.vending.billing.util.BillingService#launchSubscriptionPurchaseFlow(android.app.Activity, java.lang.String, int, com.android.vending.billing.util.IabHelper.OnIabPurchaseFinishedListener, java.lang.String)
-	 */
-    @Override
 	public void launchSubscriptionPurchaseFlow(Activity act, String sku, int requestCode,
             OnIabPurchaseFinishedListener listener, String extraData) {
         launchPurchaseFlow(act, sku, ITEM_TYPE_SUBS, requestCode, listener, extraData);
     }
 
-    /* (non-Javadoc)
-	 * @see com.android.vending.billing.util.BillingService#launchPurchaseFlow(android.app.Activity, java.lang.String, java.lang.String, int, com.android.vending.billing.util.IabHelper.OnIabPurchaseFinishedListener, java.lang.String)
-	 */
-    @Override
 	public void launchPurchaseFlow(Activity act, String sku, String itemType, int requestCode,
                         OnIabPurchaseFinishedListener listener, String extraData) {
         checkNotDisposed();
@@ -518,18 +489,10 @@ public class IabHelper implements BillingService {
         return true;
     }
 
-    /* (non-Javadoc)
-	 * @see com.android.vending.billing.util.BillingService#queryInventory(boolean, java.util.List)
-	 */
-    @Override
 	public Inventory queryInventory(boolean querySkuDetails, List<String> moreSkus) throws IabException {
         return queryInventory(querySkuDetails, moreSkus, null);
     }
 
-    /* (non-Javadoc)
-	 * @see com.android.vending.billing.util.BillingService#queryInventory(boolean, java.util.List, java.util.List)
-	 */
-    @Override
 	public Inventory queryInventory(boolean querySkuDetails, List<String> moreItemSkus,
                                         List<String> moreSubsSkus) throws IabException {
         checkNotDisposed();
@@ -587,10 +550,6 @@ public class IabHelper implements BillingService {
     }
 
 
-    /* (non-Javadoc)
-	 * @see com.android.vending.billing.util.BillingService#queryInventoryAsync(boolean, java.util.List, com.android.vending.billing.util.IabHelper.QueryInventoryFinishedListener)
-	 */
-    @Override
 	public void queryInventoryAsync(final boolean querySkuDetails,
                                final List<String> moreSkus,
                                final QueryInventoryFinishedListener listener) {
@@ -624,18 +583,10 @@ public class IabHelper implements BillingService {
         })).start();
     }
 
-    /* (non-Javadoc)
-	 * @see com.android.vending.billing.util.BillingService#queryInventoryAsync(com.android.vending.billing.util.IabHelper.QueryInventoryFinishedListener)
-	 */
-    @Override
 	public void queryInventoryAsync(QueryInventoryFinishedListener listener) {
         queryInventoryAsync(true, null, listener);
     }
 
-    /* (non-Javadoc)
-	 * @see com.android.vending.billing.util.BillingService#queryInventoryAsync(boolean, com.android.vending.billing.util.IabHelper.QueryInventoryFinishedListener)
-	 */
-    @Override
 	public void queryInventoryAsync(boolean querySkuDetails, QueryInventoryFinishedListener listener) {
         queryInventoryAsync(querySkuDetails, null, listener);
     }
@@ -710,10 +661,6 @@ public class IabHelper implements BillingService {
         public void onConsumeMultiFinished(List<Purchase> purchases, List<IabResult> results);
     }
 
-    /* (non-Javadoc)
-	 * @see com.android.vending.billing.util.BillingService#consumeAsync(com.android.vending.billing.util.Purchase, com.android.vending.billing.util.IabHelper.OnConsumeFinishedListener)
-	 */
-    @Override
 	public void consumeAsync(Purchase purchase, OnConsumeFinishedListener listener) {
         checkNotDisposed();
         checkSetupDone("consume");
@@ -722,10 +669,6 @@ public class IabHelper implements BillingService {
         consumeAsyncInternal(purchases, listener, null);
     }
 
-    /* (non-Javadoc)
-	 * @see com.android.vending.billing.util.BillingService#consumeAsync(java.util.List, com.android.vending.billing.util.IabHelper.OnConsumeMultiFinishedListener)
-	 */
-    @Override
 	public void consumeAsync(List<Purchase> purchases, OnConsumeMultiFinishedListener listener) {
         checkNotDisposed();
         checkSetupDone("consume");

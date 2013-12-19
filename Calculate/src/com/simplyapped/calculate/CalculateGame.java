@@ -19,8 +19,10 @@ import com.simplyapped.calculate.state.LevelDetails;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
 import com.simplyapped.libgdx.ext.billing.BillingInventory;
+import com.simplyapped.libgdx.ext.billing.BillingPurchase;
 import com.simplyapped.libgdx.ext.billing.BillingResult;
 import com.simplyapped.libgdx.ext.billing.BillingService;
+import com.simplyapped.libgdx.ext.billing.listeners.BillingOnConsumeFinishedListener;
 import com.simplyapped.libgdx.ext.billing.listeners.BillingQueryInventoryFinishedListener;
 import com.simplyapped.libgdx.ext.billing.listeners.BillingServiceSetupFinishedListener;
 import com.simplyapped.libgdx.ext.ui.OSDialog;
@@ -92,6 +94,10 @@ public class CalculateGame extends DefaultGame {
 		 
 		setScreen(MAIN_MENU_SCREEN);
 		
+		checkPurchasedProducts();
+	}
+
+	private void checkPurchasedProducts() {
 		if (billing != null)
 		{
 			billing.startSetup(CalculateGame.LICENSE_KEY, new BillingServiceSetupFinishedListener() {
@@ -105,16 +111,35 @@ public class CalculateGame extends DefaultGame {
 							@Override
 							public void onQueryInventoryFinished(BillingResult result,
 									BillingInventory inventory) {
-								if (inventory.hasPurchase(PRODUCT_ID_TEN_SOLUTIONS))
+								checkProduct(inventory, PRODUCT_ID_TEN_SOLUTIONS, 10);
+								checkProduct(inventory, PRODUCT_ID_TWENTY_FIVE_SOLUTIONS, 25);
+								checkProduct(inventory, PRODUCT_ID_FIFTY_SOLUTIONS, 50);
+							}
+
+							private void checkProduct(
+									final BillingInventory inventory,
+									final String productId,
+									final int productSolutionCount) {
+								if (inventory.hasPurchase(productId))
 								{
-									billing.
+									billing.consumeAsync(inventory.getPurchase(productId), new BillingOnConsumeFinishedListener() {
+										
+										@Override
+										public void onConsumeFinished(BillingPurchase purchase, BillingResult result) {
+											if (result.isSuccess())
+											{
+												GameStateFactory.getInstance().increaseRemainingSolutions(productSolutionCount);
+												inventory.erasePurchase(purchase.getProductId());
+											}
+										}
+									});
 								}
 							}
 						});
 					}
 					else if (dialog != null)
 					{
-						dialog.showLongToast("Failed to check any purchased items state");
+						dialog.showLongToast("Could not to check for purchased items");
 					}
 				}
 			});
