@@ -138,8 +138,12 @@ public class GameScreen extends DefaultScreen
 								// unlock next stage if they've got that far
 								if (state.getCurrentLevelInfo().getCompletedRequired() == current.getCompleted())
 								{
-									state.getLevelDetails(state.getCurrentLevel() + 1).setLocked(false);
+									int level = state.getCurrentLevel()+1;
+									LevelDetails levelDetails = state.getLevelDetails(level);
+									levelDetails.setLocked(false);
+									state.saveLevelDetails(level, levelDetails);
 								}
+								state.saveLevelDetails(state.getCurrentLevel(), current);
 								game.transitionTo(CalculateGame.WINNER_SCREEN, TransitionFixtures.Fade());
 							}
 						}
@@ -375,7 +379,8 @@ public class GameScreen extends DefaultScreen
 		
 		FlatUIButton quitButton = new FlatUIButton("Quit", skin, "dialogQuit");
 		FlatUIButton playOnButton = new FlatUIButton("Play On", skin, "dialogPlayOn");
-		FlatUIButton viewSolutionButton = new FlatUIButton("View Solution", skin, "dialogViewSolution");
+		FlatUIButton viewSolutionButton = new FlatUIButton("View\nSolution", skin, "dialogViewSolution");
+		
 		disposables.add(playOnButton);
 		disposables.add(quitButton);
 		disposables.add(viewSolutionButton);
@@ -383,7 +388,7 @@ public class GameScreen extends DefaultScreen
 		dialog.getButtonTable().add(quitButton);
 		dialog.getButtonTable().add(playOnButton);
 		dialog.getButtonTable().row();
-		dialog.getButtonTable().add(viewSolutionButton).colspan(2).fillX();
+		dialog.getButtonTable().add(viewSolutionButton).colspan(2);
 		
 		quitButton.addListener(new ClickListener(){
 			@Override
@@ -460,7 +465,7 @@ public class GameScreen extends DefaultScreen
 		if (timerLabel != null && !isTransitioning && !isPaused)
 		{
 			int time = (int)(totalTime-=delta);
-			if (time <= -100000)
+			if (time <= 0)
 			{
 				isTransitioning = true;
 				game.transitionTo(CalculateGame.LOSER_SCREEN, TransitionFixtures.Fade());

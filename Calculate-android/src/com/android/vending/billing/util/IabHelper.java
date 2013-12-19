@@ -69,7 +69,7 @@ import java.util.List;
  * @author Bruno Oliveira (Google)
  *
  */
-public class IabHelper {
+public class IabHelper implements BillingService {
     // Is debug logging enabled?
     boolean mDebugLog = false;
     String mDebugTag = "IabHelper";
@@ -193,14 +193,11 @@ public class IabHelper {
         public void onIabSetupFinished(IabResult result);
     }
 
-    /**
-     * Starts the setup process. This will start up the setup process asynchronously.
-     * You will be notified through the listener when the setup process is complete.
-     * This method is safe to call from a UI thread.
-     *
-     * @param listener The listener to notify when the setup process is complete.
-     */
-    public void startSetup(final OnIabSetupFinishedListener listener) {
+    /* (non-Javadoc)
+	 * @see com.android.vending.billing.util.BillingService#startSetup(com.android.vending.billing.util.IabHelper.OnIabSetupFinishedListener)
+	 */
+    @Override
+	public void startSetup(final OnIabSetupFinishedListener listener) {
         // If already set up, can't do it again.
         checkNotDisposed();
         if (mSetupDone) throw new IllegalStateException("IAB helper is already set up.");
@@ -278,13 +275,11 @@ public class IabHelper {
         }
     }
 
-    /**
-     * Dispose of object, releasing resources. It's very important to call this
-     * method when you are done with this object. It will release any resources
-     * used by it such as service connections. Naturally, once the object is
-     * disposed of, it can't be used again.
-     */
-    public void dispose() {
+    /* (non-Javadoc)
+	 * @see com.android.vending.billing.util.BillingService#dispose()
+	 */
+    @Override
+	public void dispose() {
         logDebug("Disposing.");
         mSetupDone = false;
         if (mServiceConn != null) {
@@ -302,8 +297,11 @@ public class IabHelper {
         if (mDisposed) throw new IllegalStateException("IabHelper was disposed of, so it cannot be used.");
     }
 
-    /** Returns whether subscriptions are supported. */
-    public boolean subscriptionsSupported() {
+    /* (non-Javadoc)
+	 * @see com.android.vending.billing.util.BillingService#subscriptionsSupported()
+	 */
+    @Override
+	public boolean subscriptionsSupported() {
         checkNotDisposed();
         return mSubscriptionsSupported;
     }
@@ -329,44 +327,46 @@ public class IabHelper {
     // the purchase finishes
     OnIabPurchaseFinishedListener mPurchaseListener;
 
-    public void launchPurchaseFlow(Activity act, String sku, int requestCode, OnIabPurchaseFinishedListener listener) {
+    /* (non-Javadoc)
+	 * @see com.android.vending.billing.util.BillingService#launchPurchaseFlow(android.app.Activity, java.lang.String, int, com.android.vending.billing.util.IabHelper.OnIabPurchaseFinishedListener)
+	 */
+    @Override
+	public void launchPurchaseFlow(Activity act, String sku, int requestCode, OnIabPurchaseFinishedListener listener) {
         launchPurchaseFlow(act, sku, requestCode, listener, "");
     }
 
-    public void launchPurchaseFlow(Activity act, String sku, int requestCode,
+    /* (non-Javadoc)
+	 * @see com.android.vending.billing.util.BillingService#launchPurchaseFlow(android.app.Activity, java.lang.String, int, com.android.vending.billing.util.IabHelper.OnIabPurchaseFinishedListener, java.lang.String)
+	 */
+    @Override
+	public void launchPurchaseFlow(Activity act, String sku, int requestCode,
             OnIabPurchaseFinishedListener listener, String extraData) {
         launchPurchaseFlow(act, sku, ITEM_TYPE_INAPP, requestCode, listener, extraData);
     }
 
-    public void launchSubscriptionPurchaseFlow(Activity act, String sku, int requestCode,
+    /* (non-Javadoc)
+	 * @see com.android.vending.billing.util.BillingService#launchSubscriptionPurchaseFlow(android.app.Activity, java.lang.String, int, com.android.vending.billing.util.IabHelper.OnIabPurchaseFinishedListener)
+	 */
+    @Override
+	public void launchSubscriptionPurchaseFlow(Activity act, String sku, int requestCode,
             OnIabPurchaseFinishedListener listener) {
         launchSubscriptionPurchaseFlow(act, sku, requestCode, listener, "");
     }
 
-    public void launchSubscriptionPurchaseFlow(Activity act, String sku, int requestCode,
+    /* (non-Javadoc)
+	 * @see com.android.vending.billing.util.BillingService#launchSubscriptionPurchaseFlow(android.app.Activity, java.lang.String, int, com.android.vending.billing.util.IabHelper.OnIabPurchaseFinishedListener, java.lang.String)
+	 */
+    @Override
+	public void launchSubscriptionPurchaseFlow(Activity act, String sku, int requestCode,
             OnIabPurchaseFinishedListener listener, String extraData) {
         launchPurchaseFlow(act, sku, ITEM_TYPE_SUBS, requestCode, listener, extraData);
     }
 
-    /**
-     * Initiate the UI flow for an in-app purchase. Call this method to initiate an in-app purchase,
-     * which will involve bringing up the Google Play screen. The calling activity will be paused while
-     * the user interacts with Google Play, and the result will be delivered via the activity's
-     * {@link android.app.Activity#onActivityResult} method, at which point you must call
-     * this object's {@link #handleActivityResult} method to continue the purchase flow. This method
-     * MUST be called from the UI thread of the Activity.
-     *
-     * @param act The calling activity.
-     * @param sku The sku of the item to purchase.
-     * @param itemType indicates if it's a product or a subscription (ITEM_TYPE_INAPP or ITEM_TYPE_SUBS)
-     * @param requestCode A request code (to differentiate from other responses --
-     *     as in {@link android.app.Activity#startActivityForResult}).
-     * @param listener The listener to notify when the purchase process finishes
-     * @param extraData Extra data (developer payload), which will be returned with the purchase data
-     *     when the purchase completes. This extra data will be permanently bound to that purchase
-     *     and will always be returned when the purchase is queried.
-     */
-    public void launchPurchaseFlow(Activity act, String sku, String itemType, int requestCode,
+    /* (non-Javadoc)
+	 * @see com.android.vending.billing.util.BillingService#launchPurchaseFlow(android.app.Activity, java.lang.String, java.lang.String, int, com.android.vending.billing.util.IabHelper.OnIabPurchaseFinishedListener, java.lang.String)
+	 */
+    @Override
+	public void launchPurchaseFlow(Activity act, String sku, String itemType, int requestCode,
                         OnIabPurchaseFinishedListener listener, String extraData) {
         checkNotDisposed();
         checkSetupDone("launchPurchaseFlow");
@@ -518,24 +518,19 @@ public class IabHelper {
         return true;
     }
 
-    public Inventory queryInventory(boolean querySkuDetails, List<String> moreSkus) throws IabException {
+    /* (non-Javadoc)
+	 * @see com.android.vending.billing.util.BillingService#queryInventory(boolean, java.util.List)
+	 */
+    @Override
+	public Inventory queryInventory(boolean querySkuDetails, List<String> moreSkus) throws IabException {
         return queryInventory(querySkuDetails, moreSkus, null);
     }
 
-    /**
-     * Queries the inventory. This will query all owned items from the server, as well as
-     * information on additional skus, if specified. This method may block or take long to execute.
-     * Do not call from a UI thread. For that, use the non-blocking version {@link #refreshInventoryAsync}.
-     *
-     * @param querySkuDetails if true, SKU details (price, description, etc) will be queried as well
-     *     as purchase information.
-     * @param moreItemSkus additional PRODUCT skus to query information on, regardless of ownership.
-     *     Ignored if null or if querySkuDetails is false.
-     * @param moreSubsSkus additional SUBSCRIPTIONS skus to query information on, regardless of ownership.
-     *     Ignored if null or if querySkuDetails is false.
-     * @throws IabException if a problem occurs while refreshing the inventory.
-     */
-    public Inventory queryInventory(boolean querySkuDetails, List<String> moreItemSkus,
+    /* (non-Javadoc)
+	 * @see com.android.vending.billing.util.BillingService#queryInventory(boolean, java.util.List, java.util.List)
+	 */
+    @Override
+	public Inventory queryInventory(boolean querySkuDetails, List<String> moreItemSkus,
                                         List<String> moreSubsSkus) throws IabException {
         checkNotDisposed();
         checkSetupDone("queryInventory");
@@ -592,17 +587,11 @@ public class IabHelper {
     }
 
 
-    /**
-     * Asynchronous wrapper for inventory query. This will perform an inventory
-     * query as described in {@link #queryInventory}, but will do so asynchronously
-     * and call back the specified listener upon completion. This method is safe to
-     * call from a UI thread.
-     *
-     * @param querySkuDetails as in {@link #queryInventory}
-     * @param moreSkus as in {@link #queryInventory}
-     * @param listener The listener to notify when the refresh operation completes.
-     */
-    public void queryInventoryAsync(final boolean querySkuDetails,
+    /* (non-Javadoc)
+	 * @see com.android.vending.billing.util.BillingService#queryInventoryAsync(boolean, java.util.List, com.android.vending.billing.util.IabHelper.QueryInventoryFinishedListener)
+	 */
+    @Override
+	public void queryInventoryAsync(final boolean querySkuDetails,
                                final List<String> moreSkus,
                                final QueryInventoryFinishedListener listener) {
         final Handler handler = new Handler();
@@ -635,11 +624,19 @@ public class IabHelper {
         })).start();
     }
 
-    public void queryInventoryAsync(QueryInventoryFinishedListener listener) {
+    /* (non-Javadoc)
+	 * @see com.android.vending.billing.util.BillingService#queryInventoryAsync(com.android.vending.billing.util.IabHelper.QueryInventoryFinishedListener)
+	 */
+    @Override
+	public void queryInventoryAsync(QueryInventoryFinishedListener listener) {
         queryInventoryAsync(true, null, listener);
     }
 
-    public void queryInventoryAsync(boolean querySkuDetails, QueryInventoryFinishedListener listener) {
+    /* (non-Javadoc)
+	 * @see com.android.vending.billing.util.BillingService#queryInventoryAsync(boolean, com.android.vending.billing.util.IabHelper.QueryInventoryFinishedListener)
+	 */
+    @Override
+	public void queryInventoryAsync(boolean querySkuDetails, QueryInventoryFinishedListener listener) {
         queryInventoryAsync(querySkuDetails, null, listener);
     }
 
@@ -713,15 +710,11 @@ public class IabHelper {
         public void onConsumeMultiFinished(List<Purchase> purchases, List<IabResult> results);
     }
 
-    /**
-     * Asynchronous wrapper to item consumption. Works like {@link #consume}, but
-     * performs the consumption in the background and notifies completion through
-     * the provided listener. This method is safe to call from a UI thread.
-     *
-     * @param purchase The purchase to be consumed.
-     * @param listener The listener to notify when the consumption operation finishes.
-     */
-    public void consumeAsync(Purchase purchase, OnConsumeFinishedListener listener) {
+    /* (non-Javadoc)
+	 * @see com.android.vending.billing.util.BillingService#consumeAsync(com.android.vending.billing.util.Purchase, com.android.vending.billing.util.IabHelper.OnConsumeFinishedListener)
+	 */
+    @Override
+	public void consumeAsync(Purchase purchase, OnConsumeFinishedListener listener) {
         checkNotDisposed();
         checkSetupDone("consume");
         List<Purchase> purchases = new ArrayList<Purchase>();
@@ -729,12 +722,11 @@ public class IabHelper {
         consumeAsyncInternal(purchases, listener, null);
     }
 
-    /**
-     * Same as {@link consumeAsync}, but for multiple items at once.
-     * @param purchases The list of PurchaseInfo objects representing the purchases to consume.
-     * @param listener The listener to notify when the consumption operation finishes.
-     */
-    public void consumeAsync(List<Purchase> purchases, OnConsumeMultiFinishedListener listener) {
+    /* (non-Javadoc)
+	 * @see com.android.vending.billing.util.BillingService#consumeAsync(java.util.List, com.android.vending.billing.util.IabHelper.OnConsumeMultiFinishedListener)
+	 */
+    @Override
+	public void consumeAsync(List<Purchase> purchases, OnConsumeMultiFinishedListener listener) {
         checkNotDisposed();
         checkSetupDone("consume");
         consumeAsyncInternal(purchases, null, listener);

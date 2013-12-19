@@ -19,7 +19,7 @@ public abstract class GameState
 	private Equation equation;
 	
 	public abstract LevelDetails getLevelDetails(int level);
-	public abstract void setLevelDetails(int level, LevelDetails details);
+	public abstract void saveLevelDetails(int level, LevelDetails details);
 
 	public abstract void increaseRemainingSolutions(int increase);
 	public abstract int getRemainingSolutions();
@@ -66,7 +66,9 @@ public abstract class GameState
 		// the user has made an attempt to play the game the first time they select a card
 		if (getCurrentLevelInfo().getNumberOfCards() - cardsLeftForUserSelect() == 1)
 		{
-			getLevelDetails(getCurrentLevel()).increaseAttempts();
+			LevelDetails levelDetails = getLevelDetails(getCurrentLevel());
+			levelDetails.increaseAttempts();
+			saveLevelDetails(getCurrentLevel(), levelDetails);
 		}
 	}
 	public int cardsLeftForUserSelect()

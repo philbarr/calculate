@@ -9,6 +9,7 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.calculate.state.GameStateFactory.GameStateType;
 import com.simplyapped.libgdx.ext.billing.BillingService;
+import com.simplyapped.libgdx.ext.ui.AndroidOSDialog;
 
 public class CalculateGameActivity extends AndroidApplication {
 
@@ -24,6 +25,7 @@ public class CalculateGameActivity extends AndroidApplication {
         
         CalculateGame calculateGame = new CalculateGame();
         calculateGame.setBilling(new AndroidBillingService(this));
+        calculateGame.setDialog(new AndroidOSDialog(this));
 		initialize(calculateGame, cfg);
     }
 }

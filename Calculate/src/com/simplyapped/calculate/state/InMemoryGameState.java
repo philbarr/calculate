@@ -29,7 +29,7 @@ public class InMemoryGameState extends GameState
 	}
 
 	@Override
-	public void setLevelDetails(int level, LevelDetails details)
+	public void saveLevelDetails(int level, LevelDetails details)
 	{
 		this.details.put(level, details);
 	}

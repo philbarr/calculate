@@ -1,16 +1,17 @@
-package com.simplyapped.libgdx.ext.billing;
+package com.android.vending.billing.util;
 
 import java.util.List;
 
-import com.simplyapped.libgdx.ext.billing.listeners.BillingOnConsumeFinishedListener;
-import com.simplyapped.libgdx.ext.billing.listeners.BillingOnConsumeMultiFinishedListener;
-import com.simplyapped.libgdx.ext.billing.listeners.BillingOnPurchaseFinishedListener;
-import com.simplyapped.libgdx.ext.billing.listeners.BillingQueryInventoryFinishedListener;
-import com.simplyapped.libgdx.ext.billing.listeners.BillingServiceSetupFinishedListener;
+import android.app.Activity;
 
-
+import com.android.vending.billing.util.IabHelper.OnConsumeFinishedListener;
+import com.android.vending.billing.util.IabHelper.OnConsumeMultiFinishedListener;
+import com.android.vending.billing.util.IabHelper.OnIabPurchaseFinishedListener;
+import com.android.vending.billing.util.IabHelper.OnIabSetupFinishedListener;
+import com.android.vending.billing.util.IabHelper.QueryInventoryFinishedListener;
 
 public interface BillingService {
+
 	/**
 	 * Starts the setup process. This will start up the setup process asynchronously.
 	 * You will be notified through the listener when the setup process is complete.
@@ -18,7 +19,7 @@ public interface BillingService {
 	 *
 	 * @param listener The listener to notify when the setup process is complete.
 	 */
-	public abstract void startSetup(BillingServiceSetupFinishedListener listener);
+	public abstract void startSetup(OnIabSetupFinishedListener listener);
 
 	/**
 	 * Dispose of object, releasing resources. It's very important to call this
@@ -31,19 +32,19 @@ public interface BillingService {
 	/** Returns whether subscriptions are supported. */
 	public abstract boolean subscriptionsSupported();
 
-	public abstract void launchPurchaseFlow(String sku,
-			int requestCode, BillingOnPurchaseFinishedListener listener);
+	public abstract void launchPurchaseFlow(Activity act, String sku,
+			int requestCode, OnIabPurchaseFinishedListener listener);
 
-	public abstract void launchPurchaseFlow(String sku,
-			int requestCode, BillingOnPurchaseFinishedListener listener,
+	public abstract void launchPurchaseFlow(Activity act, String sku,
+			int requestCode, OnIabPurchaseFinishedListener listener,
 			String extraData);
 
-	public abstract void launchSubscriptionPurchaseFlow(
-			String sku, int requestCode, BillingOnPurchaseFinishedListener listener);
+	public abstract void launchSubscriptionPurchaseFlow(Activity act,
+			String sku, int requestCode, OnIabPurchaseFinishedListener listener);
 
-	public abstract void launchSubscriptionPurchaseFlow(
+	public abstract void launchSubscriptionPurchaseFlow(Activity act,
 			String sku, int requestCode,
-			BillingOnPurchaseFinishedListener listener, String extraData);
+			OnIabPurchaseFinishedListener listener, String extraData);
 
 	/**
 	 * Initiate the UI flow for an in-app purchase. Call this method to initiate an in-app purchase,
@@ -63,12 +64,12 @@ public interface BillingService {
 	 *     when the purchase completes. This extra data will be permanently bound to that purchase
 	 *     and will always be returned when the purchase is queried.
 	 */
-	public abstract void launchPurchaseFlow(String sku,
+	public abstract void launchPurchaseFlow(Activity act, String sku,
 			String itemType, int requestCode,
-			BillingOnPurchaseFinishedListener listener, String extraData);
+			OnIabPurchaseFinishedListener listener, String extraData);
 
-	public abstract BillingInventory queryInventory(boolean querySkuDetails,
-			List<String> moreSkus) throws Exception;
+	public abstract Inventory queryInventory(boolean querySkuDetails,
+			List<String> moreSkus) throws IabException;
 
 	/**
 	 * Queries the inventory. This will query all owned items from the server, as well as
@@ -83,9 +84,9 @@ public interface BillingService {
 	 *     Ignored if null or if querySkuDetails is false.
 	 * @throws IabException if a problem occurs while refreshing the inventory.
 	 */
-	public abstract BillingInventory queryInventory(boolean querySkuDetails,
+	public abstract Inventory queryInventory(boolean querySkuDetails,
 			List<String> moreItemSkus, List<String> moreSubsSkus)
-			throws Exception;
+			throws IabException;
 
 	/**
 	 * Asynchronous wrapper for inventory query. This will perform an inventory
@@ -98,13 +99,13 @@ public interface BillingService {
 	 * @param listener The listener to notify when the refresh operation completes.
 	 */
 	public abstract void queryInventoryAsync(boolean querySkuDetails,
-			List<String> moreSkus, BillingQueryInventoryFinishedListener listener);
+			List<String> moreSkus, QueryInventoryFinishedListener listener);
 
 	public abstract void queryInventoryAsync(
-			BillingQueryInventoryFinishedListener listener);
+			QueryInventoryFinishedListener listener);
 
 	public abstract void queryInventoryAsync(boolean querySkuDetails,
-			BillingQueryInventoryFinishedListener listener);
+			QueryInventoryFinishedListener listener);
 
 	/**
 	 * Asynchronous wrapper to item consumption. Works like {@link #consume}, but
@@ -114,14 +115,15 @@ public interface BillingService {
 	 * @param purchase The purchase to be consumed.
 	 * @param listener The listener to notify when the consumption operation finishes.
 	 */
-	public abstract void consumeAsync(BillingPurchase purchase,
-			BillingOnConsumeFinishedListener listener);
+	public abstract void consumeAsync(Purchase purchase,
+			OnConsumeFinishedListener listener);
 
 	/**
 	 * Same as {@link consumeAsync}, but for multiple items at once.
 	 * @param purchases The list of PurchaseInfo objects representing the purchases to consume.
 	 * @param listener The listener to notify when the consumption operation finishes.
 	 */
-	public abstract void consumeAsync(List<BillingPurchase> purchases,
-			BillingOnConsumeMultiFinishedListener listener);
+	public abstract void consumeAsync(List<Purchase> purchases,
+			OnConsumeMultiFinishedListener listener);
+
 }

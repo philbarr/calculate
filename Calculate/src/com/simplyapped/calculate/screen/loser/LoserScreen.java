@@ -83,13 +83,14 @@ public class LoserScreen extends DefaultScreen
 	    	public void clicked(InputEvent event, float x, float y)
 	    	{
 	    		if (state.getRemainingSolutions() > 0)
-	    		{
-	    			
-	    		}
-	    		else
-	    		{
-	    			
-	    		}
+				{
+					game.transitionTo(CalculateGame.VIEW_SOLUTION_SCREEN, TransitionFixtures.Fade());
+				}
+				else
+				{
+					state.setViewingSolution(true);
+					game.transitionTo(CalculateGame.SHOP_SCREEN, TransitionFixtures.OverlapLeft());
+				}
 	    	}
 	    });
 	    viewSolutionButton.pad(pad);

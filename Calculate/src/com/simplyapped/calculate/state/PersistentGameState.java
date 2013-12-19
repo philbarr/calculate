@@ -23,7 +23,7 @@ public class PersistentGameState extends GameState
 		{
 			LevelDetails detail = new LevelDetails();
 			detail.setLocked(true);
-			setLevelDetails(level, detail);
+			saveLevelDetails(level, detail);
 			pref = preferences.getString(level + "");
 		}
 		LevelDetails deserialize = LevelDetails.deserialize(pref);
@@ -37,7 +37,7 @@ public class PersistentGameState extends GameState
 	}
 
 	@Override
-	public void setLevelDetails(int level, LevelDetails details)
+	public void saveLevelDetails(int level, LevelDetails details)
 	{
 		String serialize = LevelDetails.serialize(details);
 		preferences.putString(level + "", serialize);

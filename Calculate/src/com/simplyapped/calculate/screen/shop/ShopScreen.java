@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Disposable;
 import com.simplyapped.calculate.CalculateGame;
+import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
 import com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton;
@@ -42,7 +43,14 @@ public class ShopScreen extends DefaultScreen{
 			{
 				if (keycode == Keys.BACK || keycode == Keys.BACKSPACE)
 				{
-					game.transitionTo(CalculateGame.MAIN_MENU_SCREEN, TransitionFixtures.UnderlapRight());
+					if (GameStateFactory.getInstance().isViewingSolution())
+					{
+						game.transitionTo(CalculateGame.GAME_SCREEN, TransitionFixtures.UnderlapRight());
+					}
+					else 
+					{
+						game.transitionTo(CalculateGame.MAIN_MENU_SCREEN, TransitionFixtures.UnderlapRight());
+					}
 					return true;
 				}
 				return false;

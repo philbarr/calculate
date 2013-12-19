@@ -36,7 +36,7 @@ import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
 public class StageIntroScreen extends DefaultScreen
 {
-	private static final int PAUSE_BEFORE_TRANSITION = 5;
+	private static final int PAUSE_BEFORE_TRANSITION = 4;
 
 	private final class CardClickListener extends ClickListener
 	{
@@ -254,7 +254,7 @@ public class StageIntroScreen extends DefaultScreen
 					}
 					else
 					{
-						finishWait = StageIntroScreen.PAUSE_BEFORE_TRANSITION + 1;
+						// finishWait = StageIntroScreen.PAUSE_BEFORE_TRANSITION + 1;
 					}
 				}
 			}
