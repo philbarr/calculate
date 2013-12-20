@@ -145,10 +145,10 @@ public class StageIntroScreen extends DefaultScreen
 		TextureRegionDrawable backstyle = FlatUI.CreateBackgroundDrawable(0.2f, 0.2f, 0.2f, 0.9f, title.getWidth(), title.getHeight());
 		disposables.add(backstyle.getRegion().getTexture());
 		title.getStyle().background = backstyle;
-		titleCell = back.add(title).expandX().fillX().center().top().pad(CalculateGame.SCREEN_HEIGHT/10f);
+		titleCell = back.add(title).expandX().fillX().center().top().pad(CalculateGame.SCREEN_HEIGHT/8f);
 		back.row();
 		targetTable = new Table();
-		back.add(targetTable).expandX().fillX().center().top().pad(CalculateGame.SCREEN_HEIGHT/10f);
+		back.add(targetTable).expandX().fillX().center().top().pad(CalculateGame.SCREEN_HEIGHT/8f);
 		back.row();
 		back.row();
 		back.add().expand().fill();

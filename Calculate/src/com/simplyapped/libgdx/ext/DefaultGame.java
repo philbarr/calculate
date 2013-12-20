@@ -7,8 +7,10 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.simplyapped.libgdx.ext.action.Transition;
+import com.simplyapped.libgdx.ext.billing.BillingService;
 import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 import com.simplyapped.libgdx.ext.screen.StagedScreen;
+import com.simplyapped.libgdx.ext.ui.OSDialog;
 
 public abstract class DefaultGame implements ApplicationListener
 {
@@ -130,4 +132,6 @@ public abstract class DefaultGame implements ApplicationListener
 		setScreen(screens.get(screen));
 	}
 
+	public abstract BillingService getBilling();
+	public abstract OSDialog getDialog();
 }

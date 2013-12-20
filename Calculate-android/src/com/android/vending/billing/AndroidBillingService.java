@@ -67,7 +67,10 @@ public class AndroidBillingService implements BillingService {
 			
 			@Override
 			public void onQueryInventoryFinished(IabResult result, Inventory inv) {
-				listener.onQueryInventoryFinished(new AndroidBillingResult(result), new AndroidBillingInventory(inv));
+				if (result.isSuccess())
+				{
+					listener.onQueryInventoryFinished(new AndroidBillingResult(result), new AndroidBillingInventory(inv));
+				}
 			}
 		});
 	}
@@ -184,7 +187,7 @@ public class AndroidBillingService implements BillingService {
 	@Override
 	public void consumeAsync(BillingPurchase purchase,
 			final BillingOnConsumeFinishedListener listener) {
-		if (purchase instanceof AndroidBillingPurchase)
+		if (purchase instanceof AndroidBillingPurchase && purchase != null)
 		{
 			helper.consumeAsync(((AndroidBillingPurchase)purchase).getPurchase(), new OnConsumeFinishedListener() {
 	
@@ -205,7 +208,7 @@ public class AndroidBillingService implements BillingService {
 			final BillingOnConsumeMultiFinishedListener listener) {
 		List<Purchase> ps = new ArrayList<Purchase>();
 		for (BillingPurchase purchase : purchases) {
-			if (purchase instanceof AndroidBillingPurchase)
+			if (purchase instanceof AndroidBillingPurchase  && purchase != null)
 			{
 				ps.add(((AndroidBillingPurchase)purchase).getPurchase());
 			}

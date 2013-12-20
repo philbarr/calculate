@@ -34,6 +34,11 @@ public class CalculateGame extends DefaultGame {
 	public final static String PRODUCT_ID_TWENTY_FIVE_SOLUTIONS = "com.simplyapped.calculate.twentyfivesolutions";
 	public final static String PRODUCT_ID_FIFTY_SOLUTIONS = "com.simplyapped.calculate.fiftysolutions";
 	
+	public final static String PRODUCT_ID_TEST_PURCHASED = "android.test.purchased";
+	public final static String PRODUCT_ID_TEST_CANCELLED = "android.test.canceled";
+	public final static String PRODUCT_ID_TEST_REFUNDED = "android.test.refunded";
+	public final static String PRODUCT_ID_TEST_UNAVAILABLE = "android.test.item_unavailable";
+	
 	public final static int SCREEN_HEIGHT = 800;
 	public final static int SCREEN_WIDTH = 600;
 	public final static String MAIN_MENU_SCREEN = "MainMenuScreen";
@@ -111,6 +116,7 @@ public class CalculateGame extends DefaultGame {
 							@Override
 							public void onQueryInventoryFinished(BillingResult result,
 									BillingInventory inventory) {
+								checkProduct(inventory, PRODUCT_ID_TEST_PURCHASED, 0);
 								checkProduct(inventory, PRODUCT_ID_TEN_SOLUTIONS, 10);
 								checkProduct(inventory, PRODUCT_ID_TWENTY_FIVE_SOLUTIONS, 25);
 								checkProduct(inventory, PRODUCT_ID_FIFTY_SOLUTIONS, 50);

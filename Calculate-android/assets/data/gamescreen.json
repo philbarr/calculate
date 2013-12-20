@@ -29,8 +29,11 @@
 	      font: liberation-font-32,
 	      fontColor: titleColour,
 	    },
+	    text: {
+	      font: liberation-font-32,
+	      fontColor: white,
+		},
 	},
-	
 	com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 	  dialog: {
 	    background: dialogbackground,
