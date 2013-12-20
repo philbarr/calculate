@@ -124,4 +124,11 @@ public interface BillingService {
 	 */
 	public abstract void consumeAsync(List<BillingPurchase> purchases,
 			BillingOnConsumeMultiFinishedListener listener);
+
+	/**
+	 * Like consumeAsync but runs in the current thread.
+	 * @param purchase
+	 * @return 
+	 */
+	BillingResult consume(BillingPurchase purchase);
 }

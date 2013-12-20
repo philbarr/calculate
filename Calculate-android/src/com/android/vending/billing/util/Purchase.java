@@ -46,6 +46,8 @@ public class Purchase {
         mToken = o.optString("token", o.optString("purchaseToken"));
         mSignature = signature;
     }
+    
+    public Purchase(){}
 
     public String getItemType() { return mItemType; }
     public String getOrderId() { return mOrderId; }

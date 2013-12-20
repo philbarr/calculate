@@ -4,7 +4,6 @@ import com.android.vending.billing.util.Purchase;
 import com.simplyapped.libgdx.ext.billing.BillingPurchase;
 
 public class AndroidBillingPurchase implements BillingPurchase {
-
 	private Purchase purchase;
 
 	public AndroidBillingPurchase(Purchase purchase) {

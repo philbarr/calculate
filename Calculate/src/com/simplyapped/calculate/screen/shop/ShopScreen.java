@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -23,12 +23,9 @@ import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
 import com.simplyapped.libgdx.ext.billing.BillingInventory;
 import com.simplyapped.libgdx.ext.billing.BillingPurchase;
-import com.simplyapped.libgdx.ext.billing.BillingPurchase.PURCHASE_STATE;
 import com.simplyapped.libgdx.ext.billing.BillingResult;
 import com.simplyapped.libgdx.ext.billing.BillingService;
-import com.simplyapped.libgdx.ext.billing.listeners.BillingOnConsumeFinishedListener;
 import com.simplyapped.libgdx.ext.billing.listeners.BillingOnPurchaseFinishedListener;
-import com.simplyapped.libgdx.ext.billing.listeners.BillingQueryInventoryFinishedListener;
 import com.simplyapped.libgdx.ext.scene2d.flat.FlatUI;
 import com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton;
 import com.simplyapped.libgdx.ext.screen.DefaultScreen;
@@ -102,7 +99,7 @@ public class ShopScreen extends DefaultScreen{
 	    stage.addActor(window);
 	    stage.addActor(label); 
 	    stage.addActor(buttonBorder);
-		addButton(height*3 + buttonHeight*2, CalculateGame.PRODUCT_ID_TEN_SOLUTIONS, 10);
+		addButton(height*3 + buttonHeight*2, CalculateGame.PRODUCT_ID_TEST_PURCHASED, 10);
 		addButton(height*2+buttonHeight, CalculateGame.PRODUCT_ID_TWENTY_FIVE_SOLUTIONS, 25);
 		addButton(height, CalculateGame.PRODUCT_ID_FIFTY_SOLUTIONS, 50);
 	    
@@ -130,13 +127,13 @@ public class ShopScreen extends DefaultScreen{
 							
 							if (result.isSuccess())
 							{
-								if (thePurchase.getPurchaseState() == PURCHASE_STATE.PURCHASED)
+								if (thePurchase.getPurchaseState() == BillingPurchase.PURCHASE_STATE.PURCHASED)
 								{
 									consume(solutionCount, billing, thePurchase);
 								}
-								else if (thePurchase.getPurchaseState() == PURCHASE_STATE.CANCELLED)
+								else if (thePurchase.getPurchaseState() == BillingPurchase.PURCHASE_STATE.CANCELLED)
 								{
-									game.getDialog().showLongToast("Purchase Cancelled");
+									//game.getDialog().showLongToast("Purchase Cancelled");
 									erasePurchase(billing, thePurchase);
 								}
 							}
@@ -153,31 +150,30 @@ public class ShopScreen extends DefaultScreen{
 						private void consume(final int solutionCount,
 								final BillingService billing,
 								BillingPurchase purchase) {
-							billing.consumeAsync(purchase, new BillingOnConsumeFinishedListener() {
-								
-								@Override
-								public void onConsumeFinished(final BillingPurchase purchase, BillingResult result) {
-									if (result.isSuccess())
-									{
-										GameStateFactory.getInstance().increaseRemainingSolutions(solutionCount);
-										game.getDialog().showLongToast(solutionCount + " Solutions Purchased!");
-										erasePurchase(billing, purchase);
-									}
-								}
-							});
+							
+							BillingResult result = billing.consume(purchase);
+							if (result.isSuccess())
+							{
+								GameStateFactory.getInstance().increaseRemainingSolutions(solutionCount);
+								//game.getDialog().showLongToast(solutionCount + " Solutions Purchased!");
+								erasePurchase(billing, purchase);
+							}
 						}
 						
 						private void erasePurchase(
 								final BillingService billing,
 								final BillingPurchase purchase) {
-							billing.queryInventoryAsync(new BillingQueryInventoryFinishedListener() {
-								
-								@Override
-								public void onQueryInventoryFinished(BillingResult result,
-										BillingInventory inventory) {
+							
+							BillingInventory inventory;
+							try {
+								inventory = billing.queryInventory(false, null);
+								if (inventory != null)
+								{
 									inventory.erasePurchase(purchase.getProductId());
 								}
-							});
+							} catch (Exception e) {
+								// well at least we tried to clean up the inventory
+							}
 						}
 					});
 				}
@@ -201,4 +197,6 @@ public class ShopScreen extends DefaultScreen{
 		disposables.add(texture);
 		return trd;
 	}
+	
+	
 }
