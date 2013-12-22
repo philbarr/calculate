@@ -2,10 +2,10 @@
 
     com.badlogic.gdx.graphics.Color: {
     		white: { r: 1, g: 1, b:1, a: 1},
-    		red: { r: 0.9, g: 0, b: 0, a: 0.8},
-    		redOn: { r: 0.9, g: 0, b: 0, a: 1},
-    		green: { r: 0, g: 0.9, b: 0, a: 0.8},
-    		greenOn: { r: 0, g: 0.9, b: 0, a: 1},
+  			red: { r: 0.784313725490196, g: 0.376470588235294, b: 0.380392156862745, a: 0.8 },
+  			redOn: { r: 0.784313725490196, g: 0.376470588235294, b: 0.380392156862745, a: 1 },
+  			green: { r: 0.298039215686275, g: 0.788235294117647, b: 0.435294117647059, a: 0.8 },
+  			greenOn: { r: 0.298039215686275, g: 0.788235294117647, b: 0.435294117647059, a: 1 },
     },
     com.badlogic.gdx.graphics.g2d.BitmapFont: {
             pump-font: { file: PumpDemiBoldLET.fnt },

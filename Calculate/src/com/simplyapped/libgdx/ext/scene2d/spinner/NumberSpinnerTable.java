@@ -3,6 +3,9 @@ package com.simplyapped.libgdx.ext.scene2d.spinner;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.TemporalAction;
@@ -12,7 +15,7 @@ public class NumberSpinnerTable extends Table
 {
 	private List<NumberSpinner> spinners = new ArrayList<NumberSpinner>();
 	
-	public NumberSpinnerTable(int targetNumber, Interpolation interpolation, float duration, float hangingdelay)
+	public NumberSpinnerTable(TextureRegion region, int targetNumber, Interpolation interpolation, float duration, float hangingdelay)
 	{
 		row();
 		char[] digits = ("" + targetNumber).toCharArray();
@@ -23,7 +26,7 @@ public class NumberSpinnerTable extends Table
 			int num = Integer.parseInt(digits[i]+"");
 			int from = i % 2 == 0 ? num : num+20;
 			int to =   i % 2 == 0 ? num+20 : num;
-			NumberSpinner spinner = new NumberSpinner(from, to, interpolation, duration + (i*hangingdelay));
+			NumberSpinner spinner = new NumberSpinner(region, 90, 90, from, to, interpolation, duration + (i*hangingdelay));
 			add(spinner).expand().fill();
 			spinners.add(spinner);
 		}

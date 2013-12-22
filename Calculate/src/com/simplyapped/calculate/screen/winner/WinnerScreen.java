@@ -6,6 +6,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -90,7 +91,7 @@ public class WinnerScreen extends DefaultScreen
 
 		// number spinner
 		int total = GameStateFactory.getInstance().getCurrentEquation().getTotal();
-		Table numberTable = new NumberSpinnerTable(Math.abs(total), Interpolation.elasticOut, 2, 0.2f);
+		Table numberTable = new NumberSpinnerTable(new TextureAtlas(Gdx.files.internal(CalculateGame.NUMBER_STRIP_ALTAS)).findRegion(CalculateGame.NUMBER_STRIP_REGION), Math.abs(total), Interpolation.elasticOut, 2, 0.2f);
 		numberTable.setPosition(CalculateGame.SCREEN_WIDTH/2 - numberTable.getWidth()/2, CalculateGame.SCREEN_HEIGHT/2f - numberTable.getHeight()/2);
 		stage.addActor(numberTable);
 
@@ -108,7 +109,7 @@ public class WinnerScreen extends DefaultScreen
 	    // calculate width and heights for the table 
 	    float emptyRowHeight = CalculateGame.SCREEN_HEIGHT / 17;
 	    float buttonHeight = CalculateGame.SCREEN_HEIGHT / 7;
-	    float buttonWidth = CalculateGame.SCREEN_WIDTH / 2f;
+	    float buttonWidth = CalculateGame.SCREEN_WIDTH / 1.5f;
 	    
 	    // buttons
 	    FlatUIButton playMenu = new FlatUIButton("Play Again", skin, "playagain");

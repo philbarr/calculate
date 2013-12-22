@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.os.Handler;
 import android.util.Log;
 
 import com.android.vending.billing.test.FakePurchase;
@@ -31,10 +32,16 @@ public class AndroidBillingService implements BillingService {
 	IabHelper helper;
 	Activity context;
 	private boolean isSetup;
+	private List<String> testProductIds = new ArrayList<String>();
 	
 	public AndroidBillingService(Activity ctx)
 	{
 		this.context = ctx;	
+		handler = new Handler();
+		testProductIds.add("android.test.purchased");
+		testProductIds.add("android.test.canceled");
+		testProductIds.add("android.test.refunded");
+		testProductIds.add("android.test.item_unavailable");
 	}
 	
 	@Override
@@ -89,70 +96,85 @@ public class AndroidBillingService implements BillingService {
 	}
 
 	@Override
-	public void launchPurchaseFlow(final String productId, int requestCode,
+	public void launchPurchaseFlow(final String productId, final int requestCode,
 			final BillingOnPurchaseFinishedListener listener) {
-		helper.launchPurchaseFlow(context, productId, requestCode, new OnIabPurchaseFinishedListener()
-		{
-			@Override
-			public void onIabPurchaseFinished(IabResult result, Purchase info) 
+		handler.post(new Runnable(){public void run(){
+			helper.launchPurchaseFlow(context, productId, requestCode, new OnIabPurchaseFinishedListener()
 			{
-				info = checkForTestPurchase(productId, info);
-				listener.onBillingPurchaseFinished(new AndroidBillingResult(result), new AndroidBillingPurchase(info));
-			}
-		});
+				@Override
+				public void onIabPurchaseFinished(IabResult result, Purchase info) 
+				{
+					info = checkForTestPurchase(productId, info);
+					BillingResult billingResult = checkForTestPurchaseBillingResult(productId, new AndroidBillingResult(result));
+					listener.onBillingPurchaseFinished(billingResult, new AndroidBillingPurchase(info));
+				}
+			});
+		}});
 	}
 
 	@Override
-	public void launchPurchaseFlow(final String productId, int requestCode,
-			final BillingOnPurchaseFinishedListener listener, String extraData) {
-		helper.launchPurchaseFlow(context, productId, requestCode, new OnIabPurchaseFinishedListener() {
-			@Override
-			public void onIabPurchaseFinished(IabResult result, Purchase info) {
-				info = checkForTestPurchase(productId, info);
-				listener.onBillingPurchaseFinished(new AndroidBillingResult(result), new AndroidBillingPurchase(info));
-			}
-		}, extraData);
-	}
-
-	@Override
-	public void launchSubscriptionPurchaseFlow(final String productId,
-			int requestCode, final BillingOnPurchaseFinishedListener listener) {
-		helper.launchSubscriptionPurchaseFlow(context, productId, requestCode, new OnIabPurchaseFinishedListener() {
-			
-			@Override
-			public void onIabPurchaseFinished(IabResult result, Purchase info) {
-				info = checkForTestPurchase(productId, info);
-				listener.onBillingPurchaseFinished(new AndroidBillingResult(result), new AndroidBillingPurchase(info));
-			}
-		});
+	public void launchPurchaseFlow(final String productId, final int requestCode,
+			final BillingOnPurchaseFinishedListener listener, final String extraData) {
+		handler.post(new Runnable(){public void run(){
+			helper.launchPurchaseFlow(context, productId, requestCode, new OnIabPurchaseFinishedListener() {
+				@Override
+				public void onIabPurchaseFinished(IabResult result, Purchase info) {
+					info = checkForTestPurchase(productId, info);
+					BillingResult billingResult = checkForTestPurchaseBillingResult(productId, new AndroidBillingResult(result));
+					listener.onBillingPurchaseFinished(billingResult, new AndroidBillingPurchase(info));
+				}
+			}, extraData);
+		}});
 	}
 
 	@Override
 	public void launchSubscriptionPurchaseFlow(final String productId,
-			int requestCode, final BillingOnPurchaseFinishedListener listener,
-			String extraData) {
-		helper.launchSubscriptionPurchaseFlow(context, productId, requestCode, new OnIabPurchaseFinishedListener() {
-			
-			@Override
-			public void onIabPurchaseFinished(IabResult result, Purchase info) {
-				info = checkForTestPurchase(productId, info);
-				listener.onBillingPurchaseFinished(new AndroidBillingResult(result), new AndroidBillingPurchase(info));
-			}
-		}, extraData);
+			final int requestCode, final BillingOnPurchaseFinishedListener listener) {
+		handler.post(new Runnable(){public void run(){
+			helper.launchSubscriptionPurchaseFlow(context, productId, requestCode, new OnIabPurchaseFinishedListener() {
+				
+				@Override
+				public void onIabPurchaseFinished(IabResult result, Purchase info) {
+					info = checkForTestPurchase(productId, info);
+					BillingResult billingResult = checkForTestPurchaseBillingResult(productId, new AndroidBillingResult(result));
+					listener.onBillingPurchaseFinished(billingResult, new AndroidBillingPurchase(info));
+				}
+			});
+		}});
 	}
 
 	@Override
-	public void launchPurchaseFlow(final String productId, String itemType,
-			int requestCode, final BillingOnPurchaseFinishedListener listener,
-			String extraData) {
-		helper.launchPurchaseFlow(context, productId, itemType, requestCode, new OnIabPurchaseFinishedListener() {
-			
-			@Override
-			public void onIabPurchaseFinished(IabResult result, Purchase info) {
-				info = checkForTestPurchase(productId, info);
-				listener.onBillingPurchaseFinished(new AndroidBillingResult(result), new AndroidBillingPurchase(info));
-			}
-		}, extraData);
+	public void launchSubscriptionPurchaseFlow(final String productId,
+			final int requestCode, final BillingOnPurchaseFinishedListener listener,
+			final String extraData) {
+		handler.post(new Runnable(){public void run(){
+			helper.launchSubscriptionPurchaseFlow(context, productId, requestCode, new OnIabPurchaseFinishedListener() {
+				
+				@Override
+				public void onIabPurchaseFinished(IabResult result, Purchase info) {
+					info = checkForTestPurchase(productId, info);
+					BillingResult billingResult = checkForTestPurchaseBillingResult(productId, new AndroidBillingResult(result));
+					listener.onBillingPurchaseFinished(billingResult, new AndroidBillingPurchase(info));
+				}
+			}, extraData);
+		}});
+	}
+
+	@Override
+	public void launchPurchaseFlow(final String productId, final String itemType,
+			final int requestCode, final BillingOnPurchaseFinishedListener listener,
+			final String extraData) {
+		handler.post(new Runnable(){public void run(){
+			helper.launchPurchaseFlow(context, productId, itemType, requestCode, new OnIabPurchaseFinishedListener() {
+				
+				@Override
+				public void onIabPurchaseFinished(IabResult result, Purchase info) {
+					info = checkForTestPurchase(productId, info);
+					BillingResult billingResult = checkForTestPurchaseBillingResult(productId, new AndroidBillingResult(result));
+					listener.onBillingPurchaseFinished(billingResult, new AndroidBillingPurchase(info));
+				}
+			}, extraData);
+		}});
 	}
 
 	@Override
@@ -169,28 +191,32 @@ public class AndroidBillingService implements BillingService {
 	}
 
 	@Override
-	public void queryInventoryAsync(boolean queryProductIdDetails,
-			List<String> moreProductIds,
+	public void queryInventoryAsync(final boolean queryProductIdDetails,
+			final List<String> moreProductIds,
 			final BillingQueryInventoryFinishedListener listener) {
-		helper.queryInventoryAsync(queryProductIdDetails, moreProductIds, new QueryInventoryFinishedListener() {
-			
-			@Override
-			public void onQueryInventoryFinished(IabResult result, Inventory inv) {
-				listener.onQueryInventoryFinished(new AndroidBillingResult(result), new AndroidBillingInventory(inv));
-			}
-		});
+		handler.post(new Runnable(){public void run(){
+			helper.queryInventoryAsync(queryProductIdDetails, moreProductIds, new QueryInventoryFinishedListener() {
+				
+				@Override
+				public void onQueryInventoryFinished(IabResult result, Inventory inv) {
+					listener.onQueryInventoryFinished(new AndroidBillingResult(result), new AndroidBillingInventory(inv));
+				}
+			});
+		}});
 	}
 
 	@Override
-	public void queryInventoryAsync(boolean queryProductIdDetails,
+	public void queryInventoryAsync(final boolean queryProductIdDetails,
 			final BillingQueryInventoryFinishedListener listener) {
-		helper.queryInventoryAsync(queryProductIdDetails, new QueryInventoryFinishedListener() {
-			
-			@Override
-			public void onQueryInventoryFinished(IabResult result, Inventory inv) {
-				listener.onQueryInventoryFinished(new AndroidBillingResult(result), new AndroidBillingInventory(inv));
-			}
-		});
+		handler.post(new Runnable(){public void run(){
+			helper.queryInventoryAsync(queryProductIdDetails, new QueryInventoryFinishedListener() {
+				
+				@Override
+				public void onQueryInventoryFinished(IabResult result, Inventory inv) {
+					listener.onQueryInventoryFinished(new AndroidBillingResult(result), new AndroidBillingInventory(inv));
+				}
+			});
+		}});
 	}
 
 	@Override 
@@ -210,63 +236,67 @@ public class AndroidBillingService implements BillingService {
 	}
 	
 	@Override
-	public void consumeAsync(BillingPurchase purchase,
+	public void consumeAsync(final BillingPurchase purchase,
 			final BillingOnConsumeFinishedListener listener) {
-		if (purchase instanceof AndroidBillingPurchase && 
-				purchase != null && ((AndroidBillingPurchase) purchase).getPurchase() != null)
-		{
-			helper.consumeAsync(((AndroidBillingPurchase)purchase).getPurchase(), new OnConsumeFinishedListener() {
-	
-				@Override
-				public void onConsumeFinished(Purchase purchase, IabResult result) {
-					listener.onConsumeFinished(new AndroidBillingPurchase(purchase), new AndroidBillingResult(result));
-				}		
-			});
-		}
-		else
-		{
-			listener.onConsumeFinished(null, failureResult);
-		}
+		handler.post(new Runnable(){public void run(){
+			if (purchase instanceof AndroidBillingPurchase && 
+					purchase != null && ((AndroidBillingPurchase) purchase).getPurchase() != null)
+			{
+				helper.consumeAsync(((AndroidBillingPurchase)purchase).getPurchase(), new OnConsumeFinishedListener() {
+		
+					@Override
+					public void onConsumeFinished(Purchase purchase, IabResult result) {
+						listener.onConsumeFinished(new AndroidBillingPurchase(purchase), new AndroidBillingResult(result));
+					}		
+				});
+			}
+			else
+			{
+				listener.onConsumeFinished(null, failureResult);
+			}
+		}});
 	}
 
 	@Override
-	public void consumeAsync(List<BillingPurchase> purchases,
+	public void consumeAsync(final List<BillingPurchase> purchases,
 			final BillingOnConsumeMultiFinishedListener listener) {
-		List<Purchase> ps = new ArrayList<Purchase>();
-		for (BillingPurchase purchase : purchases) {
-			if (purchase instanceof AndroidBillingPurchase  && purchase != null)
-			{
-				ps.add(((AndroidBillingPurchase)purchase).getPurchase());
+		handler.post(new Runnable(){public void run(){
+			List<Purchase> ps = new ArrayList<Purchase>();
+			for (BillingPurchase purchase : purchases) {
+				if (purchase instanceof AndroidBillingPurchase  && purchase != null)
+				{
+					ps.add(((AndroidBillingPurchase)purchase).getPurchase());
+				}
 			}
-		}
-		if (ps.size()>0)
-		{
-			helper.consumeAsync(ps, new OnConsumeMultiFinishedListener(){
-
-				@Override
-				public void onConsumeMultiFinished(List<Purchase> purchases,
-						List<IabResult> results) {
-					List<BillingPurchase> abs = new ArrayList<BillingPurchase>();
-					List<BillingResult> res = new ArrayList<BillingResult>();
-					if (purchases != null && results != null)
-					{
-						for(int i = 0; i < purchases.size(); i++)
+			if (ps.size()>0)
+			{
+				helper.consumeAsync(ps, new OnConsumeMultiFinishedListener(){
+	
+					@Override
+					public void onConsumeMultiFinished(List<Purchase> purchases,
+							List<IabResult> results) {
+						List<BillingPurchase> abs = new ArrayList<BillingPurchase>();
+						List<BillingResult> res = new ArrayList<BillingResult>();
+						if (purchases != null && results != null)
 						{
-							abs.add(new AndroidBillingPurchase(purchases.get(i)));
-							res.add(new AndroidBillingResult(results.get(i)));
+							for(int i = 0; i < purchases.size(); i++)
+							{
+								abs.add(new AndroidBillingPurchase(purchases.get(i)));
+								res.add(new AndroidBillingResult(results.get(i)));
+							}
+							listener.onConsumeMultiFinished(abs, res);
 						}
-						listener.onConsumeMultiFinished(abs, res);
-					}
-					else
-					{
-						sendConsumeMultiFailure(listener);
-					}
-				}});
-		}
-		else
-		{
-			sendConsumeMultiFailure(listener);
-		}
+						else
+						{
+							sendConsumeMultiFailure(listener);
+						}
+					}});
+			}
+			else
+			{
+				sendConsumeMultiFailure(listener);
+			}
+		}});
 	}
 
 	private void sendConsumeMultiFailure(
@@ -278,17 +308,16 @@ public class AndroidBillingService implements BillingService {
 	
 	private Purchase checkForTestPurchase(final String productId, Purchase info) {
 		Purchase purchase = null;
-		if (productId == "android.test.purchased")
+		if (testProductIds.contains(productId))
 		{
-			FakePurchase purchased;
 			try {
-				purchased = new FakePurchase();
+				FakePurchase purchased = new FakePurchase();
 				purchased.setItemType(IabHelper.ITEM_TYPE_INAPP);
-				purchased.setSku("android.test.purchased");
+				purchased.setSku(productId);
 				purchased.setPackageName(context.getPackageName());				
 				purchase = purchased;
 			} catch (Exception e) {
-				Log.e("FUCKED" , e.getMessage());
+				Log.e("BILLING TESTING FAILURE" , e.getMessage());
 			}
 		}
 		else
@@ -297,6 +326,20 @@ public class AndroidBillingService implements BillingService {
 		}
 		
 		return purchase == null ? info : purchase;
+	}
+	
+	private BillingResult checkForTestPurchaseBillingResult(String productId, BillingResult result)
+	{
+		BillingResult ret;
+		if (testProductIds.contains(productId))
+		{
+			ret = successResult;
+		}
+		else
+		{
+			ret = result;
+		}
+		return ret;
 	}
 
 	private BillingResult failureResult = new BillingResult()
@@ -323,6 +366,32 @@ public class AndroidBillingService implements BillingService {
 		}
 		
 	};
+	
+	private BillingResult successResult = new BillingResult()
+	{
+
+		@Override
+		public boolean isFailure() {
+			return false;
+		}
+
+		@Override
+		public boolean isSuccess() {
+			return true;
+		}
+
+		@Override
+		public String getMessage() {
+			return "BillingPurchase success";
+		}
+
+		@Override
+		public int getResponse() {
+			return BillingResult.BILLING_RESPONSE_RESULT_OK;
+		}
+		
+	};
+	private Handler handler;
 
 	public IabHelper getHelper() {
 		return helper;

@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.simplyapped.calculate.screen.shop.ShopScreen;
 import com.simplyapped.libgdx.ext.DefaultGame;
 
 public abstract class DefaultScreen implements StagedScreen
@@ -46,6 +47,7 @@ public abstract class DefaultScreen implements StagedScreen
 	@Override
 	public void resize(int width, int height)
 	{
+		Gdx.app.log(DefaultScreen.class.toString(), "RESIZING SCREEN");
 	}
 
 	@Override
@@ -54,17 +56,19 @@ public abstract class DefaultScreen implements StagedScreen
 	@Override
 	public void hide()
 	{
-		//dispose();
+		Gdx.app.log(DefaultScreen.class.toString(), "HIDING SCREEN");
 	}
 
 	@Override
 	public void pause()
 	{
+		Gdx.app.log(DefaultScreen.class.toString(), "PAUSING SCREEN");
 	}
 
 	@Override
 	public void resume()
 	{
+		Gdx.app.log(DefaultScreen.class.toString(), "RESUMING SCREEN");
 	}
 
 	@Override
@@ -78,13 +82,12 @@ public abstract class DefaultScreen implements StagedScreen
 		{
 			try
 			{
-				System.out.println("disposing: " + disposable.toString());
+				Gdx.app.log(DefaultScreen.class.toString(), "DISPOSING SCREEN");
 				disposable.dispose();
 				
 			} catch (GdxRuntimeException e)
 			{
-				System.out.println(e.toString());
-				// already disposed not bothered
+				Gdx.app.error(DefaultScreen.class.toString(), "DISPOSING SCREEN ERROR", e);
 			}
 		}
 	}

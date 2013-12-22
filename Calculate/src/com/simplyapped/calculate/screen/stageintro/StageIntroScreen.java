@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -363,7 +364,7 @@ public class StageIntroScreen extends DefaultScreen
 			int targetNumber = eq.getTotal();
 			Gdx.app.log("target", targetNumber+"");
 			
-			spinner = new NumberSpinnerTable(targetNumber, swingOut, 3, 0.2f);
+			spinner = new NumberSpinnerTable(new TextureAtlas(Gdx.files.internal(CalculateGame.NUMBER_STRIP_ALTAS)).findRegion(CalculateGame.NUMBER_STRIP_REGION), targetNumber, swingOut, 3, 0.2f);
 			spinner.setPosition(CalculateGame.SCREEN_WIDTH/2 - spinner.getWidth()/2, CalculateGame.SCREEN_HEIGHT/5f);
 			stage.addActor(spinner);
 			scene = Scene.FINISHED;

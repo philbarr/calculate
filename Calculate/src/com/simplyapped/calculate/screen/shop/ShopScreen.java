@@ -1,6 +1,7 @@
 package com.simplyapped.calculate.screen.shop;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -25,6 +26,7 @@ import com.simplyapped.libgdx.ext.billing.BillingInventory;
 import com.simplyapped.libgdx.ext.billing.BillingPurchase;
 import com.simplyapped.libgdx.ext.billing.BillingResult;
 import com.simplyapped.libgdx.ext.billing.BillingService;
+import com.simplyapped.libgdx.ext.billing.listeners.BillingOnConsumeFinishedListener;
 import com.simplyapped.libgdx.ext.billing.listeners.BillingOnPurchaseFinishedListener;
 import com.simplyapped.libgdx.ext.scene2d.flat.FlatUI;
 import com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton;
@@ -38,6 +40,7 @@ public class ShopScreen extends DefaultScreen{
 	private Table window;
 	private float buttonHeight;
 	private float buttonWidth;
+	private Label label;
 	
 
 	public ShopScreen(DefaultGame game) {
@@ -46,6 +49,7 @@ public class ShopScreen extends DefaultScreen{
 
 	@Override
 	public void show() {
+		Gdx.app.log(ShopScreen.class.toString(), "SHOWING SHOP SCREEN");
 		if (disposables==null)
 		{
 			disposables=new ArrayList<Disposable>();
@@ -77,11 +81,12 @@ public class ShopScreen extends DefaultScreen{
 	    window.setBackground(skin.getDrawable("gamescreenbackground"));
 	    
 	    buttonHeight = CalculateGame.SCREEN_HEIGHT / 7;
-	    buttonWidth = CalculateGame.SCREEN_WIDTH / 2f;
+	    buttonWidth = CalculateGame.SCREEN_WIDTH / 1.5f;
 	    float height = CalculateGame.SCREEN_HEIGHT/13f;
 	    int padding = 20;
 
-		Label label = new Label(String.format(YOU_HAVE_S_SOLUTIONS_REMAINING, GameStateFactory.getInstance().getRemainingSolutions()), skin, "text");
+		label = new Label("", skin, "text");
+		updateTitle();
 		label.setAlignment(Align.center);
 		label.setFontScale(0.6f);
 		label.setSize(buttonWidth + padding*2, CalculateGame.SCREEN_HEIGHT/4.5f);
@@ -95,18 +100,27 @@ public class ShopScreen extends DefaultScreen{
 	    buttonBorder.setSize(buttonWidth + padding*2, height + (buttonHeight*3) + (padding*2) + (height));
 	    buttonBorder.setBackground(createBackground(0.9f,0.9f,0.9f,0.8f));
 	    
-	    
 	    stage.addActor(window);
 	    stage.addActor(label); 
 	    stage.addActor(buttonBorder);
-		addButton(height*3 + buttonHeight*2, CalculateGame.PRODUCT_ID_TEST_PURCHASED, 10);
+	    addButton(height*3 + buttonHeight*2, CalculateGame.PRODUCT_ID_TEN_SOLUTIONS, 10);
 		addButton(height*2+buttonHeight, CalculateGame.PRODUCT_ID_TWENTY_FIVE_SOLUTIONS, 25);
 		addButton(height, CalculateGame.PRODUCT_ID_FIFTY_SOLUTIONS, 50);
 	    
-		
+//		addButton(height*3 + buttonHeight*2, CalculateGame.PRODUCT_ID_TEST_PURCHASED, 10);
+//		addButton(height*2+buttonHeight, CalculateGame.PRODUCT_ID_TEST_CANCELLED, 25);
+//		addButton(height, CalculateGame.PRODUCT_ID_TEST_REFUNDED, 50);
 		
 	    Gdx.input.setInputProcessor(stage);
 	    Gdx.input.setCatchBackKey(true);
+	}
+
+	private void updateTitle() {
+		try {
+			label.setText(String.format(YOU_HAVE_S_SOLUTIONS_REMAINING, GameStateFactory.getInstance().getRemainingSolutions()));
+		} catch (Exception e) {
+			Gdx.app.log("ERROR", "Failed to update solutions label");
+		}
 	}
 
 	private void addButton(float height, final String productId, final int solutionCount) {
@@ -115,7 +129,9 @@ public class ShopScreen extends DefaultScreen{
 			@Override
 			public void clicked(InputEvent event, float x, float y)
 			{
-				final int requestCode = 20001;
+				try
+				{
+				final int requestCode = new Random().nextInt(1000) + 10000;
 				final BillingService billing = game.getBilling();
 				if (billing != null)
 				{
@@ -133,8 +149,12 @@ public class ShopScreen extends DefaultScreen{
 								}
 								else if (thePurchase.getPurchaseState() == BillingPurchase.PURCHASE_STATE.CANCELLED)
 								{
-									//game.getDialog().showLongToast("Purchase Cancelled");
+									game.getDialog().showLongToast("Purchase Cancelled");
 									erasePurchase(billing, thePurchase);
+								}
+								else if (thePurchase.getPurchaseState() == BillingPurchase.PURCHASE_STATE.REFUNDED)
+								{
+									game.getDialog().showLongToast("Your Refund Request\nHas Been Processed");
 								}
 							}
 							else
@@ -144,6 +164,10 @@ public class ShopScreen extends DefaultScreen{
 								{
 									consume(solutionCount, billing, thePurchase);
 								}
+								else
+								{
+									Gdx.app.log("BILLING", "responseCode: " + result.getResponse() + ", message" + result.getMessage());
+								}
 							}
 						}
 
@@ -151,13 +175,23 @@ public class ShopScreen extends DefaultScreen{
 								final BillingService billing,
 								BillingPurchase purchase) {
 							
-							BillingResult result = billing.consume(purchase);
-							if (result.isSuccess())
-							{
-								GameStateFactory.getInstance().increaseRemainingSolutions(solutionCount);
-								//game.getDialog().showLongToast(solutionCount + " Solutions Purchased!");
-								erasePurchase(billing, purchase);
-							}
+							billing.consumeAsync(purchase, new BillingOnConsumeFinishedListener() {
+								
+								@Override
+								public void onConsumeFinished(BillingPurchase purchase, BillingResult result) {
+									if (result.isSuccess())
+									{
+										GameStateFactory.getInstance().increaseRemainingSolutions(solutionCount);
+										game.getDialog().showLongToast(solutionCount + " Solutions Purchased!");
+										updateTitle();
+										erasePurchase(billing, purchase);
+									}
+									else
+									{
+										Gdx.app.error("BILLING", result.getMessage());
+									}
+								}
+							});
 						}
 						
 						private void erasePurchase(
@@ -177,6 +211,12 @@ public class ShopScreen extends DefaultScreen{
 						}
 					});
 				}
+				}
+				catch(Throwable e)
+				{
+					Gdx.app.log("BILLING", e.getMessage(), e);
+				}
+				
 			}
 		});
 		purchase.getLabel().setFontScale(0.8f);
@@ -197,6 +237,4 @@ public class ShopScreen extends DefaultScreen{
 		disposables.add(texture);
 		return trd;
 	}
-	
-	
 }

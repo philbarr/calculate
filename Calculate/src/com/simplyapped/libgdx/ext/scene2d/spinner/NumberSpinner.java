@@ -19,11 +19,6 @@ public class NumberSpinner extends Widget
 	private int viewportHeight;
 	private int height;
 
-	public NumberSpinner(int from, int to, Interpolation interpolation, float duration)
-	{
-		this(new TextureAtlas(Gdx.files.classpath("com/simplyapped/libgdx/ext/scene2d/spinner/numberspinner.atlas")).findRegion("numberstrip"), 90, 90, from, to, interpolation, duration);
-	}
-	
 	public NumberSpinner(TextureRegion numberstrip, int viewportHeight, int numberHeight, int from, int to, Interpolation interpolation, float duration)
 	{
 		this.height = numberstrip.getRegionHeight();

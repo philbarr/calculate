@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -84,7 +85,7 @@ public class ViewSolutionScreen extends DefaultScreen
 	    calculationTable.update();
 	    
 		int total = GameStateFactory.getInstance().getCurrentEquation().getTotal();
-		NumberSpinnerTable numberTable = new NumberSpinnerTable(Math.abs(total), Interpolation.pow3Out, 2, 0.2f);
+		NumberSpinnerTable numberTable = new NumberSpinnerTable(new TextureAtlas(Gdx.files.internal(CalculateGame.NUMBER_STRIP_ALTAS)).findRegion(CalculateGame.NUMBER_STRIP_REGION), Math.abs(total), Interpolation.pow3Out, 2, 0.2f);
 		numberTable.setPosition(CalculateGame.SCREEN_WIDTH/2 - numberTable.getWidth()/2, CalculateGame.SCREEN_HEIGHT/4.1f - numberTable.getHeight()/2);
 		
 		FlatUIButton button = new FlatUIButton("I Knew That!", skin, "dialogViewSolution");
