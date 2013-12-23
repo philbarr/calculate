@@ -4,6 +4,10 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
@@ -11,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.calculate.state.GameState;
 import com.simplyapped.calculate.state.GameStateFactory;
@@ -50,6 +55,17 @@ public class LoserScreen extends DefaultScreen
 	    table.setBackground(skin.getDrawable("loserscreenbackground"));
 	    stage.addActor(table);
 	    
+	    // calculate width and heights for the table
+	    float emptyRowHeight = CalculateGame.SCREEN_HEIGHT / 17;
+	    float buttonHeight = CalculateGame.SCREEN_HEIGHT / 7;
+	    float buttonWidth = CalculateGame.SCREEN_WIDTH / 1.5f;
+	    float offset = CalculateGame.SCREEN_HEIGHT / 3f;
+	    Table buttonBorder = new Table();
+	    int padding = 20;
+		buttonBorder.setPosition(CalculateGame.SCREEN_WIDTH/2-buttonWidth/2-padding, emptyRowHeight - padding + offset);
+	    buttonBorder.setSize(buttonWidth + padding*2, emptyRowHeight + (buttonHeight*2) + padding);
+	    buttonBorder.setBackground(createBackground(0.9f,0.9f,0.9f,0.8f));
+	    
 	    Image image = new Image(skin, "loserballoon");
 	    image.setScale(0.3f);
 	    int imageX = CalculateGame.SCREEN_WIDTH/7;
@@ -64,7 +80,6 @@ public class LoserScreen extends DefaultScreen
 	    
 	    final GameState state = GameStateFactory.getInstance();
 	    
-	    Table buttonTable = new Table();
 	    FlatUIButton playAgainButton = new FlatUIButton("Play Again", skin, "playagain");
 	    playAgainButton.addListener(new ClickListener()
 	    {
@@ -74,8 +89,9 @@ public class LoserScreen extends DefaultScreen
 	    		game.transitionTo(CalculateGame.STAGE_INTRO_SCREEN, TransitionFixtures.UnderlapRight());
 	    	}
 	    });
-	    playAgainButton.getLabel().setFontScale(0.7f);
-	    playAgainButton.pad(pad);
+	    playAgainButton.getLabel().setFontScale(0.8f);
+	    playAgainButton.setSize(buttonWidth, buttonHeight);
+	    playAgainButton.setPosition(CalculateGame.SCREEN_WIDTH/2-playAgainButton.getWidth()/2, -emptyRowHeight + (buttonHeight*2) + offset);
 	    
 	    FlatUIButton viewSolutionButton = new FlatUIButton("View Solution (" + state.getRemainingSolutions() + ")", skin, "viewsolution");
 	    viewSolutionButton.addListener(new ClickListener(){
@@ -94,18 +110,31 @@ public class LoserScreen extends DefaultScreen
 	    	}
 	    });
 	    viewSolutionButton.pad(pad);
+	    viewSolutionButton.setSize(buttonWidth, buttonHeight);
+	    viewSolutionButton.setPosition(CalculateGame.SCREEN_WIDTH/2-playAgainButton.getWidth()/2, emptyRowHeight + offset);	    
 	    viewSolutionButton.getLabel().setFontScale(0.7f);
+	    
+	    stage.addActor(buttonBorder);
+	    stage.addActor(playAgainButton);
+	    stage.addActor(viewSolutionButton);
+	    
 	    disposables.add(playAgainButton);
 	    disposables.add(viewSolutionButton);
-	    
-	    buttonTable.add(playAgainButton).fillX().pad(pad);
-	    buttonTable.row();
-	    buttonTable.add(viewSolutionButton).fillX().pad(pad);
-	    buttonTable.setPosition(CalculateGame.SCREEN_WIDTH / 2 - buttonTable.getWidth()/2, CalculateGame.SCREEN_HEIGHT/2);
-	    stage.addActor(buttonTable);
+
 	    
 	    Gdx.input.setInputProcessor(stage);
 	    Gdx.input.setCatchBackKey(true);
 	}
 
+	private TextureRegionDrawable createBackground(float r, float g, float b, float a)
+	{
+		Pixmap pix = new Pixmap(1,1,Format.RGBA4444);
+		pix.setColor(r,g,b,a);
+		pix.fill();
+		disposables.add(pix);
+		Texture texture = new Texture(pix);
+		TextureRegionDrawable trd = new TextureRegionDrawable(new TextureRegion(texture));
+		disposables.add(texture);
+		return trd;
+	}
 }

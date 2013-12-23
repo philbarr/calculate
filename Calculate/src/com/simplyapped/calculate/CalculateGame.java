@@ -48,7 +48,7 @@ public class CalculateGame extends DefaultGame {
 	public final static String WINNER_SCREEN = "WinnerScreen";
 	public final static String LOSER_SCREEN = "LoserScreen";
 	public final static String VIEW_SOLUTION_SCREEN = "ViewSolutionScreen";
-	public final static String SHOP_SCREEN = "ViewSolutionScreen";
+	public final static String SHOP_SCREEN = "ShopScreen";
 	public final static int STARTING_SOLUTIONS = 10;
 	public static final String NUMBER_STRIP_ALTAS = "data/numberspinner.atlas";
 	public static final String NUMBER_STRIP_REGION = "numberstrip";

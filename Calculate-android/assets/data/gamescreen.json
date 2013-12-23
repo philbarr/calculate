@@ -94,7 +94,7 @@
         },
         dialogWhite: {
             font: liberation-font-32,
-            fontColor: whiteOn,
+            fontColor: black,
             backgroundColor: { r: 0.1, g: 0.9, b: 0.1, a: 0.9},
             backgroundPressedColor: { r: 0.1, g: 0.9, b: 0.1, a: 1},
         },

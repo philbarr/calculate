@@ -88,7 +88,7 @@ public class ShopScreen extends DefaultScreen{
 		label = new Label("", skin, "text");
 		updateTitle();
 		label.setAlignment(Align.center);
-		label.setFontScale(0.6f);
+		label.setFontScale(0.8f);
 		label.setSize(buttonWidth + padding*2, CalculateGame.SCREEN_HEIGHT/4.5f);
 		label.setPosition(CalculateGame.SCREEN_WIDTH/2-buttonWidth/2-padding, CalculateGame.SCREEN_HEIGHT/1.4f);
 		TextureRegionDrawable back = FlatUI.CreateBackgroundDrawable(0.2f, 0.2f, 0.2f, 0.9f, label.getWidth(), label.getHeight());

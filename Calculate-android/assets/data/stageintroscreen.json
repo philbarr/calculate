@@ -46,7 +46,8 @@
     },
     cardfrontgreen: {
      up: "cardfrontgreen",
-	 font: liberation-font,  
+	 font: liberation-font, 
+	 fontColor: { r: 0.1, g: 0.1, b: 0.1, a: 0.9 },
     },
   }
 }
