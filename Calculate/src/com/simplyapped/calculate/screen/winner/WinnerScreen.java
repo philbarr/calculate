@@ -6,7 +6,11 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -64,6 +68,17 @@ public class WinnerScreen extends DefaultScreen
 		background.setFillParent(true);
 		stage.addActor(background);
 		
+	    // calculate width and heights for the table
+	    float emptyRowHeight = CalculateGame.SCREEN_HEIGHT / 17;
+	    float buttonHeight = CalculateGame.SCREEN_HEIGHT / 7;
+	    float buttonWidth = CalculateGame.SCREEN_WIDTH / 1.5f;
+	    float offset = CalculateGame.SCREEN_HEIGHT / 3f;
+	    Table buttonBorder = new Table();
+	    int padding = 20;
+		buttonBorder.setPosition(CalculateGame.SCREEN_WIDTH/2-buttonWidth/2-padding, emptyRowHeight - padding);
+	    buttonBorder.setSize(buttonWidth + padding*2, emptyRowHeight + (buttonHeight));
+	    buttonBorder.setBackground(createBackground(0.9f,0.9f,0.9f,0.8f));
+		
 	    CelebrationActor lefteffect = new CelebrationActor(skin.getAtlas(), 0, 0, "data/particle/celebrationleft.p", "data/particle");
 	    CelebrationActor righteffect = new CelebrationActor(skin.getAtlas(), CalculateGame.SCREEN_WIDTH, 0, "data/particle/celebrationright.p", "data/particle");
 	    stage.addActor(lefteffect);
@@ -99,25 +114,22 @@ public class WinnerScreen extends DefaultScreen
 		Label label = new Label("Correct", skin, "text");
 		label.setAlignment(Align.center);
 		label.setFontScale(0.6f);
-		label.setSize(CalculateGame.SCREEN_WIDTH/1.3f, CalculateGame.SCREEN_HEIGHT/4.5f);
+		label.setSize(buttonBorder.getWidth(), CalculateGame.SCREEN_HEIGHT/4.5f);
 		label.setPosition(CalculateGame.SCREEN_WIDTH/2 - label.getWidth()/2, CalculateGame.SCREEN_HEIGHT/1.4f);
 		TextureRegionDrawable back = FlatUI.CreateBackgroundDrawable(0.2f, 0.2f, 0.2f, 0.9f, label.getWidth(), label.getHeight());
 		disposables.add(back.getRegion().getTexture());
 		label.getStyle().background = back;
 		stage.addActor(label); 
-		
-	    // calculate width and heights for the table 
-	    float emptyRowHeight = CalculateGame.SCREEN_HEIGHT / 17;
-	    float buttonHeight = CalculateGame.SCREEN_HEIGHT / 7;
-	    float buttonWidth = CalculateGame.SCREEN_WIDTH / 1.5f;
 	    
+		stage.addActor(buttonBorder);
+		
 	    // buttons
 	    FlatUIButton playMenu = new FlatUIButton("Play Again", skin, "playagain");
 	    playMenu.addListener(new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y)
 	        {
-	        	game.transitionTo(CalculateGame.STAGE_SELECT_SCREEN, TransitionFixtures.UnderlapRight());
+	        	game.transitionTo(CalculateGame.STAGE_INTRO_SCREEN, TransitionFixtures.UnderlapRight());
 	        }
 	    });
 	    playMenu.setSize(buttonWidth, buttonHeight);
@@ -130,5 +142,15 @@ public class WinnerScreen extends DefaultScreen
 	    Gdx.input.setCatchBackKey(true);
 	}
 	
-
+	private TextureRegionDrawable createBackground(float r, float g, float b, float a)
+	{
+		Pixmap pix = new Pixmap(1,1,Format.RGBA4444);
+		pix.setColor(r,g,b,a);
+		pix.fill();
+		disposables.add(pix);
+		Texture texture = new Texture(pix);
+		TextureRegionDrawable trd = new TextureRegionDrawable(new TextureRegion(texture));
+		disposables.add(texture);
+		return trd;
+	}
 }

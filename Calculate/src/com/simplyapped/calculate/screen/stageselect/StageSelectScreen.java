@@ -120,7 +120,7 @@ public class StageSelectScreen extends DefaultScreen
     			String text = String.format(DIALOG_DETAILS_TEXT, info.getNumberOfCards(), info.getTimeLimit(), info.getMinRange(), info.getMaxRange() ,info.getCompletedRequired());
     			text+= info.isUseAllCards() ? "You MUST Use All Cards" : "Use Only The Cards You Need";
 				Label details = new Label(text, labelStyle);
-    			details.setFontScale(0.2f);
+    			details.setFontScale(0.3f);
     			
 				FlatUIButton playButton = new FlatUIButton("Play", skin, "dialogPlay");
 				playButton.addListener(new ClickListener(){

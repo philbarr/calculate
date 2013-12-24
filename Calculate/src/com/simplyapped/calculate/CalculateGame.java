@@ -1,6 +1,7 @@
 package com.simplyapped.calculate;
 
 import com.badlogic.gdx.math.Interpolation;
+import com.simplyapped.calculate.numbers.Equation;
 import com.simplyapped.calculate.numbers.Operator;
 import com.simplyapped.calculate.numbers.generator.FakeGenerator;
 import com.simplyapped.calculate.numbers.generator.GeneratorFactory;
@@ -52,6 +53,8 @@ public class CalculateGame extends DefaultGame {
 	public final static int STARTING_SOLUTIONS = 10;
 	public static final String NUMBER_STRIP_ALTAS = "data/numberspinner.atlas";
 	public static final String NUMBER_STRIP_REGION = "numberstrip";
+	
+	public final static boolean DEBUG = false;
 	
 	private BillingService billing;
 	private OSDialog dialog;

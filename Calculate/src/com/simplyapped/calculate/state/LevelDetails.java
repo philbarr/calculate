@@ -1,6 +1,7 @@
 package com.simplyapped.calculate.state;
 
 import com.badlogic.gdx.utils.Json;
+import com.simplyapped.calculate.CalculateGame;
 
 public class LevelDetails
 {
@@ -23,6 +24,8 @@ public class LevelDetails
 	
 	public boolean isLocked()
 	{
+		if (CalculateGame.DEBUG)
+			return false;
 		return isLocked;
 	}
 	public void setLocked(boolean isLocked)

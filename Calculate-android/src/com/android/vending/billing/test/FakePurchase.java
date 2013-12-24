@@ -1,7 +1,5 @@
 package com.android.vending.billing.test;
 
-import org.json.JSONException;
-
 import com.android.vending.billing.util.Purchase;
 
 public class FakePurchase extends Purchase {

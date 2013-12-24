@@ -28,6 +28,26 @@ public class Equation implements EquationElement
 		setElements(elements);
 	}
 	
+	public boolean isSimple()
+	{
+		for (EquationElement element : this.elements) {
+			if (element instanceof Equation && ((Equation)element).getOperandCount() > 1)
+			{
+				if (!((Equation)element).isSimple())
+				{
+					return false;
+				}
+			}
+			else if(element instanceof Operator)
+			{
+				if (!((Operator)element).isEquivalent(Operator.PLUS))
+				{
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 
 	public void construct(int... nums)
 	{

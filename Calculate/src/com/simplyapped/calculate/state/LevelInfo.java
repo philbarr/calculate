@@ -20,7 +20,7 @@ public class LevelInfo
 			case 7: return new LevelInfo(6, false, 30, 50, 1, 500);
 			case 8: return new LevelInfo(6, true, 30, 50, 1, 1000);
 			case 9: return new LevelInfo(7, false, 60, 100, 1, 2000);
-			case 10: return new LevelInfo(7, true, 30, 100, 1, 2000);
+			case 10: return new LevelInfo(8, true, 30, 100, 1, 2000);
 			default:
 				Gdx.app.error(LevelInfo.class.toString(), "Returning Level 1. Requested level not available: " + level);
 				return new LevelInfo(4, false, 60, 5, 1, 100);

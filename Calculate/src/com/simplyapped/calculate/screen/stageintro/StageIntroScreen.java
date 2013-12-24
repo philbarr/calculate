@@ -105,6 +105,7 @@ public class StageIntroScreen extends DefaultScreen
 	private List<Integer> selectedNumbers;
 	private Table targetTable;
 	private NumberSpinnerTable spinner;
+	private boolean justSwitchAlready;
 	
 	public StageIntroScreen(DefaultGame game)
 	{
@@ -114,6 +115,7 @@ public class StageIntroScreen extends DefaultScreen
 	@Override
 	public void show()
 	{
+		justSwitchAlready = false;
 		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, false);
 		state = GameStateFactory.getInstance();
 		redCards = new ArrayList<TextButton>();
@@ -252,6 +254,7 @@ public class StageIntroScreen extends DefaultScreen
 					if (spinner.isSpinning())
 					{
 						spinner.finishSpinning();
+						justSwitchAlready = true;
 					}
 					else
 					{
@@ -315,7 +318,7 @@ public class StageIntroScreen extends DefaultScreen
 	private void renderFinished(float delta)
 	{
 		finishWait += delta;
-		if (finishWait > StageIntroScreen.PAUSE_BEFORE_TRANSITION)
+		if (finishWait > StageIntroScreen.PAUSE_BEFORE_TRANSITION || justSwitchAlready)
 		{
 			game.transitionTo(CalculateGame.GAME_SCREEN, TransitionFixtures.Fade());
 		}
@@ -354,8 +357,9 @@ public class StageIntroScreen extends DefaultScreen
 			while ((eq.getTotal() < state.getCurrentLevelInfo().getMinRange() || 
 					eq.getTotal() > state.getCurrentLevelInfo().getMaxRange() ||
 					state.getBigCards().contains(eq.getTotal()) || 
-					state.getBigCards().contains(eq.getTotal())) 
-						&& attempts++ < 100)
+					state.getSmallCards().contains(eq.getTotal()) ||
+					eq.isSimple()) 
+						&& attempts++ < 1000)
 			{
 				eq = new Equation(nums);
 			}

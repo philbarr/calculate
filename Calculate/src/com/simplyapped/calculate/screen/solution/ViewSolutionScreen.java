@@ -39,7 +39,7 @@ public class ViewSolutionScreen extends DefaultScreen
 	public void show()
 	{
 		state = GameStateFactory.getInstance();
-		state.setViewingSolution(false); // we are now showing the solution, so we can safely stop worrying about if we need to show it
+		
 		window = new Table();	    
 	    window.setFillParent(true);
 	    window.setBackground(skin.getDrawable("gamescreenbackground"));
@@ -106,6 +106,9 @@ public class ViewSolutionScreen extends DefaultScreen
 		stage.addActor(numberTable);
 	    stage.addActor(calculationTable.getPanel());
 	    stage.addActor(button);
+	    
+	    state.setViewingSolution(false); // we are now showing the solution, so we can safely stop worrying about if we need to show it
+	    state.decreaseSolutions();
 	    
 	    Gdx.input.setInputProcessor(stage);
 	    Gdx.input.setCatchBackKey(true);
