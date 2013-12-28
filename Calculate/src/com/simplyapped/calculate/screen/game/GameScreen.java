@@ -206,7 +206,6 @@ public class GameScreen extends DefaultScreen
 	}
 
 	
-	private static float TIMEOUT = 60;
 	private float totalTime;
 	private Table window;
 	private Skin skin = new Skin(Gdx.files.internal("data/gamescreen.json"));
@@ -266,7 +265,8 @@ public class GameScreen extends DefaultScreen
 		isTransitioning = false;
 		textButtonTotalLines = new HashSet<Integer>();
 
-		totalTime = TIMEOUT;
+		GameState state = GameStateFactory.getInstance();
+		totalTime = state.getCurrentLevelInfo().getTimeLimit();
 		float panelwidth = CalculateGame.SCREEN_WIDTH/1.05f; // used for the width of the operatorsTable, titleTable, and numbersTable
 
 		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, false);
@@ -307,7 +307,6 @@ public class GameScreen extends DefaultScreen
 	    Table operandsTable = new Table();
 	    int operandsPadding = 10;
 	    operandsTable.row();
-	    GameState state = GameStateFactory.getInstance();
 	    int index = 0;
 	    for (int bigCard : state.getBigCards())
 		{
@@ -356,7 +355,6 @@ public class GameScreen extends DefaultScreen
 		targetLabel.setPosition((CalculateGame.SCREEN_WIDTH - panelwidth)/2 - pad, labelHeight);
 		
 		// timer label
-		TIMEOUT = state.getCurrentLevelInfo().getTimeLimit();
 	    timerLabel = new Label("Time:   ", skin, "title");
 	    timerLabel.setPosition(((CalculateGame.SCREEN_WIDTH - panelwidth)/2) + panelwidth - timerLabel.getWidth() + pad, labelHeight);
 	    timerLabel.setHeight(titleBackgroundHeight);

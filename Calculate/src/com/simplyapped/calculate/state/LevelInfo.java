@@ -52,7 +52,7 @@ public class LevelInfo
 
 	public int getTimeLimit()
 	{
-		return timeLimit;
+		return timeLimit == 0 ? 60 : timeLimit;
 	}
 
 	public LevelInfo(int numberOfCards, boolean useAllCards, int timeLimit, int completedRequired, int min, int max)
