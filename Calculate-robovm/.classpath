@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.robovm.eclipse.ROBOVM_CONTAINER"/>
 	<classpathentry kind="con" path="org.robovm.eclipse.ROBOVM_COCOA_TOUCH_CONTAINER"/>
-	<classpathentry kind="src" path="/Calculate" combineaccessrules="false"/>	
+	<classpathentry combineaccessrules="false" kind="src" path="/Calculate"/>
+	<classpathentry kind="lib" path="libs/gdx-backend-robovm.jar" sourcepath="/Users/phil/Development/libs/libgdx-0.9.9/sources/gdx-backend-robovm-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
-	<classpathentry kind="lib" path="libs/gdx-backend-robovm.jar"/>
 </classpath>
