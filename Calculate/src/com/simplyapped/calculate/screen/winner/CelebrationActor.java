@@ -16,7 +16,6 @@ public class CelebrationActor extends Actor
 		effect.load(Gdx.files.internal(pFile), Gdx.files.internal(imageDir));
 		effect.setPosition(x, y);
 		effect.start();
-
 	}
 
 	@Override

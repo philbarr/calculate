@@ -5,6 +5,7 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -25,7 +26,7 @@ import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
 public class ViewSolutionScreen extends DefaultScreen
 {
-	private Skin skin = new Skin(Gdx.files.internal("data/gamescreen.json"));
+	private Skin skin;
 	private GameState state;
 	private CalculationTable calculationTable;
 	private Table window;
@@ -33,6 +34,7 @@ public class ViewSolutionScreen extends DefaultScreen
 	public ViewSolutionScreen(DefaultGame game)
 	{
 		super(game);
+		skin = game.getAssets().get("data/gamescreen.json");
 	}
 
 	@Override
@@ -85,7 +87,9 @@ public class ViewSolutionScreen extends DefaultScreen
 	    calculationTable.update();
 	    
 		int total = GameStateFactory.getInstance().getCurrentEquation().getTotal();
-		NumberSpinnerTable numberTable = new NumberSpinnerTable(new TextureAtlas(Gdx.files.internal(CalculateGame.NUMBER_STRIP_ALTAS)).findRegion(CalculateGame.NUMBER_STRIP_REGION), Math.abs(total), Interpolation.pow3Out, 2, 0.2f);
+		TextureAtlas atlas = game.getAssets().get(CalculateGame.NUMBER_STRIP_ALTAS);
+		AtlasRegion region = atlas.findRegion(CalculateGame.NUMBER_STRIP_REGION);
+		NumberSpinnerTable numberTable = new NumberSpinnerTable(region, Math.abs(total), Interpolation.pow3Out, 2, 0.2f);
 		numberTable.setPosition(CalculateGame.SCREEN_WIDTH/2 - numberTable.getWidth()/2, CalculateGame.SCREEN_HEIGHT/4.1f - numberTable.getHeight()/2);
 		
 		FlatUIButton button = new FlatUIButton("I Knew That!", skin, "dialogViewSolution");

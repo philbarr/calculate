@@ -34,6 +34,7 @@ public class CalculateGameActivity extends AndroidApplication {
         
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
         cfg.useGL20 = true;
+        
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         GameStateFactory.setType(GameStateType.PERSISTENT);
         

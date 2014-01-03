@@ -1,9 +1,7 @@
 package com.simplyapped.calculate.screen.actor;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -13,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.utils.Disposable;
 import com.esotericsoftware.tablelayout.Cell;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.calculate.numbers.Equation;
@@ -20,16 +19,17 @@ import com.simplyapped.calculate.numbers.EquationElement;
 import com.simplyapped.calculate.numbers.NonIntegerDivisionException;
 import com.simplyapped.calculate.numbers.Operator;
 
-public class CalculationTable extends Table
+public class CalculationTable extends Table implements Disposable
 {
 	private final int MAX_LINE_LENGTH = 8;
 	private List<List<EquationElement>> calculationElements = new ArrayList<List<EquationElement>>();
-	private Skin skin = new Skin(Gdx.files.internal("data/gamescreen.json"));
+	private Skin skin;
 	private ScrollPane calculationPane;
  
 	
 	public CalculationTable()
 	{
+		skin = new Skin(Gdx.files.internal("data/gamescreen.json"));
 	    this.setBackground(skin.getTiledDrawable("graphtile"));
 	    
 	    calculationPane = new ScrollPane(this);
@@ -191,5 +191,9 @@ public class CalculationTable extends Table
 
 	public void removeLine() {
 		calculationElements.remove(calculationElements.size()-1);
+	}
+	
+	public void dispose() {
+		skin.dispose();
 	}
 }

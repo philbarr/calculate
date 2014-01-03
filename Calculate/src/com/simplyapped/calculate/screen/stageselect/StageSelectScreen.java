@@ -37,7 +37,7 @@ public class StageSelectScreen extends DefaultScreen
 														"Answer Range: %s - %s%n" +
 														"Wins Required: %s%n";
 	private Table window;
-	private Skin skin = new Skin(Gdx.files.internal("data/stageselectscreen.json"));
+	private Skin skin;
 	
     // calculate width and heights for the table
     float emptyRowHeight = CalculateGame.SCREEN_HEIGHT / 72;
@@ -46,6 +46,7 @@ public class StageSelectScreen extends DefaultScreen
 	public StageSelectScreen(DefaultGame game)
 	{
 		super(game);
+		skin = game.getAssets().get("data/stageselectscreen.json");
 	}
 
 	@Override

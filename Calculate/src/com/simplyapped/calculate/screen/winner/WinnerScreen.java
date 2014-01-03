@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -36,13 +37,14 @@ public class WinnerScreen extends DefaultScreen
 {
 	private static final int BALLOON_COUNT = 30;
 	
-	private Skin skin = new Skin(Gdx.files.internal("data/winnerscreen.json"));
+	private Skin skin;
 	private int BALLOON_RANDOM_OFFSET = CalculateGame.SCREEN_WIDTH;
 	
 
 	public WinnerScreen(DefaultGame game)
 	{
 		super(game);
+		skin = game.getAssets().get("data/winnerscreen.json");
 	}
 
 	@Override
@@ -106,7 +108,9 @@ public class WinnerScreen extends DefaultScreen
 
 		// number spinner
 		int total = GameStateFactory.getInstance().getCurrentEquation().getTotal();
-		Table numberTable = new NumberSpinnerTable(new TextureAtlas(Gdx.files.internal(CalculateGame.NUMBER_STRIP_ALTAS)).findRegion(CalculateGame.NUMBER_STRIP_REGION), Math.abs(total), Interpolation.elasticOut, 2, 0.2f);
+		TextureAtlas atlas = game.getAssets().get(CalculateGame.NUMBER_STRIP_ALTAS);
+		AtlasRegion region = atlas.findRegion(CalculateGame.NUMBER_STRIP_REGION);
+		Table numberTable = new NumberSpinnerTable(region, Math.abs(total), Interpolation.elasticOut, 2, 0.2f);
 		numberTable.setPosition(CalculateGame.SCREEN_WIDTH/2 - numberTable.getWidth()/2, CalculateGame.SCREEN_HEIGHT/2f - numberTable.getHeight()/2);
 		stage.addActor(numberTable);
 

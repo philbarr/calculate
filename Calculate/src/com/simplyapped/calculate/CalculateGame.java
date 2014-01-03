@@ -1,7 +1,9 @@
 package com.simplyapped.calculate;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Interpolation;
-import com.simplyapped.calculate.numbers.Equation;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.simplyapped.calculate.numbers.Operator;
 import com.simplyapped.calculate.numbers.generator.FakeGenerator;
 import com.simplyapped.calculate.numbers.generator.GeneratorFactory;
@@ -58,7 +60,6 @@ public class CalculateGame extends DefaultGame {
 	
 	private BillingService billing;
 	private OSDialog dialog;
-	
 	@Override
 	public void create() {
 		final FakeGenerator fake = new FakeGenerator();
@@ -91,20 +92,37 @@ public class CalculateGame extends DefaultGame {
 //		final Equation eq = new Equation(state.selectBigNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber());
 //		state.setCurrentEquation(eq);
 		
+		checkPurchasedProducts();
+
 		TransitionFixtures.setInterpolation(Interpolation.pow5);
 		
-		addScreen(MAIN_MENU_SCREEN, new MainMenuScreen(this));
-		addScreen(GAME_SCREEN, new GameScreen(this));
-		addScreen(STAGE_SELECT_SCREEN, new StageSelectScreen(this));
-		addScreen(STAGE_INTRO_SCREEN, new StageIntroScreen(this));
-		addScreen(WINNER_SCREEN, new WinnerScreen(this));
-		addScreen(LOSER_SCREEN, new LoserScreen(this));
-		addScreen(VIEW_SOLUTION_SCREEN, new ViewSolutionScreen(this));
-		addScreen(SHOP_SCREEN, new ShopScreen(this));
-		 
-		setScreen(MAIN_MENU_SCREEN);
+		AssetManager assets = getAssets();
+		assets.load("data/mainmenuscreen.json", Skin.class);
+		assets.finishLoading(); // ensure assets are available for the main menu screen
 		
-		checkPurchasedProducts();
+		addScreen(MAIN_MENU_SCREEN, MainMenuScreen.class);
+		setScreen(MAIN_MENU_SCREEN);
+
+		assets.load("data/gamescreen.json", Skin.class);
+		assets.load("data/stageintroscreen.json", Skin.class);
+		assets.load("data/loserscreen.json", Skin.class);
+		assets.load(CalculateGame.NUMBER_STRIP_ALTAS, TextureAtlas.class);
+		assets.load("data/stageselectscreen.json", Skin.class);
+		assets.load("data/winnerscreen.json", Skin.class);
+
+		addScreen(GAME_SCREEN, GameScreen.class);
+		addScreen(STAGE_SELECT_SCREEN, StageSelectScreen.class);
+		addScreen(STAGE_INTRO_SCREEN, StageIntroScreen.class);
+		addScreen(WINNER_SCREEN, WinnerScreen.class);
+		addScreen(LOSER_SCREEN, LoserScreen.class);
+		addScreen(VIEW_SOLUTION_SCREEN, ViewSolutionScreen.class);
+		addScreen(SHOP_SCREEN, ShopScreen.class);
+	}
+	
+	@Override
+	public void render() {
+		super.render();
+		
 	}
 
 	private void checkPurchasedProducts() {
@@ -164,6 +182,11 @@ public class CalculateGame extends DefaultGame {
 		{
 			billing.dispose();
 		}
+		if (assets != null)
+		{
+			assets.dispose();
+			MainMenuScreen.assetsLoaded = false;
+		}
 	}
 
 	public BillingService getBilling() {
@@ -180,5 +203,5 @@ public class CalculateGame extends DefaultGame {
 
 	public void setDialog(OSDialog dialog) {
 		this.dialog = dialog;
-	}	
+	}
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -95,7 +96,7 @@ public class StageIntroScreen extends DefaultScreen
 	private Label title;
 	private GameState state;
 
-	private Skin skin = new Skin(Gdx.files.internal("data/stageintroscreen.json"));
+	private Skin skin;
 	private List<TextButton> redCards = new ArrayList<TextButton>();
 	private List<TextButton> blueCards = new ArrayList<TextButton>();
 	public final static int CARD_SIZE = CalculateGame.SCREEN_WIDTH / 6;
@@ -110,6 +111,7 @@ public class StageIntroScreen extends DefaultScreen
 	public StageIntroScreen(DefaultGame game)
 	{
 		super(game);
+		skin = game.getAssets().get("data/stageintroscreen.json");
 	}
 
 	@Override
@@ -155,7 +157,66 @@ public class StageIntroScreen extends DefaultScreen
 		back.row();
 		back.row();
 		back.add().expand().fill();
+		
 
+		
+		stage.addListener(new ClickListener(){
+			@Override
+			public synchronized void clicked(InputEvent event, float x, float y)
+			{
+				if (scene == Scene.SHUFFLING)
+				{
+					for(TextButton card : redCards)
+					{
+						finishCardActions(card);
+					}
+					for(TextButton card : blueCards)
+					{
+						finishCardActions(card);
+					}
+				}
+				if (spinner != null && scene == Scene.FINISHED)
+				{
+					if (spinner.isSpinning())
+					{
+						spinner.finishSpinning();
+						justSwitchAlready = true;
+					}
+				}
+			}
+
+			private void finishCardActions(TextButton card)
+			{
+				for (Action action : card.getActions())
+				{
+					if (action != null && action instanceof SequenceAction)
+					{
+						Array<Action> actions = ((SequenceAction)action).getActions();
+						for (Action a : actions)
+						{
+							if (a instanceof TemporalAction)
+							{
+								((TemporalAction)a).finish();
+							}
+							else if(a instanceof DelayAction)
+							{
+								((DelayAction)a).finish();
+							}
+						}
+					}
+				}
+			}
+		});
+		
+		Gdx.input.setInputProcessor(stage);
+		scene = Scene.SHUFFLING;
+		finishWait = 0;
+		addCardActions();
+	}
+
+	private void addCardActions() {
+		
+		
 		//cards
 		final int redCardsHeight = (int) (CalculateGame.SCREEN_HEIGHT/1.5f);
 		final int blueCardsHeight = (int) (CalculateGame.SCREEN_HEIGHT/2.2f);
@@ -181,7 +242,7 @@ public class StageIntroScreen extends DefaultScreen
 				int width = redMargin + (cardindex * redSpacing ) + (cardindex * CARD_SIZE);
 				card.setPosition(width, redCardsHeight );
 				card.addAction(sequence(
-						delay(0.5f),
+						delay(0.8f),
 						moveTo(shuffleWidth, shuffleHeightRed, shuffleduration, interpolation), 
 						delay(shuffledelayduration), 
 						moveTo(width, redCardsHeight, shuffleduration, interpolation)));
@@ -233,62 +294,6 @@ public class StageIntroScreen extends DefaultScreen
 			card.setSize(CARD_SIZE, CARD_SIZE);
 			stage.addActor(card);
 		}
-		
-		stage.addListener(new ClickListener(){
-			@Override
-			public synchronized void clicked(InputEvent event, float x, float y)
-			{
-				if (scene == Scene.SHUFFLING)
-				{
-					for(TextButton card : redCards)
-					{
-						finishCardActions(card);
-					}
-					for(TextButton card : blueCards)
-					{
-						finishCardActions(card);
-					}
-				}
-				if (spinner != null && scene == Scene.FINISHED)
-				{
-					if (spinner.isSpinning())
-					{
-						spinner.finishSpinning();
-						justSwitchAlready = true;
-					}
-					else
-					{
-						// finishWait = StageIntroScreen.PAUSE_BEFORE_TRANSITION + 1;
-					}
-				}
-			}
-
-			private void finishCardActions(TextButton card)
-			{
-				for (Action action : card.getActions())
-				{
-					if (action != null && action instanceof SequenceAction)
-					{
-						Array<Action> actions = ((SequenceAction)action).getActions();
-						for (Action a : actions)
-						{
-							if (a instanceof TemporalAction)
-							{
-								((TemporalAction)a).finish();
-							}
-							else if(a instanceof DelayAction)
-							{
-								((DelayAction)a).finish();
-							}
-						}
-					}
-				}
-			}
-		});
-		
-		Gdx.input.setInputProcessor(stage);
-		scene = Scene.SHUFFLING;
-		finishWait = 0;
 	}
 	
 	@Override
@@ -328,6 +333,7 @@ public class StageIntroScreen extends DefaultScreen
 	private void renderShuffling(final float delta)
 	{
 		// do nothing whilst the runnable attached to the Action in one of the blue cards runs
+//		Gdx.app.log("DELTA", delta + "");
 	}
 
 	private void renderGeneratingTargetNumber(float delta)
@@ -367,8 +373,9 @@ public class StageIntroScreen extends DefaultScreen
 			
 			int targetNumber = eq.getTotal();
 			Gdx.app.log("target", targetNumber+"");
-			
-			spinner = new NumberSpinnerTable(new TextureAtlas(Gdx.files.internal(CalculateGame.NUMBER_STRIP_ALTAS)).findRegion(CalculateGame.NUMBER_STRIP_REGION), targetNumber, swingOut, 3, 0.2f);
+			TextureAtlas atlas = game.getAssets().get(CalculateGame.NUMBER_STRIP_ALTAS);
+			AtlasRegion region = atlas.findRegion(CalculateGame.NUMBER_STRIP_REGION);
+			spinner = new NumberSpinnerTable(region, targetNumber, swingOut, 3, 0.2f);
 			spinner.setPosition(CalculateGame.SCREEN_WIDTH/2 - spinner.getWidth()/2, CalculateGame.SCREEN_HEIGHT/5f);
 			stage.addActor(spinner);
 			scene = Scene.FINISHED;

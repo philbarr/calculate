@@ -36,7 +36,7 @@ public class ShopScreen extends DefaultScreen{
 	
 	private static final String YOU_HAVE_S_SOLUTIONS_REMAINING = "You Have\n%s\nSolutions\nRemaining";
 	private static final String BUY_S_SOLUTIONS = "Buy %s Solutions";
-	private Skin skin = new Skin(Gdx.files.internal("data/gamescreen.json"));
+	private Skin skin;
 	private Table window;
 	private float buttonHeight;
 	private float buttonWidth;
@@ -45,6 +45,7 @@ public class ShopScreen extends DefaultScreen{
 
 	public ShopScreen(DefaultGame game) {
 		super(game);
+		skin = game.getAssets().get("data/gamescreen.json");
 	}
 
 	@Override

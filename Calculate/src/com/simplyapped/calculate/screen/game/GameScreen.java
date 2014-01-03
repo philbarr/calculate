@@ -208,8 +208,8 @@ public class GameScreen extends DefaultScreen
 	
 	private float totalTime;
 	private Table window;
-	private Skin skin = new Skin(Gdx.files.internal("data/gamescreen.json"));
-	private Skin cards = new Skin(Gdx.files.internal("data/stageintroscreen.json")); // because in future we need to think more carefully about how we group assets
+	private Skin skin;
+	private Skin cards;
 	private Set<Integer> textButtonTotalLines = new HashSet<Integer>();
 	private CalculationTable calculationTable;
 	private Texture texture;
@@ -228,6 +228,8 @@ public class GameScreen extends DefaultScreen
 		pix.fill();
 		texture = new Texture(pix);
 		disposables.add(texture);
+		skin = game.getAssets().get(("data/gamescreen.json"));
+		cards = game.getAssets().get("data/stageintroscreen.json"); // because in future we need to think more carefully about how we group assets
 	}
 
 	private void showDialogMessage(final String message)
@@ -378,7 +380,7 @@ public class GameScreen extends DefaultScreen
 	{
 	
 		// create the dialog
-		Dialog dialog = createDialog("Are you sure you\nwant to quit?");
+		final Dialog dialog = createDialog("Are you sure you\nwant to quit?");
 		
 		FlatUIButton quitButton = new FlatUIButton("Quit", skin, "dialogQuit");
 		FlatUIButton playOnButton = new FlatUIButton("Play On", skin, "dialogPlayOn");
@@ -392,6 +394,14 @@ public class GameScreen extends DefaultScreen
 		dialog.getButtonTable().add(playOnButton);
 		dialog.getButtonTable().row();
 		dialog.getButtonTable().add(viewSolutionButton).colspan(2);
+		
+		playOnButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				super.clicked(event, x, y);
+				dialog.remove();
+			}
+		});
 		
 		quitButton.addListener(new ClickListener(){
 			@Override

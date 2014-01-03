@@ -26,11 +26,12 @@ import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
 public class LoserScreen extends DefaultScreen
 {
-	private Skin skin = new Skin(Gdx.files.internal("data/loserscreen.json"));
+	private Skin skin;
 
 	public LoserScreen(DefaultGame game)
 	{
 		super(game);
+		skin = game.getAssets().get("data/loserscreen.json");
 	}
 
 	@Override
