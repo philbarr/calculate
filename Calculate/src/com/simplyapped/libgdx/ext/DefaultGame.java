@@ -18,12 +18,11 @@ import com.simplyapped.libgdx.ext.ui.OSDialog;
 public abstract class DefaultGame implements ApplicationListener
 {
 	protected Map<String, Class<? extends DefaultScreen>> screens = new HashMap<String, Class<? extends DefaultScreen>>();
-	private Map<String, Stack<DefaultScreen>> screenInstances = new HashMap<String, Stack<DefaultScreen>>();
+	private Map<String, DefaultScreen> screenInstances = new HashMap<String, DefaultScreen>();
 	private DefaultScreen currentScreen;
 	private DefaultScreen nextScreen;
 	private boolean isTransitioning;
 	private Transition transition;
-	private AsyncExecutor async = new AsyncExecutor(100);
 	protected AssetManager assets;
 
 	@Override
@@ -40,8 +39,6 @@ public abstract class DefaultGame implements ApplicationListener
 			} 
 			else // transitioning has finished swap nextScreen to currentScreen and dispose of old screen
 			{
-				final DefaultScreen toDispose = currentScreen;
-
 				if (this.currentScreen != null)
 				{
 					this.currentScreen.hide();
@@ -54,14 +51,6 @@ public abstract class DefaultGame implements ApplicationListener
 				}
 				nextScreen = null;
 				isTransitioning = false;
-				async.submit(new AsyncTask<Void>() {
-
-					@Override
-					public Void call() throws Exception {
-						toDispose.dispose();
-						return null;
-					}
-				});
 			}
 		} 
 		else if (currentScreen != null) // else just render the current screen as normal
@@ -78,14 +67,6 @@ public abstract class DefaultGame implements ApplicationListener
 			if (this.currentScreen != null)
 			{
 				this.currentScreen.hide();
-				async.submit(new AsyncTask<Void>() {
-
-					@Override
-					public Void call() throws Exception {
-						currentScreen.dispose();
-						return null;
-					}
-				});
 			}
 			this.currentScreen = next;
 			
@@ -117,35 +98,22 @@ public abstract class DefaultGame implements ApplicationListener
 		DefaultScreen newScreen = null;
 		try 
 		{
-			newScreen = screens.get(screenTag).getConstructor(DefaultGame.class).newInstance(this);
+			if (screenInstances.containsKey(screenTag))
+			{
+				newScreen = screenInstances.get(screenTag);
+			}
+			else
+			{
+				newScreen = screens.get(screenTag).getConstructor(DefaultGame.class).newInstance(this);
+				screenInstances.put(screenTag, newScreen);
+			}
+			
 		} 
 		catch (Exception e)
 		{
 			Gdx.app.log(DefaultGame.class.toString(), "Failed to create next screen");
 		}
 		return newScreen;
-	}
-
-	private void generateScreenAsync(final String screenTag) {
-		async.submit(new AsyncTask<Void>() {
-
-			@Override
-			public Void call() throws Exception {
-				try {
-					if (screenInstances.get(screenTag) == null)
-					{
-						Stack<DefaultScreen> screens = new Stack<DefaultScreen>();
-						screenInstances.put(screenTag, screens);
-					}
-					
-					DefaultScreen newScreen = screens.get(screenTag).getConstructor(DefaultGame.class).newInstance(DefaultGame.this);
-					screenInstances.get(screenTag).push(newScreen);
-				} catch (Exception e) {
-					Gdx.app.log("DefaultGame.AsyncTask", "Failed to add new screen",e);
-				}
-				return null;
-			}
-		});
 	}
 
 	@Override
@@ -160,22 +128,15 @@ public abstract class DefaultGame implements ApplicationListener
 		{
 			nextScreen.dispose();
 		}
-		for (Stack<DefaultScreen> screens : screenInstances.values()) {
-			if (screens != null && screens.size() > 0)
-			{
-				for (DefaultScreen screen : screens) {
-					screen.dispose();
-				}
-			}
+		for (DefaultScreen screen : screenInstances.values()) {
+			screen.dispose();
 		}
-		async.dispose();
 		getAssets().dispose();
 	}
 
 	@Override
 	public void pause()
 	{
-		System.out.println("pausing screen");
 		if (currentScreen != null)
 			currentScreen.pause();
 	}
@@ -183,7 +144,6 @@ public abstract class DefaultGame implements ApplicationListener
 	@Override
 	public void resume()
 	{
-		System.out.println("resuming screen");
 		if (currentScreen != null)
 			currentScreen.resume();
 	}
@@ -191,7 +151,6 @@ public abstract class DefaultGame implements ApplicationListener
 	@Override
 	public void resize(int width, int height)
 	{
-		System.out.println("resizing screen");
 		if (currentScreen != null)
 			currentScreen.resize(width, height);
 	}

@@ -41,6 +41,7 @@ public class ShopScreen extends DefaultScreen{
 	private float buttonHeight;
 	private float buttonWidth;
 	private Label label;
+	private Table buttonBorder;
 	
 
 	public ShopScreen(DefaultGame game) {
@@ -51,11 +52,11 @@ public class ShopScreen extends DefaultScreen{
 	@Override
 	public void show() {
 		Gdx.app.log(ShopScreen.class.toString(), "SHOWING SHOP SCREEN");
+		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, false);
 		if (disposables==null)
 		{
 			disposables=new ArrayList<Disposable>();
 		}
-		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, false);
 		stage.addListener(new ClickListener()
 		{
 			@Override
@@ -87,16 +88,12 @@ public class ShopScreen extends DefaultScreen{
 	    int padding = 20;
 
 		label = new Label("", skin, "text");
-		updateTitle();
 		label.setAlignment(Align.center);
 		label.setFontScale(0.8f);
 		label.setSize(buttonWidth + padding*2, CalculateGame.SCREEN_HEIGHT/4.5f);
 		label.setPosition(CalculateGame.SCREEN_WIDTH/2-buttonWidth/2-padding, CalculateGame.SCREEN_HEIGHT/1.4f);
-		TextureRegionDrawable back = FlatUI.CreateBackgroundDrawable(0.2f, 0.2f, 0.2f, 0.9f, label.getWidth(), label.getHeight());
-		disposables.add(back.getRegion().getTexture());
-		label.getStyle().background = back;
 	    
-	    Table buttonBorder = new Table();
+	    buttonBorder = new Table();
 		buttonBorder.setPosition(CalculateGame.SCREEN_WIDTH/2-buttonWidth/2-padding, height - padding);
 	    buttonBorder.setSize(buttonWidth + padding*2, height + (buttonHeight*3) + (padding*2) + (height));
 	    buttonBorder.setBackground(createBackground(0.9f,0.9f,0.9f,0.8f));
@@ -108,22 +105,29 @@ public class ShopScreen extends DefaultScreen{
 		addButton(height*2+buttonHeight, CalculateGame.PRODUCT_ID_TWENTY_FIVE_SOLUTIONS, 25);
 		addButton(height, CalculateGame.PRODUCT_ID_FIFTY_SOLUTIONS, 50);
 	    
-//		addButton(height*3 + buttonHeight*2, CalculateGame.PRODUCT_ID_TEST_PURCHASED, 10);
-//		addButton(height*2+buttonHeight, CalculateGame.PRODUCT_ID_TEST_CANCELLED, 25);
-//		addButton(height, CalculateGame.PRODUCT_ID_TEST_REFUNDED, 50);
-		
 	    Gdx.input.setInputProcessor(stage);
 	    Gdx.input.setCatchBackKey(true);
+	    updateTitle();
 	}
 
 	private void updateTitle() {
 		try {
 			label.setText(String.format(YOU_HAVE_S_SOLUTIONS_REMAINING, GameStateFactory.getInstance().getRemainingSolutions()));
+			TextureRegionDrawable back = FlatUI.CreateBackgroundDrawable(0.2f, 0.2f, 0.2f, 0.9f, label.getWidth(), label.getHeight());
+			buttonBorder.setBackground(createBackground(0.9f,0.9f,0.9f,0.8f));
+			disposables.add(back.getRegion().getTexture());
+			label.getStyle().background = back;
 		} catch (Exception e) {
 			Gdx.app.log("ERROR", "Failed to update solutions label");
 		}
 	}
 
+	@Override
+	public void resume() {
+		super.resume();
+		updateTitle();
+	}
+	
 	private void addButton(float height, final String productId, final int solutionCount) {
 		FlatUIButton purchase = new FlatUIButton(String.format(BUY_S_SOLUTIONS, solutionCount), skin, "dialogWhite");
 		purchase.addListener(new ClickListener(){

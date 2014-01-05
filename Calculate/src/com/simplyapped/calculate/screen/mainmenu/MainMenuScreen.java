@@ -1,7 +1,6 @@
 package com.simplyapped.calculate.screen.mainmenu;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.repeat;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.rotateBy;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -119,7 +118,7 @@ public class MainMenuScreen extends DefaultScreen{
 	    spinner.setSize(CalculateGame.SCREEN_WIDTH * 0.7f, CalculateGame.SCREEN_WIDTH*0.7f);//make it sqaure
 	    spinner.setPosition(CalculateGame.SCREEN_WIDTH/2f-spinner.getWidth()/2f, CalculateGame.SCREEN_HEIGHT /2f - spinner.getHeight()/2f);
 	    spinner.setOrigin(spinner.getHeight()/2f, spinner.getWidth()/2f);
-	    spinner.addAction(repeat(RepeatAction.FOREVER, rotateBy(-30, 0.3f)));
+	    spinner.addAction(repeat(RepeatAction.FOREVER, sequence( delay(0.1f), ( rotateBy(-30)))));
 	    spinner.setVisible(!assetsLoaded);
 	    
 	    stage.addActor(window);

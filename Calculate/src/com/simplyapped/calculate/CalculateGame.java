@@ -56,7 +56,7 @@ public class CalculateGame extends DefaultGame {
 	public static final String NUMBER_STRIP_ALTAS = "data/numberspinner.atlas";
 	public static final String NUMBER_STRIP_REGION = "numberstrip";
 	
-	public final static boolean DEBUG = false;
+	public static boolean DEBUG = false;
 	
 	private BillingService billing;
 	private OSDialog dialog;
@@ -126,7 +126,7 @@ public class CalculateGame extends DefaultGame {
 	}
 
 	private void checkPurchasedProducts() {
-		if (billing != null)
+		if (billing != null && !DEBUG)
 		{
 			billing.startSetup(CalculateGame.LICENSE_KEY, new BillingServiceSetupFinishedListener() {
 				
@@ -190,6 +190,10 @@ public class CalculateGame extends DefaultGame {
 	}
 
 	public BillingService getBilling() {
+		if (DEBUG)
+		{
+			//return null;
+		}
 		return billing;
 	}
 

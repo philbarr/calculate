@@ -33,8 +33,7 @@ public class CalculateGameActivity extends AndroidApplication {
         super.onCreate(savedInstanceState);
         
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
-        cfg.useGL20 = true;
-        
+        cfg.useGL20 = false;
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         GameStateFactory.setType(GameStateType.PERSISTENT);
         
@@ -43,7 +42,7 @@ public class CalculateGameActivity extends AndroidApplication {
         billing = new AndroidBillingService(this);
 		calculateGame.setBilling(billing);
         calculateGame.setDialog(new AndroidOSDialog(this));
-		
+		calculateGame.DEBUG = isDebuggable(this);
         
         initialize(calculateGame, cfg);
 		
