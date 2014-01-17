@@ -10,6 +10,41 @@ mainmenubackground
   orig: 812, 1012
   offset: 0, 0
   index: -1
+buttonborder
+  rotate: false
+  xy: 815, 913
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+greenbuttondown
+  rotate: false
+  xy: 815, 811
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+greenbuttonup
+  rotate: false
+  xy: 917, 913
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+redbuttondown
+  rotate: false
+  xy: 815, 709
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+redbuttonup
+  rotate: false
+  xy: 917, 811
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
 
 mainmenuscreen2.png
 format: RGBA8888

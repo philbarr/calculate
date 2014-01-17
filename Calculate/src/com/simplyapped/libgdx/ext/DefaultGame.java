@@ -119,15 +119,6 @@ public abstract class DefaultGame implements ApplicationListener
 	@Override
 	public void dispose()
 	{
-		System.out.println("disposing screen");
-		if (currentScreen != null)
-		{
-			currentScreen.dispose();
-		}
-		if (nextScreen != null)
-		{
-			nextScreen.dispose();
-		}
 		for (DefaultScreen screen : screenInstances.values()) {
 			screen.dispose();
 		}

@@ -39,3 +39,38 @@ calcbackground
   orig: 180, 187
   offset: 0, 0
   index: -1
+buttonborder
+  rotate: false
+  xy: 881, 846
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+greenbuttondown
+  rotate: false
+  xy: 737, 578
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+greenbuttonup
+  rotate: false
+  xy: 183, 88
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+redbuttondown
+  rotate: false
+  xy: 881, 744
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+redbuttonup
+  rotate: false
+  xy: 737, 476
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1

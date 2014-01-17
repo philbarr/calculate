@@ -1,13 +1,13 @@
 package com.simplyapped.calculate.screen.game.actor;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.simplyapped.calculate.numbers.Operator;
-import com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton;
 
-public class EquationElementFlatUIButton extends FlatUIButton
+public class EquationElementFlatUIButton extends TextButton
 {
 	private Operator data;
-	public EquationElementFlatUIButton(String text, FlatUIButtonStyle textButtonStyle)
+	public EquationElementFlatUIButton(String text, TextButtonStyle textButtonStyle)
 	{
 		super(text, textButtonStyle);
 	}

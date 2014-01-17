@@ -43,60 +43,30 @@
 	  }
 	},
 	
-    com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton$FlatUIButtonStyle: {
-      operand: {
+	com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+	  operator: {
 			font: liberation-font-32,
 			fontColor: white,
-			backgroundColor: blue,
-			backgroundPressedColor: blueOn,
-	  },
-      operator: {
-			font: liberation-font-32,
-			fontColor: white,
-			backgroundColor: grey,
-			backgroundPressedColor: greyOn,
+			up: redbuttonup,
+			down: redbuttondown,
 	  },
 	  ce: {
 			font: liberation-font-32,
 			fontColor: white,
-			backgroundColor: red,
-			backgroundPressedColor: redOn,
+			up: redbuttonup,
+			down: redbuttondown,
 	  },
-	  number: {
+		red: {
 			font: liberation-font-32,
 			fontColor: white,
-			backgroundColor: blue,
-			backgroundPressedColor: blueOn,
-	  },
-	  dialogOk: {
-  			font: liberation-font-32,
-  			fontColor: black,
-  			backgroundColor: green,
-  			backgroundPressedColor: greenOn,
-  	  	},
-  	  dialogQuit: {
-            font: liberation-font-32,
-            fontColor: black,
-  			backgroundColor: red,
-  			backgroundPressedColor: redOn,
-        },
-      dialogPlayOn: {
-            font: liberation-font-32,
-            fontColor: black,
-            backgroundColor: blue,
-            backgroundPressedColor: blueOn,
-        },
-      dialogViewSolution: {
-            font: liberation-font-32,
-            fontColor: black,
-            backgroundColor: green,
-            backgroundPressedColor: greenOn,
-        },
-        dialogWhite: {
-            font: liberation-font-32,
-            fontColor: black,
-            backgroundColor: { r: 0.1, g: 0.9, b: 0.1, a: 0.9},
-            backgroundPressedColor: { r: 0.1, g: 0.9, b: 0.1, a: 1},
-        },
+			up: redbuttonup,
+			down: redbuttondown,
+		},
+		green: {
+			font: liberation-font-32,
+			fontColor: white,
+			up: greenbuttonup,
+			down: redbuttondown,
+},
     },
 }

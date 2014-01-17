@@ -39,7 +39,6 @@ import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.calculate.state.LevelDetails;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
-import com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton;
 import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
 public class GameScreen extends DefaultScreen
@@ -212,7 +211,6 @@ public class GameScreen extends DefaultScreen
 	private Skin cards;
 	private Set<Integer> textButtonTotalLines = new HashSet<Integer>();
 	private CalculationTable calculationTable;
-	private Texture texture;
 	private List<TextButton> cardButtons = new ArrayList<TextButton>();
 	private boolean isOperatorToSelectNext;
 	
@@ -223,11 +221,6 @@ public class GameScreen extends DefaultScreen
 	public GameScreen(DefaultGame game)
 	{
 		super(game);
-		Pixmap pix = new Pixmap(1, 1, Format.RGBA4444);
-		pix.setColor(0.979f,0.979f,0.979f,0.8f);
-		pix.fill();
-		texture = new Texture(pix);
-		disposables.add(texture);
 		skin = game.getAssets().get(("data/gamescreen.json"));
 		cards = game.getAssets().get("data/stageintroscreen.json"); // because in future we need to think more carefully about how we group assets
 	}
@@ -236,8 +229,7 @@ public class GameScreen extends DefaultScreen
 	{
 		final Dialog dialog = createDialog(message);
 		
-		FlatUIButton okButton = new FlatUIButton("Ok", skin, "dialogOk");
-		disposables.add(okButton);
+		TextButton okButton = new TextButton("Ok", skin, "dialogOk");
 		dialog.getButtonTable().defaults().pad(15f).width(CalculateGame.SCREEN_WIDTH/3.5f).padBottom(45f);
 		dialog.getButtonTable().add(okButton);
 		okButton.addListener(new ClickListener(){
@@ -271,7 +263,7 @@ public class GameScreen extends DefaultScreen
 		totalTime = state.getCurrentLevelInfo().getTimeLimit();
 		float panelwidth = CalculateGame.SCREEN_WIDTH/1.05f; // used for the width of the operatorsTable, titleTable, and numbersTable
 
-		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, false);
+		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, true);
 	    stage.addListener(new ClickListener()
 		{
 			@Override
@@ -304,7 +296,7 @@ public class GameScreen extends DefaultScreen
 		operatorsTable.setWidth(panelwidth);                                                                                               
 	    operatorsTable.setHeight(CalculateGame.SCREEN_HEIGHT/11f);
 	    operatorsTable.setPosition(CalculateGame.SCREEN_WIDTH/2 - panelwidth/2, CalculateGame.SCREEN_HEIGHT - CalculateGame.SCREEN_HEIGHT/1.8f);
-	    operatorsTable.setBackground(new TextureRegionDrawable(new TextureRegion(texture)));
+	    operatorsTable.setBackground(skin.getDrawable("buttonborder"));
 	    
 	    Table operandsTable = new Table();
 	    int operandsPadding = 10;
@@ -334,7 +326,7 @@ public class GameScreen extends DefaultScreen
 	    
 	    operandsTable.setPosition(CalculateGame.SCREEN_WIDTH/2 - panelwidth/2 - operandsPadding, CalculateGame.SCREEN_HEIGHT - CalculateGame.SCREEN_HEIGHT/1.3f);
 	    operandsTable.setWidth(panelwidth + operandsPadding*2);
-	    operandsTable.setBackground(new TextureRegionDrawable(new TextureRegion(texture)));
+	    operandsTable.setBackground(skin.getDrawable("buttonborder"));
 	    
 	    window.setBackground(skin.getDrawable("gamescreenbackground"));
 
@@ -382,13 +374,9 @@ public class GameScreen extends DefaultScreen
 		// create the dialog
 		final Dialog dialog = createDialog("Are you sure you\nwant to quit?");
 		
-		FlatUIButton quitButton = new FlatUIButton("Quit", skin, "dialogQuit");
-		FlatUIButton playOnButton = new FlatUIButton("Play On", skin, "dialogPlayOn");
-		FlatUIButton viewSolutionButton = new FlatUIButton("View\nSolution", skin, "dialogViewSolution");
-		
-		disposables.add(playOnButton);
-		disposables.add(quitButton);
-		disposables.add(viewSolutionButton);
+		TextButton quitButton = new TextButton("Quit", skin, "red");
+		TextButton playOnButton = new TextButton("Play On", skin, "green");
+		TextButton viewSolutionButton = new TextButton("View\nSolution", skin, "green");
 		
 		dialog.getButtonTable().add(quitButton);
 		dialog.getButtonTable().add(playOnButton);
@@ -444,7 +432,7 @@ public class GameScreen extends DefaultScreen
 
 	private Actor getCEButton()
 	{
-		FlatUIButton button = new FlatUIButton("CE", skin, "ce");
+		TextButton button = new TextButton("CE", skin, "ce");
 		button.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y)
@@ -452,7 +440,6 @@ public class GameScreen extends DefaultScreen
 				resetGame();
 			}
 		});
-		disposables.add(button);
 		return button;
 	}
 
@@ -461,7 +448,6 @@ public class GameScreen extends DefaultScreen
 		EquationElementFlatUIButton button = new EquationElementFlatUIButton(operator.toString(), skin, "operator");
 		button.setData(operator);
 		button.addListener(new OperatorClickListener());
-		disposables.add(button);
 		return button;
 	}
 

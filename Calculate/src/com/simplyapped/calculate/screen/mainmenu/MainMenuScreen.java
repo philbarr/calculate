@@ -1,26 +1,23 @@
 package com.simplyapped.calculate.screen.mainmenu;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.repeat;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.rotateBy;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Pixmap.Format;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
-import com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton;
 import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
 public class MainMenuScreen extends DefaultScreen{
@@ -28,8 +25,8 @@ public class MainMenuScreen extends DefaultScreen{
 	private Table window;
 	private Skin skin;
 	private Table buttonBorder;
-	private FlatUIButton playMenu;
-	private FlatUIButton shopMenu;
+	private TextButton playMenu;
+	private TextButton shopMenu;
 	private Image spinner;
 	
 	public MainMenuScreen(DefaultGame game) {
@@ -52,7 +49,7 @@ public class MainMenuScreen extends DefaultScreen{
 	@Override
 	public void show()
 	{
-		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, false);
+		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, true);
 		stage.addListener(new ClickListener()
 		{
 			@Override
@@ -81,10 +78,10 @@ public class MainMenuScreen extends DefaultScreen{
 	    int padding = 20;
 		buttonBorder.setPosition(CalculateGame.SCREEN_WIDTH/2-buttonWidth/2-padding, emptyRowHeight - padding);
 	    buttonBorder.setSize(buttonWidth + padding*2, emptyRowHeight + (buttonHeight*2) + padding);
-	    buttonBorder.setBackground(createBackground(0.9f,0.9f,0.9f,0.8f));
+	    buttonBorder.setBackground(skin.getDrawable("buttonborder"));
 	    buttonBorder.setVisible(assetsLoaded);
 	    
-	    playMenu = new FlatUIButton("PLAY", skin, "play");
+	    playMenu = new TextButton("PLAY", skin, "red");
 	    playMenu.addListener(new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y)
@@ -96,9 +93,8 @@ public class MainMenuScreen extends DefaultScreen{
 	    playMenu.setSize(buttonWidth, buttonHeight);
 	    playMenu.setPosition(CalculateGame.SCREEN_WIDTH/2-playMenu.getWidth()/2, -emptyRowHeight + (buttonHeight*2));
 	    playMenu.setVisible(assetsLoaded);
-	    disposables.add(playMenu);
 	    
-	    shopMenu = new FlatUIButton("SHOP", skin, "shop");
+	    shopMenu = new TextButton("SHOP", skin, "green");
 	    shopMenu.addListener(new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y)
@@ -110,7 +106,6 @@ public class MainMenuScreen extends DefaultScreen{
 	    shopMenu.setSize(buttonWidth, buttonHeight);
 	    shopMenu.setPosition(CalculateGame.SCREEN_WIDTH/2-playMenu.getWidth()/2, emptyRowHeight);
 	    shopMenu.setVisible(assetsLoaded);
-	    disposables.add(shopMenu);
 	    
 	    window.setBackground(skin.getDrawable("mainmenubackground"));
 	    
@@ -129,17 +124,5 @@ public class MainMenuScreen extends DefaultScreen{
 	    
 	    Gdx.input.setInputProcessor(stage);
 	    Gdx.input.setCatchBackKey(true);
-	}
-	
-	private TextureRegionDrawable createBackground(float r, float g, float b, float a)
-	{
-		Pixmap pix = new Pixmap(1,1,Format.RGBA4444);
-		pix.setColor(r,g,b,a);
-		pix.fill();
-		disposables.add(pix);
-		Texture texture = new Texture(pix);
-		TextureRegionDrawable trd = new TextureRegionDrawable(new TextureRegion(texture));
-		disposables.add(texture);
-		return trd;
 	}
 }

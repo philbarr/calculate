@@ -1,7 +1,13 @@
 package com.simplyapped.calculate.screen.stageintro;
 
-import static com.badlogic.gdx.math.Interpolation.*;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+import static com.badlogic.gdx.math.Interpolation.circle;
+import static com.badlogic.gdx.math.Interpolation.pow5;
+import static com.badlogic.gdx.math.Interpolation.swingOut;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +29,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.tablelayout.Cell;
 import com.simplyapped.calculate.CalculateGame;
@@ -32,7 +37,6 @@ import com.simplyapped.calculate.state.GameState;
 import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
-import com.simplyapped.libgdx.ext.scene2d.flat.FlatUI;
 import com.simplyapped.libgdx.ext.scene2d.spinner.NumberSpinnerTable;
 import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
@@ -118,7 +122,7 @@ public class StageIntroScreen extends DefaultScreen
 	public void show()
 	{
 		justSwitchAlready = false;
-		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, false);
+		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, true);
 		state = GameStateFactory.getInstance();
 		redCards = new ArrayList<TextButton>();
 		blueCards = new ArrayList<TextButton>();
@@ -147,9 +151,7 @@ public class StageIntroScreen extends DefaultScreen
 		
 		title = new Label(String.format("Select %s Cards", StageIntroScreen.this.state.cardsLeftForUserSelect()), skin, "title");
 		title.setAlignment(Align.center);
-		TextureRegionDrawable backstyle = FlatUI.CreateBackgroundDrawable(0.2f, 0.2f, 0.2f, 0.9f, title.getWidth(), title.getHeight());
-		disposables.add(backstyle.getRegion().getTexture());
-		title.getStyle().background = backstyle;
+		title.getStyle().background = skin.getDrawable("buttonborder");
 		titleCell = back.add(title).expandX().fillX().center().top().pad(CalculateGame.SCREEN_HEIGHT/8f);
 		back.row();
 		targetTable = new Table();
@@ -342,9 +344,7 @@ public class StageIntroScreen extends DefaultScreen
 		{
 			titleCell.pad(CalculateGame.SCREEN_WIDTH/5f);
 			
-			TextureRegionDrawable back = FlatUI.CreateBackgroundDrawable(0.2f, 0.2f, 0.2f, 0.9f, title.getWidth(), title.getHeight());
-			disposables.add(back.getRegion().getTexture());
-			title.getStyle().background = back;
+			title.getStyle().background = skin.getDrawable("buttonborder");
 			title.setText("\nYour\n\nTarget\n\nNumber\n ");
 			title.setVisible(true);
 			title.getColor().a = 0;

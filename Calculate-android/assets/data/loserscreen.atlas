@@ -5,15 +5,50 @@ filter: Nearest,Nearest
 repeat: none
 loserscreenbackground
   rotate: false
-  xy: 1, 33
+  xy: 1, 205
   size: 572, 654
   orig: 572, 654
   offset: 0, 0
   index: -1
 loserballoon
   rotate: false
-  xy: 575, 1
+  xy: 575, 173
   size: 284, 686
   orig: 284, 686
+  offset: 0, 0
+  index: -1
+buttonborder
+  rotate: false
+  xy: 1, 103
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+greenbuttondown
+  rotate: false
+  xy: 861, 759
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+greenbuttonup
+  rotate: false
+  xy: 1, 1
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+redbuttondown
+  rotate: false
+  xy: 103, 103
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+redbuttonup
+  rotate: false
+  xy: 861, 657
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1

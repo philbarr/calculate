@@ -5,15 +5,50 @@ filter: Nearest,Nearest
 repeat: none
 stageselectscreenbackground
   rotate: false
-  xy: 1, 269
+  xy: 1, 371
   size: 528, 640
   orig: 528, 640
   offset: 0, 0
   index: -1
 dialogbackground
   rotate: false
-  xy: 1, 1
+  xy: 1, 103
   size: 304, 266
   orig: 304, 266
+  offset: 0, 0
+  index: -1
+buttonborder
+  rotate: false
+  xy: 531, 911
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+greenbuttondown
+  rotate: false
+  xy: 1, 1
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+greenbuttonup
+  rotate: false
+  xy: 307, 269
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+redbuttondown
+  rotate: false
+  xy: 531, 809
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+redbuttonup
+  rotate: false
+  xy: 633, 911
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1

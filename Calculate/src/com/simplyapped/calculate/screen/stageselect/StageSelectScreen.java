@@ -1,8 +1,6 @@
 package com.simplyapped.calculate.screen.stageselect;
 
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -17,17 +15,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Disposable;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.calculate.state.LevelDetails;
 import com.simplyapped.calculate.state.LevelInfo;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
-import com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton;
 import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
 public class StageSelectScreen extends DefaultScreen
@@ -52,11 +49,7 @@ public class StageSelectScreen extends DefaultScreen
 	@Override
 	public void show()
 	{
-		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, false);
-		if (disposables==null)
-		{
-			disposables = new ArrayList<Disposable>();
-		}
+		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, true);
 		stage.addListener(new ClickListener()
 		{
 			@Override
@@ -97,13 +90,11 @@ public class StageSelectScreen extends DefaultScreen
 	private void addButtonRow(Table table, final int level)
 	{
 		Table rowTable = new Table();
-		rowTable.setBackground(createBackground(0.9f,0.9f,0.9f,0.8f));
+		rowTable.setBackground(skin.getDrawable("buttonborder"));
 		
 		// buttons
-		FlatUIButton levelButton = new FlatUIButton("" + level, skin, "l" + level);
-
+		TextButton levelButton = new TextButton("" + level, skin, "green");
 	    levelButton.getLabel().setFontScale(1f);
-	    disposables.add(levelButton);
 	    
 	    rowTable.add(levelButton).width(buttonSize).height(buttonSize/1.3f).align(Align.left).expandX().padLeft(0f).pad(20f);	
 	    rowTable.add(createDetailsTable(level)).width(buttonSize*1.5f).height(buttonSize/1.3f).pad(20f);
@@ -123,7 +114,7 @@ public class StageSelectScreen extends DefaultScreen
 				Label details = new Label(text, labelStyle);
     			details.setFontScale(0.3f);
     			
-				FlatUIButton playButton = new FlatUIButton("Play", skin, "dialogPlay");
+				TextButton playButton = new TextButton("Play", skin, "green");
 				playButton.addListener(new ClickListener(){
 					@Override
 					public void clicked(InputEvent event, float x, float y)
@@ -134,8 +125,8 @@ public class StageSelectScreen extends DefaultScreen
 					}
 				});
 				playButton.getLabel().setFontScale(0.3f);
-				disposables.add(playButton);
-				FlatUIButton cancelButton = new FlatUIButton("Close", skin, "dialogCancel");
+
+				TextButton cancelButton = new TextButton("Close", skin, "red");
 				cancelButton.addListener(new ClickListener()
 					{
 					@Override
@@ -145,7 +136,6 @@ public class StageSelectScreen extends DefaultScreen
 					}
 					});
 				cancelButton.getLabel().setFontScale(0.3f);
-				disposables.add(cancelButton);
 				dialog.getContentTable().add(details);
 				dialog.getButtonTable().defaults().pad(15f).width(CalculateGame.SCREEN_WIDTH/3.5f).padBottom(45f);
 				if (!levelDetails.isLocked())
@@ -190,22 +180,10 @@ public class StageSelectScreen extends DefaultScreen
 	    	details.add(completed).align(Align.left);
 	    	details.add(completedVal).align(Align.right);
 	    }
-	    details.setBackground(createBackground(0.2f,0.2f,0.2f,0.8f));
+	    details.setBackground(skin.getDrawable("buttonborder"));
 	    details.pad(15f);	   
 	    
 		return details;
-	}
-
-	private TextureRegionDrawable createBackground(float r, float g, float b, float a)
-	{
-		Pixmap pix = new Pixmap(1,1,Format.RGBA4444);
-		pix.setColor(r,g,b,a);
-		pix.fill();
-		disposables.add(pix);
-		Texture texture = new Texture(pix);
-		TextureRegionDrawable trd = new TextureRegionDrawable(new TextureRegion(texture));
-		disposables.add(texture);
-		return trd;
 	}
 
 	@Override

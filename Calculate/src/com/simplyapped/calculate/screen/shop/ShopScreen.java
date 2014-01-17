@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -28,8 +29,6 @@ import com.simplyapped.libgdx.ext.billing.BillingResult;
 import com.simplyapped.libgdx.ext.billing.BillingService;
 import com.simplyapped.libgdx.ext.billing.listeners.BillingOnConsumeFinishedListener;
 import com.simplyapped.libgdx.ext.billing.listeners.BillingOnPurchaseFinishedListener;
-import com.simplyapped.libgdx.ext.scene2d.flat.FlatUI;
-import com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton;
 import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
 public class ShopScreen extends DefaultScreen{
@@ -52,11 +51,7 @@ public class ShopScreen extends DefaultScreen{
 	@Override
 	public void show() {
 		Gdx.app.log(ShopScreen.class.toString(), "SHOWING SHOP SCREEN");
-		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, false);
-		if (disposables==null)
-		{
-			disposables=new ArrayList<Disposable>();
-		}
+		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, true);
 		stage.addListener(new ClickListener()
 		{
 			@Override
@@ -96,7 +91,7 @@ public class ShopScreen extends DefaultScreen{
 	    buttonBorder = new Table();
 		buttonBorder.setPosition(CalculateGame.SCREEN_WIDTH/2-buttonWidth/2-padding, height - padding);
 	    buttonBorder.setSize(buttonWidth + padding*2, height + (buttonHeight*3) + (padding*2) + (height));
-	    buttonBorder.setBackground(createBackground(0.9f,0.9f,0.9f,0.8f));
+	    buttonBorder.setBackground(skin.getDrawable("buttonborder"));
 	    
 	    stage.addActor(window);
 	    stage.addActor(label); 
@@ -113,10 +108,7 @@ public class ShopScreen extends DefaultScreen{
 	private void updateTitle() {
 		try {
 			label.setText(String.format(YOU_HAVE_S_SOLUTIONS_REMAINING, GameStateFactory.getInstance().getRemainingSolutions()));
-			TextureRegionDrawable back = FlatUI.CreateBackgroundDrawable(0.2f, 0.2f, 0.2f, 0.9f, label.getWidth(), label.getHeight());
-			buttonBorder.setBackground(createBackground(0.9f,0.9f,0.9f,0.8f));
-			disposables.add(back.getRegion().getTexture());
-			label.getStyle().background = back;
+			buttonBorder.setBackground(skin.getDrawable("buttonborder"));
 		} catch (Exception e) {
 			Gdx.app.log("ERROR", "Failed to update solutions label");
 		}
@@ -129,7 +121,7 @@ public class ShopScreen extends DefaultScreen{
 	}
 	
 	private void addButton(float height, final String productId, final int solutionCount) {
-		FlatUIButton purchase = new FlatUIButton(String.format(BUY_S_SOLUTIONS, solutionCount), skin, "dialogWhite");
+		TextButton purchase = new TextButton(String.format(BUY_S_SOLUTIONS, solutionCount), skin, "green");
 		purchase.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y)
@@ -227,19 +219,6 @@ public class ShopScreen extends DefaultScreen{
 		purchase.getLabel().setFontScale(0.8f);
 	    purchase.setSize(buttonWidth, buttonHeight);
 		purchase.setPosition(CalculateGame.SCREEN_WIDTH/2 - purchase.getWidth()/2, height);
-		disposables.add(purchase);
 	    stage.addActor(purchase);
-	}
-
-	private TextureRegionDrawable createBackground(float r, float g, float b, float a)
-	{
-		Pixmap pix = new Pixmap(1,1,Format.RGBA4444);
-		pix.setColor(r,g,b,a);
-		pix.fill();
-		disposables.add(pix);
-		Texture texture = new Texture(pix);
-		TextureRegionDrawable trd = new TextureRegionDrawable(new TextureRegion(texture));
-		disposables.add(texture);
-		return trd;
 	}
 }

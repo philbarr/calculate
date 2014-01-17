@@ -24,12 +24,18 @@
 	      fontColor: white,
 	    }
 	},
-	com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton$FlatUIButtonStyle: {
-        playagain: {
-  			font: liberation-font-32,
-  			fontColor: white,
-  			backgroundColor: red,
-  			backgroundPressedColor: redOn,
-  	  	},
-    }
+	com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+		 red: {
+	  			font: liberation-font,
+	  			fontColor: white,
+	  			up: redbuttonup,
+	  			down: redbuttondown,
+	  	  	},
+	        green: {
+	  			font: liberation-font,
+	  			fontColor: white,
+	  			up: greenbuttonup,
+	  			down: redbuttondown,
+	  	  	},
+   }
 }

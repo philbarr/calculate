@@ -12,18 +12,18 @@
             nina-font: { file: ninafont.fnt },
 	        liberation-font: { file: liberation32.fnt },
     },
-    com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton$FlatUIButtonStyle: {
-        play: {
+    com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+        red: {
   			font: liberation-font,
   			fontColor: white,
-  			backgroundColor: red,
-  			backgroundPressedColor: redOn,
+  			up: redbuttonup,
+  			down: redbuttondown,
   	  	},
-        shop: {
+        green: {
   			font: liberation-font,
   			fontColor: white,
-  			backgroundColor: green,
-  			backgroundPressedColor: greenOn,
+  			up: greenbuttonup,
+  			down: redbuttondown,
   	  	},
   	}
 }

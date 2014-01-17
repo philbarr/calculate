@@ -7,7 +7,7 @@ public class InMemoryGameState extends GameState
 {
 	private boolean isViewingSolution;
 	private Map<Integer, LevelDetails> details = new HashMap<Integer, LevelDetails>();
-	private int remainingSolutions;
+	private int remainingSolutions = 10;
 	
 	@Override
 	public LevelDetails getLevelDetails(int level)

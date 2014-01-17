@@ -5,21 +5,56 @@ filter: Nearest,Nearest
 repeat: none
 winnerscreenbackground
   rotate: false
-  xy: 1, 35
+  xy: 1, 205
   size: 512, 654
   orig: 512, 654
   offset: 0, 0
   index: -1
 stageunlocked
   rotate: false
-  xy: 515, 192
+  xy: 515, 362
   size: 497, 497
   orig: 497, 497
   offset: 0, 0
   index: -1
-tickertape
+buttonborder
+  rotate: false
+  xy: 1, 103
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+greenbuttondown
+  rotate: false
+  xy: 515, 260
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+greenbuttonup
   rotate: false
   xy: 1, 1
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+redbuttondown
+  rotate: false
+  xy: 103, 103
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+redbuttonup
+  rotate: false
+  xy: 617, 260
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+tickertape
+  rotate: false
+  xy: 515, 226
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

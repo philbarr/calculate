@@ -1,16 +1,15 @@
 package com.simplyapped.calculate.screen.winner;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveBy;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.repeat;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -20,15 +19,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.libgdx.ext.DefaultGame;
-import com.simplyapped.libgdx.ext.action.TransitionFixtures; 
-import com.simplyapped.libgdx.ext.scene2d.flat.FlatUI;
-import com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton;
+import com.simplyapped.libgdx.ext.action.TransitionFixtures;
 import com.simplyapped.libgdx.ext.scene2d.spinner.NumberSpinnerTable;
 import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
@@ -50,7 +47,7 @@ public class WinnerScreen extends DefaultScreen
 	@Override
 	public void show()
 	{
-		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, false);
+		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, true);
 		stage.addListener(new ClickListener()
 		{
 			@Override
@@ -79,7 +76,7 @@ public class WinnerScreen extends DefaultScreen
 	    int padding = 20;
 		buttonBorder.setPosition(CalculateGame.SCREEN_WIDTH/2-buttonWidth/2-padding, emptyRowHeight - padding);
 	    buttonBorder.setSize(buttonWidth + padding*2, emptyRowHeight + (buttonHeight));
-	    buttonBorder.setBackground(createBackground(0.9f,0.9f,0.9f,0.8f));
+	    buttonBorder.setBackground(skin.getDrawable("buttonborder"));
 		
 	    CelebrationActor lefteffect = new CelebrationActor(skin.getAtlas(), 0, 0, "data/particle/celebrationleft.p", "data/particle");
 	    CelebrationActor righteffect = new CelebrationActor(skin.getAtlas(), CalculateGame.SCREEN_WIDTH, 0, "data/particle/celebrationright.p", "data/particle");
@@ -120,15 +117,13 @@ public class WinnerScreen extends DefaultScreen
 		label.setFontScale(0.6f);
 		label.setSize(buttonBorder.getWidth(), CalculateGame.SCREEN_HEIGHT/4.5f);
 		label.setPosition(CalculateGame.SCREEN_WIDTH/2 - label.getWidth()/2, CalculateGame.SCREEN_HEIGHT/1.4f);
-		TextureRegionDrawable back = FlatUI.CreateBackgroundDrawable(0.2f, 0.2f, 0.2f, 0.9f, label.getWidth(), label.getHeight());
-		disposables.add(back.getRegion().getTexture());
-		label.getStyle().background = back;
+		label.getStyle().background = skin.getDrawable("buttonborder");
 		stage.addActor(label); 
 	    
 		stage.addActor(buttonBorder);
 		
 	    // buttons
-	    FlatUIButton playMenu = new FlatUIButton("Play Again", skin, "playagain");
+	    TextButton playMenu = new TextButton("Play Again", skin, "green");
 	    playMenu.addListener(new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y)
@@ -138,23 +133,10 @@ public class WinnerScreen extends DefaultScreen
 	    });
 	    playMenu.setSize(buttonWidth, buttonHeight);
 	    playMenu.setPosition(CalculateGame.SCREEN_WIDTH/2-playMenu.getWidth()/2, emptyRowHeight);
-	    disposables.add(playMenu);
 	    stage.addActor(playMenu);
 	    
 	    
 	    Gdx.input.setInputProcessor(stage);
 	    Gdx.input.setCatchBackKey(true);
-	}
-	
-	private TextureRegionDrawable createBackground(float r, float g, float b, float a)
-	{
-		Pixmap pix = new Pixmap(1,1,Format.RGBA4444);
-		pix.setColor(r,g,b,a);
-		pix.fill();
-		disposables.add(pix);
-		Texture texture = new Texture(pix);
-		TextureRegionDrawable trd = new TextureRegionDrawable(new TextureRegion(texture));
-		disposables.add(texture);
-		return trd;
 	}
 }

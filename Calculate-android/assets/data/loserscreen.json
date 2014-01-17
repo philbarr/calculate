@@ -13,20 +13,20 @@
 		blueOn: {r: 0.156, g: 0.552, b: 0.179, a: 1},
 	},
 	com.badlogic.gdx.graphics.g2d.BitmapFont: {
-	        liberation-font-32: { file: liberation32.fnt },
+	        liberation-font: { file: liberation32.fnt },
 	},
-    com.simplyapped.libgdx.ext.scene2d.flat.FlatUIButton$FlatUIButtonStyle: {
-        playagain: {
-			font: liberation-font-32,
-			fontColor: white,
-			backgroundColor: red,
-			backgroundPressedColor: redOn,
-	    },
-        viewsolution: {
-			font: liberation-font-32,
-			fontColor: white,
-			backgroundColor: red,
-			backgroundPressedColor: redOn,
-	    },
+	com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+		 red: {
+	  			font: liberation-font,
+	  			fontColor: white,
+	  			up: redbuttonup,
+	  			down: redbuttondown,
+	  	  	},
+	        green: {
+	  			font: liberation-font,
+	  			fontColor: white,
+	  			up: greenbuttonup,
+	  			down: redbuttondown,
+	  	  	},
     }
 }
