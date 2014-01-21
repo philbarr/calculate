@@ -38,16 +38,86 @@ greenbuttonup
   orig: 100, 100
   offset: 0, 0
   index: -1
-redbuttondown
+level10button
   rotate: false
   xy: 531, 809
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
-redbuttonup
+level1button
   rotate: false
   xy: 633, 911
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+level2button
+  rotate: false
+  xy: 103, 1
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+level3button
+  rotate: false
+  xy: 307, 167
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+level4button
+  rotate: false
+  xy: 409, 269
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+level5button
+  rotate: false
+  xy: 531, 707
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+level6button
+  rotate: false
+  xy: 633, 809
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+level7button
+  rotate: false
+  xy: 735, 911
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+level8button
+  rotate: false
+  xy: 205, 1
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+level9button
+  rotate: false
+  xy: 307, 65
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+redbuttondown
+  rotate: false
+  xy: 409, 167
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+redbuttonup
+  rotate: false
+  xy: 531, 605
   size: 100, 100
   orig: 100, 100
   offset: 0, 0

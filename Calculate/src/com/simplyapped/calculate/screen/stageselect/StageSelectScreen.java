@@ -64,7 +64,7 @@ public class StageSelectScreen extends DefaultScreen
 			}
 		});
 		
-	    window = new Table();	    
+	    window = new Table();
 	    window.setFillParent(true);
 	    window.setX(0);
 	    window.setY(0);
