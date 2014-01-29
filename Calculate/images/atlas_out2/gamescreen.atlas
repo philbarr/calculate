@@ -60,16 +60,30 @@ greenbuttonup
   orig: 100, 100
   offset: 0, 0
   index: -1
-redbuttondown
+operatordown
   rotate: false
   xy: 881, 744
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
-redbuttonup
+operatorup
   rotate: false
   xy: 737, 476
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+redbuttondown
+  rotate: false
+  xy: 285, 88
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+redbuttonup
+  rotate: false
+  xy: 737, 374
   size: 100, 100
   orig: 100, 100
   offset: 0, 0

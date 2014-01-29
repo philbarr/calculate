@@ -151,7 +151,7 @@ public class StageIntroScreen extends DefaultScreen
 		
 		title = new Label(String.format("Select %s Cards", StageIntroScreen.this.state.cardsLeftForUserSelect()), skin, "title");
 		title.setAlignment(Align.center);
-		title.getStyle().background = skin.getDrawable("buttonborder");
+		title.getStyle().background = skin.getDrawable("title");
 		titleCell = back.add(title).expandX().fillX().center().top().pad(CalculateGame.SCREEN_HEIGHT/8f);
 		back.row();
 		targetTable = new Table();
@@ -159,8 +159,6 @@ public class StageIntroScreen extends DefaultScreen
 		back.row();
 		back.row();
 		back.add().expand().fill();
-		
-
 		
 		stage.addListener(new ClickListener(){
 			@Override
@@ -344,7 +342,7 @@ public class StageIntroScreen extends DefaultScreen
 		{
 			titleCell.pad(CalculateGame.SCREEN_WIDTH/5f);
 			
-			title.getStyle().background = skin.getDrawable("buttonborder");
+			title.getStyle().background = skin.getDrawable("title");
 			title.setText("\nYour\n\nTarget\n\nNumber\n ");
 			title.setVisible(true);
 			title.getColor().a = 0;
@@ -359,7 +357,7 @@ public class StageIntroScreen extends DefaultScreen
 			int attempts = 0;
 			// try and find a number between min and max range using selected numbers
 			// that doesn't use any of the cards (because then the answer would just be a single card)
-			// have 100 attempts then just give up and use the last one
+			// have 1000 attempts then just give up and use the last one
 			while ((eq.getTotal() < state.getCurrentLevelInfo().getMinRange() || 
 					eq.getTotal() > state.getCurrentLevelInfo().getMaxRange() ||
 					state.getBigCards().contains(eq.getTotal()) || 

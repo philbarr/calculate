@@ -38,7 +38,66 @@
 	  			font: liberation-font,
 	  			fontColor: white,
 	  			up: greenbuttonup,
-	  			down: redbuttondown,
+	  			down: greenbuttondown,
+	  	  	},
+	  	  level1button: {
+	  			font: liberation-font,
+	  			fontColor: white,
+	  			up: level1button,
+	  	  	},
+	  	  level2button: {
+	  			font: liberation-font,
+	  			fontColor: white,
+	  			up: level2button,
+	  			
+	  	  	},
+	  	  level3button: {
+	  			font: liberation-font,
+	  			fontColor: white,
+	  			up: level3button,
+	  			
+	  	  	},
+	  	  level4button: {
+	  			font: liberation-font,
+	  			fontColor: white,
+	  			up: level4button,
+	  			
+	  	  	},
+	  	  level5button: {
+	  			font: liberation-font,
+	  			fontColor: white,
+	  			up: level5button,
+	  			
+	  	  	},
+	  	  level6button: {
+	  			font: liberation-font,
+	  			fontColor: white,
+	  			up: level6button,
+	  			
+	  	  	},
+	  	  level7button: {
+	  			font: liberation-font,
+	  			fontColor: white,
+	  			up: level7button,
+	  			
+	  	  	},
+	  	  level8button: {
+	  			font: liberation-font,
+	  			fontColor: white,
+	  			up: level8button,
+	  			
+	  	  	},
+	  	  level9button: {
+	  			font: liberation-font,
+	  			fontColor: white,
+	  			up: level9button,
+	  			
+	  	  	},
+	  	  level10button: {
+	  			font: liberation-font,
+	  			fontColor: white,
+	  			up: level10button,
+	  			
 	  	  	},
     }
 }

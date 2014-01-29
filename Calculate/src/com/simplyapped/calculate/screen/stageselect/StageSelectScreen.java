@@ -93,7 +93,7 @@ public class StageSelectScreen extends DefaultScreen
 		rowTable.setBackground(skin.getDrawable("buttonborder"));
 		
 		// buttons
-		TextButton levelButton = new TextButton("" + level, skin, "green");
+		TextButton levelButton = new TextButton("" + level, skin, "level"+level+"button");
 	    levelButton.getLabel().setFontScale(1f);
 	    
 	    rowTable.add(levelButton).width(buttonSize).height(buttonSize/1.3f).align(Align.left).expandX().padLeft(0f).pad(20f);	
@@ -180,7 +180,7 @@ public class StageSelectScreen extends DefaultScreen
 	    	details.add(completed).align(Align.left);
 	    	details.add(completedVal).align(Align.right);
 	    }
-	    details.setBackground(skin.getDrawable("buttonborder"));
+	    details.setBackground(skin.getDrawable("stagedetails"));
 	    details.pad(15f);	   
 	    
 		return details;

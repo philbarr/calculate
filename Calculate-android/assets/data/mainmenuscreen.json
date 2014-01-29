@@ -23,7 +23,7 @@
   			font: liberation-font,
   			fontColor: white,
   			up: greenbuttonup,
-  			down: redbuttondown,
+  			down: greenbuttondown,
   	  	},
   	}
 }

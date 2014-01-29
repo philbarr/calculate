@@ -47,8 +47,8 @@
 	  operator: {
 			font: liberation-font-32,
 			fontColor: white,
-			up: redbuttonup,
-			down: redbuttondown,
+			up: operatorup,
+			down: operatordown,
 	  },
 	  ce: {
 			font: liberation-font-32,

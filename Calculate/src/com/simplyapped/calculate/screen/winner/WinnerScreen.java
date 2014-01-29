@@ -76,7 +76,7 @@ public class WinnerScreen extends DefaultScreen
 	    int padding = 20;
 		buttonBorder.setPosition(CalculateGame.SCREEN_WIDTH/2-buttonWidth/2-padding, emptyRowHeight - padding);
 	    buttonBorder.setSize(buttonWidth + padding*2, emptyRowHeight + (buttonHeight));
-	    buttonBorder.setBackground(skin.getDrawable("buttonborder"));
+	    buttonBorder.setBackground(skin.getDrawable("title"));
 		
 	    CelebrationActor lefteffect = new CelebrationActor(skin.getAtlas(), 0, 0, "data/particle/celebrationleft.p", "data/particle");
 	    CelebrationActor righteffect = new CelebrationActor(skin.getAtlas(), CalculateGame.SCREEN_WIDTH, 0, "data/particle/celebrationright.p", "data/particle");
@@ -134,7 +134,6 @@ public class WinnerScreen extends DefaultScreen
 	    playMenu.setSize(buttonWidth, buttonHeight);
 	    playMenu.setPosition(CalculateGame.SCREEN_WIDTH/2-playMenu.getWidth()/2, emptyRowHeight);
 	    stage.addActor(playMenu);
-	    
 	    
 	    Gdx.input.setInputProcessor(stage);
 	    Gdx.input.setCatchBackKey(true);
