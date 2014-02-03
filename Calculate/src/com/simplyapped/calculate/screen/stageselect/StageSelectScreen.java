@@ -37,8 +37,8 @@ public class StageSelectScreen extends DefaultScreen
 	private Skin skin;
 	
     // calculate width and heights for the table
-    float emptyRowHeight = CalculateGame.SCREEN_HEIGHT / 72;
-    float buttonSize = CalculateGame.SCREEN_HEIGHT / 5;
+    float emptyRowHeight = 0;
+    float buttonSize = 0;
 
 	public StageSelectScreen(DefaultGame game)
 	{
@@ -50,6 +50,8 @@ public class StageSelectScreen extends DefaultScreen
 	public void show()
 	{
 		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, true);
+	    emptyRowHeight = stage.getHeight() / 72;
+	    buttonSize = stage.getWidth() / 3.5f;
 		stage.addListener(new ClickListener()
 		{
 			@Override
@@ -71,14 +73,15 @@ public class StageSelectScreen extends DefaultScreen
 	    
 	    window.row().padTop(emptyRowHeight);
 	    Table stageTable = new Table();
-	    stageTable.setWidth(CalculateGame.SCREEN_WIDTH);
+	    stageTable.setWidth(stage.getWidth()*0.8f);
 	    for (int i = 1 ; i <= LevelInfo.NUMBER_OF_LEVELS ; i++)
 	    {
 	    	addButtonRow(stageTable, i);
 	    }
 	    
 	    ScrollPane pane = new ScrollPane(stageTable);
-	    pane.setWidth(CalculateGame.SCREEN_WIDTH);
+	    pane.setScrollingDisabled(true, false);
+	    pane.setWidth(stage.getWidth()*0.8f);
 	    window.add(pane);
 	    window.row().padBottom(emptyRowHeight * 6);
 	    window.setBackground(skin.getDrawable("stageselectscreenbackground"));
@@ -104,8 +107,8 @@ public class StageSelectScreen extends DefaultScreen
 	        {
 				// create the dialog
     			final Dialog dialog = new Dialog("", skin, "dialog");
-    			dialog.setSize(CalculateGame.SCREEN_WIDTH/1.1f, CalculateGame.SCREEN_HEIGHT/2f);
-    			dialog.setPosition(((CalculateGame.SCREEN_WIDTH-dialog.getWidth())/2), ((CalculateGame.SCREEN_HEIGHT-dialog.getHeight())/2));
+    			dialog.setSize(stage.getWidth()/1.1f, stage.getHeight()/2f);
+    			dialog.setPosition(((stage.getWidth()-dialog.getWidth())/2), ((stage.getHeight()-dialog.getHeight())/2));
     			LabelStyle labelStyle = skin.get("dialog", LabelStyle.class);
     			LevelInfo info = LevelInfo.getLevel(level);
     			LevelDetails levelDetails = GameStateFactory.getInstance().getLevelDetails(level);
@@ -132,12 +135,12 @@ public class StageSelectScreen extends DefaultScreen
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
 						super.clicked(event, x, y);
-						dialog.hide();
+						dialog.remove();
 					}
 					});
 				cancelButton.getLabel().setFontScale(0.3f);
 				dialog.getContentTable().add(details);
-				dialog.getButtonTable().defaults().pad(15f).width(CalculateGame.SCREEN_WIDTH/3.5f).padBottom(45f);
+				dialog.getButtonTable().defaults().pad(15f).width(stage.getWidth()/3.5f).padBottom(45f);
 				if (!levelDetails.isLocked())
 				{
 					dialog.getButtonTable().add(playButton);

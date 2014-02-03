@@ -55,26 +55,26 @@ public class LoserScreen extends DefaultScreen
 	    stage.addActor(table);
 	    
 	    // calculate width and heights for the table
-	    float emptyRowHeight = CalculateGame.SCREEN_HEIGHT / 17;
-	    float buttonHeight = CalculateGame.SCREEN_HEIGHT / 7;
-	    float buttonWidth = CalculateGame.SCREEN_WIDTH / 1.5f;
-	    float offset = CalculateGame.SCREEN_HEIGHT / 3f;
+	    float emptyRowHeight = stage.getHeight() / 17;
+	    float buttonHeight = stage.getHeight() / 7;
+	    float buttonWidth = stage.getWidth() / 1.5f;
+	    float offset = stage.getHeight() / 3f;
 	    Table buttonBorder = new Table();
 	    int padding = 20;
-		buttonBorder.setPosition(CalculateGame.SCREEN_WIDTH/2-buttonWidth/2-padding, emptyRowHeight - padding + offset);
+		buttonBorder.setPosition(stage.getWidth()/2-buttonWidth/2-padding, emptyRowHeight - padding + offset);
 	    buttonBorder.setSize(buttonWidth + padding*2, emptyRowHeight + (buttonHeight*2) + padding);
 	    buttonBorder.setBackground(skin.getDrawable("buttonborder"));
 	    
 	    Image image = new Image(skin, "loserballoon");
 	    image.setScale(0.3f);
-	    int imageX = CalculateGame.SCREEN_WIDTH/7;
-		image.setPosition(imageX, CalculateGame.SCREEN_HEIGHT);
+	    int imageX = (int)(stage.getWidth()/7);
+		image.setPosition(imageX, stage.getHeight());
 	    int pad = 30;
 		image.addAction(
 	    		repeat(RepeatAction.FOREVER, 
 	    			sequence(
-	    				moveBy(0,-CalculateGame.SCREEN_HEIGHT - (image.getHeight() * image.getScaleY()), 10), 
-	    				moveTo(imageX, CalculateGame.SCREEN_HEIGHT))));
+	    				moveBy(0,-stage.getHeight() - (image.getHeight() * image.getScaleY()), 10), 
+	    				moveTo(imageX, stage.getHeight()))));
 	    stage.addActor(image);
 	    
 	    final GameState state = GameStateFactory.getInstance();
@@ -90,7 +90,7 @@ public class LoserScreen extends DefaultScreen
 	    });
 	    playAgainButton.getLabel().setFontScale(0.8f);
 	    playAgainButton.setSize(buttonWidth, buttonHeight);
-	    playAgainButton.setPosition(CalculateGame.SCREEN_WIDTH/2-playAgainButton.getWidth()/2, -emptyRowHeight + (buttonHeight*2) + offset);
+	    playAgainButton.setPosition(stage.getWidth()/2-playAgainButton.getWidth()/2, -emptyRowHeight + (buttonHeight*2) + offset);
 	    
 	    TextButton viewSolutionButton = new TextButton("View Solution (" + state.getRemainingSolutions() + ")", skin, "green");
 	    viewSolutionButton.addListener(new ClickListener(){
@@ -110,7 +110,7 @@ public class LoserScreen extends DefaultScreen
 	    });
 	    viewSolutionButton.pad(pad);
 	    viewSolutionButton.setSize(buttonWidth, buttonHeight);
-	    viewSolutionButton.setPosition(CalculateGame.SCREEN_WIDTH/2-playAgainButton.getWidth()/2, emptyRowHeight + offset);	    
+	    viewSolutionButton.setPosition(stage.getWidth()/2-playAgainButton.getWidth()/2, emptyRowHeight + offset);	    
 	    viewSolutionButton.getLabel().setFontScale(0.7f);
 	    
 	    stage.addActor(buttonBorder);

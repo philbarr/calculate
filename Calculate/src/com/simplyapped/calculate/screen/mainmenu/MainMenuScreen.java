@@ -70,13 +70,13 @@ public class MainMenuScreen extends DefaultScreen{
 	    window.debug();
 	    
 	    // calculate width and heights for the table
-	    float emptyRowHeight = CalculateGame.SCREEN_HEIGHT / 17;
-	    float buttonHeight = CalculateGame.SCREEN_HEIGHT / 7;
-	    float buttonWidth = CalculateGame.SCREEN_WIDTH / 1.5f;
+	    float emptyRowHeight = stage.getHeight() / 17;
+	    float buttonHeight = stage.getHeight() / 7;
+	    float buttonWidth = stage.getWidth() / 1.5f;
 	    
 	    buttonBorder = new Table();
 	    int padding = 20;
-		buttonBorder.setPosition(CalculateGame.SCREEN_WIDTH/2-buttonWidth/2-padding, emptyRowHeight - padding);
+		buttonBorder.setPosition(stage.getWidth()/2-buttonWidth/2-padding, emptyRowHeight - padding);
 	    buttonBorder.setSize(buttonWidth + padding*2, emptyRowHeight + (buttonHeight*2) + padding);
 	    buttonBorder.setBackground(skin.getDrawable("buttonborder"));
 	    buttonBorder.setVisible(assetsLoaded);
@@ -91,7 +91,7 @@ public class MainMenuScreen extends DefaultScreen{
 	        }
 	    });
 	    playMenu.setSize(buttonWidth, buttonHeight);
-	    playMenu.setPosition(CalculateGame.SCREEN_WIDTH/2-playMenu.getWidth()/2, -emptyRowHeight + (buttonHeight*2));
+	    playMenu.setPosition(stage.getWidth()/2-playMenu.getWidth()/2, -emptyRowHeight + (buttonHeight*2));
 	    playMenu.setVisible(assetsLoaded);
 	    
 	    shopMenu = new TextButton("SHOP", skin, "green");
@@ -104,14 +104,14 @@ public class MainMenuScreen extends DefaultScreen{
 	        }
 	    });
 	    shopMenu.setSize(buttonWidth, buttonHeight);
-	    shopMenu.setPosition(CalculateGame.SCREEN_WIDTH/2-playMenu.getWidth()/2, emptyRowHeight);
+	    shopMenu.setPosition(stage.getWidth()/2-playMenu.getWidth()/2, emptyRowHeight);
 	    shopMenu.setVisible(assetsLoaded);
 	    
 	    window.setBackground(skin.getDrawable("mainmenubackground"));
 	    
 	    spinner = new Image(skin.getDrawable("spinner"));
 	    spinner.setSize(CalculateGame.SCREEN_WIDTH * 0.7f, CalculateGame.SCREEN_WIDTH*0.7f);//make it sqaure
-	    spinner.setPosition(CalculateGame.SCREEN_WIDTH/2f-spinner.getWidth()/2f, CalculateGame.SCREEN_HEIGHT /2f - spinner.getHeight()/2f);
+	    spinner.setPosition(stage.getWidth()/2f-spinner.getWidth()/2f, stage.getHeight() /2f - spinner.getHeight()/2f);
 	    spinner.setOrigin(spinner.getHeight()/2f, spinner.getWidth()/2f);
 	    spinner.addAction(repeat(RepeatAction.FOREVER, sequence( delay(0.1f), ( rotateBy(-30)))));
 	    spinner.setVisible(!assetsLoaded);

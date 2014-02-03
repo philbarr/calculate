@@ -4,6 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.simplyapped.calculate.numbers.Equation;
 import com.simplyapped.calculate.numbers.Operator;
 import com.simplyapped.calculate.numbers.generator.FakeGenerator;
 import com.simplyapped.calculate.numbers.generator.GeneratorFactory;
@@ -91,7 +92,7 @@ public class CalculateGame extends DefaultGame {
 		state.resetCurrentGameInfo();
 //		final Equation eq = new Equation(state.selectBigNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber(),state.selectSmallNumber());
 //		state.setCurrentEquation(eq);
-		
+//		
 		checkPurchasedProducts();
 
 		TransitionFixtures.setInterpolation(Interpolation.pow5);
@@ -117,6 +118,9 @@ public class CalculateGame extends DefaultGame {
 		addScreen(LOSER_SCREEN, LoserScreen.class);
 		addScreen(VIEW_SOLUTION_SCREEN, ViewSolutionScreen.class);
 		addScreen(SHOP_SCREEN, ShopScreen.class);
+		
+//		assets.finishLoading();
+//		setScreen(WINNER_SCREEN);
 	}
 	
 	@Override

@@ -25,10 +25,13 @@ public class CalculationTable extends Table implements Disposable
 	private List<List<EquationElement>> calculationElements = new ArrayList<List<EquationElement>>();
 	private Skin skin;
 	private ScrollPane calculationPane;
- 
+	private float screenWidth;
+	private float screenHeight;
 	
-	public CalculationTable()
+	public CalculationTable(float screenWidth, float screenHeight)
 	{
+		this.screenWidth = screenWidth;
+		this.screenHeight = screenHeight;
 		skin = new Skin(Gdx.files.internal("data/gamescreen.json"));
 	    this.setBackground(skin.getTiledDrawable("graphtile"));
 	    
@@ -40,7 +43,7 @@ public class CalculationTable extends Table implements Disposable
 	
 	public void update()
 	{
-		calculationPane.setPosition(CalculateGame.SCREEN_WIDTH/2 - calculationPane.getWidth()/2, CalculateGame.SCREEN_HEIGHT -  calculationPane.getHeight() - (CalculateGame.SCREEN_HEIGHT/10f));
+		calculationPane.setPosition(screenWidth/2 - calculationPane.getWidth()/2, screenHeight -  calculationPane.getHeight() - (screenHeight/10f));
 		this.clear();
 		int row = 1;
 		for(List<EquationElement> line : calculationElements)

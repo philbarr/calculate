@@ -35,7 +35,7 @@ public class WinnerScreen extends DefaultScreen
 	private static final int BALLOON_COUNT = 30;
 	
 	private Skin skin;
-	private int BALLOON_RANDOM_OFFSET = CalculateGame.SCREEN_WIDTH;
+	private float BALLOON_RANDOM_OFFSET = CalculateGame.SCREEN_WIDTH;
 	
 
 	public WinnerScreen(DefaultGame game)
@@ -48,6 +48,7 @@ public class WinnerScreen extends DefaultScreen
 	public void show()
 	{
 		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, true);
+		BALLOON_RANDOM_OFFSET = stage.getWidth();
 		stage.addListener(new ClickListener()
 		{
 			@Override
@@ -68,18 +69,17 @@ public class WinnerScreen extends DefaultScreen
 		stage.addActor(background);
 		
 	    // calculate width and heights for the table
-	    float emptyRowHeight = CalculateGame.SCREEN_HEIGHT / 17;
-	    float buttonHeight = CalculateGame.SCREEN_HEIGHT / 7;
-	    float buttonWidth = CalculateGame.SCREEN_WIDTH / 1.5f;
-	    float offset = CalculateGame.SCREEN_HEIGHT / 3f;
+	    float emptyRowHeight = stage.getHeight() / 17;
+	    float buttonHeight = stage.getHeight() / 7;
+	    float buttonWidth = stage.getWidth() / 1.5f;
 	    Table buttonBorder = new Table();
 	    int padding = 20;
-		buttonBorder.setPosition(CalculateGame.SCREEN_WIDTH/2-buttonWidth/2-padding, emptyRowHeight - padding);
+		buttonBorder.setPosition(stage.getWidth()/2-buttonWidth/2-padding, emptyRowHeight - padding);
 	    buttonBorder.setSize(buttonWidth + padding*2, emptyRowHeight + (buttonHeight));
-	    buttonBorder.setBackground(skin.getDrawable("title"));
+	    buttonBorder.setBackground(skin.getDrawable("buttonborder"));
 		
 	    CelebrationActor lefteffect = new CelebrationActor(skin.getAtlas(), 0, 0, "data/particle/celebrationleft.p", "data/particle");
-	    CelebrationActor righteffect = new CelebrationActor(skin.getAtlas(), CalculateGame.SCREEN_WIDTH, 0, "data/particle/celebrationright.p", "data/particle");
+	    CelebrationActor righteffect = new CelebrationActor(skin.getAtlas(), stage.getWidth(), 0, "data/particle/celebrationright.p", "data/particle");
 	    stage.addActor(lefteffect);
 	    stage.addActor(righteffect);
 		
@@ -87,18 +87,18 @@ public class WinnerScreen extends DefaultScreen
 		for(int i = 0; i < BALLOON_COUNT; i++)
 		{
 			Image image = new Image(skin, "winnerballoon");
-			float height = r.nextInt(CalculateGame.SCREEN_HEIGHT) - CalculateGame.SCREEN_HEIGHT;
-			float x =  r.nextInt(BALLOON_RANDOM_OFFSET-(int)image.getWidth());
+			float height = r.nextInt((int)stage.getHeight()) - (int)stage.getHeight();
+			float x =  r.nextInt((int)BALLOON_RANDOM_OFFSET-(int)image.getWidth());
 			float ballonMoveDuration = (r.nextFloat())*10f + 2f; // random between 2 and 12
 			image.setPosition(x, height);
 			image.setScale(0.3f);
 			image.addAction(
 					sequence(
-						moveBy(0, CalculateGame.SCREEN_HEIGHT - height, ballonMoveDuration + (CalculateGame.SCREEN_HEIGHT/height)),
+						moveBy(0, stage.getHeight() - height, ballonMoveDuration + (stage.getHeight()/height)),
 						repeat(RepeatAction.FOREVER, 
 							sequence(
 								moveTo(x, -image.getHeight()),
-								moveBy(0, CalculateGame.SCREEN_HEIGHT*2, ballonMoveDuration)
+								moveBy(0, stage.getHeight()*2, ballonMoveDuration)
 								))));
 			stage.addActor(image);
 		}
@@ -108,16 +108,16 @@ public class WinnerScreen extends DefaultScreen
 		TextureAtlas atlas = game.getAssets().get(CalculateGame.NUMBER_STRIP_ALTAS);
 		AtlasRegion region = atlas.findRegion(CalculateGame.NUMBER_STRIP_REGION);
 		Table numberTable = new NumberSpinnerTable(region, Math.abs(total), Interpolation.elasticOut, 2, 0.2f);
-		numberTable.setPosition(CalculateGame.SCREEN_WIDTH/2 - numberTable.getWidth()/2, CalculateGame.SCREEN_HEIGHT/2f - numberTable.getHeight()/2);
+		numberTable.setPosition(stage.getWidth()/2 - numberTable.getWidth()/2, stage.getHeight()/2f - numberTable.getHeight()/2);
 		stage.addActor(numberTable);
 
 		// "Correct" label
 		Label label = new Label("Correct", skin, "text");
 		label.setAlignment(Align.center);
 		label.setFontScale(0.6f);
-		label.setSize(buttonBorder.getWidth(), CalculateGame.SCREEN_HEIGHT/4.5f);
-		label.setPosition(CalculateGame.SCREEN_WIDTH/2 - label.getWidth()/2, CalculateGame.SCREEN_HEIGHT/1.4f);
-		label.getStyle().background = skin.getDrawable("buttonborder");
+		label.setSize(buttonBorder.getWidth(), stage.getHeight()/4.5f);
+		label.setPosition(stage.getWidth()/2 - label.getWidth()/2, stage.getHeight()/1.4f);
+		label.getStyle().background = skin.getDrawable("title");
 		stage.addActor(label); 
 	    
 		stage.addActor(buttonBorder);
@@ -132,7 +132,8 @@ public class WinnerScreen extends DefaultScreen
 	        }
 	    });
 	    playMenu.setSize(buttonWidth, buttonHeight);
-	    playMenu.setPosition(CalculateGame.SCREEN_WIDTH/2-playMenu.getWidth()/2, emptyRowHeight);
+	    playMenu.setPosition(stage.getWidth()/2-playMenu.getWidth()/2, emptyRowHeight);
+	    playMenu.getLabel().setFontScale(0.5f);
 	    stage.addActor(playMenu);
 	    
 	    Gdx.input.setInputProcessor(stage);

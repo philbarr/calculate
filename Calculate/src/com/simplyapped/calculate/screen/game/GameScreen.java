@@ -45,6 +45,10 @@ public class GameScreen extends DefaultScreen
 {
 	private class CardCapableCalculationTable extends CalculationTable
 	{
+		public CardCapableCalculationTable(float screenWidth, float screenHeight) {
+			super(screenWidth, screenHeight);
+		}
+
 		@Override
 		protected Actor createTotalActor(int row, Equation total) {
 			if (textButtonTotalLines.contains(row))
@@ -229,8 +233,8 @@ public class GameScreen extends DefaultScreen
 	{
 		final Dialog dialog = createDialog(message);
 		
-		TextButton okButton = new TextButton("Ok", skin, "dialogOk");
-		dialog.getButtonTable().defaults().pad(15f).width(CalculateGame.SCREEN_WIDTH/3.5f).padBottom(45f);
+		TextButton okButton = new TextButton("Ok", skin, "green");
+		dialog.getButtonTable().defaults().pad(15f).width(stage.getWidth()/3.5f).padBottom(45f);
 		dialog.getButtonTable().add(okButton);
 		okButton.addListener(new ClickListener(){
 			@Override
@@ -244,12 +248,12 @@ public class GameScreen extends DefaultScreen
 	private Dialog createDialog(String message)
 	{
 		Dialog dialog = new Dialog("", skin, "dialog");
-		dialog.setSize(CalculateGame.SCREEN_WIDTH/1.1f, CalculateGame.SCREEN_HEIGHT/2f);
-		dialog.setPosition(((CalculateGame.SCREEN_WIDTH-dialog.getWidth())/2), ((CalculateGame.SCREEN_HEIGHT-dialog.getHeight())/2));
+		dialog.setSize(stage.getWidth()/1.1f, stage.getHeight()/2f);
+		dialog.setPosition(((stage.getWidth()-dialog.getWidth())/2), ((stage.getHeight()-dialog.getHeight())/2));
 		LabelStyle labelStyle = skin.get("dialog", LabelStyle.class);
 		Label details = new Label(message, labelStyle);
 		dialog.getContentTable().add(details);
-		dialog.getButtonTable().defaults().pad(15f).width(CalculateGame.SCREEN_WIDTH/3.5f).padBottom(45f);
+		dialog.getButtonTable().defaults().pad(15f).width(stage.getWidth()/3.5f).padBottom(45f);
 		return dialog;
 	}
 
@@ -261,9 +265,9 @@ public class GameScreen extends DefaultScreen
 
 		GameState state = GameStateFactory.getInstance();
 		totalTime = state.getCurrentLevelInfo().getTimeLimit();
-		float panelwidth = CalculateGame.SCREEN_WIDTH/1.05f; // used for the width of the operatorsTable, titleTable, and numbersTable
 
 		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, true);
+		float panelwidth = stage.getWidth()/1.05f; // used for the width of the operatorsTable, titleTable, and numbersTable
 	    stage.addListener(new ClickListener()
 		{
 			@Override
@@ -280,10 +284,10 @@ public class GameScreen extends DefaultScreen
 	    window = new Table();	    
 	    window.setFillParent(true);
 	    
-	    calculationTable = new CardCapableCalculationTable();
+	    calculationTable = new CardCapableCalculationTable(stage.getWidth(), stage.getHeight());
 		calculationTable.debug();
 	    calculationTable.setPanelWidth(panelwidth);
-	    calculationTable.setPanelHeight(CalculateGame.SCREEN_HEIGHT/3f);
+	    calculationTable.setPanelHeight(stage.getHeight()/3f);
 
 	    Table operatorsTable = new Table();
 		operatorsTable.row().expand().top().fill().pad(5);
@@ -294,8 +298,8 @@ public class GameScreen extends DefaultScreen
 	    operatorsTable.add().width(20f).expand(false, false);
 	    operatorsTable.add(getCEButton());
 		operatorsTable.setWidth(panelwidth);                                                                                               
-	    operatorsTable.setHeight(CalculateGame.SCREEN_HEIGHT/11f);
-	    operatorsTable.setPosition(CalculateGame.SCREEN_WIDTH/2 - panelwidth/2, CalculateGame.SCREEN_HEIGHT - CalculateGame.SCREEN_HEIGHT/1.8f);
+	    operatorsTable.setHeight(stage.getHeight()/11f);
+	    operatorsTable.setPosition(stage.getWidth()/2 - panelwidth/2, stage.getHeight() - stage.getHeight()/1.8f);
 	    operatorsTable.setBackground(skin.getDrawable("buttonborder"));
 	    
 	    Table operandsTable = new Table();
@@ -324,7 +328,7 @@ public class GameScreen extends DefaultScreen
 			cardButtons.add(button);
 		}
 	    
-	    operandsTable.setPosition(CalculateGame.SCREEN_WIDTH/2 - panelwidth/2 - operandsPadding, CalculateGame.SCREEN_HEIGHT - CalculateGame.SCREEN_HEIGHT/1.3f);
+	    operandsTable.setPosition(stage.getWidth()/2 - panelwidth/2 - operandsPadding, stage.getHeight() - stage.getHeight()/1.3f);
 	    operandsTable.setWidth(panelwidth + operandsPadding*2);
 	    operandsTable.setBackground(skin.getDrawable("buttonborder"));
 	    
@@ -333,26 +337,26 @@ public class GameScreen extends DefaultScreen
 	    // title labels
 	    Table titleTable = new Table();
 	    titleTable.setBackground(skin.getDrawable("titlebackground"));
-	    titleTable.setWidth(CalculateGame.SCREEN_WIDTH);
+	    titleTable.setWidth(stage.getWidth());
 	    
-	    float titleBackgroundHeight = CalculateGame.SCREEN_HEIGHT / 11f;
+	    float titleBackgroundHeight = stage.getHeight() / 11f;
 		titleTable.setHeight(titleBackgroundHeight);
-	    titleTable.setPosition(0, CalculateGame.SCREEN_HEIGHT - titleTable.getHeight());
+	    titleTable.setPosition(0, stage.getHeight() - titleTable.getHeight());
 	    
 	    // target label
 	    Label targetLabel = new Label("Target: " + GameStateFactory.getInstance().getCurrentEquation().getTotal(), skin, "title");
 	    targetLabel.setAlignment(Align.left, Align.bottom);
 	    targetLabel.setHeight(titleBackgroundHeight);
 	    float pad = -3f;
-	    targetLabel.setWidth(CalculateGame.SCREEN_WIDTH/2 - pad);
-	    float labelHeight = CalculateGame.SCREEN_HEIGHT - titleBackgroundHeight;
-		targetLabel.setPosition((CalculateGame.SCREEN_WIDTH - panelwidth)/2 - pad, labelHeight);
+	    targetLabel.setWidth(stage.getWidth()/2 - pad);
+	    float labelHeight = stage.getHeight() - titleBackgroundHeight;
+		targetLabel.setPosition((stage.getWidth() - panelwidth)/2 - pad, labelHeight);
 		
 		// timer label
 	    timerLabel = new Label("Time:   ", skin, "title");
-	    timerLabel.setPosition(((CalculateGame.SCREEN_WIDTH - panelwidth)/2) + panelwidth - timerLabel.getWidth() + pad, labelHeight);
+	    timerLabel.setPosition(((stage.getWidth() - panelwidth)/2) + panelwidth - timerLabel.getWidth() + pad, labelHeight);
 	    timerLabel.setHeight(titleBackgroundHeight);
-	    timerLabel.setWidth(CalculateGame.SCREEN_WIDTH/2);
+	    timerLabel.setWidth(stage.getWidth()/2);
 	    timerLabel.setAlignment(Align.left,Align.bottom);
 	    
 	    stage.addActor(window);

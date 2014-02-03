@@ -61,10 +61,10 @@ public class ViewSolutionScreen extends DefaultScreen
 			}
 		});
 
-		float panelwidth = CalculateGame.SCREEN_WIDTH/1.05f; 
-		calculationTable = new CalculationTable();
+		float panelwidth = stage.getWidth()/1.05f; 
+		calculationTable = new CalculationTable(stage.getWidth(), stage.getHeight());
 	    calculationTable.setPanelWidth(panelwidth);
-	    calculationTable.setPanelHeight(CalculateGame.SCREEN_HEIGHT/1.9f);
+	    calculationTable.setPanelHeight(stage.getHeight()/1.9f);
 	    
 	    List<Equation> currentEquation = state.getCurrentEquation().getEquationConstruction();
 	    
@@ -90,7 +90,7 @@ public class ViewSolutionScreen extends DefaultScreen
 		TextureAtlas atlas = game.getAssets().get(CalculateGame.NUMBER_STRIP_ALTAS);
 		AtlasRegion region = atlas.findRegion(CalculateGame.NUMBER_STRIP_REGION);
 		NumberSpinnerTable numberTable = new NumberSpinnerTable(region, Math.abs(total), Interpolation.pow3Out, 2, 0.2f);
-		numberTable.setPosition(CalculateGame.SCREEN_WIDTH/2 - numberTable.getWidth()/2, CalculateGame.SCREEN_HEIGHT/4.1f - numberTable.getHeight()/2);
+		numberTable.setPosition(stage.getWidth()/2 - numberTable.getWidth()/2, stage.getHeight()/4.1f - numberTable.getHeight()/2);
 		
 		TextButton button = new TextButton("I Knew That!", skin, "green");
 		button.addListener(new ClickListener(){
@@ -100,10 +100,10 @@ public class ViewSolutionScreen extends DefaultScreen
 				game.transitionTo(CalculateGame.STAGE_SELECT_SCREEN, TransitionFixtures.UnderlapRight());
 			}
 		});
-	    float buttonHeight = CalculateGame.SCREEN_HEIGHT / 7;
-	    float buttonWidth = CalculateGame.SCREEN_WIDTH / 2f;
+	    float buttonHeight = stage.getHeight() / 7;
+	    float buttonWidth = stage.getWidth() / 2f;
 	    button.setSize(buttonWidth, buttonHeight);
-		button.setPosition(CalculateGame.SCREEN_WIDTH/2 - button.getWidth()/2, CalculateGame.SCREEN_HEIGHT/15f);
+		button.setPosition(stage.getWidth()/2 - button.getWidth()/2, stage.getHeight()/15f);
 		
 		stage.addActor(window);
 		stage.addActor(numberTable);

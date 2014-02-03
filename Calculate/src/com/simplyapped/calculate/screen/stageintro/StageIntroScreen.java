@@ -103,7 +103,7 @@ public class StageIntroScreen extends DefaultScreen
 	private Skin skin;
 	private List<TextButton> redCards = new ArrayList<TextButton>();
 	private List<TextButton> blueCards = new ArrayList<TextButton>();
-	public final static int CARD_SIZE = CalculateGame.SCREEN_WIDTH / 6;
+	public static float CARD_SIZE;
 	private Scene scene;
 	private float finishWait;
 	private Cell<?> titleCell;
@@ -123,6 +123,7 @@ public class StageIntroScreen extends DefaultScreen
 	{
 		justSwitchAlready = false;
 		stage = new Stage(CalculateGame.SCREEN_WIDTH, CalculateGame.SCREEN_HEIGHT, true);
+		CARD_SIZE = stage.getWidth() / 6;
 		state = GameStateFactory.getInstance();
 		redCards = new ArrayList<TextButton>();
 		blueCards = new ArrayList<TextButton>();
@@ -152,10 +153,10 @@ public class StageIntroScreen extends DefaultScreen
 		title = new Label(String.format("Select %s Cards", StageIntroScreen.this.state.cardsLeftForUserSelect()), skin, "title");
 		title.setAlignment(Align.center);
 		title.getStyle().background = skin.getDrawable("title");
-		titleCell = back.add(title).expandX().fillX().center().top().pad(CalculateGame.SCREEN_HEIGHT/8f);
+		titleCell = back.add(title).expandX().fillX().center().top().pad(stage.getHeight()/8f);
 		back.row();
 		targetTable = new Table();
-		back.add(targetTable).expandX().fillX().center().top().pad(CalculateGame.SCREEN_HEIGHT/8f);
+		back.add(targetTable).expandX().fillX().center().top().pad(stage.getHeight()/8f);
 		back.row();
 		back.row();
 		back.add().expand().fill();
@@ -218,16 +219,16 @@ public class StageIntroScreen extends DefaultScreen
 		
 		
 		//cards
-		final int redCardsHeight = (int) (CalculateGame.SCREEN_HEIGHT/1.5f);
-		final int blueCardsHeight = (int) (CalculateGame.SCREEN_HEIGHT/2.2f);
+		final int redCardsHeight = (int) (stage.getHeight()/1.5f);
+		final int blueCardsHeight = (int) (stage.getHeight()/2.2f);
 		final int redSpacing = (int) (CARD_SIZE/2.7f);
 		final int blueSpacing = (int) (CARD_SIZE/2.2f);
-		final int redMargin = (CalculateGame.SCREEN_WIDTH - (3 * redSpacing) - (4 * CARD_SIZE))/2; // 4 cards, 3 spaces
-		final int blueMargin = (CalculateGame.SCREEN_WIDTH - (2 * blueSpacing) - (3 * CARD_SIZE))/2; // 3 cards, 2 spaces
+		final float redMargin = (stage.getWidth() - (3 * redSpacing) - (4 * CARD_SIZE))/2; // 4 cards, 3 spaces
+		final float blueMargin = (stage.getWidth() - (2 * blueSpacing) - (3 * CARD_SIZE))/2; // 3 cards, 2 spaces
 
-		final int shuffleWidth = CalculateGame.SCREEN_WIDTH / 2 - CARD_SIZE / 2;
-		final int shuffleHeightRed = redCardsHeight + CARD_SIZE/2;
-		final int shuffleHeightBlue = blueCardsHeight - CARD_SIZE;
+		final float shuffleWidth = stage.getWidth() / 2 - CARD_SIZE / 2;
+		final float shuffleHeightRed = redCardsHeight + CARD_SIZE/2;
+		final float shuffleHeightBlue = blueCardsHeight - CARD_SIZE;
 		
 		final float shuffleduration = 0.5f;
 		final float shuffledelayduration = 0.1f;
@@ -239,7 +240,7 @@ public class StageIntroScreen extends DefaultScreen
 			if (cardindex <= 3)
 			{
 				card = new TextButton("", skin, "cardbackred");
-				int width = redMargin + (cardindex * redSpacing ) + (cardindex * CARD_SIZE);
+				float width = redMargin + (cardindex * redSpacing ) + (cardindex * CARD_SIZE);
 				card.setPosition(width, redCardsHeight );
 				card.addAction(sequence(
 						delay(0.8f),
@@ -253,8 +254,8 @@ public class StageIntroScreen extends DefaultScreen
 				int blueCardIndex = cardindex - 4;
 				int row = blueCardIndex / 3;
 				card = new TextButton("", skin, "cardbackblue");
-				int width = blueMargin + ((blueCardIndex % 3) * blueSpacing) + ((blueCardIndex % 3) * CARD_SIZE);
-				int height = blueCardsHeight - (blueSpacing + CARD_SIZE) * row;
+				float width = blueMargin + ((blueCardIndex % 3) * blueSpacing) + ((blueCardIndex % 3) * CARD_SIZE);
+				float height = blueCardsHeight - (blueSpacing + CARD_SIZE) * row;
 				card.setPosition(width, height);
 				if (blueCardIndex == 0)
 				{
@@ -340,7 +341,7 @@ public class StageIntroScreen extends DefaultScreen
 	{
 		synchronized(this)
 		{
-			titleCell.pad(CalculateGame.SCREEN_WIDTH/5f);
+			titleCell.pad(stage.getWidth()/5f);
 			
 			title.getStyle().background = skin.getDrawable("title");
 			title.setText("\nYour\n\nTarget\n\nNumber\n ");
@@ -374,7 +375,7 @@ public class StageIntroScreen extends DefaultScreen
 			TextureAtlas atlas = game.getAssets().get(CalculateGame.NUMBER_STRIP_ALTAS);
 			AtlasRegion region = atlas.findRegion(CalculateGame.NUMBER_STRIP_REGION);
 			spinner = new NumberSpinnerTable(region, targetNumber, swingOut, 3, 0.2f);
-			spinner.setPosition(CalculateGame.SCREEN_WIDTH/2 - spinner.getWidth()/2, CalculateGame.SCREEN_HEIGHT/5f);
+			spinner.setPosition(stage.getWidth()/2 - spinner.getWidth()/2, stage.getHeight()/5f);
 			stage.addActor(spinner);
 			scene = Scene.FINISHED;
 		}
@@ -387,12 +388,12 @@ public class StageIntroScreen extends DefaultScreen
 		{
 			for (TextButton card : redCards)
 			{
-				int xPos = card.getX() < CalculateGame.SCREEN_WIDTH/2 ? -CalculateGame.SCREEN_WIDTH : CalculateGame.SCREEN_WIDTH * 2; 
-				card.addAction(moveTo(xPos, CalculateGame.SCREEN_HEIGHT, 1, pow5));
+				float xPos = card.getX() < stage.getWidth()/2 ? -stage.getWidth() : stage.getWidth() * 2; 
+				card.addAction(moveTo(xPos, stage.getHeight(), 1, pow5));
 			}
 			for (TextButton card : blueCards)
 			{
-				int xPos = card.getX() < CalculateGame.SCREEN_WIDTH/2 ? -CalculateGame.SCREEN_WIDTH : CalculateGame.SCREEN_WIDTH * 2; 
+				float xPos = card.getX() < stage.getWidth()/2 ? -stage.getWidth() : stage.getWidth() * 2; 
 				card.addAction(moveTo(xPos, 0, 1, pow5));
 			}
 			scene = Scene.GENERATING_TARGET_NUMBER;

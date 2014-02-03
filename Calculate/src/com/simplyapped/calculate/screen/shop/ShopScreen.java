@@ -77,19 +77,20 @@ public class ShopScreen extends DefaultScreen{
 	    window.setFillParent(true);
 	    window.setBackground(skin.getDrawable("gamescreenbackground"));
 	    
-	    buttonHeight = CalculateGame.SCREEN_HEIGHT / 7;
-	    buttonWidth = CalculateGame.SCREEN_WIDTH / 1.5f;
-	    float height = CalculateGame.SCREEN_HEIGHT/13f;
+	    buttonHeight = stage.getHeight() / 7;
+	    buttonWidth = stage.getWidth()/ 1.5f;
+	    float height = stage.getHeight()/13f;
 	    int padding = 20;
 
 		label = new Label("", skin, "text");
 		label.setAlignment(Align.center);
 		label.setFontScale(0.8f);
-		label.setSize(buttonWidth + padding*2, CalculateGame.SCREEN_HEIGHT/4.5f);
-		label.setPosition(CalculateGame.SCREEN_WIDTH/2-buttonWidth/2-padding, CalculateGame.SCREEN_HEIGHT/1.4f);
-	    
+		label.setSize(buttonWidth + padding*2, stage.getHeight()/4.5f);
+		label.setPosition(stage.getWidth()/2-buttonWidth/2-padding, stage.getHeight()/1.4f);
+		label.getStyle().background=(skin.getDrawable("title"));
+		
 	    buttonBorder = new Table();
-		buttonBorder.setPosition(CalculateGame.SCREEN_WIDTH/2-buttonWidth/2-padding, height - padding);
+		buttonBorder.setPosition(stage.getWidth()/2-buttonWidth/2-padding, height - padding);
 	    buttonBorder.setSize(buttonWidth + padding*2, height + (buttonHeight*3) + (padding*2) + (height));
 	    buttonBorder.setBackground(skin.getDrawable("buttonborder"));
 	    
@@ -218,7 +219,7 @@ public class ShopScreen extends DefaultScreen{
 		});
 		purchase.getLabel().setFontScale(0.8f);
 	    purchase.setSize(buttonWidth, buttonHeight);
-		purchase.setPosition(CalculateGame.SCREEN_WIDTH/2 - purchase.getWidth()/2, height);
+		purchase.setPosition(stage.getWidth()/2 - purchase.getWidth()/2, height);
 	    stage.addActor(purchase);
 	}
 }
