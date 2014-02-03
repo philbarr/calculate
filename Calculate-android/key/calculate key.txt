@@ -1,0 +1,13 @@
+keystore pass: calculateandroidapp219898fwlkjew
+
+key: CalculateGameKey
+pass: calculateandroidkey219898fwlkjew
+validity (years): 99
+First and Last Name: Philip Barr
+OU: Development
+Org: Simply Apped
+City: Preston
+State: Lancashire
+Country Code: UK
+
+
