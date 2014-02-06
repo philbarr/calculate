@@ -16,10 +16,16 @@ import android.content.pm.Signature;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.vending.billing.AndroidBillingService;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.model.GraphUser;
 import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.calculate.state.GameStateFactory.GameStateType;
 import com.simplyapped.libgdx.ext.ui.AndroidOSDialog;
@@ -42,22 +48,45 @@ public class CalculateGameActivity extends AndroidApplication {
         billing = new AndroidBillingService(this);
 		calculateGame.setBilling(billing);
         calculateGame.setDialog(new AndroidOSDialog(this));
-		calculateGame.DEBUG = isDebuggable(this);
+		CalculateGame.DEBUG = isDebuggable(this);
         
         initialize(calculateGame, cfg);
 		
         Log.d(CalculateGameActivity.class.toString(), "Debug? " + isDebuggable(this));
+        
+        // start Facebook Login
+        Session.openActiveSession(this, true, new Session.StatusCallback() {
+
+          // callback when session changes state
+          @Override
+          public void call(Session session, SessionState state, Exception exception) {
+        	  if (session.isOpened())
+        	  {
+        		// make request to the /me API
+        		  Request.newMeRequest(session, new Request.GraphUserCallback() {
+
+        		    // callback after Graph API response with user object
+        		    @Override
+        		    public void onCompleted(GraphUser user, Response response) {
+        		    	Toast toast = Toast.makeText(CalculateGameActivity.this, "Hello " + user.getName(), Toast.LENGTH_LONG);
+        		    	toast.show();
+        		    }
+        		  }).executeAsync();
+        	  }
+          }
+        });
 		
     }
 	
 	@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Pass on the activity result to the helper for handling
-        if (!billing.getHelper().handleActivityResult(requestCode, resultCode, data)) {
+        if (billing.getHelper() == null || !billing.getHelper().handleActivityResult(requestCode, resultCode, data)) {
             // not handled, so handle it ourselves (here's where you'd
             // perform any handling of activity results not related to in-app
             // billing...
             super.onActivityResult(requestCode, resultCode, data);
+            Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
         }
     }
 	

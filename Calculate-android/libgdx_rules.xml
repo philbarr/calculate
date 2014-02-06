@@ -31,6 +31,7 @@
              removes problems with duplication. -->
         <copy todir="libs" verbose="${verbose}">
             <fileset dir="${libgdx.main.dir}/libs" includes="gdx.jar" />
+            <fileset dir="${facebook.main.dir}" includes="facebooksdk.jar" />
         </copy>
     </target>
  
