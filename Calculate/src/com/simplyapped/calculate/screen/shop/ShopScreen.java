@@ -23,12 +23,12 @@ import com.simplyapped.calculate.CalculateGame;
 import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
-import com.simplyapped.libgdx.ext.billing.BillingInventory;
-import com.simplyapped.libgdx.ext.billing.BillingPurchase;
-import com.simplyapped.libgdx.ext.billing.BillingResult;
-import com.simplyapped.libgdx.ext.billing.BillingService;
-import com.simplyapped.libgdx.ext.billing.listeners.BillingOnConsumeFinishedListener;
-import com.simplyapped.libgdx.ext.billing.listeners.BillingOnPurchaseFinishedListener;
+import com.simplyapped.libgdx.ext.billing.googleplay.BillingInventory;
+import com.simplyapped.libgdx.ext.billing.googleplay.BillingPurchase;
+import com.simplyapped.libgdx.ext.billing.googleplay.BillingResult;
+import com.simplyapped.libgdx.ext.billing.googleplay.BillingService;
+import com.simplyapped.libgdx.ext.billing.googleplay.listeners.BillingOnConsumeFinishedListener;
+import com.simplyapped.libgdx.ext.billing.googleplay.listeners.BillingOnPurchaseFinishedListener;
 import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 
 public class ShopScreen extends DefaultScreen{

@@ -18,7 +18,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.android.vending.billing.AndroidBillingService;
+import com.android.vending.billing.googleplay.AndroidBillingService;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.facebook.Request;

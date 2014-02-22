@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.android.vending.billing.util;
+package com.android.vending.billing.googleplay.util;
 /**
  * Exception thrown when something went wrong with in-app billing.
  * An IabException has an associated IabResult (an error).

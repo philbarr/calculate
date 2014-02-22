@@ -1,7 +1,7 @@
-package com.android.vending.billing;
+package com.android.vending.billing.googleplay;
 
-import com.android.vending.billing.util.SkuDetails;
-import com.simplyapped.libgdx.ext.billing.BillingProductDetails;
+import com.android.vending.billing.googleplay.util.SkuDetails;
+import com.simplyapped.libgdx.ext.billing.googleplay.BillingProductDetails;
 
 public class AndroidBillingProductDetails implements BillingProductDetails {
 

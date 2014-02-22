@@ -1,6 +1,6 @@
-package com.android.vending.billing.test;
+package com.android.vending.billing.googleplay.test;
 
-import com.android.vending.billing.util.Purchase;
+import com.android.vending.billing.googleplay.util.Purchase;
 
 public class FakePurchase extends Purchase {
 

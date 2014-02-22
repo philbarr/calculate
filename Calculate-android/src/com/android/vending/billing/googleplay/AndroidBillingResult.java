@@ -1,8 +1,8 @@
-package com.android.vending.billing;
+package com.android.vending.billing.googleplay;
 
-import com.android.vending.billing.util.IabHelper;
-import com.android.vending.billing.util.IabResult;
-import com.simplyapped.libgdx.ext.billing.BillingResult;
+import com.android.vending.billing.googleplay.util.IabHelper;
+import com.android.vending.billing.googleplay.util.IabResult;
+import com.simplyapped.libgdx.ext.billing.googleplay.BillingResult;
 
 public class AndroidBillingResult implements BillingResult {
 

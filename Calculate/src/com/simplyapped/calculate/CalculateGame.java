@@ -22,13 +22,13 @@ import com.simplyapped.calculate.state.GameStateFactory;
 import com.simplyapped.calculate.state.LevelDetails;
 import com.simplyapped.libgdx.ext.DefaultGame;
 import com.simplyapped.libgdx.ext.action.TransitionFixtures;
-import com.simplyapped.libgdx.ext.billing.BillingInventory;
-import com.simplyapped.libgdx.ext.billing.BillingPurchase;
-import com.simplyapped.libgdx.ext.billing.BillingResult;
-import com.simplyapped.libgdx.ext.billing.BillingService;
-import com.simplyapped.libgdx.ext.billing.listeners.BillingOnConsumeFinishedListener;
-import com.simplyapped.libgdx.ext.billing.listeners.BillingQueryInventoryFinishedListener;
-import com.simplyapped.libgdx.ext.billing.listeners.BillingServiceSetupFinishedListener;
+import com.simplyapped.libgdx.ext.billing.googleplay.BillingInventory;
+import com.simplyapped.libgdx.ext.billing.googleplay.BillingPurchase;
+import com.simplyapped.libgdx.ext.billing.googleplay.BillingResult;
+import com.simplyapped.libgdx.ext.billing.googleplay.BillingService;
+import com.simplyapped.libgdx.ext.billing.googleplay.listeners.BillingOnConsumeFinishedListener;
+import com.simplyapped.libgdx.ext.billing.googleplay.listeners.BillingQueryInventoryFinishedListener;
+import com.simplyapped.libgdx.ext.billing.googleplay.listeners.BillingServiceSetupFinishedListener;
 import com.simplyapped.libgdx.ext.ui.OSDialog;
 
 public class CalculateGame extends DefaultGame {

@@ -11,7 +11,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.utils.async.AsyncExecutor;
 import com.badlogic.gdx.utils.async.AsyncTask;
 import com.simplyapped.libgdx.ext.action.Transition;
-import com.simplyapped.libgdx.ext.billing.BillingService;
+import com.simplyapped.libgdx.ext.billing.googleplay.BillingService;
 import com.simplyapped.libgdx.ext.screen.DefaultScreen;
 import com.simplyapped.libgdx.ext.ui.OSDialog;
 

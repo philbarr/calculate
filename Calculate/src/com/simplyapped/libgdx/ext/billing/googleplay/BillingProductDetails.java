@@ -1,4 +1,4 @@
-package com.simplyapped.libgdx.ext.billing;
+package com.simplyapped.libgdx.ext.billing.googleplay;
 
 public interface BillingProductDetails {
     String getProductId();

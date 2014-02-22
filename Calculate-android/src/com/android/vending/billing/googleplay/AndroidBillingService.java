@@ -1,4 +1,4 @@
-package com.android.vending.billing;
+package com.android.vending.billing.googleplay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,25 +7,25 @@ import android.app.Activity;
 import android.os.Handler;
 import android.util.Log;
 
-import com.android.vending.billing.test.FakePurchase;
-import com.android.vending.billing.util.IabException;
-import com.android.vending.billing.util.IabHelper;
-import com.android.vending.billing.util.IabHelper.OnConsumeFinishedListener;
-import com.android.vending.billing.util.IabHelper.OnConsumeMultiFinishedListener;
-import com.android.vending.billing.util.IabHelper.OnIabPurchaseFinishedListener;
-import com.android.vending.billing.util.IabHelper.QueryInventoryFinishedListener;
-import com.android.vending.billing.util.IabResult;
-import com.android.vending.billing.util.Inventory;
-import com.android.vending.billing.util.Purchase;
-import com.simplyapped.libgdx.ext.billing.BillingInventory;
-import com.simplyapped.libgdx.ext.billing.BillingPurchase;
-import com.simplyapped.libgdx.ext.billing.BillingResult;
-import com.simplyapped.libgdx.ext.billing.BillingService;
-import com.simplyapped.libgdx.ext.billing.listeners.BillingOnConsumeFinishedListener;
-import com.simplyapped.libgdx.ext.billing.listeners.BillingOnConsumeMultiFinishedListener;
-import com.simplyapped.libgdx.ext.billing.listeners.BillingOnPurchaseFinishedListener;
-import com.simplyapped.libgdx.ext.billing.listeners.BillingQueryInventoryFinishedListener;
-import com.simplyapped.libgdx.ext.billing.listeners.BillingServiceSetupFinishedListener;
+import com.android.vending.billing.googleplay.test.FakePurchase;
+import com.android.vending.billing.googleplay.util.IabException;
+import com.android.vending.billing.googleplay.util.IabHelper;
+import com.android.vending.billing.googleplay.util.IabResult;
+import com.android.vending.billing.googleplay.util.Inventory;
+import com.android.vending.billing.googleplay.util.Purchase;
+import com.android.vending.billing.googleplay.util.IabHelper.OnConsumeFinishedListener;
+import com.android.vending.billing.googleplay.util.IabHelper.OnConsumeMultiFinishedListener;
+import com.android.vending.billing.googleplay.util.IabHelper.OnIabPurchaseFinishedListener;
+import com.android.vending.billing.googleplay.util.IabHelper.QueryInventoryFinishedListener;
+import com.simplyapped.libgdx.ext.billing.googleplay.BillingInventory;
+import com.simplyapped.libgdx.ext.billing.googleplay.BillingPurchase;
+import com.simplyapped.libgdx.ext.billing.googleplay.BillingResult;
+import com.simplyapped.libgdx.ext.billing.googleplay.BillingService;
+import com.simplyapped.libgdx.ext.billing.googleplay.listeners.BillingOnConsumeFinishedListener;
+import com.simplyapped.libgdx.ext.billing.googleplay.listeners.BillingOnConsumeMultiFinishedListener;
+import com.simplyapped.libgdx.ext.billing.googleplay.listeners.BillingOnPurchaseFinishedListener;
+import com.simplyapped.libgdx.ext.billing.googleplay.listeners.BillingQueryInventoryFinishedListener;
+import com.simplyapped.libgdx.ext.billing.googleplay.listeners.BillingServiceSetupFinishedListener;
 
 public class AndroidBillingService implements BillingService {
 

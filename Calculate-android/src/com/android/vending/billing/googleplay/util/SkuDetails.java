@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.android.vending.billing.util;
+package com.android.vending.billing.googleplay.util;
 
 import org.json.JSONException;
 import org.json.JSONObject;

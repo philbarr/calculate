@@ -1,6 +1,6 @@
-package com.simplyapped.libgdx.ext.billing.listeners;
+package com.simplyapped.libgdx.ext.billing.googleplay.listeners;
 
-import com.simplyapped.libgdx.ext.billing.BillingResult;
+import com.simplyapped.libgdx.ext.billing.googleplay.BillingResult;
 
 public interface BillingServiceSetupFinishedListener {
     /**

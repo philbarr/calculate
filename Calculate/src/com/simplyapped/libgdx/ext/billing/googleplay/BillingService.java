@@ -1,12 +1,12 @@
-package com.simplyapped.libgdx.ext.billing;
+package com.simplyapped.libgdx.ext.billing.googleplay;
 
 import java.util.List;
 
-import com.simplyapped.libgdx.ext.billing.listeners.BillingOnConsumeFinishedListener;
-import com.simplyapped.libgdx.ext.billing.listeners.BillingOnConsumeMultiFinishedListener;
-import com.simplyapped.libgdx.ext.billing.listeners.BillingOnPurchaseFinishedListener;
-import com.simplyapped.libgdx.ext.billing.listeners.BillingQueryInventoryFinishedListener;
-import com.simplyapped.libgdx.ext.billing.listeners.BillingServiceSetupFinishedListener;
+import com.simplyapped.libgdx.ext.billing.googleplay.listeners.BillingOnConsumeFinishedListener;
+import com.simplyapped.libgdx.ext.billing.googleplay.listeners.BillingOnConsumeMultiFinishedListener;
+import com.simplyapped.libgdx.ext.billing.googleplay.listeners.BillingOnPurchaseFinishedListener;
+import com.simplyapped.libgdx.ext.billing.googleplay.listeners.BillingQueryInventoryFinishedListener;
+import com.simplyapped.libgdx.ext.billing.googleplay.listeners.BillingServiceSetupFinishedListener;
 
 
 

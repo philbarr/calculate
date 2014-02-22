@@ -1,7 +1,7 @@
-package com.android.vending.billing;
+package com.android.vending.billing.googleplay;
 
-import com.android.vending.billing.util.Purchase;
-import com.simplyapped.libgdx.ext.billing.BillingPurchase;
+import com.android.vending.billing.googleplay.util.Purchase;
+import com.simplyapped.libgdx.ext.billing.googleplay.BillingPurchase;
 
 public class AndroidBillingPurchase implements BillingPurchase {
 	private Purchase purchase;

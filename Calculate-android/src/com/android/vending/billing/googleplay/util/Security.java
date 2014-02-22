@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.android.vending.billing.util;
+package com.android.vending.billing.googleplay.util;
 
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;

@@ -1,9 +1,9 @@
-package com.android.vending.billing;
+package com.android.vending.billing.googleplay;
 
-import com.android.vending.billing.util.Inventory;
-import com.simplyapped.libgdx.ext.billing.BillingInventory;
-import com.simplyapped.libgdx.ext.billing.BillingProductDetails;
-import com.simplyapped.libgdx.ext.billing.BillingPurchase;
+import com.android.vending.billing.googleplay.util.Inventory;
+import com.simplyapped.libgdx.ext.billing.googleplay.BillingInventory;
+import com.simplyapped.libgdx.ext.billing.googleplay.BillingProductDetails;
+import com.simplyapped.libgdx.ext.billing.googleplay.BillingPurchase;
 
 public class AndroidBillingInventory implements BillingInventory{
 
