@@ -4,20 +4,18 @@ import java.io.ByteArrayInputStream;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-
 import javax.security.auth.x500.X500Principal;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
+import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.android.vending.billing.googleplay.AndroidBillingService;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
@@ -62,6 +60,8 @@ public class CalculateGameActivity extends AndroidApplication {
           public void call(Session session, SessionState state, Exception exception) {
         	  if (session.isOpened())
         	  {
+        	    Bitmap image = null;
+        	    Request.newUploadStagingResourceWithImageRequest(session, image, null);
         		// make request to the /me API
         		  Request.newMeRequest(session, new Request.GraphUserCallback() {
 

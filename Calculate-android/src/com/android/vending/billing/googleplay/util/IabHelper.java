@@ -29,7 +29,7 @@ import android.os.RemoteException;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.android.vending.billing.IInAppBillingService;
+import com.android.vending.billing.googleplay.IInAppBillingService;
 
 import org.json.JSONException;
 
